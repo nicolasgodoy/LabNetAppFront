@@ -1,0 +1,20 @@
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.titles{
+    margin: 1rem;
+}
+
+
+
+.add_skill_profile{
+    border: none;
+    border-radius: 20px;
+    background-color: beige;
+    margin: 2rem;
+    width: 600px;
+    min-height: 300px;
+}
