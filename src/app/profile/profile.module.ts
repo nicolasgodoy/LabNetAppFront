@@ -4,14 +4,15 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { ConsultProfileComponent } from './pages/consult-profile/consult-profile.component';
 import { AddProfileComponent } from './pages/add-profile/add-profile.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.component';
 
 
 @NgModule({
   declarations: [
     AddProfileComponent,
     EditProfileComponent,
-    ConsultProfileComponent
+    ConsultProfileComponent,
+    ProfileSkillComponent
   ],
   imports: [
     CommonModule,
