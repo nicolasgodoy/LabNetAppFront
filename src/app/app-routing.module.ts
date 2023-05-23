@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './profile/pages/edit-profile/edit-profile.component';
+import { ProfileRoutingModule } from './profile/profile-routing.module';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), ProfileRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
