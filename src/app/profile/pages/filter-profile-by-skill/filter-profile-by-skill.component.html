@@ -1,4 +1,4 @@
-<div class="center">
+<!-- <div class="center">
     <div class="titles">
         <h1>Profile-skill works!</h1>
         <h3>Perfiles coincidentes</h3>
@@ -7,11 +7,35 @@
         {{ skills | json }}
     </div>
     <!-- hacer metodo que traiga todas la skills -->
-    <div>
+    <!-- <div>
         <button *ngFor="let skill of listSkills" (click)="AgregarSkills(skill.id)" >{{ skill.description }}</button>
     </div>
 
     <div>
         <button (click)="FilterById(skills)">Consultar</button>
     </div>
-</div>
+</div>  -->
+
+
+<mat-sidenav-container class="sidenav-container" autosize>
+	<mat-sidenav #sidenav class="filter-sidenav" mode="side" opened="true">
+    <form class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> Filtrar por skill. </mat-label>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let listSkills of filteredOptions | async" [value]="listSkills">
+            {{listSkills.description}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)="FilterById(skills)">Buscar</button>
+	</mat-sidenav>
+	<div class="sidenav-content">
+		Selecciones skills para mostrar perfiles.
+    <br>
+    <h3>Perfiles coincidentes</h3>
+    {{ listaProfile | json }}
+	</div>
+</mat-sidenav-container>
