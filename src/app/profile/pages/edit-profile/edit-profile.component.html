@@ -1,68 +1,89 @@
 <div>
   <h1 class="titulo">Editar Perfil</h1>
 </div>
-  <div class="container">
-    <form>
-      <div class="divPadre">
-      
-        <div class="divHijo1">
-          <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
-            <input type="text" matInput> 
-          </mat-form-field>
+<div class="container">
+  <form>
+    <div class="divPadre">
+
+      <div class="divHijo1">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
         <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Apellido</mat-label>
-            <input type="text" matInput> 
-          </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
         <br>
-          <mat-form-field appearance="fill">
-            <mat-label>DNI</mat-label>
-            <input type="text" matInput> 
-          </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>DNI</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
         <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha de Nacimiento</mat-label>
-            <input type="date" matInput> 
-          </mat-form-field>
-         </div>
-          
-        <div class="divHijo2">
-          <mat-form-field appearance="fill">
-            <mat-label>Descripción</mat-label>
-            <input type="text" matInput> 
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Telefono</mat-label>
-            <input type="text" matInput> 
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input type="email" matInput> 
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input type="date" matInput>
+        </mat-form-field>
+      </div>
+
+      <div class="divHijo2">
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput>
+        </mat-form-field>
+        <br>
+        <!-- <mat-form-field appearance="fill">
             <mat-label>Foto de Perfil</mat-label>
-            <input matInput>
-            <input (change)="captureFile($event)" type="file"> 
-          </mat-form-field>
-          <div *ngIf="preview">
-              <img width="100px" [src]="preview" alt="">
+            <input matInput hidden>"
+            <input (change)="captureFile($event)" type=file" > 
+          </mat-form-field> -->
+
+        <div class="container">
+          <div style="text-align: center;">
+            <mat-label>Foto de Perfil</mat-label>
+            <br>
+            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">Subir
+              imagen</button>
+            <input hidden (change)="captureFile($event)" #fileInput type="file">
+
           </div>
-          <br>
-          <mat-form-field appearance="fill">
+          <div style="margin-left: 10px;" *ngIf="preview">
+            <img width="100px" [src]="preview" alt="">
+          </div>
+        </div>
+
+        <br>
+        <div class="container">
+          <div style="text-align: center;">
             <mat-label>CV</mat-label>
-            <input matInput>
-            <input (change)="captureFile($event)" type="file"> 
-          </mat-form-field>
+            <br>
+            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
+              Subir
+              CV</button>
+            <input hidden (change)="captureFile($event)" #fileInput type="file">
+
+          </div>
+          <div style="margin-left: 10px;" *ngIf="preview">
+            <label>Archivo cargado</label>
+          </div>
         </div>
       </div>
-        
-        <div class="botones">
-          <button class="botonGuardar" mat-raised-button color="primary">Guardar</button>
-          <button mat-raised-button color="warn">Volver</button>
-        </div>
-      </form>
     </div>
+
+    <div class="botones">
+      <button class="botonGuardar" mat-raised-button color="primary">Guardar</button>
+      <button mat-raised-button color="warn">Volver</button>
+    </div>
+  </form>
+</div>

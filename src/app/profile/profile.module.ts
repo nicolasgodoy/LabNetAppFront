@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FormBuilder,FormGroup,FormsModule,Validators } from '@angular/forms';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormBuilder,FormGroup,FormsModule,Validators } from '@angular/forms';
     CommonModule,
     SharedModule,
     ProfileRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxMatFileInputModule
   ]
 })
 export class ProfileModule { }
