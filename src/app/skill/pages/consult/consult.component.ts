@@ -24,7 +24,7 @@ import { DeleteComponent } from '../delete/delete.component';
 export class ConsultComponent implements OnInit {
 
   formSkill: FormGroup;
-  tituloAccionCustomers: string = "Nuevo";
+  tituloAccionSkill: string = "Nuevo";
   botonAccion: string = "Guardar";
   listaSkill: Skill[] = [];
   dataSource = new MatTableDataSource<Skill>();
