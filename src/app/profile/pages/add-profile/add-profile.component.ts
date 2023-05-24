@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfilesService } from 'src/app/profile/services/profiles.service';
 import { profileDto } from 'src/app/models/Profile/profileDto';
@@ -15,6 +15,7 @@ export class AddProfileComponent implements OnInit {
 
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
+  now: Date = new Date();
   //userObject: userDto = new UserDto();
 
   constructor(
@@ -29,21 +30,25 @@ export class AddProfileComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       lastname: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       document: ['', [Validators.required]],
-      birthdate: ['', [Validators.required]]
+      birthdate: ['', [Validators.required, this.maxDateValidator]]
     }
     )
   }
 
+
+
   ngOnInit(): void {
-    
+
     //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
 
+    //this.profileObject.idUser = this.user.id;
     //this.user = getById(aca tendria que ir un token/id?)
 
     //this.profileObject.email = this.user.email
-    //this.profileObject.idUser = this.user.id;
 
     //this.userId = this.route.snapshot.paramMap.get('id');
+
+
     //this.profileObject.email = GET de servicio usuario?;
     //this.profileObject.idUser = Get de servicio usuario?;
 
@@ -67,5 +72,17 @@ export class AddProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Validator custom para maxima fecha
+  maxDateValidator(control: AbstractControl): ValidationErrors | null {
+    const selectedDate = new Date(control.value);
+    const now = new Date();
+
+    if (selectedDate > now) {
+      return { maxDate: true };
+    }
+
+    return null;
   }
 }
