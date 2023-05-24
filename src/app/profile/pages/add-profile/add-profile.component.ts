@@ -16,7 +16,6 @@ export class AddProfileComponent implements OnInit {
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
   now: Date = new Date();
-  //userObject: userDto = new UserDto();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,17 +39,6 @@ export class AddProfileComponent implements OnInit {
   ngOnInit(): void {
 
     //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
-
-    //this.profileObject.idUser = this.user.id;
-    //this.user = getById(aca tendria que ir un token/id?)
-
-    //this.profileObject.email = this.user.email
-
-    //this.userId = this.route.snapshot.paramMap.get('id');
-
-
-    //this.profileObject.email = GET de servicio usuario?;
-    //this.profileObject.idUser = Get de servicio usuario?;
 
   }
 
