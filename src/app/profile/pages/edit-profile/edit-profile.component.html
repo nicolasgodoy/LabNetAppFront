@@ -46,13 +46,16 @@
           <mat-form-field appearance="fill">
             <mat-label>Foto de Perfil</mat-label>
             <input matInput>
-            <input type="file"> 
+            <input (change)="captureFile($event)" type="file"> 
           </mat-form-field>
+          <div *ngIf="preview">
+              <img width="100px" [src]="preview" alt="">
+          </div>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>CV</mat-label>
             <input matInput>
-            <input type="file"> 
+            <input (change)="captureFile($event)" type="file"> 
           </mat-form-field>
         </div>
       </div>
