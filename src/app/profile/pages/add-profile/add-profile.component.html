@@ -15,10 +15,12 @@
                         <input matInput placeholder="Pedro" formControlName="name">
                     </mat-form-field>
 
-                    <div *ngIf="formulario.get('name')?.hasError('required') && formulario.get('name')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('name')?.hasError('required') && formulario.get('name')?.touched">
                         <p style="color:red">El campo es requerido.</p>
                     </div>
-                    <div *ngIf="formulario.get('name')?.hasError('pattern') && formulario.get('name')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('name')?.hasError('pattern') && formulario.get('name')?.touched">
                         <p style="color:red">El campo debe contener solo letras.</p>
                     </div>
 
@@ -28,10 +30,12 @@
                         <input matInput placeholder="Gonzales" formControlName="lastname">
                     </mat-form-field>
 
-                    <div *ngIf="formulario.get('lastname')?.hasError('required') && formulario.get('lastname')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('lastname')?.hasError('required') && formulario.get('lastname')?.touched">
                         <p style="color:red">El campo es requerido.</p>
                     </div>
-                    <div *ngIf="formulario.get('lastname')?.hasError('pattern') && formulario.get('lastname')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('lastname')?.hasError('pattern') && formulario.get('lastname')?.touched">
                         <p style="color:red">El campo debe contener solo letras.</p>
                     </div>
                     <br>
@@ -42,7 +46,8 @@
                     </mat-form-field>
 
 
-                    <div *ngIf="formulario.get('document')?.hasError('required') && formulario.get('document')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('document')?.hasError('required') && formulario.get('document')?.touched">
                         <p style="color:red">El campo es requerido.</p>
                     </div>
                     <br>
@@ -55,7 +60,8 @@
                     </mat-form-field>
 
 
-                    <div *ngIf="formulario.get('birthdate')?.hasError('required') && formulario.get('birthdate')?.touched">
+                    <div class="error"
+                        *ngIf="formulario.get('birthdate')?.hasError('required') && formulario.get('birthdate')?.touched">
                         <p style="color:red">El campo es requerido.</p>
                     </div>
 

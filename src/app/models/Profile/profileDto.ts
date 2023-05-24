@@ -1,5 +1,5 @@
 export class profileDto{
-    id?: number;
+    idUser?: number;
     name?:string;
     lastName?:string;
     email?:string;

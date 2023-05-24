@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfilesService } from 'src/app/profile/services/profiles.service';
 import { profileDto } from 'src/app/models/Profile/profileDto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -16,8 +16,13 @@ export class AddProfileComponent implements OnInit {
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
 
-  constructor(private formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar, private service: ProfilesService , private route: ActivatedRoute) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar, 
+    private service: ProfilesService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
 
     this.formulario = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
@@ -29,9 +34,11 @@ export class AddProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
+
     //this.userId = this.route.snapshot.paramMap.get('id');
     //this.profileObject.email = GET de servicio usuario?;
-    //this.profileObject.id = Get de servicio usuario?;
+    //this.profileObject.idUser = Get de servicio usuario?;
   }
 
   openSnackBar(message: string) {
@@ -40,6 +47,8 @@ export class AddProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formulario.valid) {
+
+
       this.profileObject.name = this.formulario.value.name;
       this.profileObject.lastName = this.formulario.value.lastname;
       this.profileObject.document = this.formulario.value.document;
@@ -47,7 +56,11 @@ export class AddProfileComponent implements OnInit {
 
       this.service.InsertProfile(this.profileObject).subscribe(res => {
         this.openSnackBar("Formulario enviado con exito!");
+
+        this.router.navigate(['consult-profile']);
       });
+
+      this.openSnackBar("No se pudo enviar el formulario, intentelo de nuevo mas tarde.");
 
     }
   }
