@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
+import { DialogDeleteComponent } from './pages/profile-skill/dialog-delete/dialog-delete.component';
+import { DialogAddSkillComponent } from './pages/profile-skill/dialog-add-skill/dialog-add-skill.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/f
     EditProfileComponent,
     ConsultProfileComponent,
     ProfileSkillComponent,
-    FilterProfileBySkillComponent
+    FilterProfileBySkillComponent,
+    DialogDeleteComponent,
+    DialogAddSkillComponent
   ],
   imports: [
     CommonModule,

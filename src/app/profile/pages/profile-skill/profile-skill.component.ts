@@ -5,8 +5,10 @@ import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto'
 import {Skill} from 'src/app/models/skill'
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto'
 import {MatDialog} from '@angular/material/dialog';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ResponseDto } from 'src/app/Response/responseDto';
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { DialogAddSkillComponent } from './dialog-add-skill/dialog-add-skill.component';
 
 @Component({
   selector: 'app-profile-skill',
@@ -22,7 +24,7 @@ export class ProfileSkillComponent implements OnInit {
   ];
 
   public dataSource: any;
-  displayedColumns: string[] = ['Id', 'Skill','Acciones'];
+  displayedColumns: string[] = ['Skill','Acciones'];
 
   listProfileSkill:Skill[] = [];
 
@@ -31,61 +33,25 @@ export class ProfileSkillComponent implements OnInit {
   response?: ResponseDto;
   constructor(private profileService:ProfilesService,
     private skillService: SkillService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snack:MatSnackBar,
     ) { }
 
   ngOnInit(): void {
     //this.GetSkills();
    // this.dataSource = this.listSkills;
-    this.GetProfileSkill(13);
+    this.GetProfileSkill(2);
   }
-
-  FilterById(skills:number[]){
-    skills = skills.filter((s,index)=>{
-      return skills.indexOf(s)=== index;
-    })
-    this.profileService.FilterBySkills(skills).subscribe({
-      next: (dataResponse: ResponseDto) => {
-        if (dataResponse.isSuccess) {
-          console.log(dataResponse.result)
-          this.listaProfile = dataResponse.result;
-        }else
-          console.error(this.response?.message);
-      }, error: (e) => {
-        console.log('ocurrio un error inesperado')
-      }
-      }
-      // // res => {
-      //   // this.listaProfile = res.Result.map(p => ({
-      //   //   name: p.name,
-      //   //   lastName: p.lastName,
-      //   //   email : p.email
-      //   // }));
-      //   // this.listaProfile = res.Result.map(p => p)
-      //   this.response = res;
-      // }
-    )
-  }
-  //metodo de prueba
-  AgregarSkills(id:number){
-    this.skills.push(id);
-  }
-
 
   GetSkills(){
       this.skillService.getSkill().subscribe({
         next: (dataResponse: ResponseDto) => {
-          console.log(dataResponse)
-          console.log(dataResponse.result.profile)
           this.listSkills = dataResponse.result;
-  
         }, error: (e) => {
           console.log('ocurrio un error inesperado')
         }
-  
       })
   }
-
 
   AddSkillToProfile(idProfile:number,idSkill:number){
     //obtener idProfile, de la url; obtener idSkill
@@ -94,7 +60,7 @@ export class ProfileSkillComponent implements OnInit {
     this.profileService.AddSkillToProfile(add).subscribe(
       {
         next:(res)=> {
-          console.log('agregado');
+          this.alert(res.message);
         },
         error:(e) => console.error('error')
       }
@@ -102,12 +68,12 @@ export class ProfileSkillComponent implements OnInit {
     )
   }
 
-  DeleteSkillToProfile(){
+  DeleteSkillToProfile(idProfile:number,idSkill:number){
     //obtener idProfile, de la url; obtener idSkill
-    this.profileService.deleteEmploye(13,1).subscribe(
+    this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
       {
         next:(res)=> {
-          console.log(res.message);
+          this.alert(res.message);
         },
         error:(e) => console.error(e)
       }
@@ -120,13 +86,38 @@ export class ProfileSkillComponent implements OnInit {
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
           this.dataSource = dataResponse.result;
-          console.log('respondio',dataResponse.result);
-        }else
-          console.error(this.response?.message);
-      }, error: (e) => {
+        }
+      },
+      error: (e) => {
         console.log('ocurrio un error inesperado')
       }
-      }
-    )
+    })
+  }
+  openDialog(id:number): void {
+    
+    if (id) {
+      const dialogoref = this.dialog.open(DialogDeleteComponent, {
+        width: '350px'
+      });
+      dialogoref.afterClosed().subscribe(res=>{
+        res && this.DeleteSkillToProfile(2,id);
+      })
+    }else{
+      const dialogoref = this.dialog.open(DialogAddSkillComponent, {
+        width: '40%'
+      });
+      dialogoref.afterClosed().subscribe(res=>{
+        console.log(res)
+      })
+    }
+  }
+
+  alert(msj:string){
+    this.snack.open(msj,'',{
+      duration:3000,
+      horizontalPosition:'right',
+      verticalPosition:'top'
+    });
   }
 }
+

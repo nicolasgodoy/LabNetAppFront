@@ -11,6 +11,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 
 const modulosMaterial = [
@@ -25,6 +28,8 @@ const modulosMaterial = [
   MatPaginatorModule,
   MatDialogModule,
   MatSnackBarModule,
+  MatTooltipModule,
+  MatAutocompleteModule,
   
 ]
 
@@ -42,7 +47,9 @@ const modulosMaterial = [
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatAutocompleteModule
   ],
   providers: [
     {
