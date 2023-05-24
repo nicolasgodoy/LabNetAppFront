@@ -1,0 +1,17 @@
+<div class="center">
+    <div class="titles">
+        <h1>Profile-skill works!</h1>
+        <h3>Perfiles coincidentes</h3>
+        {{ listaProfile | json }}
+        <h3>Lista de skills</h3>
+        {{ skills | json }}
+    </div>
+    <!-- hacer metodo que traiga todas la skills -->
+    <div>
+        <button *ngFor="let skill of listSkills" (click)="AgregarSkills(skill.id)" >{{ skill.description }}</button>
+    </div>
+
+    <div>
+        <button (click)="FilterById(skills)">Consultar</button>
+    </div>
+</div>

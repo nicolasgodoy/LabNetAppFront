@@ -6,6 +6,7 @@ import { AddProfileComponent } from './pages/add-profile/add-profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.component';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ProfileRoutingModule } from './profile-routing.module';
     AddProfileComponent,
     EditProfileComponent,
     ConsultProfileComponent,
-    ProfileSkillComponent
+    ProfileSkillComponent,
+    FilterProfileBySkillComponent
   ],
   imports: [
     CommonModule,

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ProfilesDto } from 'src/app/models/ProfileSkill/ProfilesDto';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
+import { Skill } from 'src/app/models/skill';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,9 @@ export class ProfilesService {
   constructor(private http: HttpClient) { }
 
   public FilterBySkills(ListId:number[]): Observable<ResponseDto>{
-    let url = this.apiUrl + this.endPoint + "/FilterSkills?";
 
+    let url = this.apiUrl + this.endPoint + "/FilterSkills?";
     ListId.forEach(id => url += `skills=${id}&`)
-    console.log(url);
 
     return this.http.get<ResponseDto>(url);
   }
@@ -29,14 +29,14 @@ export class ProfilesService {
     return this.http.post<ResponseDto>(url,ProfileSkill);
   }
 
-  // public deleteEmploye(ProfileSkill:AddProfileSkillDto): Observable<ResponseDto>{
-  //   let url = this.apiUrl + this.endPoint + "/DeleteSkillToProfile";
-  //   return this.http.delete<ResponseDto>(url,ProfileSkill);
-  // }
+    public deleteEmploye(idProfile:number,idSkill:number): Observable<ResponseDto>{
+      let url = this.apiUrl + this.endPoint + `/DeleteSkillToProfile/${idProfile}/${idSkill}`;
+      return this.http.delete<ResponseDto>(url);
+    }
 
-  public GetProfileSkill(id:number):Observable<number[]>{
-    let url = this.apiUrl + this.endPoint + `/${id}`;
-    return this.http.get<number[]>(url);
+  public GetProfileSkill(id:number):Observable<ResponseDto>{
+    let url = this.apiUrl + this.endPoint + `/GetProfileSkill/${id}`;
+    return this.http.get<ResponseDto>(url);
   }
 }
 

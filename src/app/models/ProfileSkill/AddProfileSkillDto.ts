@@ -1,4 +1,4 @@
-export interface AddProfileSkillDto{
-    IdProfile:number;
-    IdSkill:number;
+export class AddProfileSkillDto{
+    IdProfile?:number;
+    IdSkill?:number;
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './profile/pages/edit-profile/edit-profile.component';
 import { ProfileRoutingModule } from './profile/profile-routing.module';
+import { ProfileSkillComponent } from './profile/pages/profile-skill/profile-skill.component';
 
 const routes: Routes = [
   {
