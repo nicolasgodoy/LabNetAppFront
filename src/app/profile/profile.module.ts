@@ -6,6 +6,7 @@ import { AddProfileComponent } from './pages/add-profile/add-profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.component';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { FormBuilder,FormGroup,FormsModule,Validators } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProfileRoutingModule } from './profile-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    FormsModule
   ]
 })
 export class ProfileModule { }

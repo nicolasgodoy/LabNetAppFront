@@ -1,8 +1,8 @@
-export interface ProfileDto{
+export class profileDto{
     id?: number;
     name?:string;
     lastName?:string;
     email?:string;
-    document:string;
-    birthdate:Date;
+    document?:string;
+    birthdate?:Date;
 }

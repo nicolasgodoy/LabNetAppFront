@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProfilesDto } from 'src/app/models/ProfileSkill/ProfilesDto';
+import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto';
+import { profileDto } from 'src/app/models/Profile/profileDto';
+
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
 
@@ -29,6 +32,7 @@ export class ProfilesService {
     return this.http.post<ResponseDto>(url,ProfileSkill);
   }
 
+
   // public deleteEmploye(ProfileSkill:AddProfileSkillDto): Observable<ResponseDto>{
   //   let url = this.apiUrl + this.endPoint + "/DeleteSkillToProfile";
   //   return this.http.delete<ResponseDto>(url,ProfileSkill);
@@ -37,6 +41,14 @@ export class ProfilesService {
   public GetProfileSkill(id:number):Observable<number[]>{
     let url = this.apiUrl + this.endPoint + `/${id}`;
     return this.http.get<number[]>(url);
+  }
+
+
+  //PROFILE
+
+  public InsertProfile(Profile: profileDto):Observable<ResponseDto>{
+    let url = this.apiUrl + this.endPoint + "/Insert"
+    return this.http.post<ResponseDto>(url,Profile);
   }
 }
 
