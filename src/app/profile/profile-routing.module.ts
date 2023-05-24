@@ -18,11 +18,17 @@ const routes: Routes = [
   },
   {
     path: 'edit-profile',
-            component: EditProfileComponent
+            component: EditProfileComponent, 
+            data: {
+              'modify' : true
+            }
   },
   {
     path: 'consult-profile',
-            component: ConsultProfileComponent
+            component: EditProfileComponent, 
+            data: {
+              'modify' : false
+            }
   }
 
 ];

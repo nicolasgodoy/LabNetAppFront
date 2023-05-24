@@ -6,6 +6,7 @@ import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,38 +15,63 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EditProfileComponent implements OnInit {
 
+  public titulo : string = "Consultar";
   public preview: string;
+  public modify: boolean;
   public files: any = [];
   public formulario: FormGroup;
-  public profileEditDto : profileEditDto;
+  public profileEditDto: profileEditDto;
 
   constructor(
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
-    private snackBar : MatSnackBar) {
-
-    this.formulario = this.formBuilder.group({
-
-      name: [{ value: "", disabled: true }],
-      lastName: [{ value: "", disabled: true }],
-      dni: [{ value: "", disabled: true }],
-      fechaNacimiento: [{ value: "", disabled: true }],
-      email : [{ value: "", disabled: true }],
-      description : [""],
-      phone: [""],
-      photoProfile : [""],
-      cv : [""]
-    });
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+
+    this.modify = this.activatedRoute.snapshot.data['modify'];
+
+    if (this.modify) {
+
+      this.titulo = "Editar";
+
+      this.formulario = this.formBuilder.group({
+
+        name: [{ value: "", disabled: true }],
+        lastName: [{ value: "", disabled: true }],
+        dni: [{ value: "", disabled: true }],
+        fechaNacimiento: [{ value: "", disabled: true }],
+        email: [{ value: "", disabled: true }],
+        description: [{ value: "", disabled: false }],
+        phone: [""],
+        photoProfile: [""],
+        cv: [""]
+      });
+    }
+    else {
+
+      this.formulario = this.formBuilder.group({
+
+        name: [{ value: "", disabled: true }],
+        lastName: [{ value: "", disabled: true }],
+        dni: [{ value: "", disabled: true }],
+        fechaNacimiento: [{ value: "", disabled: true }],
+        email: [{ value: "", disabled: true }],
+        description: [{ value: "", disabled: true }],
+        phone: [{ value: "", disabled: true }],
+        photoProfile: [{ value: "", disabled: true }],
+        cv: [{ value: "", disabled: true }]
+      });
+    }
   }
 
   editarPerfil() {
 
     if (this.formulario.valid) {
-      
+
       this.profileEditDto.name = this.formulario.value.name;
       this.profileEditDto.lastName = this.formulario.value.lastName;
       this.profileEditDto.document = this.formulario.value.dni;

@@ -1,11 +1,20 @@
 <div>
-  <h1 class="titulo">Editar Perfil</h1>
+  <h1 class="titulo">{{titulo}} Perfil</h1>
 </div>
 <div class="container">
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
     <div class="divPadre">
-
+      <div style="margin-left: 10px;">
+        <div style="width: 100px; height: 100px;">
+          <img
+          style="margin-top: 10px;"
+            src="https://us.123rf.com/450wm/martialred/martialred1608/martialred160800018/61263271-cuenta-de-usuario-perfil-del-icono-del-c%C3%ADrculo-plana-para-aplicaciones-y-sitios-web.jpg?ver=6"
+            alt=""
+            width="100px">
+        </div>
+      </div>
       <div class="divHijo1">
+
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
           <input type="text" matInput formControlName="name">
@@ -44,33 +53,30 @@
         </mat-form-field>
         <br>
 
-        <div class="container">
+        <div class="container" *ngIf="modify">
           <div style="text-align: center;">
             <mat-label>Foto de Perfil</mat-label>
             <br>
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">Subir
               imagen</button>
-            <input hidden (change)="captureFile($event)" 
-            #fileInput type="file" formControlName="photoProfile">
+            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="photoProfile">
 
           </div>
-          <div style="margin-left: 10px;" *ngIf="preview">
+        </div>
+        <div style="margin-left: 10px;" *ngIf="preview">
+          <div style="width: 100px; height: 100px; background-color: black;">
             <img width="100px" [src]="preview" alt="">
           </div>
         </div>
 
         <br>
-        <div class="container">
+        <div class="container" *ngIf="modify">
           <div style="text-align: center;">
             <mat-label>CV</mat-label>
             <br>
-            <button style="margin-top: 10px;" type="button" mat-raised-button 
-              (click)="fileInput.click()">
-              Subir
-              CV</button>
-            <input hidden (change)="captureFile($event)" #fileInput type="file"
-            formControlName="cv"
-            >
+            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
+              Subir CV</button>
+            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
 
           </div>
           <div style="margin-left: 10px;" *ngIf="preview">
@@ -81,7 +87,7 @@
     </div>
 
     <div class="botones">
-      <button class="botonGuardar" mat-raised-button color="primary">Guardar</button>
+      <button *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">Guardar</button>
       <button mat-raised-button color="warn">Volver</button>
     </div>
   </form>
