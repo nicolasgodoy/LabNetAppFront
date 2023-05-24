@@ -11,9 +11,10 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 const modulosMaterial = [
@@ -28,6 +29,9 @@ const modulosMaterial = [
   MatPaginatorModule,
   MatDialogModule,
   MatSnackBarModule,
+  MatToolbarModule,
+  MatCardModule,
+
   MatTooltipModule,
   MatAutocompleteModule,
   
@@ -56,7 +60,7 @@ const modulosMaterial = [
       provide: MatDialogRef,
       useValue: {}
       },
-  
+
       {
         provide: MAT_DIALOG_DATA,
         useValue: {}

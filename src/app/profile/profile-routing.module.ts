@@ -9,7 +9,7 @@ import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/f
 
 const routes: Routes = [
 
-  {path:'',redirectTo:'profile-skill',pathMatch:'full'},
+  {path:'',redirectTo:'filter-profile',pathMatch:'full'},
   {
     path: 'profile-skill',
         component: ProfileSkillComponent

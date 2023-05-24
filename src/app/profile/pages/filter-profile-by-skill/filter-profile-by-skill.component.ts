@@ -4,6 +4,9 @@ import { ResponseDto } from 'src/app/Response/responseDto';
 import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto';
 import { Skill } from 'src/app/models/skill';
 import { SkillService } from 'src/app/service/skill.service';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-filter-profile-by-skill',
@@ -16,6 +19,11 @@ export class FilterProfileBySkillComponent implements OnInit {
   // ids skills
   skills: number[] = [];
 
+  isExpanded = true;
+  isShowing = false;
+  myControl = new FormControl();
+  filteredOptions: Observable<Skill[]> = new Observable<Skill[]>();
+
   listSkills:Skill[] = [
     {id:1,description:'.NET'},
     {id:2,description:'JS'},
@@ -25,6 +33,11 @@ export class FilterProfileBySkillComponent implements OnInit {
   constructor(private profileService:ProfilesService,private skillService: SkillService,) { }
 
   ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.listSkills.slice())),
+    );
   }
 
   FilterById(skills:number[]){
@@ -40,21 +53,23 @@ export class FilterProfileBySkillComponent implements OnInit {
           console.error(dataResponse.message);
       }, error: (e) => {
         console.log('ocurrio un error inesperado')
+        }
       }
-      }
-      // // res => {
-      //   // this.listaProfile = res.Result.map(p => ({
-      //   //   name: p.name,
-      //   //   lastName: p.lastName,
-      //   //   email : p.email
-      //   // }));
-      //   // this.listaProfile = res.Result.map(p => p)
-      //   this.response = res;
-      // }
     )
   }
 
   AgregarSkills(id:number){
     this.skills.push(id);
   }
+
+  displayFn(skill: Skill): string {
+    return skill && skill.description ? skill.description : '';
+  }
+
+  private _filter(name: string): Skill[] {
+    const filterValue = name.toLowerCase();
+
+    return this.listSkills.filter(listSkills => listSkills.description.toLowerCase().includes(filterValue));
+  }
+
 }
