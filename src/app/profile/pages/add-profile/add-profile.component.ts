@@ -15,14 +15,15 @@ export class AddProfileComponent implements OnInit {
 
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
+  //userObject: userDto = new UserDto();
 
   constructor(
     private formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar, 
+    private _snackBar: MatSnackBar,
     private service: ProfilesService,
     private route: ActivatedRoute,
     private router: Router
-    ) {
+  ) {
 
     this.formulario = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
@@ -34,34 +35,37 @@ export class AddProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
+
+    //this.user = getById(aca tendria que ir un token/id?)
+
+    //this.profileObject.email = this.user.email
+    //this.profileObject.idUser = this.user.id;
 
     //this.userId = this.route.snapshot.paramMap.get('id');
     //this.profileObject.email = GET de servicio usuario?;
     //this.profileObject.idUser = Get de servicio usuario?;
-  }
 
-  openSnackBar(message: string) {
-    this._snackBar.open(message);
   }
 
   onSubmit(): void {
     if (this.formulario.valid) {
-
-
       this.profileObject.name = this.formulario.value.name;
       this.profileObject.lastName = this.formulario.value.lastname;
       this.profileObject.document = this.formulario.value.document;
       this.profileObject.birthdate = this.formulario.value.birthdate;
 
-      this.service.InsertProfile(this.profileObject).subscribe(res => {
-        this.openSnackBar("Formulario enviado con exito!");
-
-        this.router.navigate(['consult-profile']);
+      this.service.InsertProfile(this.profileObject).subscribe({
+        next: () => {
+          this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 30000 });
+          this.router.navigate(['consult-profile']);
+        },
+        error: () => {
+          this._snackBar.open("No se pudo enviar el formulario, intentelo de nuevo mas tarde.",
+            undefined, { duration: 30000 });
+        }
       });
-
-      this.openSnackBar("No se pudo enviar el formulario, intentelo de nuevo mas tarde.");
-
     }
   }
 }
