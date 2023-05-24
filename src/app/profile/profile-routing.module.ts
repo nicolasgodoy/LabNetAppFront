@@ -13,7 +13,7 @@ const routes: Routes = [
         component: ProfileSkillComponent
   },
   {
-    path: 'add-profile',
+    path: 'add-profile/:id',
             component: AddProfileComponent
   },
   {
