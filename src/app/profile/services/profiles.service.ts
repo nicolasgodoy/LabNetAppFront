@@ -8,6 +8,7 @@ import { profileDto } from 'src/app/models/Profile/profileDto';
 
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
+import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,10 @@ export class ProfilesService {
     let url = this.apiUrl + this.endPoint + "/Insert"
     return this.http.post<ResponseDto>(url,Profile);
   }
-}
 
+  public EditProfile(Profile : profileEditDto) : Observable<ResponseDto>{
+
+    let url = this.apiUrl + this.endPoint + "/Update";
+    return this.http.put<ResponseDto>(url, Profile);
+  }
+}

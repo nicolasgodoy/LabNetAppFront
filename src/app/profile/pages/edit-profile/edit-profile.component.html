@@ -2,52 +2,47 @@
   <h1 class="titulo">Editar Perfil</h1>
 </div>
 <div class="container">
-  <form>
+  <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
     <div class="divPadre">
 
       <div class="divHijo1">
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="name">
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Apellido</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="lastName">
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>DNI</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="dni">
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Fecha de Nacimiento</mat-label>
-          <input type="date" matInput>
+          <input type="date" matInput formControlName="fechaNacimiento">
         </mat-form-field>
       </div>
 
       <div class="divHijo2">
         <mat-form-field appearance="fill">
           <mat-label>Descripción</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="description">
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Telefono</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="phone">
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input type="email" matInput>
+          <input type="email" matInput formControlName="email">
         </mat-form-field>
         <br>
-        <!-- <mat-form-field appearance="fill">
-            <mat-label>Foto de Perfil</mat-label>
-            <input matInput hidden>"
-            <input (change)="captureFile($event)" type=file" > 
-          </mat-form-field> -->
 
         <div class="container">
           <div style="text-align: center;">
@@ -55,7 +50,8 @@
             <br>
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">Subir
               imagen</button>
-            <input hidden (change)="captureFile($event)" #fileInput type="file">
+            <input hidden (change)="captureFile($event)" 
+            #fileInput type="file" formControlName="photoProfile">
 
           </div>
           <div style="margin-left: 10px;" *ngIf="preview">
@@ -68,10 +64,13 @@
           <div style="text-align: center;">
             <mat-label>CV</mat-label>
             <br>
-            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
+            <button style="margin-top: 10px;" type="button" mat-raised-button 
+              (click)="fileInput.click()">
               Subir
               CV</button>
-            <input hidden (change)="captureFile($event)" #fileInput type="file">
+            <input hidden (change)="captureFile($event)" #fileInput type="file"
+            formControlName="cv"
+            >
 
           </div>
           <div style="margin-left: 10px;" *ngIf="preview">
