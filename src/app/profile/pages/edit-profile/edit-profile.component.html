@@ -1,13 +1,65 @@
-<p>edit-profile works!</p>
-
-<section>
-    <div class="example-label">Basic</div>
-    <div class="example-button-row">
-      <button mat-button>Basic</button>
-      <button mat-button color="primary">Primary</button>
-      <button mat-button color="accent">Accent</button>
-      <button mat-button color="warn">Warn</button>
-      <button mat-button disabled>Disabled</button>
-      <a mat-button href="https://www.google.com/" target="_blank">Link</a>
+<div>
+  <h1 class="titulo">Editar Perfil</h1>
+</div>
+  <div class="container">
+    <form>
+      <div class="divPadre">
+      
+        <div class="divHijo1">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput> 
+          </mat-form-field>
+        <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input type="text" matInput> 
+          </mat-form-field>
+        <br>
+          <mat-form-field appearance="fill">
+            <mat-label>DNI</mat-label>
+            <input type="text" matInput> 
+          </mat-form-field>
+        <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input type="date" matInput> 
+          </mat-form-field>
+         </div>
+          
+        <div class="divHijo2">
+          <mat-form-field appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <input type="text" matInput> 
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Telefono</mat-label>
+            <input type="text" matInput> 
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput> 
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Foto de Perfil</mat-label>
+            <input matInput>
+            <input type="file"> 
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>CV</mat-label>
+            <input matInput>
+            <input type="file"> 
+          </mat-form-field>
+        </div>
+      </div>
+        
+        <div class="botones">
+          <button class="botonGuardar" mat-raised-button color="primary">Guardar</button>
+          <button mat-raised-button color="warn">Volver</button>
+        </div>
+      </form>
     </div>
-  </section>
