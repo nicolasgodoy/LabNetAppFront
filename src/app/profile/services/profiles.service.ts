@@ -54,7 +54,7 @@ export class ProfilesService {
 
   public GetById(id: number) : Observable<ResponseDto>{
 
-    let url = `${this.apiUrl} ${id}`;
+    let url = `${this.apiUrl}${this.endPoint}${"/Get/"}${id}`;
     return this.http.get<ResponseDto>(url);
   }
 

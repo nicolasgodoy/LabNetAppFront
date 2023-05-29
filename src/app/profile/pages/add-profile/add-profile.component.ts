@@ -16,6 +16,8 @@ export class AddProfileComponent implements OnInit {
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
   now: Date = new Date();
+  idUser: string ='';
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,9 +39,10 @@ export class AddProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
-
+    this.idUser = this.route.snapshot.paramMap.get('id') as string;
+    
+    //    if (this.id) this.obtenerObjeto(this.id);
   }
 
   onSubmit(): void {
@@ -73,4 +76,11 @@ export class AddProfileComponent implements OnInit {
 
     return null;
   }
+
+  /*
+  obtenerObjeto(id: string) {
+    this.service.GetClienteById(id).subscribe(result => {
+      this.clienteObject = result;
+      this.cargarFormulario(); 
+  */
 }

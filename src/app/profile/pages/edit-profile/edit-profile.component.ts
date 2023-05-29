@@ -54,17 +54,9 @@ export class EditProfileComponent implements OnInit {
     }
     else {
 
-      this.servicioProfile.GetById(1).subscribe({
-
-        next: (data : ResponseDto) =>{
-
-          this.profileEditDto = data.result;
-        }
-      });
-
       this.formulario = this.formBuilder.group({
 
-        name: [{ value: this.profileEditDto.name, disabled: true }],
+        name: [{ value: "", disabled: true }],
         lastName: [{ value: "", disabled: true }],
         dni: [{ value: "", disabled: true }],
         fechaNacimiento: [{ value: "", disabled: true }],
@@ -75,6 +67,19 @@ export class EditProfileComponent implements OnInit {
         cv: [{ value: "", disabled: true }]
       });
     }
+
+    this.servicioProfile.GetById(1).subscribe({
+
+      next: (data : ResponseDto) =>{
+
+        this.profileEditDto = data.result;
+
+        this.formulario.controls['name'].setValue(this.profileEditDto.name);
+        this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
+        
+
+      }
+    });
   }
 
   editarPerfil() {
