@@ -1,7 +1,5 @@
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { async, every } from 'rxjs';
 import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,7 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
   public titulo : string = "Consultar";
-  public preview: string;
+  public previewImg: string;
+  // public previewDoc: string;
   public modify: boolean;
   public files: any = [];
   public formulario: FormGroup;
@@ -107,7 +106,7 @@ export class EditProfileComponent implements OnInit {
     this.extraerBase64(archivoCapturado)
       .then((img: any) => {
 
-        this.preview = img.base;
+        this.previewImg = img.base;
         console.log(img);
       })
     this.files.push(archivoCapturado);

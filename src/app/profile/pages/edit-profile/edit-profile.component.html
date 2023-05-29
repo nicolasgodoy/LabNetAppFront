@@ -63,9 +63,9 @@
 
           </div>
         </div>
-        <div style="margin-left: 10px;" *ngIf="preview">
+        <div style="margin: 5px 0px 0px 50px;" *ngIf="previewImg">
           <div style="width: 100px; height: 100px; background-color: black;">
-            <img width="100px" [src]="preview" alt="">
+            <img width="100px" [src]="previewImg" alt="">
           </div>
         </div>
 
@@ -79,7 +79,7 @@
             <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
 
           </div>
-          <div style="margin-left: 10px;" *ngIf="preview">
+          <div style="margin-left: 10px;" *ngIf="">
             <label>Archivo cargado</label>
           </div>
         </div>
