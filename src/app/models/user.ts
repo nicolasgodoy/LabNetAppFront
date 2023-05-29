@@ -1,7 +1,7 @@
 export interface User{
-    id?:number;
-    mail:string;
-    password?:string;
-    isActive:boolean;
-    idRole?:number;
+    Id?:number;
+    Email:string;
+    Password?:string;
+    IsActive:boolean;
+    IdRole?:number;
 }

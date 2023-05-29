@@ -1,1 +1,53 @@
-<p>add works!</p>
+<h1 style="font-size:1.7rem;" mat-dialog-title>Agregar Usuario</h1>
+<div mat-dialog-content>
+
+    <form [formGroup]="formUser"  (ngSubmit)="addUser()">
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Mail</mat-label>
+              <input matInput formControlName="mail">
+              <mat-error *ngIf="formUser.get('mail')?.hasError('required') && formUser.get('mail')?.touched">
+                El Mail <strong>es requerido</strong>
+              </mat-error>
+
+              <mat-error *ngIf="formUser.get('mail')?.hasError('pattern') && formUser.get('mail')?.touched">
+                El Mail <strong>debe ser valido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password">
+              <mat-error *ngIf="formUser.get('password')?.hasError('required') && formUser.get('password')?.touched">
+                El password <strong>es requerido</strong>
+              </mat-error>
+
+              <mat-error *ngIf="formUser.get('password')?.hasError('pattern') && formUser.get('password')?.touched">
+                El Password debe tener al menos 8 caracteres una mayuscula, una minuscula y un caracter especial
+          
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          
+          <div class="combo-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Rol:</mat-label>
+              <mat-select formControlName="idRole" required>
+                <mat-option *ngFor="let role of listaRoles" [value]="role.id">{{ role.descripcion }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="formUser.get('idRole')?.hasError('required') && formUser.get('idRole')?.touched">
+                El rol <strong>es requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+            
+           
+        <button  type="submit" class="Guardar" mat-button color="primary">Guardar</button>
+        <button class="Volver" [routerLink]="['../consult']" mat-button color="accent" type="button">Volver</button>
+        <!-- <button class="Volver" routerLink="listEmpleados" mat-button color="accent">Volver</button> -->
+    </form>
+
+</div>
