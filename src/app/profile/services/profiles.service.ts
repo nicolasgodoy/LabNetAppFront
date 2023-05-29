@@ -52,6 +52,12 @@ export class ProfilesService {
     return this.http.post<ResponseDto>(url,Profile);
   }
 
+  public GetById(id: number) : Observable<ResponseDto>{
+
+    let url = `${this.apiUrl} ${id}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
   public EditProfile(Profile : profileEditDto) : Observable<ResponseDto>{
 
     let url = this.apiUrl + this.endPoint + "/Update";

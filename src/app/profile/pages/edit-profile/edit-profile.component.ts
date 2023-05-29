@@ -5,6 +5,7 @@ import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { ResponseDto } from 'src/app/Response/responseDto';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,7 +21,7 @@ export class EditProfileComponent implements OnInit {
   public modify: boolean;
   public files: any = [];
   public formulario: FormGroup;
-  public profileEditDto: profileEditDto;
+  public profileEditDto: profileEditDto = new profileEditDto();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,9 +54,17 @@ export class EditProfileComponent implements OnInit {
     }
     else {
 
+      this.servicioProfile.GetById(1).subscribe({
+
+        next: (data : ResponseDto) =>{
+
+          this.profileEditDto = data.result;
+        }
+      });
+
       this.formulario = this.formBuilder.group({
 
-        name: [{ value: "", disabled: true }],
+        name: [{ value: this.profileEditDto.name, disabled: true }],
         lastName: [{ value: "", disabled: true }],
         dni: [{ value: "", disabled: true }],
         fechaNacimiento: [{ value: "", disabled: true }],
