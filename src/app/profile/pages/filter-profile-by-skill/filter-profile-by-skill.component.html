@@ -24,18 +24,32 @@
         <mat-label> Filtrar por skill. </mat-label>
         <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let listSkills of filteredOptions | async" [value]="listSkills">
+          <mat-option *ngFor="let listSkills of filteredOptions | async" [value]="listSkills" (click)="AgregarSkills(listSkills)" >
             {{listSkills.description}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="FilterById(skills)">Buscar</button>
+    <div class="button-container">
+      <button mat-raised-button color="primary" class="options-filter" *ngFor="let skill of skills">{{skill.description}}
+        <button class="close-button" (click)="removeSkill(skill)">X</button>
+      </button>
+    </div>
+    <button mat-raised-button color="primary" class="button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
 	</mat-sidenav>
 	<div class="sidenav-content">
-		Selecciones skills para mostrar perfiles.
-    <br>
-    <h3>Perfiles coincidentes</h3>
-    {{ listaProfile | json }}
+    <div *ngIf="listaProfile.length == 0">
+      <h2>Selecciones skills para mostrar perfiles.</h2>
+    </div>
+    <mat-card class="profile-card" *ngFor="let perfil of listaProfile">
+      <mat-card-title-group>
+        <mat-card-title>{{perfil.profile.name}} {{perfil.profile.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{perfil.profile.mail}}</mat-card-subtitle>
+        <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+      </mat-card-title-group>
+      <mat-card-content>
+        <p>Informacion perfil</p>
+      </mat-card-content>
+    </mat-card>
 	</div>
 </mat-sidenav-container>

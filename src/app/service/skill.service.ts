@@ -9,7 +9,7 @@ import { AddSkillDto } from "../Response/addSkillDto";
     providedIn: 'root'
 })
 export class SkillService {
-    
+
     constructor(private http: HttpClient){ }
 
     url: string = "https://localhost:7059/api/skill";
