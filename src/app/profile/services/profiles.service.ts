@@ -57,4 +57,9 @@ export class ProfilesService {
     let url = this.apiUrl + this.endPoint + "/Update";
     return this.http.put<ResponseDto>(url, Profile);
   }
+
+  public HasProfile(id:number):Observable<ResponseDto>{
+    let url = this.apiUrl + this.endPoint + "/HasProfile?idUser=" + id;
+    return this.http.get<ResponseDto>(url);
+  }
 }
