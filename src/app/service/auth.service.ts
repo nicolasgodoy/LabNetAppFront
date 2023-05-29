@@ -20,9 +20,6 @@ export class AuthService {
     url:string = "https://localhost:7059/api/login";
     userToken: string = '';
  
-
-
-
     login(user: Login) {
         return this.http.post<ResponseDto>(`${this.url}/login`, user)
           .pipe(
@@ -33,8 +30,6 @@ export class AuthService {
           );
       }
 
-
-
       private saveToken(idToken: string, expiresIn: number) {
         this.userToken = idToken;
         localStorage.setItem('token', idToken);
@@ -43,9 +38,6 @@ export class AuthService {
         today.setSeconds(expiresIn);
         localStorage.setItem('expiresIn', today.getTime().toString());
       }
-    
-
-
 
       readToken() {
         if (localStorage.getItem('token')) {

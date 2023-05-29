@@ -22,9 +22,8 @@ export class AddComponent implements OnInit {
   
   ngOnInit(): void {
     this.getRoles();
-   
- 
   }
+  
   constructor(
     private formB: FormBuilder,
     private _snackBar: MatSnackBar,

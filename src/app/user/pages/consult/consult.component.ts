@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import { UserService } from 'src/app/service/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseDto } from 'src/app/models/response';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 
@@ -20,6 +21,7 @@ export class ConsultComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['Email', 'Rol','Activo','Acciones'];
   constructor(
+    private auth: AuthService,
     private _userService: UserService, 
     private dialog: MatDialog
   
