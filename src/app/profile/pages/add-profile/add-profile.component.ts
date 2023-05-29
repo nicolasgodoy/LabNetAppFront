@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfilesService } from 'src/app/profile/services/profiles.service';
 import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class AddProfileComponent implements OnInit {
   formulario: FormGroup;
   profileObject: profileDto = new profileDto();
   now: Date = new Date();
-  idUser: string ='';
-
+  idUser: number;
+  userObject: User;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,24 +41,32 @@ export class AddProfileComponent implements OnInit {
 
   ngOnInit(): void {
     //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
-    this.idUser = this.route.snapshot.paramMap.get('id') as string;
-    
-    //    if (this.id) this.obtenerObjeto(this.id);
+    this.idUser = Number(this.route.snapshot.paramMap.get('id'));
+
   }
 
   onSubmit(): void {
+
     if (this.formulario.valid) {
+
+      console.log(this.idUser);
+
+      this.profileObject.idUser = this.idUser;
       this.profileObject.name = this.formulario.value.name;
       this.profileObject.lastName = this.formulario.value.lastname;
       this.profileObject.dni = this.formulario.value.document;
       this.profileObject.birthDate = this.formulario.value.birthdate;
+      this.profileObject.mail = "example@mail.com" //DUMMY E-MAIL
+
+
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
           this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 10000 });
-          this.router.navigate(['consult-profile']);
+          this.router.navigate(['consult-profile/'+this.idUser]);
         },
-        error: () => {
+        error: (error) => {
+          console.log(error); 
           this._snackBar.open("No se pudo enviar el formulario, intentelo de nuevo mas tarde.",
             undefined, { duration: 30000 });
         }
@@ -77,12 +86,5 @@ export class AddProfileComponent implements OnInit {
     return null;
   }
 
-  /*
-  obtenerObjeto(id: string) {
-    this.service.GetClienteById(id).subscribe(result => {
-      this.clienteObject = result;
-      this.cargarFormulario(); 
-  */
 
-    
 }
