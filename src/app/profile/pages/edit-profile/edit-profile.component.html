@@ -34,6 +34,10 @@
           <mat-label>Fecha de Nacimiento</mat-label>
           <input type="date" matInput formControlName="fechaNacimiento">
         </mat-form-field>
+        
+        <div *ngIf="!modify" class="container">
+          <button mat-raised-button>Descargar CV</button>
+        </div>
       </div>
 
       <div class="divHijo2">
@@ -59,7 +63,7 @@
             <br>
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">Subir
               imagen</button>
-            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="photoProfile">
+            <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile">
 
           </div>
         </div>
@@ -79,8 +83,8 @@
             <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
 
           </div>
-          <div style="margin-left: 10px;" *ngIf="">
-            <label>Archivo cargado</label>
+          <div style="margin-top: 35px; margin-left: 5px;" *ngIf="previewDoc">
+            <label>{{previewName}}</label>
           </div>
         </div>
       </div>

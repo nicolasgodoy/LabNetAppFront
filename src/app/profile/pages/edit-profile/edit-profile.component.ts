@@ -15,7 +15,8 @@ export class EditProfileComponent implements OnInit {
 
   public titulo : string = "Consultar";
   public previewImg: string;
-  // public previewDoc: string;
+  public previewDoc: string;
+  public previewName : string;
   public modify: boolean;
   public files: any = [];
   public formulario: FormGroup;
@@ -99,8 +100,8 @@ export class EditProfileComponent implements OnInit {
     })
   }
 
-  //Para los Archivos de IMG y CV
-  captureFile(event: any): any {
+  //Para los Archivos de IMG
+  captureImg(event: any): any {
 
     const archivoCapturado = event.target.files[0];
     this.extraerBase64(archivoCapturado)
@@ -109,6 +110,20 @@ export class EditProfileComponent implements OnInit {
         this.previewImg = img.base;
         console.log(img);
       })
+    this.files.push(archivoCapturado);
+    console.log();
+  }
+
+  //CV
+  captureFile(event: any): any {
+
+    const archivoCapturado = event.target.files[0];
+    this.extraerBase64(archivoCapturado)
+      .then((img: any) => {
+
+       this.previewDoc = img.base;
+       this.previewName = archivoCapturado.name;
+      });
     this.files.push(archivoCapturado);
     console.log();
   }
