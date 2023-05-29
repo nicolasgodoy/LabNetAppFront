@@ -1,4 +1,5 @@
 import { profileDto } from "./profileDto";
+import { WorkDto } from "./profileEducationDto";
 
 export class profileEditDto extends profileDto {
 
@@ -6,4 +7,5 @@ export class profileEditDto extends profileDto {
     phone? : string;
     photo? : string;
     cv? : string;
+    workEntities : WorkDto[] = []
 }

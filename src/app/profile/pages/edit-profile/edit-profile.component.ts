@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
-import { profileEducationDto } from 'src/app/models/Profile/profileEducationDto';
+import { WorkDto } from 'src/app/models/Profile/profileEducationDto';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,7 +24,7 @@ export class EditProfileComponent implements OnInit {
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser : number;
-  public profileEducation: profileEducationDto;
+  public profileEducation: WorkDto = new WorkDto();
   public listaProfileEducation: any = [];
 
   constructor(
@@ -81,8 +81,12 @@ export class EditProfileComponent implements OnInit {
 
       next: (data : ResponseDto) =>{
 
+
         this.profileEditDto = data.result;
+        console.log(this.profileEditDto);
         console.log(this.profileEditDto.dni);
+        this.listaProfileEducation = this.profileEditDto.workEntities;
+        console.log(this.listaProfileEducation);
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);

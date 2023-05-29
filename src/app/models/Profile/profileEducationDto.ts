@@ -1,7 +1,6 @@
 import { profileDto } from "./profileDto"
 
-export class profileEducationDto extends profileDto {
-
+export class WorkDto {
     company: string
     role: string
 }
