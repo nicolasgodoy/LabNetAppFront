@@ -1,5 +1,6 @@
 import { profileDto } from "./profileDto";
-import { WorkDto } from "./profileEducationDto";
+import { profileEducationDto } from "./profileEducation";
+import { WorkDto } from "./profileWorkDto";
 
 export class profileEditDto extends profileDto {
 
@@ -8,4 +9,5 @@ export class profileEditDto extends profileDto {
     photo? : string;
     cv? : string;
     workEntities : WorkDto[]
+    educationEntities: profileEducationDto[]
 }
