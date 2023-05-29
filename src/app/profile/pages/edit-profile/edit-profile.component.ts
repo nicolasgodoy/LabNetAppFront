@@ -24,8 +24,8 @@ export class EditProfileComponent implements OnInit {
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser : number;
-  public profileEducation: WorkDto = new WorkDto();
-  public listaProfileEducation: any = [];
+  public profileWork: WorkDto = new WorkDto();
+  public listaProfileWork: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +37,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.listaProfileEducation.push(this.profileEducation);
+    this.listaProfileWork.push(this.profileWork);
 
     this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
@@ -83,10 +83,11 @@ export class EditProfileComponent implements OnInit {
 
 
         this.profileEditDto = data.result;
+
         console.log(this.profileEditDto);
-        console.log(this.profileEditDto.dni);
-        this.listaProfileEducation = this.profileEditDto.workEntities;
-        console.log(this.listaProfileEducation);
+
+        // this.listaProfileWork = this.profileEditDto.workEntities;
+
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);

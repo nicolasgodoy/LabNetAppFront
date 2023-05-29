@@ -7,5 +7,5 @@ export class profileEditDto extends profileDto {
     phone? : string;
     photo? : string;
     cv? : string;
-    workEntities : WorkDto[] = []
+    workEntities : WorkDto[]
 }
