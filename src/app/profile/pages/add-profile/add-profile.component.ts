@@ -49,12 +49,12 @@ export class AddProfileComponent implements OnInit {
     if (this.formulario.valid) {
       this.profileObject.name = this.formulario.value.name;
       this.profileObject.lastName = this.formulario.value.lastname;
-      this.profileObject.document = this.formulario.value.document;
-      this.profileObject.birthdate = this.formulario.value.birthdate;
+      this.profileObject.dni = this.formulario.value.document;
+      this.profileObject.birthDate = this.formulario.value.birthdate;
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
-          this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 30000 });
+          this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 10000 });
           this.router.navigate(['consult-profile']);
         },
         error: () => {
@@ -83,4 +83,6 @@ export class AddProfileComponent implements OnInit {
       this.clienteObject = result;
       this.cargarFormulario(); 
   */
+
+    
 }

@@ -77,14 +77,17 @@ export class EditProfileComponent implements OnInit {
       next: (data : ResponseDto) =>{
 
         this.profileEditDto = data.result;
-
+        console.log(this.profileEditDto.dni);
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
-        this.formulario.controls['dni'].setValue(this.profileEditDto.document);
-        this.formulario.controls['fechaNacimiento'].setValue(this.profileEditDto.birthdate);
+        this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
+        this.formulario.controls['fechaNacimiento'].setValue(this.profileEditDto.birthDate);
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
+        this.formulario.controls['email'].setValue(this.profileEditDto.mail);
         // this.formulario.controls['cv'].setValue(this.profileEditDto.cv);
+
+        console.log(this.profileEditDto.dni);
       }
     });
   }
@@ -95,9 +98,9 @@ export class EditProfileComponent implements OnInit {
 
       this.profileEditDto.name = this.formulario.value.name;
       this.profileEditDto.lastName = this.formulario.value.lastName;
-      this.profileEditDto.document = this.formulario.value.dni;
-      this.profileEditDto.birthdate = this.formulario.value.fechaNacimiento;
-      this.profileEditDto.email = this.formulario.value.email;
+      this.profileEditDto.dni = this.formulario.value.dni;
+      this.profileEditDto.birthDate = this.formulario.value.fechaNacimiento;
+      this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
       this.profileEditDto.phone = this.formulario.value.phone;
       this.profileEditDto.photo = this.formulario.value.photoProfile;

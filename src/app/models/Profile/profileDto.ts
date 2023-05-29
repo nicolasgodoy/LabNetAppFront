@@ -2,7 +2,7 @@ export class profileDto{
     idUser?: number;
     name?:string;
     lastName?:string;
-    email?:string;
-    document?:string;
-    birthdate?:Date;
+    mail?:string;
+    dni?:string;
+    birthDate?:Date;
 }
