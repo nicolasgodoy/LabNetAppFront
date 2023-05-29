@@ -37,15 +37,17 @@ export class LoginComponent implements OnInit {
         UserName: this.formLogin.value.userName,
         Password: this.formLogin.value.password
       }
-
-      var result= this.auth.login(uLogin).subscribe(resp => {
-        console.log('Resultado');
-        console.log(result);
+   
+       this.auth.login(uLogin).subscribe(resp => {
+        
+        if(resp.result.token.length < 2){
+          this.route.navigateByUrl('/login');
+        }else{
+          this.route.navigateByUrl('/user/consult');
+        }
       })
 
-      this.route.navigateByUrl('/user/consult');
-    }else{
-      return;
+      
     }
 
   }

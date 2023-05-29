@@ -48,6 +48,8 @@ export class AuthService {
         return this.userToken;
       }
 
+      
+
       isAuthenticated(): boolean {
         let response: boolean = false;
         if (this.userToken.length < 2 ) {
