@@ -34,7 +34,7 @@
           <mat-label>Fecha de Nacimiento</mat-label>
           <input type="date" matInput formControlName="fechaNacimiento">
         </mat-form-field>
-        
+
         <div *ngIf="!modify" class="container">
           <button mat-raised-button>Descargar CV</button>
         </div>
@@ -54,6 +54,21 @@
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input type="email" matInput formControlName="email">
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Trabajos</mat-label>
+          <table>
+            <tr *ngFor="let item of listaProfileEducation">
+              <td>
+                {{item.company}}
+              </td>
+              <td>
+                {{item.role}}
+              </td>
+            </tr>
+          </table>
         </mat-form-field>
         <br>
 

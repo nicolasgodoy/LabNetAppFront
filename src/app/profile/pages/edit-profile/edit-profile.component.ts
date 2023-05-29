@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
+import { profileEducationDto } from 'src/app/models/Profile/profileEducationDto';
 
 @Component({
   selector: 'app-edit-profile',
@@ -23,17 +24,20 @@ export class EditProfileComponent implements OnInit {
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser : number;
+  public profileEducation: profileEducationDto;
+  public listaProfileEducation: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private activatedRoute: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
+
+    this.listaProfileEducation.push(this.profileEducation);
 
     this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
@@ -68,7 +72,8 @@ export class EditProfileComponent implements OnInit {
         description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
         photoProfile: [{ value: "", disabled: true }],
-        cv: [{ value: "", disabled: true }]
+        cv: [{ value: "", disabled: true }],
+        trabajo: [{ value: "", disabled: true }]
       });
     }
 
@@ -85,9 +90,8 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
+        // this.formulario.controls['trabajo'].setValue(this.listaProfileEducation);
         // this.formulario.controls['cv'].setValue(this.profileEditDto.cv);
-
-        console.log(this.profileEditDto.dni);
       }
     });
   }
