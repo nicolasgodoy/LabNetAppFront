@@ -4,7 +4,7 @@ import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
 
 @Component({
@@ -22,16 +22,20 @@ export class EditProfileComponent implements OnInit {
   public files: any = [];
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
+  public idUser : number;
 
   constructor(
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(): void {
+
+    this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.modify = this.activatedRoute.snapshot.data['modify'];
 
@@ -68,7 +72,7 @@ export class EditProfileComponent implements OnInit {
       });
     }
 
-    this.servicioProfile.GetById(1).subscribe({
+    this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data : ResponseDto) =>{
 
@@ -76,8 +80,11 @@ export class EditProfileComponent implements OnInit {
 
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
-        
-
+        this.formulario.controls['dni'].setValue(this.profileEditDto.document);
+        this.formulario.controls['fechaNacimiento'].setValue(this.profileEditDto.birthdate);
+        this.formulario.controls['description'].setValue(this.profileEditDto.description);
+        this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
+        // this.formulario.controls['cv'].setValue(this.profileEditDto.cv);
       }
     });
   }

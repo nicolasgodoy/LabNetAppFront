@@ -16,14 +16,14 @@ const routes: Routes = [
             component: AddProfileComponent
   },
   {
-    path: 'edit-profile',
+    path: 'edit-profile/:id',
             component: EditProfileComponent, 
             data: {
               'modify' : true
             }
   },
   {
-    path: 'consult-profile',
+    path: 'consult-profile/:id',
             component: EditProfileComponent, 
             data: {
               'modify' : false
