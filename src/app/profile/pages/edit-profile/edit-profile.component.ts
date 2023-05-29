@@ -4,16 +4,27 @@ import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
-import { WorkDto } from 'src/app/models/Profile/profileEducationDto';
+import { WorkDto } from 'src/app/models/Profile/profileWorkDto';
+import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
+
 export class EditProfileComponent implements OnInit {
+
+  displayedColumns: string[] = ['comapania', 'role'];
+  displayedColumnsEducation: string[] = ['institutionName', 'degree' , 
+  'admissionDate', 'expeditionDate'];
+
+  dataSource = new MatTableDataSource();
+  dataSourceEducation = new MatTableDataSource();
 
   public titulo : string = "Consultar";
   public previewImg: string;
@@ -25,7 +36,9 @@ export class EditProfileComponent implements OnInit {
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser : number;
   public profileWork: WorkDto = new WorkDto();
+  public profileEducation: profileEducationDto = new profileEducationDto();
   public listaProfileWork: any = [];
+  public listaProfileEducation: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +86,8 @@ export class EditProfileComponent implements OnInit {
         phone: [{ value: "", disabled: true }],
         photoProfile: [{ value: "", disabled: true }],
         cv: [{ value: "", disabled: true }],
-        trabajo: [{ value: "", disabled: true }]
+        trabajo: [{ value: "", disabled: true }],
+        photo: [{ value: "", disabled: true }]
       });
     }
 
@@ -81,24 +95,35 @@ export class EditProfileComponent implements OnInit {
 
       next: (data : ResponseDto) =>{
 
+        this.dataSource.data = data.result.workEntities;
+        this.dataSourceEducation.data = data.result.educationEntities;
 
         this.profileEditDto = data.result;
 
-        console.log(this.profileEditDto);
-
-        // this.listaProfileWork = this.profileEditDto.workEntities;
+        this.listaProfileWork = this.profileEditDto.workEntities;
+        this.listaProfileEducation = this.profileEditDto.educationEntities;
 
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
+        this.formulario.controls['photo'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
-        this.formulario.controls['fechaNacimiento'].setValue(this.profileEditDto.birthDate);
+        this.formulario.controls['fechaNacimiento']
+        .setValue(this.formatoFecha(this.profileEditDto.birthDate));
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
+
         // this.formulario.controls['trabajo'].setValue(this.listaProfileEducation);
         // this.formulario.controls['cv'].setValue(this.profileEditDto.cv);
       }
     });
+  }
+
+  formatoFecha (fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
   }
 
   editarPerfil() {
