@@ -18,7 +18,7 @@ export class AuthService {
         this.readToken()
     }
     url:string = "https://localhost:7059/api/login";
-    userToken: string = '';
+    userToken: string='';
  
     login(user: Login) {
         return this.http.post<ResponseDto>(`${this.url}/login`, user)
@@ -43,12 +43,19 @@ export class AuthService {
       }
 
       readToken() {
+
         if (localStorage.getItem('token')) {
+
           this.userToken = localStorage.getItem('token') || '';
+
         } else {
+
           this.userToken = '';
+
         }
+
         return this.userToken;
+
       }
 
 

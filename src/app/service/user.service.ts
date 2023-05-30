@@ -19,6 +19,7 @@ export class UserService {
 
     url: string = "https://localhost:7059/api/user";
 
+<<<<<<< Updated upstream
     getAll() {
         const userToken = `Bearer ${this._authservice.readToken()}`;
         const headers = new HttpHeaders({ 'Authorization': userToken });
@@ -26,6 +27,14 @@ export class UserService {
         console.log(userToken);
         return this.http.get<ResponseDto>(this.url + '/GetAll', options);
       }
+=======
+    getAll(){
+        this.userToken =`Bearer ${this._authservice.readToken()}`;  
+        const headers = new HttpHeaders({'Authorization': this.userToken});
+
+        return this.http.get<ResponseDto>(this.url + '/GetAll',{headers:headers});
+    }
+>>>>>>> Stashed changes
 
     addUser(user:User): Observable<User>{
         this.userToken =`Bearer ${this._authservice.readToken()}`;  

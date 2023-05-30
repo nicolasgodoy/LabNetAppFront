@@ -51,7 +51,7 @@ export class ConsultComponent implements OnInit {
         console.log(ResponseDto.result as User[]);
       },
       error: (e) => {
-        console.error(e);
+        console.log(e);
       },
     });
   }
