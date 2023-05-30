@@ -34,9 +34,8 @@ export class AuthService {
         this.userToken = idToken;
         localStorage.setItem('token', idToken);
     
-        let today = new Date();
-        today.setSeconds(expiresIn);
-        localStorage.setItem('expiresIn', today.getTime().toString());
+    
+        localStorage.setItem('expiresIn' , expiresIn.toString());
       }
 
       readToken() {
@@ -48,7 +47,7 @@ export class AuthService {
         return this.userToken;
       }
 
-      
+
 
       isAuthenticated(): boolean {
         let response: boolean = false;

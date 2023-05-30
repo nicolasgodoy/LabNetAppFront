@@ -39,11 +39,15 @@ export class LoginComponent implements OnInit {
       }
    
        this.auth.login(uLogin).subscribe(resp => {
-        
-        if(resp.result.token.length < 2){
-          this.route.navigateByUrl('/login');
+
+        if(resp.isSuccess){
+          if(resp.result.token.length > 2)
+          {
+            this.route.navigateByUrl('/user/consult');
+          }
         }else{
-          this.route.navigateByUrl('/user/consult');
+          //agregar mensaje 
+          this.route.navigateByUrl('/login');
         }
       })
 
