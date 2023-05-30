@@ -19,7 +19,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class EditProfileComponent implements OnInit {
 
-  displayedColumns: string[] = ['comapania', 'role'];
+  displayedColumnsWork: string[] = ['comapania', 'role'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree' , 
   'admissionDate', 'expeditionDate'];
 
@@ -35,8 +35,10 @@ export class EditProfileComponent implements OnInit {
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser : number;
+
   public profileWork: WorkDto = new WorkDto();
   public profileEducation: profileEducationDto = new profileEducationDto();
+
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
   public imgPerfil : string;
@@ -86,7 +88,7 @@ export class EditProfileComponent implements OnInit {
         dni: [{ value: "", disabled: true }],
         fechaNacimiento: [{ value: "", disabled: true }],
         email: [{ value: "", disabled: true }],
-        description: [{ value: "", disabled: false }],
+        description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
         // photoProfile: [{ value: "", disabled: true }],
         adress: [{ value: "", disabled: true }],
@@ -109,7 +111,6 @@ export class EditProfileComponent implements OnInit {
         this.listaProfileEducation = this.profileEditDto.educationEntities;
 
         this.imgPerfil = this.profileEditDto.photo;
-        // console.log(this.imgPerfil);
 
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
@@ -120,8 +121,7 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
         this.formulario.controls['adress'].setValue(this.profileEditDto.adressDescription);
-        this.formulario.controls['jobPosition']
-        .setValue(this.profileEditDto.jobPositionDescription);
+        this.formulario.controls['jobPosition'].setValue(this.profileEditDto.jobPositionDescription);
       }
     });
   }
@@ -143,12 +143,16 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.birthDate = this.formulario.value.fechaNacimiento;
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
-      this.profileEditDto.adressDescription = this.formulario.value.adress;
-      this.profileEditDto.jobPositionDescription = this.formulario.value.jobPosition;
+
+      this.profileEditDto.adressDescription =this.formulario.value.adress;
+      this.profileEditDto.jobPositionDescription =this.formulario.value.jobPosition;
+
       this.profileEditDto.phone = String(this.formulario.value.phone);
       this.profileEditDto.photo = this.formulario.value.photoProfile;
       this.profileEditDto.cv = this.formulario.value.cv;
 
+      console.log(this.profileEditDto.adressDescription);
+      console.log(this.profileEditDto.jobPositionDescription);
       console.log(this.profileEditDto);
 
       this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
@@ -157,13 +161,13 @@ export class EditProfileComponent implements OnInit {
   
           this.snackBar.open('Perfil actualizado', undefined, {
             duration: 3000
-          })
+          });
         },
         error: (error) => {
   
           this.snackBar.open('ocurrio un error', undefined, {
             duration: 3000
-          })
+          });
           console.log(error)
         }
 

@@ -11,7 +11,7 @@ export class profileEditDto extends profileDto {
     workEntities : WorkDto[];
     educationEntities: profileEducationDto[];
     idAdress: number;
-    adressDescription: string;
+    adressDescription?: string;
     idJobPosition: number;
-    jobPositionDescription: string;
+    jobPositionDescription?: string;
 }

@@ -1,18 +1,22 @@
 <div>
   <h1 class="titulo">{{titulo}} Perfil</h1>
 </div>
+
 <div class="container">
+
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
+
     <div class="divPadre">
-      <!-- <div style="margin-left: 10px;">
+      <div style="margin-left: 10px;">
+
         <div style="width: 100px; height: 100px;">
           <img
             style="margin-top: 10px;"
-            [src]="imgPerfil"
             alt=""
             width="100px">
         </div>
-      </div> -->
+      </div>
+
       <div class="divHijo1">
 
         <mat-form-field appearance="fill">
@@ -43,9 +47,11 @@
         <div *ngIf="!modify" class="container">
           <button mat-raised-button>Descargar CV</button>
         </div>
+
       </div>
 
       <div class="divHijo2">
+
         <mat-form-field appearance="fill">
           <mat-label>Descripción</mat-label>
           <input type="text" matInput formControlName="description">
@@ -70,12 +76,17 @@
           <div style="text-align: center;">
             <mat-label>Foto de Perfil</mat-label>
             <br>
-            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">Subir
-              imagen</button>
-            <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile">
+
+            <button style="margin-top: 10px;" type="button" mat-raised-button 
+            (click)="fileInput.click()">
+              Subir imagen
+            </button>
+            <input hidden (change)="captureImg($event)" #fileInput type="file" 
+            formControlName="photoProfile">
 
           </div>
         </div>
+
         <div style="margin: 5px 0px 0px 50px;" *ngIf="previewImg">
           <div style="width: 100px; height: 100px; background-color: black;">
             <img width="100px" [src]="previewImg" alt="">
@@ -115,8 +126,8 @@
           <td mat-cell *matCellDef="let element">{{element.role}}</td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsWork"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsWork;"></tr>
       </table>
       <div style="margin-left: 5px;">
         <button *ngIf="modify" mat-fab color="primary">
@@ -165,7 +176,8 @@
     </div>
 
     <div class="botones">
-      <button *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">
+      <button type="submit" *ngIf="modify" class="botonGuardar" 
+        mat-raised-button color="primary">
         Guardar
       </button>
 
@@ -173,7 +185,8 @@
       mat-raised-button color="warn">Volver
       </button>
 
-      <button *ngIf="!modify" routerLink="/edit-profile/3" style="margin-left: 5px;" mat-raised-button color="primary">
+      <button *ngIf="!modify" routerLink="/edit-profile/3" style="margin-left: 5px;" 
+        mat-raised-button color="primary">
         Editar Perfil
       </button>
     </div>
