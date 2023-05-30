@@ -88,6 +88,8 @@ export class EditProfileComponent implements OnInit {
         description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
         photoProfile: [{ value: "", disabled: true }],
+        adress: [{ value: "", disabled: false }],
+        jobPosition: [{ value: "", disabled: false }],
         cv: [{ value: "", disabled: true }],
         trabajo: [{ value: "", disabled: true }],
         photo: [{ value: "", disabled: true }]
@@ -107,7 +109,6 @@ export class EditProfileComponent implements OnInit {
         this.listaProfileEducation = this.profileEditDto.educationEntities;
 
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
-        this.formulario.controls['photo'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
         this.formulario.controls['fechaNacimiento']
