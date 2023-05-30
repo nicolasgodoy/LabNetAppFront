@@ -1,16 +1,15 @@
 <div class="container">
     <h2>Agregar skills</h2>
-
     <form class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Skill</mat-label>
-        <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue" [matAutocomplete]="auto">
+        <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue" (ngModelChange)="validBtn()" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option.description}}
             </mat-option>
         </mat-autocomplete>
         </mat-form-field>
-        <button mat-button (click)="addSkillToProfile()" [disabled]="!inputValue">Agregar</button>
+        <button mat-button (click)="addSkillToProfile()" [disabled]="!isValid">Agregar</button>
     </form>
 </div>

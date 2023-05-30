@@ -1,41 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit,OnChanges } from '@angular/core';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { Skill } from 'src/app/models/skill';
 import { SkillService } from 'src/app/service/skill.service';
-
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProfilesService } from 'src/app/profile/services/profiles.service';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
-
-
-// Falta obtener el id de usuario del localStorage.
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-add-skill',
   templateUrl: './dialog-add-skill.component.html',
   styleUrls: ['./dialog-add-skill.component.css']
 })
-export class DialogAddSkillComponent implements OnInit {
+export class DialogAddSkillComponent implements OnInit,OnChanges {
 
   myControl = new FormControl<string | Skill>('');
   filteredOptions?: Observable<Skill[]>;
-
   inputValue?:Skill;
-
-  listSkill:Skill[] = [
-    {id:1,description:'.NET'},
-    {id:2,description:'JS'},
-    {id:3,description:'CORRER'}
-  ];
+  isValid:boolean = false;
+  listSkill:Skill[] = [];
 
   constructor(private skillService:SkillService,
-    private profileService:ProfilesService) { }
+    private profileService:ProfilesService,
+    @Inject(MAT_DIALOG_DATA) public data:any,
+    private dialogRef: MatDialogRef<DialogAddSkillComponent>
+    ) { }
 
   ngOnInit(): void {
     this.GetSkills();
-
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
@@ -44,14 +38,16 @@ export class DialogAddSkillComponent implements OnInit {
       })
     );
   }
-
+  ngOnChanges(){
+    this.validBtn();
+  }
+ 
   GetSkills(){
     this.skillService.getSkill().subscribe({
       next: (dataResponse: ResponseDto) => {
         this.listSkill = dataResponse.result;
-      }, error: (e) => {
-        console.log('ocurrio un error inesperado')
-      }
+        this.filterRepeated();
+      }, error: () => console.error('ocurrio un error inesperado')
     })
   }
   displayFn(user: Skill): string {
@@ -68,19 +64,22 @@ export class DialogAddSkillComponent implements OnInit {
 
   addSkillToProfile(){
     event?.preventDefault()
-
-    // obtener el id de profile.
-    const data: AddProfileSkillDto = { IdProfile:1, IdSkill:this.inputValue?.id}
-
-    console.log(data)
+    const data: AddProfileSkillDto = { IdProfile:this.data.id, IdSkill:this.inputValue?.id}
   
-    // this.profileService.AddSkillToProfile(data).subscribe({
-    //   next: (dataResponse: ResponseDto) => {
+    this.profileService.AddSkillToProfile(data).subscribe({
+      next: (dataResponse: ResponseDto) => {
+        this.dialogRef.close(dataResponse.message);
+      }, error: () => console.error('ocurrio un error inesperado')
+    })
+  }
 
-    //     let message = dataResponse.message;    
-    //   }, error: (e) => {
-    //     console.log('ocurrio un error inesperado')
-    //   }
-    // })
+  validBtn(){
+    this.listSkill.find(s => s.description == this.inputValue?.description) ?
+      this.isValid = true : this.isValid = false; 
+  }
+
+  filterRepeated(){
+    let list:Skill[] = this.data.list;
+    this.listSkill = this.listSkill.filter(s => !list.find(p => p.id === s.id));
   }
 }

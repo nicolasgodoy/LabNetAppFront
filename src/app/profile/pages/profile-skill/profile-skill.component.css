@@ -53,3 +53,12 @@ table {
   border-radius: 1rem;
   overflow:hidden !important;
 }
+.table-btn{
+  padding-right: 30px!important;
+}
+
+@media only screen and (max-width: 768px) {
+  table {
+    width: 80%;
+  }
+}

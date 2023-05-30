@@ -15,7 +15,7 @@ export class SkillService {
     url: string = "https://localhost:7059/api/skill";
 
     getSkill(){
-        return this.http.get<ResponseDto>(this.url);
+        return this.http.get<ResponseDto>(this.url + "/GetAll");
     }
 
     AddSkill(addskillDto: AddSkillDto): Observable<AddSkillDto>{
