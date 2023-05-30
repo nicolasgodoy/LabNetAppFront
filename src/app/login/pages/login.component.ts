@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
         if (resp.isSuccess && resp.result.token.length > 2) {
 
-          this.route.navigateByUrl('/user/consult');
+          this.route.navigateByUrl('/user/insert');
 
         } else {
           //agregar mensaje 

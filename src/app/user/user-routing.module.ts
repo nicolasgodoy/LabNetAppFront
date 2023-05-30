@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'consult', component: ConsultComponent, canActivate: [AuthGuard]},
+      {path: 'consult', component: ConsultComponent},
       {path: 'insert', component: AddComponent}
       
     ]

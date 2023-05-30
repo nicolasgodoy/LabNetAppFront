@@ -33,9 +33,13 @@ export class AuthService {
       private saveToken(idToken: string, expiresIn: number) {
         this.userToken = idToken;
         localStorage.setItem('token', idToken);
-    
-    
-        localStorage.setItem('expiresIn' , expiresIn.toString());
+
+        let today = new Date();
+
+        today.setSeconds(expiresIn);
+
+        localStorage.setItem('expiresIn', today.getTime().toString());
+      
       }
 
       readToken() {
@@ -58,10 +62,11 @@ export class AuthService {
           const todayExpira = new Date();
     
           todayExpira.setTime(expiraIn);
-          if (todayExpira > new Date()) {
+          if (todayExpira.getTime() > new Date().getTime()) {
             response = true;
           }
         }
+        console.log(response);
         return response;
     }   
 }

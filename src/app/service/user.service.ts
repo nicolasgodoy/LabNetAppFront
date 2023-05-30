@@ -20,6 +20,7 @@ export class UserService {
     url: string = "https://localhost:7059/api/user";
 
     getAll(){
+    
         return this.http.get<ResponseDto>(this.url + '/GetAll');
     }
 
