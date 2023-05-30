@@ -19,16 +19,19 @@ export class UserService {
 
     url: string = "https://localhost:7059/api/user";
 
-    getAll(){
-    
-        return this.http.get<ResponseDto>(this.url + '/GetAll');
-    }
+    getAll() {
+        const userToken = `Bearer ${this._authservice.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': userToken });
+        const options = { headers: headers };
+        console.log(userToken);
+        return this.http.get<ResponseDto>(this.url + '/GetAll', options);
+      }
 
     addUser(user:User): Observable<User>{
         this.userToken =`Bearer ${this._authservice.readToken()}`;  
         const headers = new HttpHeaders({'Authorization': this.userToken});
 
-        return this.http.post<User>(`${this.url}'/Insert'`, user,{headers:headers});
+        return this.http.post<User>(`${this.url}/Insert`, user,{headers:headers});
     }
 
     updateUser(token: Token, password:string){

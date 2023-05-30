@@ -60,6 +60,7 @@ export class AddComponent implements OnInit {
         },
         (error: any) => {
        
+          console.log(error)
           this._snackBar.open('Error al agregar usuario', 'Cerrar', {
             duration: 2000
           });
@@ -82,7 +83,7 @@ export class AddComponent implements OnInit {
         }
       },
       error: (error) => {
-       
+    
       },
     });
 }
