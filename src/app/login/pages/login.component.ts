@@ -18,40 +18,39 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private formB: FormBuilder,
     private _snackBar: MatSnackBar
-    ) {
-      this.formLogin = this.formB.group({
-        userName: ['', Validators.required],
-        password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]]
+  ) {
+    this.formLogin = this.formB.group({
+      userName: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]]
     });
 
-     }
-
-  ngOnInit(): void {
-    
   }
 
-  logUser(){
+  ngOnInit(): void {
 
-    if(this.formLogin.valid){
-      const uLogin:Login={
+  }
+
+  logUser() {
+
+    if (this.formLogin.valid) {
+      const uLogin: Login = {
         UserName: this.formLogin.value.userName,
         Password: this.formLogin.value.password
       }
-   
-       this.auth.login(uLogin).subscribe(resp => {
 
-        if(resp.isSuccess){
-          if(resp.result.token.length > 2)
-          {
-            this.route.navigateByUrl('/user/consult');
-          }
-        }else{
+      this.auth.login(uLogin).subscribe(resp => {
+
+        if (resp.isSuccess && resp.result.token.length > 2) {
+
+          this.route.navigateByUrl('/user/consult');
+
+        } else {
           //agregar mensaje 
           this.route.navigateByUrl('/login');
         }
       })
 
-      
+
     }
 
   }

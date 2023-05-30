@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
       if (this.auth.isAuthenticated()) {
         return true;
       } else {
-        this.router.navigateByUrl('/user');
+        this.router.navigateByUrl('/login');
         return false;
       }
   
