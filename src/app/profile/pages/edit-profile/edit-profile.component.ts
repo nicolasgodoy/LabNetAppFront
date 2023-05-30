@@ -4,7 +4,7 @@ import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { WorkDto } from 'src/app/models/Profile/profileWorkDto';
 import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
@@ -45,7 +45,8 @@ export class EditProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -68,6 +69,8 @@ export class EditProfileComponent implements OnInit {
         fechaNacimiento: [{ value: "", disabled: true }],
         email: [{ value: "", disabled: true }],
         description: [{ value: "", disabled: false }],
+        adress: [{ value: "", disabled: false }],
+        jobPosition: [{ value: "", disabled: false }],
         phone: [""],
         photoProfile: [""],
         cv: [""]
@@ -93,7 +96,7 @@ export class EditProfileComponent implements OnInit {
 
     this.servicioProfile.GetById(this.idUser).subscribe({
 
-      next: (data : ResponseDto) =>{
+      next: (data : ResponseDto) => {
 
         this.dataSource.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;

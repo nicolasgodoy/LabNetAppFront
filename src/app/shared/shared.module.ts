@@ -17,7 +17,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
-
 const modulosMaterial = [
   MatButtonModule,
   MatSidenavModule,

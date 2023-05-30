@@ -34,6 +34,11 @@
           <mat-label>Fecha de Nacimiento</mat-label>
           <input type="date" matInput formControlName="fechaNacimiento">
         </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Puesto</mat-label>
+          <input type="text" matInput formControlName="jobPosition">
+        </mat-form-field>
 
         <div *ngIf="!modify" class="container">
           <button mat-raised-button>Descargar CV</button>
@@ -56,6 +61,10 @@
           <input type="email" matInput formControlName="email">
         </mat-form-field>
         <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Direccion</mat-label>
+          <input type="text" matInput formControlName="adress">
+        </mat-form-field>
 
         <div class="container" *ngIf="modify">
           <div style="text-align: center;">
@@ -109,6 +118,11 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <div style="margin-left: 5px;">
+        <button mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
 
     <br>
@@ -143,11 +157,23 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsEducation"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
       </table>
+      <div style="margin-left: 5px;">
+        <button mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
+
     <div class="botones">
-      <button *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">Guardar</button>
+      <button *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">
+        Guardar
+      </button>
+
       <button mat-raised-button color="warn">Volver</button>
-      <button style="margin-left: 5px;" mat-raised-button color="warn">Editar Perfil</button>
+
+      <button *ngIf="!modify" routerLink="/edit-profile/3" style="margin-left: 5px;" mat-raised-button color="primary">
+        Editar Perfil
+      </button>
     </div>
   </form>
 </div>
