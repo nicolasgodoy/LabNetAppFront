@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule,
-    MatIconModule
+    MatIconModule,
+    
     
   ],
   providers: [],

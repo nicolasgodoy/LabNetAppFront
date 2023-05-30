@@ -6,7 +6,7 @@ import { SkillRoutingModule } from './skill-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DeleteComponent } from './pages/delete/delete.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SkillRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+   
   ]
 })
 export class SkillModule { }
