@@ -30,26 +30,22 @@ export class LoginComponent implements OnInit {
     
   }
 
-  logUser(){
-
-    if(this.formLogin.valid){
-      const uLogin:Login={
+  logUser() {
+    if (this.formLogin.valid) {
+      const uLogin: Login = {
         UserName: this.formLogin.value.userName,
         Password: this.formLogin.value.password
       }
-   
-       this.auth.login(uLogin).subscribe(resp => {
-        
-        if(resp.result.token.length < 2){
-          this.route.navigateByUrl('/login');
-        }else{
+      this.auth.login(uLogin).subscribe(resp => {
+        if (resp.isSuccess && resp.result.token.length > 2) {
           this.route.navigateByUrl('/user/consult');
         }
+        else {
+          //agregar mensaje
+          this.route.navigateByUrl('/login');
+        }
       })
-
-      
     }
-
   }
 
 }
