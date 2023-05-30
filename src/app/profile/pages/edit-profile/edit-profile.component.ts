@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProfilesService } from '../../services/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
@@ -39,6 +39,7 @@ export class EditProfileComponent implements OnInit {
   public profileEducation: profileEducationDto = new profileEducationDto();
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
+  public imgPerfil : string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,7 +72,7 @@ export class EditProfileComponent implements OnInit {
         description: [{ value: "", disabled: false }],
         adress: [{ value: "", disabled: false }],
         jobPosition: [{ value: "", disabled: false }],
-        phone: [""],
+        phone: [{ value: "", disabled: false }],
         photoProfile: [""],
         cv: [""]
       });
@@ -85,14 +86,13 @@ export class EditProfileComponent implements OnInit {
         dni: [{ value: "", disabled: true }],
         fechaNacimiento: [{ value: "", disabled: true }],
         email: [{ value: "", disabled: true }],
-        description: [{ value: "", disabled: true }],
+        description: [{ value: "", disabled: false }],
         phone: [{ value: "", disabled: true }],
-        photoProfile: [{ value: "", disabled: true }],
-        adress: [{ value: "", disabled: false }],
-        jobPosition: [{ value: "", disabled: false }],
+        // photoProfile: [{ value: "", disabled: true }],
+        adress: [{ value: "", disabled: true }],
+        jobPosition: [{ value: "", disabled: true }],
         cv: [{ value: "", disabled: true }],
         trabajo: [{ value: "", disabled: true }],
-        photo: [{ value: "", disabled: true }]
       });
     }
 
@@ -108,6 +108,9 @@ export class EditProfileComponent implements OnInit {
         this.listaProfileWork = this.profileEditDto.workEntities;
         this.listaProfileEducation = this.profileEditDto.educationEntities;
 
+        this.imgPerfil = this.profileEditDto.photo;
+        // console.log(this.imgPerfil);
+
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
@@ -116,9 +119,9 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
-
-        // this.formulario.controls['trabajo'].setValue(this.listaProfileEducation);
-        // this.formulario.controls['cv'].setValue(this.profileEditDto.cv);
+        this.formulario.controls['adress'].setValue(this.profileEditDto.adressDescription);
+        this.formulario.controls['jobPosition']
+        .setValue(this.profileEditDto.jobPositionDescription);
       }
     });
   }
@@ -140,26 +143,39 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.birthDate = this.formulario.value.fechaNacimiento;
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
-      this.profileEditDto.phone = this.formulario.value.phone;
+      this.profileEditDto.adressDescription = this.formulario.value.adress;
+      this.profileEditDto.jobPositionDescription = this.formulario.value.jobPosition;
+      this.profileEditDto.phone = String(this.formulario.value.phone);
       this.profileEditDto.photo = this.formulario.value.photoProfile;
       this.profileEditDto.cv = this.formulario.value.cv;
+
+      console.log(this.profileEditDto);
+
+      this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
+
+        next: () => {
+  
+          this.snackBar.open('Perfil actualizado', undefined, {
+            duration: 3000
+          })
+        },
+        error: (error) => {
+  
+          this.snackBar.open('ocurrio un error', undefined, {
+            duration: 3000
+          })
+          console.log(error)
+        }
+
+      })
+    }   
+    else
+    {
+
+      this.snackBar.open('Formulario no valido , verifique los campos', undefined, {
+        duration: 3000
+      })
     }
-
-    this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
-
-      next: () => {
-
-        this.snackBar.open('Perfil actualizado', undefined, {
-          duration: 3000
-        })
-      },
-      error: () => {
-
-        this.snackBar.open('Formulario no valido', undefined, {
-          duration: 3000
-        })
-      }
-    })
   }
 
   //Para los Archivos de IMG
