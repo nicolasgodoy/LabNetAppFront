@@ -23,6 +23,6 @@ export class SkillService {
     }
 
     deleteSkill(id: number){
-        return this.http.delete<Skill>(this.url + `/${id}`);
+        return this.http.delete<Skill>(this.url + `/Delete/${id}`);
     }
 }
