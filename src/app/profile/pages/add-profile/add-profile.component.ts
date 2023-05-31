@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ProfilesService } from 'src/app/profile/services/profiles.service';
+import { ProfilesService } from 'src/app/service/profiles.service';
 import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';

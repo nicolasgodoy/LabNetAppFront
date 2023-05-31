@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfilesService } from 'src/app/profile/services/profiles.service';
+import { ProfilesService } from 'src/app/service/profiles.service';
 import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto'
 import { ResponseDto } from 'src/app/Response/responseDto';
 
