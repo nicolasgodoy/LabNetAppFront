@@ -16,11 +16,6 @@ table{
   width: 100%;
 }
 
-.containerPrincipal{
-  display: flex;
-  justify-content: center;
- margin-top: 8%;
-}
 
 .botonNuevaSkill{
   width: 38%;
@@ -53,7 +48,7 @@ table{
   align-items: center;
 }
 
-mat-form-field{
+.filtro{
   width: 75%;
   margin-left:3%;
 }
