@@ -57,7 +57,7 @@ export class AddProfileComponent implements OnInit {
     console.log(decodedJSON);
     console.log(propertiesArray);
 
-    const email = this.getValueByKey(decodedJSON, 'admin');
+    const email = this.getValueByKey(decodedJSON, 'email');
 
     if (this.formulario.valid) {
 
