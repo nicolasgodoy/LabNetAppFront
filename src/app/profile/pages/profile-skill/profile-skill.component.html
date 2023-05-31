@@ -8,16 +8,12 @@
       
         <ng-container matColumnDef="Acciones" >
           <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
-            <button class="btn" mat-fab color="primary" matTooltip="add skill to profile" (click)="openDialog(0)">
+            <button *ngIf="modify" class="btn" mat-fab color="primary" matTooltip="add skill to profile" (click)="openDialog(0)">
               <mat-icon>add</mat-icon>
           </button>
-            <!-- <button class="btn" mat-raised-button color="primary" [disabled]="" routerLink="/">Add Skill</button> -->
           </th>
-          <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
-              <!-- <a *ngIf="true" mat-icon-button (click)="openDialog(element.Id)"  matTooltip="Eliminar empleado">
-                <mat-icon color="warn">delete</mat-icon>
-              </a> -->
-              <button *ngIf="true" mat-mini-fab  color="primary" matTooltip="delete skill de perfil" (click)="openDialog(element.id)">
+          <td class="table-btn"  mat-cell *matCellDef="let element"  style="text-align: right; ">
+              <button *ngIf="modify" mat-mini-fab  color="primary" matTooltip="delete skill de perfil" (click)="openDialog(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
           </td>
