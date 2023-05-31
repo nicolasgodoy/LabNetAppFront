@@ -84,6 +84,12 @@ export class FilterProfileBySkillComponent implements OnInit {
 
   removeSkill(skill: Skill) {
     this.skills = this.skills.filter(s => s !== skill);
+    if (this.skills != null && this.skills.length > 0) {
+      this.FilterById(this.skills);
+    } else {
+      this.listaProfile = [];
+    }
+
   }
 
   displayFn(): string {

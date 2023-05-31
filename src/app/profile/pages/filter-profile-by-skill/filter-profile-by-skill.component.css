@@ -1,6 +1,15 @@
 .center{
     align-items: center;
 }
+.center-horizontally {
+  text-align: center;
+}
+.center-vertically {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .sidenav-container {
   height: 100vh;
   display: flex;
