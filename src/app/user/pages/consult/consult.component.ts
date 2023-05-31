@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ResponseDto } from 'src/app/models/response';
 import { AuthService } from 'src/app/service/auth.service';
 import Swal from 'sweetalert2';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -20,12 +21,16 @@ export class ConsultComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['Id','Email', 'Rol', 'Activo', 'Acciones'];
+  showIdColumn:boolean;
+
 
 
   constructor(
     private _userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {
     this.dataSource = new MatTableDataSource();
+    this.showIdColumn= false;
   }
 
   ngOnInit(): void {
@@ -60,29 +65,31 @@ export class ConsultComponent implements OnInit {
   confirmDelete(user:User){
     console.log(user,user.id),
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta seguro?',
+      text: `Esta a punto de Eliminar el Usuario : ${user.email}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Si, Borralo!'
     }).then((result) => {
       if (result.isConfirmed) {
         this._userService.deleteUser(user.id).subscribe({
           next: (ResponseDto) => {
             console.log(ResponseDto);
             Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
+              'Eliminado!',
+              'El Usuario ha sido Eliminado',
               'success'
             )
+            this.showAllUsers();
+          
           },
           error: (e) => {
             console.log(e);
             Swal.fire(
               'Error!',
-              'No se pudo eliminar!',
+              'No se pudo Eliminar!',
               'error'
             )
           },
