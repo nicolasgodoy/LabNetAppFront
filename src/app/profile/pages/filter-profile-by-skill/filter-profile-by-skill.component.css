@@ -29,12 +29,18 @@
   margin-top: 1rem;
   left: 8%;
 }
+.profile-card img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border-color: rgb(165, 127, 78);
+}
 .profile-card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
   cursor: pointer;
 }
-
 .button-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -57,11 +63,16 @@
   justify-content: center;
   cursor: pointer;
 }
-
 .options-filter {
   width: auto;
   max-width: 5rem;
   position: relative;
   cursor: auto;
+}
+.list-skill{
+  display: flex;
+}
+.list-skill p{
+  margin: 0 0.5rem;
 }
 
