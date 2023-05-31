@@ -1,35 +1,23 @@
 <h1 style="font-size:1.7rem;" mat-dialog-title>Agregar Skill</h1>
 <div mat-dialog-content>
-
-    <form [formGroup]="formSkill">
+     <form [formGroup]="formSkill">
         <mat-grid-list style="width:350px" cols="1" rowHeight="120px">
-
-
             <mat-grid-tile>
                 <div style="width:350px" rowHeight="100px">
                     <mat-form-field appearance="outline">
-
                         <mat-label>Descripcion</mat-label>
                         <input formControlName="description" style="font-size:1.5rem;" matInput
                             placeholder="ingrese la skill" autocomplete="off" minlength="" maxlength="15" required />
-
-
                     </mat-form-field>
                     <mat-error
                         *ngIf="formSkill.get('description')?.touched && formSkill.get('description')?.errors?.['required'] ">
                         <span class="mensajesValidaciones"><b>Campo Descripcion requerido</b></span>
                     </mat-error>
-
-
                 </div>
-
             </mat-grid-tile>
         </mat-grid-list>
-
     </form>
-
 </div>
-
 
 <div mat-dialog-actions>
     <button mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Close</button>

@@ -1,3 +1,40 @@
 
+<div>
+    <ngx-spinner>
+      <div class="la-square-jelly-box la-2x" style="color: #f4696b">
+        <div></div>
+        <div></div>
+      </div>
+      <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+</div>
 
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+            Home
+        </button>
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+            Home
+        </button>
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+            Home
+        </button>
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+            Home
+        </button>
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+            Home
+        </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+        </button>
+    </div>
+
+    <router-outlet></router-outlet>
+</mat-drawer-container>

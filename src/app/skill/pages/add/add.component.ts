@@ -36,7 +36,7 @@ export class AddComponent implements AfterViewInit, OnInit {
     @Inject(MAT_DIALOG_DATA) public dataSkill: Skill) {
 
     this.formSkill = this.fb.group({
-      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s]+$')]]
+      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!+@#$%^&*(),.?":{}|<>]+$')]]
     })
 
   }

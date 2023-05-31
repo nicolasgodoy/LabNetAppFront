@@ -19,7 +19,8 @@ import { DeleteComponent } from './pages/delete/delete.component';
     CommonModule,
     SkillRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+   
   ]
 })
 export class SkillModule { }
