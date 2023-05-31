@@ -37,10 +37,10 @@ export class AddComponent implements OnInit {
   addUser(): void {
     if (this.formUser.valid) {
       const newUser: User = {
-        Email: this.formUser.value.mail,
-        Password: this.formUser.value.password,
-        IdRole: this.formUser.value.idRole,
-        IsActive: true
+        email: this.formUser.value.mail,
+        password: this.formUser.value.password,
+        idRole: this.formUser.value.idRole,
+        isActive: true
       };
 
       this._userService.addUser(newUser).subscribe(

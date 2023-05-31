@@ -42,7 +42,6 @@ export class UserService {
     deleteUser(id: number){
         this.userToken =`Bearer ${this._authservice.readToken()}`;  
         const headers = new HttpHeaders({'Authorization': this.userToken});
-        return this.http.delete<User>(this.url + `/${id}`);
+        return this.http.delete<User>(this.url +`/Delete/${id}`,{headers:headers});
     }
-
 }

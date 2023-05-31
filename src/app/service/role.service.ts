@@ -16,5 +16,4 @@ export class RoleService {
         return this.http.get<ResponseDto>(this.url + '/GetAll');
     }
 
-  
 }
