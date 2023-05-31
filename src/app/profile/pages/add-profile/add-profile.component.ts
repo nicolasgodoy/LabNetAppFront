@@ -5,6 +5,7 @@ import { ProfilesService } from 'src/app/service/profiles.service';
 import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class AddProfileComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private service: ProfilesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private auth : AuthService
   ) {
 
     this.formulario = this.formBuilder.group({
@@ -43,7 +45,7 @@ export class AddProfileComponent implements OnInit {
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('id'));
     const tokenDummy = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.NHVaYe26MbtOYhSKkoKYdFVomg4i8ZJd8_-RU8VNbftc4TSMb4bXP3l3YlNWACwyXPGffz5aXHc6lty1Y2t4SWRqGteragsVdZufDn5BlnJl9pdR_kdVFUsra2rWKEofkZeIC4yWytE58sMIihvo9H1ScmmVwBcQP6XETqYd0aSHp1gOa9RdUPDvoXQ5oqygTqVtxaDr6wUFKrKItgBMzWIdNZ6y7O9E0DhEPTbE9rfBo6KTFsHAZnMg4k68CDp2woYIaXbmYTWcvbzIuHO7_37GT79XdIwkm95QJ7hYC9RiwrV7mesbY4PAahERJawntho0my942XheVLmGwLMBkQ';
-    const decodedJSON = this.DecodeJWT(tokenDummy);
+    const decodedJSON = this.auth.DecodeJWT(tokenDummy);
     const propertiesArray = Object.values(decodedJSON);
 
     //TEST LOGS
@@ -95,12 +97,6 @@ export class AddProfileComponent implements OnInit {
     return null;
   }
 
-
-  DecodeJWT(token: string): JSON{
-    const decodedToken =  atob(token.split('.')[1]);
-    const decodedObject =JSON.parse(decodedToken);
-    return decodedObject;
-  }
 
    getValueByKey = (obj, key) => {
     if (obj.hasOwnProperty(key)) {

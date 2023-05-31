@@ -62,6 +62,12 @@ export class AuthService {
     }
     return response;
   }
+
+  DecodeJWT(token: string): JSON{
+    const decodedToken =  atob(token.split('.')[1]);
+    const decodedObject =JSON.parse(decodedToken);
+    return decodedObject;
+  }
 }
 
 
