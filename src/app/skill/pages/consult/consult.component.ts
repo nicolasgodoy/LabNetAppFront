@@ -2,18 +2,14 @@ import { Component, OnInit, Inject, AfterViewInit, ViewChild } from '@angular/co
 import { SkillService } from '../../../../app/service/skill.service';
 import { Skill } from '../../../../app/models/skill';
 import { ResponseDto } from 'src/app/Response/responseDto';
-
-
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddComponent } from '../add/add.component';
 import { DeleteComponent } from '../delete/delete.component';
-
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -24,7 +20,7 @@ import { DeleteComponent } from '../delete/delete.component';
 export class ConsultComponent implements OnInit {
 
   formSkill: FormGroup;
-  tituloAccionCustomers: string = "Nuevo";
+  tituloAccionSkill: string = "Nuevo";
   botonAccion: string = "Guardar";
   listaSkill: Skill[] = [];
   dataSource = new MatTableDataSource<Skill>();
@@ -33,6 +29,7 @@ export class ConsultComponent implements OnInit {
 
 
   constructor(
+    private spinnerService: NgxSpinnerService,
     private skillService: SkillService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
@@ -41,7 +38,7 @@ export class ConsultComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataSkill: Skill) {
 
     this.formSkill = this.fb.group({
-      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s]+$')]]
+      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$')]]
     })
 
 
@@ -81,14 +78,16 @@ export class ConsultComponent implements OnInit {
   }
 
   mostrarSkill() {
-
+    this.spinnerService.show();
     this.skillService.getSkill().subscribe({
       next: (dataResponse: ResponseDto) => {
+        this.spinnerService.hide();
         console.log(dataResponse)
         this.dataSource.data = dataResponse.result;
 
       }, error: (e) => {
         console.log('ocurrio un error inesperado')
+        this.spinnerService.hide();
       }
 
     })

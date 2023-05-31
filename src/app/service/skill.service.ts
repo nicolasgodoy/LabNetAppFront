@@ -15,14 +15,14 @@ export class SkillService {
     url: string = "https://localhost:7059/api/skill";
 
     getSkill(){
-        return this.http.get<ResponseDto>(this.url);
+        return this.http.get<ResponseDto>(this.url + "/GetAll");
     }
 
     AddSkill(addskillDto: AddSkillDto): Observable<AddSkillDto>{
-        return this.http.post<AddSkillDto>(this.url, addskillDto);
+        return this.http.post<AddSkillDto>(this.url + "/Insert", addskillDto);
     }
 
     deleteSkill(id: number){
-        return this.http.delete<Skill>(this.url + `/${id}`);
+        return this.http.delete<Skill>(this.url + `/Delete/${id}`);
     }
 }
