@@ -1,22 +1,3 @@
-<!-- <div class="center">
-    <div class="titles">
-        <h1>Profile-skill works!</h1>
-        <h3>Perfiles coincidentes</h3>
-        {{ listaProfile | json }}
-        <h3>Lista de skills</h3>
-        {{ skills | json }}
-    </div>
-    <!-- hacer metodo que traiga todas la skills -->
-    <!-- <div>
-        <button *ngFor="let skill of listSkills" (click)="AgregarSkills(skill.id)" >{{ skill.description }}</button>
-    </div>
-
-    <div>
-        <button (click)="FilterById(skills)">Consultar</button>
-    </div>
-</div>  -->
-
-
 <mat-sidenav-container class="sidenav-container" autosize>
 	<mat-sidenav #sidenav class="filter-sidenav" mode="side" opened="true">
     <form class="example-form">
@@ -24,18 +5,37 @@
         <mat-label> Filtrar por skill. </mat-label>
         <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let listSkills of filteredOptions | async" [value]="listSkills">
+          <mat-option *ngFor="let listSkills of filteredOptions | async" [value]="listSkills" (click)="AgregarSkills(listSkills)" >
             {{listSkills.description}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="FilterById(skills)">Buscar</button>
+    <div class="button-container">
+      <button mat-raised-button color="primary" class="options-filter" *ngFor="let skill of skills">{{skill.description}}
+        <button class="close-button" (click)="removeSkill(skill)">X</button>
+      </button>
+    </div>
+    <button mat-raised-button color="primary" class="button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
 	</mat-sidenav>
 	<div class="sidenav-content">
-		Selecciones skills para mostrar perfiles.
-    <br>
-    <h3>Perfiles coincidentes</h3>
-    {{ listaProfile | json }}
+    <div *ngIf="listaProfile.length == 0">
+      <h2>Selecciones skills para mostrar perfiles.</h2>
+    </div>
+    <mat-card class="profile-card card-round" *ngFor="let perfil of listaProfile">
+      <mat-card-title-group>
+        <mat-card-title>{{perfil.profile.name}} {{perfil.profile.lastName}}</mat-card-title>
+        <mat-card-subtitle>INFORMACIÓN PERFIL</mat-card-subtitle>
+        <mat-card-subtitle>Mail: {{perfil.profile.mail}}</mat-card-subtitle>
+        <mat-card-subtitle>Teléfono: {{perfil.profile.phone}}</mat-card-subtitle>
+        <mat-card-subtitle class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></mat-card-subtitle>
+        <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+      </mat-card-title-group>
+      <mat-card-content>
+      </mat-card-content>
+      <div>
+        <button mat-raised-button color="primary">Ver Perfil</button>
+      </div>
+    </mat-card>
 	</div>
 </mat-sidenav-container>

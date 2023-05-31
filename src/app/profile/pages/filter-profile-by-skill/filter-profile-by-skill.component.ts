@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfilesService } from '../../services/profiles.service';
 import { ResponseDto } from 'src/app/Response/responseDto';
-import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto';
+import { ProfilesDto } from 'src/app/models/ProfileSkill/ProfilesDto';
 import { Skill } from 'src/app/models/skill';
 import { SkillService } from 'src/app/service/skill.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { ProfilesFilterDto } from 'src/app/models/ProfileSkill/ProfilesFilterDto';
 
 @Component({
   selector: 'app-filter-profile-by-skill',
@@ -15,22 +16,19 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class FilterProfileBySkillComponent implements OnInit {
 
-  listaProfile: ProfileDto[] = [];
-  // ids skills
-  skills: number[] = [];
+  listaProfile: ProfilesFilterDto[] = [];
+
+  skills: Skill[] = [];
 
   isExpanded = true;
   isShowing = false;
   myControl = new FormControl();
   filteredOptions: Observable<Skill[]> = new Observable<Skill[]>();
 
-  listSkills:Skill[] = [
-    {id:1,description:'.NET'},
-    {id:2,description:'JS'},
-    {id:3,description:'CORRER'}
-  ];
+  listSkills:Skill[] = [];
 
-  constructor(private profileService:ProfilesService,private skillService: SkillService,) { }
+  constructor(private profileService:ProfilesService,private skillService: SkillService,) {
+  }
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -38,13 +36,18 @@ export class FilterProfileBySkillComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filter(name) : this.listSkills.slice())),
     );
+    this.loadSkills();
   }
 
-  FilterById(skills:number[]){
+  FilterById(skills:Skill[]){
+    const idSkills: number [] = []
+    skills.forEach((s)=>{
+      idSkills.push(s.id)
+    })
     skills = skills.filter((s,index)=>{
       return skills.indexOf(s)=== index;
     })
-    this.profileService.FilterBySkills(skills).subscribe({
+    this.profileService.FilterBySkills(idSkills).subscribe({
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
           console.log(dataResponse.result)
@@ -52,23 +55,43 @@ export class FilterProfileBySkillComponent implements OnInit {
         }else
           console.error(dataResponse.message);
       }, error: (e) => {
-        console.log('ocurrio un error inesperado')
+        console.log('No se pudo cargar los perfiles')
         }
       }
     )
   }
 
-  AgregarSkills(id:number){
-    this.skills.push(id);
+  loadSkills() {
+    this.skillService.getSkill().subscribe({
+      next: (dataResponse: ResponseDto) => {
+        if (dataResponse.isSuccess) {
+          console.log(dataResponse.result)
+          this.listSkills = dataResponse.result;
+        }else
+          console.error(dataResponse.message);
+      }, error: (e) => {
+        console.log('Error al cargar skills.')
+        }
+      }
+    )
   }
 
-  displayFn(skill: Skill): string {
-    return skill && skill.description ? skill.description : '';
+  AgregarSkills(skill:Skill){
+    if(!this.skills.find(sk => sk.id === skill.id)){
+      this.skills.push(skill);
+    }
+  }
+
+  removeSkill(skill: Skill) {
+    this.skills = this.skills.filter(s => s !== skill);
+  }
+
+  displayFn(): string {
+    return '';
   }
 
   private _filter(name: string): Skill[] {
     const filterValue = name.toLowerCase();
-
     return this.listSkills.filter(listSkills => listSkills.description.toLowerCase().includes(filterValue));
   }
 
