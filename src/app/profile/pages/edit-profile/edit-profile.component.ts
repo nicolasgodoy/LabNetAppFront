@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProfilesService } from '../../../service/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
@@ -18,6 +18,8 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class EditProfileComponent implements OnInit {
+
+  disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree' , 
@@ -54,6 +56,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.listaProfileWork.push(this.profileWork);
 
     this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -72,7 +75,6 @@ export class EditProfileComponent implements OnInit {
         fechaNacimiento: [{ value: "", disabled: true }],
         email: [{ value: "", disabled: true }],
         description: [{ value: "", disabled: false }],
-        adress: [{ value: "", disabled: false }],
         jobPosition: [{ value: "", disabled: false }],
         phone: [{ value: "", disabled: false }],
         photoProfile: [""],
@@ -91,7 +93,6 @@ export class EditProfileComponent implements OnInit {
         description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
         // photoProfile: [{ value: "", disabled: true }],
-        adress: [{ value: "", disabled: true }],
         jobPosition: [{ value: "", disabled: true }],
         cv: [{ value: "", disabled: true }],
         trabajo: [{ value: "", disabled: true }],
@@ -108,7 +109,8 @@ export class EditProfileComponent implements OnInit {
         this.profileEditDto = data.result;
 
         this.listaProfileWork = this.profileEditDto.workEntities;
-        this.listaProfileEducation = this.profileEditDto.educationEntities;
+        console.log(this.profileEditDto.idJobPosition);
+        // this.listaProfileEducation = this.profileEditDto.educationEntities;
 
         this.imgPerfil = this.profileEditDto.photo;
 
@@ -120,8 +122,9 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
-        this.formulario.controls['adress'].setValue(this.profileEditDto.adressDescription);
-        this.formulario.controls['jobPosition'].setValue(this.profileEditDto.jobPositionDescription);
+        this.formulario.controls['jobPosition']
+        .setValue(this.profileEditDto.idJobPosition.toString());
+        console.log(this.formulario.value.jobPosition);
       }
     });
   }
@@ -143,9 +146,8 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.birthDate = this.formulario.value.fechaNacimiento;
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
-
-      this.profileEditDto.adressDescription =this.formulario.value.adress;
-      this.profileEditDto.jobPositionDescription =this.formulario.value.jobPosition;
+      
+      this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
 
       this.profileEditDto.phone = String(this.formulario.value.phone);
       this.profileEditDto.photo = this.formulario.value.photoProfile;
