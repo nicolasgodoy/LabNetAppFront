@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { ProfilesService } from 'src/app/profile/services/profiles.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +14,8 @@ import { Skill } from 'src/app/models/skill';
 })
 export class ProfileSkillComponent implements OnInit {
 
-  idProfile:number = 3;// obtener de la view
+  @Input()
+  idProfile:number = 3;// obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
   public dataSource: any;
   displayedColumns: string[] = ['Skill','Acciones'];
   listProfileSkill: Skill[] = [];
@@ -35,7 +36,7 @@ export class ProfileSkillComponent implements OnInit {
           this.alert(res.message);
           this.GetProfileSkill(this.idProfile);
         },
-        error:() =>  this.alert('ocurrio un error inesperado')
+        error:() =>  this.alert('error en eliminar skill')
       }
     )
   }
@@ -48,7 +49,7 @@ export class ProfileSkillComponent implements OnInit {
           this.listProfileSkill = dataResponse.result;
         }
       },
-      error: () => this.alert('ocurrio un error inesperado')
+      error: () => this.alert('error en carga de skills')
     })
   }
   openDialog(id:number): void {
