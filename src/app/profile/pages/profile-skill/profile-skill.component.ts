@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { ProfilesService } from 'src/app/service/profiles.service';
-import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto'
+import {MatDialog} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ResponseDto } from 'src/app/Response/responseDto';
-
-// remplazar cuando se tenga la skill real
-interface Skill {
-  id: number;
-  name: string;
-}
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { DialogAddSkillComponent } from './dialog-add-skill/dialog-add-skill.component';
+import { Skill } from 'src/app/models/skill';
 
 @Component({
   selector: 'app-profile-skill',
@@ -16,66 +14,72 @@ interface Skill {
 })
 export class ProfileSkillComponent implements OnInit {
 
-  listSkills:Skill[] = [
-    {id:1,name:'.NET'},
-    {id:2,name:'JS'},
-    {id:3,name:'CORRER'}];
+  @Input()
+  idProfile:number = 3;// obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  public dataSource: any;
+  displayedColumns: string[] = ['Skill','Acciones'];
+  listProfileSkill: Skill[] = [];
 
-  listaProfile: ProfileDto[] = [];
-  skills: number[] = [];
-  response?: ResponseDto;
-  constructor(private profileService:ProfilesService) { }
+  constructor(private profileService:ProfilesService,
+    public dialog: MatDialog,
+    private snack:MatSnackBar,
+    ) { }
 
   ngOnInit(): void {
+    this.GetProfileSkill(this.idProfile);
   }
 
-  FilterById(skills:number[]){
-    this.profileService.FilterBySkills(skills).subscribe(
-
-      (response: ResponseDto) => {
-        console.log(response);//que pasaaaa
-       // console.log(response.IsSuccess);
-       // console.log(response.Message);
-       // console.log(response.Result);
-
-        // if (response.IsSuccess) {
-        //   const result: object = response.Result;
-        //   console.log(response);
-        //   console.log('Result:', result);
-        // } else {
-        //   console.error('Error:', response.Message);
-        // }
-      },
-      error => {
-        console.error('Error en la solicitud:', error);
+  DeleteSkillToProfile(idProfile:number,idSkill:number){
+    this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
+      {
+        next:(res)=> {
+          this.alert(res.message);
+          this.GetProfileSkill(this.idProfile);
+        },
+        error:() =>  this.alert('error en eliminar skill')
       }
-
-      // res => {
-      //   // this.listaProfile = res.Result.map(p => ({
-      //   //   name: p.name,
-      //   //   lastName: p.lastName,
-      //   //   email : p.email
-      //   // }));
-      //   // this.listaProfile = res.Result.map(p => p)
-      //   this.response = res;
-      // }
     )
   }
-  //metodo de prueba
-  AgregarSkills(id:number){
-    this.skills.push(id);
-  }
 
-
-  AddSkillToProfile(){
-    //obtener idProfile, de la url; obtener idSkill
-    // crear AddProfileSkillDto
-    //this.profileService.AddSkillToProfile().subscribe()
-  }
-  
   GetProfileSkill(id:number){
-    this.profileService.GetProfileSkill(id).subscribe(res=>{
-      //this.listSkills = res;
+    this.profileService.GetProfileSkill(id).subscribe({
+      next: (dataResponse: ResponseDto) => {
+        if (dataResponse.isSuccess) {
+          this.dataSource = dataResponse.result;
+          this.listProfileSkill = dataResponse.result;
+        }
+      },
+      error: () => this.alert('error en carga de skills')
     })
   }
+  openDialog(id:number): void {
+
+    if (id) {
+      const dialogoref = this.dialog.open(DialogDeleteComponent, {
+        width: '350px'
+      });
+      dialogoref.afterClosed().subscribe(res=>{
+        res && this.DeleteSkillToProfile(this.idProfile,id);
+      })
+    }else{
+      const dialogoref = this.dialog.open(DialogAddSkillComponent, {
+        data: { id:this.idProfile, list:this.listProfileSkill },
+        panelClass: 'dialog'
+      });
+      dialogoref.afterClosed().subscribe(res=>{
+        if(res)
+          this.alert(res);
+          this.GetProfileSkill(this.idProfile);
+      })
+    }
+  }
+
+  alert(msj:string){
+    this.snack.open(msj,'',{
+      duration:3000,
+      horizontalPosition:'right',
+      verticalPosition:'top'
+    });
+  }
 }
+

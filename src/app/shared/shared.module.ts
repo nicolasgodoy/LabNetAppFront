@@ -17,6 +17,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import{NgxSpinnerModule} from'ngx-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 const modulosMaterial = [
@@ -38,6 +41,9 @@ const modulosMaterial = [
   MatOptionModule,
   MatSelectModule,
   NgxSpinnerModule,
+  MatAutocompleteModule,
+  MatTooltipModule,
+  MatToolbarModule,
 ]
 
 @NgModule({
@@ -63,7 +69,7 @@ const modulosMaterial = [
       provide: MatDialogRef,
       useValue: {}
       },
-  
+
       {
         provide: MAT_DIALOG_DATA,
         useValue: {}

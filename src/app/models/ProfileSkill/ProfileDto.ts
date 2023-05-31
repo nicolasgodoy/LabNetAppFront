@@ -1,8 +1,10 @@
+import { Skill } from "../skill";
+
 export interface ProfileDto{
     id?: number;
     name?:string;
     lastName?:string;
-    email?:string;
-    document:string;
-    birthdate:Date;
+    mail?:string;
+    phone?:string;
+    skill: Skill[];
 }

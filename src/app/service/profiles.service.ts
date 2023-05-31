@@ -20,10 +20,9 @@ export class ProfilesService {
   constructor(private http: HttpClient) { }
 
   public FilterBySkills(ListId:number[]): Observable<ResponseDto>{
-    let url = this.apiUrl + this.endPoint + "/FilterSkills?";
 
+    let url = this.apiUrl + this.endPoint + "/FilterSkills?";
     ListId.forEach(id => url += `skills=${id}&`)
-    console.log(url);
 
     return this.http.get<ResponseDto>(url);
   }
@@ -34,14 +33,14 @@ export class ProfilesService {
   }
 
 
-  // public deleteEmploye(ProfileSkill:AddProfileSkillDto): Observable<ResponseDto>{
-  //   let url = this.apiUrl + this.endPoint + "/DeleteSkillToProfile";
-  //   return this.http.delete<ResponseDto>(url,ProfileSkill);
-  // }
+  public deleteEmploye(idProfile:number,idSkill:number): Observable<ResponseDto>{
+    let url = this.apiUrl + this.endPoint + `/DeleteSkillToProfile/${idProfile}/${idSkill}`;
+    return this.http.delete<ResponseDto>(url);
+  }
 
-  public GetProfileSkill(id:number):Observable<number[]>{
-    let url = this.apiUrl + this.endPoint + `/${id}`;
-    return this.http.get<number[]>(url);
+  public GetProfileSkill(id:number):Observable<ResponseDto>{
+    let url = this.apiUrl + this.endPoint + `/GetProfileSkill/${id}`;
+    return this.http.get<ResponseDto>(url);
   }
 
 

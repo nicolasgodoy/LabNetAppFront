@@ -1,40 +1,34 @@
-<div class="center">
-    <div class="titles">
-        <h1>Profile-skill works!</h1>
-        <h3>Perfiles coincidentes</h3>
-        {{ response | json }}
-        <h3>Lista de skills</h3>
-        {{ skills | json }}
-    </div>
-    
-    <div>
-        <button *ngFor="let skill of listSkills" (click)="AgregarSkills(skill.id)" >{{ skill.name }}</button>
-    </div>
+<div class="container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <div>
-        <button (click)="FilterById(skills)">Consultar</button>
-    </div>
-</div>
-
-<div class="center">
-    <div class="add_skill_profile center">
-        <h1>Agregar skill a perfil</h1>
-        <div>
-            <button mat-fab  color="primary" matTooltip="delete skill de perfil">
+        <ng-container matColumnDef="Skill">
+          <th mat-header-cell *matHeaderCellDef>SKILL</th>
+          <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="Acciones" >
+          <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
+            <button class="btn" mat-fab color="primary" matTooltip="add skill to profile" (click)="openDialog(0)">
+              <mat-icon>add</mat-icon>
+          </button>
+            <!-- <button class="btn" mat-raised-button color="primary" [disabled]="" routerLink="/">Add Skill</button> -->
+          </th>
+          <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
+              <!-- <a *ngIf="true" mat-icon-button (click)="openDialog(element.Id)"  matTooltip="Eliminar empleado">
+                <mat-icon color="warn">delete</mat-icon>
+              </a> -->
+              <button *ngIf="true" mat-mini-fab  color="primary" matTooltip="delete skill de perfil" (click)="openDialog(element.id)">
                 <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-fab color="primary" matTooltip="add skill to profile">
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-        <ul>
-            <!-- Falta un endPoint que traiga todas las skills de profile by id -->
-        <li *ngFor="let skill of listSkills">{{ skill.name }}</li>
-        </ul>
-    </div>
+              </button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+    
 </div>
-
-
 
 
 
