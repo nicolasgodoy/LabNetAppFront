@@ -11,13 +11,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import{NgxSpinnerModule} from'ngx-spinner';
 
 
 const modulosMaterial = [
@@ -32,7 +31,7 @@ const modulosMaterial = [
   MatPaginatorModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatSelectModule
+  MatSelectModule,
   MatCardModule,
   MatDatepickerModule,
   MatNativeDateModule,
