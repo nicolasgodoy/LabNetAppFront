@@ -20,6 +20,7 @@ export class AddProfileComponent implements OnInit {
   idUser: number;
   userObject: User;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -40,8 +41,17 @@ export class AddProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //TODO: RELACIONAR ESTA PAGINA CON LA PAGINA DEL USUARIO
     this.idUser = Number(this.route.snapshot.paramMap.get('id'));
+    const tokenDummy = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.NHVaYe26MbtOYhSKkoKYdFVomg4i8ZJd8_-RU8VNbftc4TSMb4bXP3l3YlNWACwyXPGffz5aXHc6lty1Y2t4SWRqGteragsVdZufDn5BlnJl9pdR_kdVFUsra2rWKEofkZeIC4yWytE58sMIihvo9H1ScmmVwBcQP6XETqYd0aSHp1gOa9RdUPDvoXQ5oqygTqVtxaDr6wUFKrKItgBMzWIdNZ6y7O9E0DhEPTbE9rfBo6KTFsHAZnMg4k68CDp2woYIaXbmYTWcvbzIuHO7_37GT79XdIwkm95QJ7hYC9RiwrV7mesbY4PAahERJawntho0my942XheVLmGwLMBkQ';
+    const decodedJSON = this.DecodeJWT(tokenDummy);
+    const propertiesArray = Object.values(decodedJSON);
+
+    //TEST LOGS
+    console.log(decodedJSON);
+    console.log(propertiesArray);
+
+    const email = this.getValueByKey(decodedJSON, 'admin');
+    console.log(email);
 
   }
 
@@ -78,13 +88,24 @@ export class AddProfileComponent implements OnInit {
   maxDateValidator(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
     const now = new Date();
-
+    
     if (selectedDate > now) {
       return { maxDate: true };
     }
-
     return null;
   }
 
 
+  DecodeJWT(token: string): JSON{
+    const decodedToken =  atob(token.split('.')[1]);
+    const decodedObject =JSON.parse(decodedToken);
+    return decodedObject;
+  }
+
+   getValueByKey = (obj, key) => {
+    if (obj.hasOwnProperty(key)) {
+      return obj[key];
+    }
+    return null;
+  };
 }
