@@ -1,0 +1,45 @@
+/* Eliminar flechas en campo tipo numero */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.titulo {
+
+    text-align: center;
+    font-family: cursive;
+}
+
+.container {
+
+    display: flex;
+    justify-content: center;
+    
+}
+
+.divPadre {
+    
+    display: flex;
+}
+
+.divHijo1 {
+
+    margin: 20px;
+}
+
+.divHijo2 {
+
+    margin: 20px;
+}
+
+.botones {
+
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.botonGuardar {
+    margin-right: 10px;
+}

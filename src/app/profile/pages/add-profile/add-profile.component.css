@@ -1,0 +1,37 @@
+/* Eliminar flechas en campo tipo numero */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#mainCard {
+  margin-top: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  margin-bottom: 2rem;
+}
+
+#formButton {
+  width: 100%;
+  background-color: black;
+  color: white;
+  margin-top: 1rem;
+}
+
+.background {
+  background-color: grey;
+}
+
+.error {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}

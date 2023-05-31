@@ -1,0 +1,194 @@
+<div>
+  <h1 class="titulo">{{titulo}} Perfil</h1>
+</div>
+
+<div class="container">
+
+  <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
+
+    <div class="divPadre">
+      <div style="margin-left: 10px;">
+
+        <div style="width: 100px; height: 100px;">
+          <img
+            style="margin-top: 10px;"
+            alt=""
+            width="100px">
+        </div>
+      </div>
+
+      <div class="divHijo1">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input type="text" matInput formControlName="lastName">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>DNI</mat-label>
+          <input type="text" matInput formControlName="dni">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input type="date" matInput formControlName="fechaNacimiento">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Puesto</mat-label>
+          <input type="text" matInput formControlName="jobPosition">
+        </mat-form-field>
+
+        <div *ngIf="!modify" class="container">
+          <button mat-raised-button>Descargar CV</button>
+        </div>
+
+      </div>
+
+      <div class="divHijo2">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción</mat-label>
+          <input type="text" matInput formControlName="description">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input type="number" matInput formControlName="phone">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Direccion</mat-label>
+          <input type="text" matInput formControlName="adress">
+        </mat-form-field>
+
+        <div class="container" *ngIf="modify">
+          <div style="text-align: center;">
+            <mat-label>Foto de Perfil</mat-label>
+            <br>
+
+            <button style="margin-top: 10px;" type="button" mat-raised-button 
+            (click)="fileInput.click()">
+              Subir imagen
+            </button>
+            <input hidden (change)="captureImg($event)" #fileInput type="file" 
+            formControlName="photoProfile">
+
+          </div>
+        </div>
+
+        <div style="margin: 5px 0px 0px 50px;" *ngIf="previewImg">
+          <div style="width: 100px; height: 100px; background-color: black;">
+            <img width="100px" [src]="previewImg" alt="">
+          </div>
+        </div>
+
+        <br>
+        <div class="container" *ngIf="modify">
+          <div style="text-align: center;">
+            <mat-label>CV</mat-label>
+            <br>
+            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
+              Subir CV</button>
+            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
+
+          </div>
+          <div style="margin-top: 35px; margin-left: 5px;" *ngIf="previewDoc">
+            <label>{{previewName}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="titulo">Trabajo</h1>
+    </div>
+    <div class="container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="comapania">
+          <th mat-header-cell *matHeaderCellDef>Compania</th>
+          <td mat-cell *matCellDef="let element">{{element.company}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td mat-cell *matCellDef="let element">{{element.role}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsWork"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsWork;"></tr>
+      </table>
+      <div style="margin-left: 5px;">
+        <button *ngIf="modify" mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+      <h1 class="titulo">Educacion</h1>
+    </div>
+
+    <div class="container">
+      <table mat-table [dataSource]="dataSourceEducation" class="mat-elevation-z10">
+
+        <ng-container matColumnDef="institutionName">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{element.institutionName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="degree">
+          <th mat-header-cell *matHeaderCellDef>Titulo</th>
+          <td mat-cell *matCellDef="let element">{{element.degree}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="admissionDate">
+          <th mat-header-cell *matHeaderCellDef>Fecha de ingreso</th>
+          <td mat-cell *matCellDef="let element">{{formatoFecha(element.admissionDate)}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="expeditionDate">
+          <th mat-header-cell *matHeaderCellDef>Fecha de egreso</th>
+          <td mat-cell *matCellDef="let element">{{formatoFecha(element.expeditionDate)}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsEducation"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
+      </table>
+      <div style="margin-left: 5px;">
+        <button *ngIf="modify" mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="botones">
+      <button type="submit" *ngIf="modify" class="botonGuardar" 
+        mat-raised-button color="primary">
+        Guardar
+      </button>
+
+      <button *ngIf="modify" routerLink="/consult-profile/3" 
+      mat-raised-button color="warn">Volver
+      </button>
+
+      <button *ngIf="!modify" routerLink="/edit-profile/3" style="margin-left: 5px;" 
+        mat-raised-button color="primary">
+        Editar Perfil
+      </button>
+    </div>
+  </form>
+</div>

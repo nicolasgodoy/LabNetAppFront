@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -14,8 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
-   
-    
+
+
   ],
   imports: [
     BrowserModule,
@@ -23,10 +25,9 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ProfileModule
     SharedModule,
     MatIconModule,
-    
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
