@@ -13,11 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -25,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ProfileModule
+    ProfileModule,
     SharedModule,
     MatIconModule,
   ],

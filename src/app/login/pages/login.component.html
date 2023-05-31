@@ -1,0 +1,30 @@
+
+<form [formGroup]="formLogin"  (ngSubmit)="logUser()">
+    <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="userName">
+          <mat-error *ngIf="formLogin.get('userName')?.hasError('required') && formLogin.get('userName')?.touched">
+            El Usuario <strong>es requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="formLogin.get('userName')?.hasError('pattern') && formLogin.get('userName')?.touched">
+            El Usuario <strong>debe ser valido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password">
+          <mat-error *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched">
+            El password <strong>es requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="formLogin.get('password')?.hasError('pattern') && formLogin.get('password')?.touched">
+            El Password debe tener al menos 8 caracteres una mayuscula, una minuscula y un caracter especial
+          </mat-error>
+        </mat-form-field>
+      </div>
+    <button  type="submit" class="Guardar" mat-button color="primary">Login</button>
+    <button class="Volver" [routerLink]="['../Login']" mat-button color="accent" type="button">Volver</button>
+</form>
