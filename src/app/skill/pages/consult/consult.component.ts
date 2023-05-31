@@ -135,7 +135,7 @@ export class ConsultComponent implements OnInit {
       if (resultado === "eliminar") {
         this.skillService.deleteSkill(dataSkill.id).subscribe({
           next: (data) => {
-            this.mensajeAlerta("Customer Eliminado Correctamente!!", "Listo")
+            this.mensajeAlerta("Skill Eliminado Correctamente!!", "Listo")
             this.mostrarSkill();
           },
           error: (e) => { this.mensajeAlerta("Ocurrio un error al Eliminar", "cerrar") }

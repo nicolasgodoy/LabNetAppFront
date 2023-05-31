@@ -7,8 +7,9 @@ body {
   font-family: Roboto "Helvetica Neue", sans-serif;
 }
 .mat-elevation-z8 {
-  width: 100%;
-    
+  width: 75%;
+  margin-left:3%;
+  
 }
   
 table{
@@ -19,6 +20,15 @@ table{
   display: flex;
   justify-content: center;
  margin-top: 8%;
+}
+
+.botonNuevaSkill{
+  width: 38%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 
@@ -41,6 +51,11 @@ table{
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+
+mat-form-field{
+  width: 75%;
+  margin-left:3%;
 }
 
 .example-sidenav-content {
