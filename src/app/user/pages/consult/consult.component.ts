@@ -1,8 +1,8 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/models/user';
-import {MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/service/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseDto } from 'src/app/models/response';
@@ -15,18 +15,17 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './consult.component.html',
   styleUrls: ['./consult.component.css']
 })
+
 export class ConsultComponent implements OnInit {
 
-
   dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['Email', 'Rol','Activo','Acciones'];
+  displayedColumns: string[] = ['Email', 'Rol', 'Activo', 'Acciones'];
+
   constructor(
     private auth: AuthService,
-    private _userService: UserService, 
+    private _userService: UserService,
     private dialog: MatDialog
-  
-  ) { 
-    
+  ) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -39,14 +38,12 @@ export class ConsultComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-
   }
 
   showAllUsers() {
     this._userService.getAll().subscribe({
       next: (ResponseDto) => {
         console.log(ResponseDto);
-
         this.dataSource.data = ResponseDto.result as User[];
         console.log(ResponseDto.result as User[]);
       },
@@ -55,22 +52,6 @@ export class ConsultComponent implements OnInit {
       },
     });
   }
-
-  // dialogNewStudent() {
-  //   this.dialog
-  //     .open(Dialog, {
-  //       disableClose: true,
-  //       width: '30%',
-  //     })
-  //     .afterClosed()
-  //     .subscribe((result) => {
-  //       console.warn(result);
-  //       if (result == 'created') {
-  //         this.showAllUsers();
-  //       }
-  //     });
-  // }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

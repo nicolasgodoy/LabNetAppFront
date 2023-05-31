@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ResponseDto } from 'src/app/models/response';
 import { Role } from 'src/app/models/Role';
-
-
-import{User} from 'src/app/models/user'
+import {User} from 'src/app/models/user'
 import { RoleService } from 'src/app/service/role.service';
 import { UserService } from 'src/app/service/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css']
 })
+
 export class AddComponent implements OnInit {
 
   formUser: FormGroup;
@@ -26,22 +24,16 @@ export class AddComponent implements OnInit {
   
   constructor(
     private formB: FormBuilder,
-    private _snackBar: MatSnackBar,
     private _userService: UserService,
     private _roleService: RoleService
   ) { 
-
     this.formUser = this.formB.group({
-      mail: ['', Validators.required],
+      mail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com)$')]],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]],
       idRole: ['', Validators.required]
-  
   });
-
   }
 
-
-  
   addUser(): void {
     if (this.formUser.valid) {
       const newUser: User = {
@@ -53,21 +45,22 @@ export class AddComponent implements OnInit {
 
       this._userService.addUser(newUser).subscribe(
         (response: User) => {
-         
-          this._snackBar.open('Usuario agregado correctamente', 'Cerrar', {
-            duration: 2000
-          });
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregado',
+            text: 'El usuario se agrego con exito!',
+          })
         },
         (error: any) => {
-       
           console.log(error)
-          this._snackBar.open('Error al agregar usuario', 'Cerrar', {
-            duration: 2000
-          });
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El usuario no se pudo agregar!',
+          })
         }
       );
     } else {
-
     }
   }
 
@@ -87,5 +80,4 @@ export class AddComponent implements OnInit {
       },
     });
 }
-
 }

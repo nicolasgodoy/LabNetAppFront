@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultComponent } from './pages/consult/consult.component';
 import { AddComponent } from './pages/add/add.component';
-import { AuthGuard } from '../guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,7 +9,6 @@ const routes: Routes = [
     children: [
       {path: 'consult', component: ConsultComponent},
       {path: 'insert', component: AddComponent}
-      
     ]
   }
 ];
@@ -19,4 +17,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+
 export class UserRoutingModule { }
