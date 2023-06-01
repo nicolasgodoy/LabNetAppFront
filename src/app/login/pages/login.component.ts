@@ -18,14 +18,12 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private route: Router,
     private formB: FormBuilder,
-    private _snackBar: MatSnackBar,
     private profileService: ProfilesService
   ) {
     this.formLogin = this.formB.group({
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]]
     });
-
   }
 
   ngOnInit(): void {
@@ -38,40 +36,37 @@ export class LoginComponent implements OnInit {
        UserName: this.formLogin.value.userName,
        Password: this.formLogin.value.password
       }
+    
+      this.auth.login(uLogin).subscribe({
+      next: (resp) => {
+        if (resp.isSuccess && resp.result.token.length > 2) {
+          const token = this.auth.readToken();
+          const userObject = this.auth.DecodeJWT(token);
+          console.log(userObject);
+          const id = this.auth.getValueByKey(userObject, 'IdUser');
+          console.log(id);
 
-  this.auth.login(uLogin).subscribe({
-        next:(resp) =>{
-          if (resp.isSuccess && resp.result.token.length > 2){
-            const token = this.auth.readToken();
-            const userObject = this.auth.DecodeJWT(token);
-            console.log(userObject);
-            const id = this.auth.getValueByKey(userObject,'IdUser');
-            console.log(id);
-            
-             this.profileService.HasProfile(id).subscribe(
+          this.profileService.HasProfile(id).subscribe(
             res => {
               console.log(res);
               if (res.result)
                 this.route.navigateByUrl('')
               else
-              this.route.navigateByUrl('/add-profile/'+id)
-            }
-          } else {
-            console.log(resp)
-          }
-        },
-        error:(e) => {
-          console.log(e)
-          Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'El usuario no existe!',
-          })
-          this.route.navigateByUrl('/login');
+                this.route.navigateByUrl('/add-profile/' + id)
+            })
         }
-          }
-      })
-    }
-  }
+      },
+      error: (e) => {
+        console.log(e)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'El usuario no existe!',
+        })
+        this.route.navigateByUrl('/login');
+      }
 
+    })
+  }
+  }
 }

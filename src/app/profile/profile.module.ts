@@ -21,7 +21,7 @@ import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
     FilterProfileBySkillComponent,
     DialogDeleteComponent,
     DialogAddSkillComponent,
-    UpdatePasswordProfileComponent
+    UpdatePasswordProfileComponent,
     EditProfilePipePipe
   ],
   imports: [
