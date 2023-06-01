@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
               else
               this.route.navigateByUrl('/add-profile/'+id)
             }
-            
           )
           //this.route.navigateByUrl('/user/insert');
 

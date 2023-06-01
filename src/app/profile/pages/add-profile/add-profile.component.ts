@@ -50,15 +50,8 @@ export class AddProfileComponent implements OnInit {
 
     const token = this.auth.readToken();
     const decodedJSON = this.auth.DecodeJWT(token);
-    const propertiesArray = Object.values(decodedJSON);
-
-    
-    //TEST LOGS
-    console.log(decodedJSON);
-    console.log(propertiesArray);
 
     const email = this.getValueByKey(decodedJSON, 'Email');
-    console.log(email)
     
     if (this.formulario.valid) {
             
@@ -70,8 +63,6 @@ export class AddProfileComponent implements OnInit {
       this.profileObject.dni = this.formulario.value.document;
       this.profileObject.birthDate = this.formulario.value.birthdate;
       this.profileObject.mail = email; 
-
-      console.log('EMAIL: '+email);
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
