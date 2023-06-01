@@ -16,6 +16,9 @@ export class ProfileSkillComponent implements OnInit {
 
   @Input()
   idProfile?:number; // obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  
+  @Input()
+  modify:boolean = true;
   public dataSource: any;
   displayedColumns: string[] = ['Skill','Acciones'];
   listProfileSkill: Skill[] = [];
