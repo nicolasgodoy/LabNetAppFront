@@ -7,8 +7,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'consult', component: ConsultComponent}
-      
+      {path: 'consult', component: ConsultComponent},
     ]
   }
 ]
@@ -18,5 +17,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild( routes )
   ]
+  
 })
 export class SkillRoutingModule { }

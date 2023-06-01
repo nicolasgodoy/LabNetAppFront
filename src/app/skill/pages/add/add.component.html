@@ -1,9 +1,9 @@
-<h1 style="font-size:1.7rem;" mat-dialog-title>Agregar Skill</h1>
+<h1 class="titulo_skill" mat-dialog-title>Agregar Skill</h1>
 <div mat-dialog-content>
      <form [formGroup]="formSkill">
-        <mat-grid-list style="width:350px" cols="1" rowHeight="120px">
+        <mat-grid-list cols="1" rowHeight="120px">
             <mat-grid-tile>
-                <div style="width:350px" rowHeight="100px">
+                <div rowHeight="">
                     <mat-form-field appearance="outline">
                         <mat-label>Descripcion</mat-label>
                         <input formControlName="description" style="font-size:1.5rem;" matInput
@@ -20,9 +20,9 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Close</button>
+    <button [routerLink]="['../consult']" mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Volver</button>
     <button mat-raised-button style="font-size:1.2rem;width:150px;" color="primary" [disabled]="formSkill.invalid"
-        (click)="AddSkills()">{{botonAccion}}
+        (click)="AddSkills()">Guardar
 
     </button>
 </div>

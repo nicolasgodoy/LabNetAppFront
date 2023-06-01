@@ -5,14 +5,14 @@ import { AddComponent } from './pages/add/add.component';
 import { SkillRoutingModule } from './skill-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { DeleteComponent } from './pages/delete/delete.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [
     ConsultComponent,
     AddComponent,
-    DeleteComponent
+    
     
   ],
   imports: [
@@ -20,7 +20,7 @@ import { DeleteComponent } from './pages/delete/delete.component';
     SkillRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-   
+    RouterModule
   ]
 })
 export class SkillModule { }
