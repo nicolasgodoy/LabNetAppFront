@@ -65,7 +65,6 @@ export class FilterProfileBySkillComponent implements OnInit {
     this.skillService.getSkill().subscribe({
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
-          console.log(dataResponse.result)
           this.listSkills = dataResponse.result;
         }else
           console.error(dataResponse.message);
