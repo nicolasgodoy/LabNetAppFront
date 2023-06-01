@@ -2,13 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/models/user';
-import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/service/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ResponseDto } from 'src/app/models/response';
+import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth.service';
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consult',
@@ -19,14 +16,19 @@ import { AuthService } from 'src/app/service/auth.service';
 export class ConsultComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['Email', 'Rol', 'Activo', 'Acciones'];
+  displayedColumns: string[] = ['Id','Email', 'Rol', 'Activo', 'Acciones'];
+  showIdColumn:boolean;
+
+
 
   constructor(
-    private auth: AuthService,
     private _userService: UserService,
-    private dialog: MatDialog
+    private _authService: AuthService,
+    private _router: Router
   ) {
     this.dataSource = new MatTableDataSource();
+    this.showIdColumn= false;
+    
   }
 
   ngOnInit(): void {
@@ -58,4 +60,59 @@ export class ConsultComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  confirmDelete(user:User){
+    console.log(user,user.id),
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: `Esta a punto de Eliminar el Usuario : ${user.email}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Borralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._userService.deleteUser(user.id).subscribe({
+          next: (ResponseDto) => {
+            console.log(ResponseDto);
+            Swal.fire(
+              'Eliminado!',
+              'El Usuario ha sido Eliminado',
+              'success'
+            )
+            this.showAllUsers();
+          
+          },
+          error: (e) => {
+            console.log(e);
+            Swal.fire(
+              'Error!',
+              'No se pudo Eliminar!',
+              'error'
+            )
+          },
+        });
+      }
+    })
+  }
+
+  logout() {
+    Swal.fire({
+      title: 'Cierre de sesión',
+      text: "Seguro que desea cerrar sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._authService.logout();
+        this._router.navigateByUrl('/login');
+      }
+    })
+  }
+  
+    
+  
 }

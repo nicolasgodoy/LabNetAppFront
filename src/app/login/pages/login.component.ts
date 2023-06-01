@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/service/auth.service';
 import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ProfilesService } from 'src/app/service/profiles.service';
 
 @Component({
@@ -33,44 +33,45 @@ export class LoginComponent implements OnInit {
   }
 
   logUser() {
-
     if (this.formLogin.valid) {
       const uLogin: Login = {
-        UserName: this.formLogin.value.userName,
-        Password: this.formLogin.value.password
+       UserName: this.formLogin.value.userName,
+       Password: this.formLogin.value.password
       }
 
-      this.auth.login(uLogin).subscribe(resp => {
-
-        if (resp.isSuccess && resp.result.token.length > 2) {
-
-          //CREAR PERFIL O CONSUTLAR PERFIL
-          const token = this.auth.readToken();
-          const userObject = this.auth.DecodeJWT(token);
-          console.log(userObject);
-
-          const id = this.auth.getValueByKey(userObject,'IdUser');
-          console.log(id);
-          this.profileService.HasProfile(id).subscribe(
+  this.auth.login(uLogin).subscribe({
+        next:(resp) =>{
+          if (resp.isSuccess && resp.result.token.length > 2){
+            const token = this.auth.readToken();
+            const userObject = this.auth.DecodeJWT(token);
+            console.log(userObject);
+            const id = this.auth.getValueByKey(userObject,'IdUser');
+            console.log(id);
+            
+             this.profileService.HasProfile(id).subscribe(
             res => {
               console.log(res);
               if (res.result)
-                this.route.navigateByUrl('/consult-profile/'+id)
+                this.route.navigateByUrl('')
               else
               this.route.navigateByUrl('/add-profile/'+id)
             }
-          )
-          //this.route.navigateByUrl('/user/insert');
-
-        } else {
-          //agregar mensaje 
+          } else {
+            console.log(resp)
+          }
+        },
+        error:(e) => {
+          console.log(e)
+          Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El usuario no existe!',
+          })
           this.route.navigateByUrl('/login');
         }
+          }
       })
-
-
     }
-
   }
 
 }

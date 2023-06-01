@@ -41,10 +41,10 @@ export class AddComponent implements OnInit {
   addUser(): void {
     if (this.formUser.valid) {
       const newUser: User = {
-        Email: this.formUser.value.mail,
-        Password: this.formUser.value.password,
-        IdRole: this.formUser.value.idRole,
-        IsActive: true
+        email: this.formUser.value.mail,
+        password: this.formUser.value.password,
+        idRole: this.formUser.value.idRole,
+        isActive: true
       };
 
       this._userService.addUser(newUser).subscribe(
@@ -54,11 +54,6 @@ export class AddComponent implements OnInit {
             title: 'Agregado',
             text: 'El usuario se agrego con exito!',
           })
-          const token = this._auth.readToken();
-          const userObject = this._auth.DecodeJWT(token);
-          const id = this._auth.getValueByKey(userObject,'IdUser');
-
-          this.route.navigateByUrl('/add-profile/'+id);
         },
         (error: any) => {
           console.log(error)

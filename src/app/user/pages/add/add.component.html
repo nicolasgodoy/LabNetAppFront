@@ -1,6 +1,6 @@
-<h1 style="font-size:1.7rem;" mat-dialog-title>Agregar Usuario</h1>
+<h1 class="tituloAdd" mat-dialog-title>Agregar Usuario</h1>
 <div mat-dialog-content>
-
+  <div class="mat-elevation-z8">
     <form [formGroup]="formUser"  (ngSubmit)="addUser()">
         <div class="form-field">
             <mat-form-field appearance="fill">
@@ -49,5 +49,5 @@
         <button class="Volver" [routerLink]="['../consult']" mat-button color="accent" type="button">Volver</button>
         <!-- <button class="Volver" routerLink="listEmpleados" mat-button color="accent">Volver</button> -->
     </form>
-
+  </div>
 </div>

@@ -1,0 +1,37 @@
+.mat-column-Id {
+    display: none;
+  }
+
+  .mat-column-Email {
+    width: 25%; 
+  }
+
+  .mat-column-Rol {
+    width: 25%; 
+  }
+  .mat-column-Activo {
+    width: 25%; 
+  }
+  .mat-column-Acciones {
+    width: 10%; 
+  }
+.mat-elevation-z8{
+  
+    padding: 3%;
+    margin-left: 10%;
+    width: 75%;
+ }
+
+ .filtro{
+    margin-left: 10%;
+ }
+
+ .topTabla{
+    display: flex;
+    justify-content: space-between;
+ }
+ .insertar{
+    margin-right:10%;
+    padding-top: 18px;
+ }
+

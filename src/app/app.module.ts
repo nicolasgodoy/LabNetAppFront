@@ -12,7 +12,6 @@ import { EditProfilePipePipe } from './edit-profile-pipe.pipe';
 import { ProfileModule } from './profile/profile.module';
 import { HomeComponent } from './home/home.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
