@@ -180,11 +180,14 @@
         Guardar
       </button>
 
-      <button *ngIf="modify" routerLink="/consult-profile/3" 
-      mat-raised-button color="warn">Volver
+      <button *ngIf="modify" [routerLink]="['/consult-profile/', idUser]" 
+        routerLinkActive="router-link-active" 
+        mat-raised-button color="warn">Volver
       </button>
 
-      <button *ngIf="!modify" routerLink="/edit-profile/3" style="margin-left: 5px;" 
+      <button *ngIf="!modify" [routerLink]="['/edit-profile/', idUser]" 
+        routerLinkActive="router-link-active" 
+        style="margin-left: 5px;" 
         mat-raised-button color="primary">
         Editar Perfil
       </button>
