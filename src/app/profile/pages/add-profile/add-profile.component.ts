@@ -6,7 +6,7 @@ import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
-
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-profile',
@@ -28,7 +28,8 @@ export class AddProfileComponent implements OnInit {
     private service: ProfilesService,
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private spinnerService : NgxSpinnerService
   ) {
 
     this.formulario = this.formBuilder.group({
@@ -69,14 +70,18 @@ export class AddProfileComponent implements OnInit {
           this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 10000 });
 
           //WAIT TO INSERT
-          setTimeout( () => { this.router.navigate(['consult-profile/' + this.idUser])},
-          30000 );
+          this.spinnerService.show();
+          setTimeout( () => { 
+            this.spinnerService.hide();
+            this.router.navigate(['consult-profile/' + this.idUser])},
+          2000);
          
         },
         error: (error) => {
           console.log(error);
           this._snackBar.open("No se pudo enviar el formulario, intentelo de nuevo mas tarde.",
-            undefined, { duration: 30000 });
+            undefined, { duration: 2000 });
+          this.spinnerService.hide();
         }
       });
     }
