@@ -49,18 +49,19 @@ export class AddProfileComponent implements OnInit {
   onSubmit(): void {
 
     const token = this.auth.readToken();
-    const tokenDummy = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.NHVaYe26MbtOYhSKkoKYdFVomg4i8ZJd8_-RU8VNbftc4TSMb4bXP3l3YlNWACwyXPGffz5aXHc6lty1Y2t4SWRqGteragsVdZufDn5BlnJl9pdR_kdVFUsra2rWKEofkZeIC4yWytE58sMIihvo9H1ScmmVwBcQP6XETqYd0aSHp1gOa9RdUPDvoXQ5oqygTqVtxaDr6wUFKrKItgBMzWIdNZ6y7O9E0DhEPTbE9rfBo6KTFsHAZnMg4k68CDp2woYIaXbmYTWcvbzIuHO7_37GT79XdIwkm95QJ7hYC9RiwrV7mesbY4PAahERJawntho0my942XheVLmGwLMBkQ';
-    const decodedJSON = this.auth.DecodeJWT(tokenDummy);
+    const decodedJSON = this.auth.DecodeJWT(token);
     const propertiesArray = Object.values(decodedJSON);
 
+    
     //TEST LOGS
     console.log(decodedJSON);
     console.log(propertiesArray);
 
-    const email = this.getValueByKey(decodedJSON, 'email');
-
+    const email = this.getValueByKey(decodedJSON, 'Email');
+    console.log(email)
+    
     if (this.formulario.valid) {
-
+            
       console.log(this.idUser);
 
       this.profileObject.idUser = this.idUser;
@@ -68,14 +69,18 @@ export class AddProfileComponent implements OnInit {
       this.profileObject.lastName = this.formulario.value.lastname;
       this.profileObject.dni = this.formulario.value.document;
       this.profileObject.birthDate = this.formulario.value.birthdate;
-      this.profileObject.mail = email; //DUMMY E-MAIL
+      this.profileObject.mail = email; 
 
-
+      console.log('EMAIL: '+email);
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
           this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 10000 });
-          this.router.navigate(['consult-profile/' + this.idUser]);
+
+          //WAIT TO INSERT
+          setTimeout( () => { this.router.navigate(['consult-profile/' + this.idUser])},
+          30000 );
+         
         },
         error: (error) => {
           console.log(error);

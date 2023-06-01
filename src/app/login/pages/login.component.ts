@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/service/auth.service';
 import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
+import { ProfilesService } from 'src/app/service/profiles.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private route: Router,
     private formB: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfilesService
   ) {
     this.formLogin = this.formB.group({
       userName: ['', Validators.required],
@@ -42,13 +44,34 @@ export class LoginComponent implements OnInit {
 
         if (resp.isSuccess && resp.result.token.length > 2) {
 
-          this.route.navigateByUrl('/user/insert');
+          //CREAR PERFIL O CONSUTLAR PERFIL
+          const token = this.auth.readToken();
+          const userObject = this.auth.DecodeJWT(token);
+          console.log(userObject);
+
+          const id = this.auth.getValueByKey(userObject,'IdUser');
+          console.log(id);
+          this.profileService.HasProfile(id).subscribe(
+            res => {
+              console.log(res);
+              if (res.result)
+                this.route.navigateByUrl('/consult-profile/'+id)
+              else
+              this.route.navigateByUrl('/add-profile/'+id)
+            }
+            
+          )
+          //this.route.navigateByUrl('/user/insert');
 
         } else {
           //agregar mensaje 
           this.route.navigateByUrl('/login');
         }
       })
+
+
     }
+
   }
+
 }
