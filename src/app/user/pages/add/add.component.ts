@@ -49,7 +49,8 @@ export class AddComponent implements OnInit {
             icon: 'success',
             title: 'Agregado',
             text: 'El usuario se agrego con exito!',
-          })
+          }) 
+          
         },
         (error: any) => {
           console.log(error)
