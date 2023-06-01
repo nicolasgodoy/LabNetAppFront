@@ -73,6 +73,11 @@ table{
 
 }
 
+.titulo_skill{
+    font-weight: bolder;
+    text-align: center;
+}
+
 .tituloC {
   color: rgb(0, 0, 0);
 }

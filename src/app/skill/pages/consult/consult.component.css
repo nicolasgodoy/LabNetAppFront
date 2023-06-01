@@ -11,6 +11,11 @@ body {
   margin-left:3%;
   
 }
+
+.titulo_skill{
+    font-weight: bold;
+    text-align: center;
+}
   
 table{
   width: 100%;
