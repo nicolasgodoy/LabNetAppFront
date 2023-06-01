@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consult',
@@ -21,9 +23,12 @@ export class ConsultComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
+    private _authService: AuthService,
+    private _router: Router
   ) {
     this.dataSource = new MatTableDataSource();
     this.showIdColumn= false;
+    
   }
 
   ngOnInit(): void {
@@ -91,4 +96,13 @@ export class ConsultComponent implements OnInit {
     })
   }
 
+  Logout(){
+    this._authService.logout();
+   
+    this._router.navigateByUrl('/login');
+    
+
+
+    
+  }
 }

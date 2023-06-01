@@ -19,6 +19,14 @@ export class AuthService {
     this.readToken()
   }
 
+
+  logout() {
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresIn');
+    }
+  }
+
   login(user: Login) {
     return this.http.post<ResponseDto>(`${this.url}/login`, user)
       .pipe(

@@ -1,0 +1,39 @@
+.carta{
+    width: 15%;
+    margin-left: 40%;
+    margin-top: 3%;
+}
+
+mat-card-title{
+    text-align: center;
+}
+
+.Guardar{
+    margin-left: 33%;
+    margin-bottom: 10px;
+    background-color: #3F51B5 ;
+
+}
+
+.inputs{
+    width: 100%;
+
+}
+
+.Guardar:hover{
+  
+    background-color: #0d1c6d ;
+
+}
+
+.link{
+    margin-left: 10%;
+    text-decoration: none;
+    font-weight: bolder;
+    color: black;
+    
+}
+
+.link:hover{
+    color: #3F51B5;
+}
