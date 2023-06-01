@@ -4,6 +4,7 @@ import { ProfileSkillComponent } from './pages/profile-skill/profile-skill.compo
 import { AddProfileComponent } from './pages/add-profile/add-profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
+import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
 
 const routes: Routes = [
 
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'filter-profile',
             component: FilterProfileBySkillComponent
+  },
+  {
+    path: 'update-password',
+            component: UpdatePasswordProfileComponent
   }
 
 ];

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProfilesService } from '../../../service/profiles.service';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { WorkDto } from 'src/app/models/Profile/profileWorkDto';
 import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -19,11 +20,13 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class EditProfileComponent implements OnInit {
 
+  disableSelect = new FormControl(false);
+
   displayedColumnsWork: string[] = ['comapania', 'role'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree' , 
   'admissionDate', 'expeditionDate'];
 
-  dataSource = new MatTableDataSource();
+  dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
 
   public titulo : string = "Consultar";
@@ -41,7 +44,8 @@ export class EditProfileComponent implements OnInit {
 
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
-  public imgPerfil : string;
+  public imgProfile : string;
+  public IdProfile: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +53,8 @@ export class EditProfileComponent implements OnInit {
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private auth: AuthService,
+    ) {
   }
 
   ngOnInit(): void {
@@ -60,6 +65,7 @@ export class EditProfileComponent implements OnInit {
 
     this.modify = this.activatedRoute.snapshot.data['modify'];
 
+    //Para cambiar de componente
     if (this.modify) {
 
       this.titulo = "Editar";
@@ -72,7 +78,6 @@ export class EditProfileComponent implements OnInit {
         fechaNacimiento: [{ value: "", disabled: true }],
         email: [{ value: "", disabled: true }],
         description: [{ value: "", disabled: false }],
-        adress: [{ value: "", disabled: false }],
         jobPosition: [{ value: "", disabled: false }],
         phone: [{ value: "", disabled: false }],
         photoProfile: [""],
@@ -90,28 +95,30 @@ export class EditProfileComponent implements OnInit {
         email: [{ value: "", disabled: true }],
         description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
-        // photoProfile: [{ value: "", disabled: true }],
-        adress: [{ value: "", disabled: true }],
+        photoProfile: [{ value: "", disabled: true }],
         jobPosition: [{ value: "", disabled: true }],
         cv: [{ value: "", disabled: true }],
         trabajo: [{ value: "", disabled: true }],
       });
     }
 
+    //Cargar el component consultProfile con los datos
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data : ResponseDto) => {
 
-        this.dataSource.data = data.result.workEntities;
+        this.dataSourceWork.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;
 
         this.profileEditDto = data.result;
 
-        this.listaProfileWork = this.profileEditDto.workEntities;
-        this.listaProfileEducation = this.profileEditDto.educationEntities;
+       this.IdProfile = this.profileEditDto.idProfile;
+      console.log(this.IdProfile);
 
-        this.imgPerfil = this.profileEditDto.photo;
+        this.imgProfile =  this.profileEditDto.photo;
+        console.log(this.imgProfile);
 
+        //Establecer los valores del formulario
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
@@ -120,17 +127,10 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
-        this.formulario.controls['adress'].setValue(this.profileEditDto.adressDescription);
-        this.formulario.controls['jobPosition'].setValue(this.profileEditDto.jobPositionDescription);
+        this.formulario.controls['jobPosition']
+        .setValue(this.profileEditDto.idJobPosition.toString());
       }
     });
-  }
-
-  formatoFecha (fechaConvertir: Date): string {
-
-    const fecha = new Date(fechaConvertir);
-    const formatoFinal = fecha.toISOString().split('T')[0];
-    return formatoFinal;
   }
 
   editarPerfil() {
@@ -143,17 +143,17 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.birthDate = this.formulario.value.fechaNacimiento;
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
-
-      this.profileEditDto.adressDescription =this.formulario.value.adress;
-      this.profileEditDto.jobPositionDescription =this.formulario.value.jobPosition;
+      
+      this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
 
       this.profileEditDto.phone = String(this.formulario.value.phone);
+      //Fekapath problema para guardar en back
       this.profileEditDto.photo = this.formulario.value.photoProfile;
-      this.profileEditDto.cv = this.formulario.value.cv;
 
-      console.log(this.profileEditDto.adressDescription);
-      console.log(this.profileEditDto.jobPositionDescription);
-      console.log(this.profileEditDto);
+      console.log(this.profileEditDto.photo);
+
+      //Fekapath problema para guardar en back
+      this.profileEditDto.cv = this.formulario.value.cv;
 
       this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
 
@@ -171,15 +171,22 @@ export class EditProfileComponent implements OnInit {
           console.log(error)
         }
 
-      })
+      });
     }   
     else
     {
 
       this.snackBar.open('Formulario no valido , verifique los campos', undefined, {
         duration: 3000
-      })
+      });
     }
+  }
+
+  formatoFecha (fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
   }
 
   //Para los Archivos de IMG
@@ -190,8 +197,7 @@ export class EditProfileComponent implements OnInit {
       .then((img: any) => {
 
         this.previewImg = img.base;
-        console.log(img);
-      })
+      });
     this.files.push(archivoCapturado);
     console.log();
   }

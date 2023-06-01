@@ -1,9 +1,11 @@
 
-<form [formGroup]="formLogin"  (ngSubmit)="logUser()">
+<mat-card class="carta">
+    <form [formGroup]="formLogin"  (ngSubmit)="logUser()">
+    <mat-card-title>Ingresar</mat-card-title>
     <div class="form-field">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="inputs" appearance="fill">
           <mat-label>Usuario</mat-label>
-          <input matInput formControlName="userName">
+          <input  matInput formControlName="userName">
           <mat-error *ngIf="formLogin.get('userName')?.hasError('required') && formLogin.get('userName')?.touched">
             El Usuario <strong>es requerido</strong>
           </mat-error>
@@ -14,7 +16,7 @@
       </div>
 
       <div class="form-field">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="inputs" appearance="fill">
           <mat-label>Password</mat-label>
           <input matInput formControlName="password" type="password">
           <mat-error *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched">
@@ -25,6 +27,9 @@
           </mat-error>
         </mat-form-field>
       </div>
-    <button  type="submit" class="Guardar" mat-button color="primary">Login</button>
-    <button class="Volver" [routerLink]="['../Login']" mat-button color="accent" type="button">Volver</button>
-</form>
+      <button  type="submit" class="Guardar" mat-raised-button color="primary">Login</button>   
+    </form>
+     <a href="" class="link">Olvidaste tu Contraseña?</a>
+    </mat-card>
+    
+

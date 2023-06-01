@@ -19,23 +19,24 @@
     <button mat-raised-button color="primary" class="button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
 	</mat-sidenav>
 	<div class="sidenav-content">
+    <h1 class="center-horizontally">BUSQUEDA DE PERFILES</h1>
     <div *ngIf="listaProfile.length == 0">
-      <h2>Selecciones skills para mostrar perfiles.</h2>
+      <h2 class="center-vertically">Selecciones skills para mostrar perfiles.</h2>
     </div>
-    <mat-card class="profile-card card-round" *ngFor="let perfil of listaProfile">
-      <mat-card-title-group>
-        <mat-card-title>{{perfil.profile.name}} {{perfil.profile.lastName}}</mat-card-title>
-        <mat-card-subtitle>INFORMACIÓN PERFIL</mat-card-subtitle>
-        <mat-card-subtitle>Mail: {{perfil.profile.mail}}</mat-card-subtitle>
-        <mat-card-subtitle>Teléfono: {{perfil.profile.phone}}</mat-card-subtitle>
-        <mat-card-subtitle class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></mat-card-subtitle>
-        <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-      </mat-card-title-group>
-      <mat-card-content>
-      </mat-card-content>
-      <div>
-        <button mat-raised-button color="primary">Ver Perfil</button>
-      </div>
-    </mat-card>
+    <div *ngIf="listaProfile.length != 0">
+      <mat-card class="profile-card card-round" *ngFor="let perfil of listaProfile">
+        <mat-card-title-group>
+          <mat-card-title>{{perfil.profile.name}} {{perfil.profile.lastName}}</mat-card-title>
+          <mat-card-subtitle>INFORMACIÓN PERFIL</mat-card-subtitle>
+          <mat-card-subtitle>Mail: {{perfil.profile.mail}}</mat-card-subtitle>
+          <mat-card-subtitle>Teléfono: {{perfil.profile.phone}}</mat-card-subtitle>
+          <mat-card-subtitle class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></mat-card-subtitle>
+          <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        </mat-card-title-group>
+        <mat-card-content>
+          <button mat-raised-button color="primary" [routerLink]="['/consult-profile/', perfil.profile.idUser]" routerLinkActive="router-link-active" >Ver Perfil</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
 	</div>
 </mat-sidenav-container>

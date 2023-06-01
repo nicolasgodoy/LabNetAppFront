@@ -1,0 +1,10 @@
+.expample-container{
+  position:relative
+}
+.log-out-button{
+  top: 45vh;
+}
+.foto-perfil {
+  width: 10rem;
+  border-radius: 50%;
+}

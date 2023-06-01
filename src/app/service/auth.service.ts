@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from "rxjs";
 import { Login } from "../models/login";
-import { Token } from "../models/token";
 import { ResponseDto } from '../models/response';
 
 @Injectable({
@@ -17,6 +15,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.readToken()
+  }
+
+
+  logout() {
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresIn');
+    }
   }
 
   login(user: Login) {
@@ -68,6 +74,12 @@ export class AuthService {
     const decodedObject =JSON.parse(decodedToken);
     return decodedObject;
   }
-}
 
+  getValueByKey = (obj, key) => {
+    if (obj.hasOwnProperty(key)) {
+      return obj[key];
+    }
+    return null;
+  };
+}
 
