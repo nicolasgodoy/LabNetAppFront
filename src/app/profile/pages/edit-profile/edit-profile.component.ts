@@ -9,6 +9,7 @@ import { ResponseDto } from 'src/app/Response/responseDto';
 import { WorkDto } from 'src/app/models/Profile/profileWorkDto';
 import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -51,7 +52,9 @@ export class EditProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private auth: AuthService,
+    ) {
   }
 
   ngOnInit(): void {
