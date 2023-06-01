@@ -34,10 +34,8 @@
           <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
         </mat-card-title-group>
         <mat-card-content>
+          <button mat-raised-button color="primary" [routerLink]="['/consult-profile/', perfil.profile.idUser]" routerLinkActive="router-link-active" >Ver Perfil</button>
         </mat-card-content>
-        <div>
-          <button mat-raised-button color="primary">Ver Perfil</button>
-        </div>
       </mat-card>
     </div>
 	</div>
