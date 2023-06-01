@@ -43,7 +43,8 @@ export class EditProfileComponent implements OnInit {
 
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
-  public imgPerfil : string;
+  public imgProfile : string;
+  public IdProfile: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -108,8 +109,11 @@ export class EditProfileComponent implements OnInit {
 
         this.profileEditDto = data.result;
 
-        this.imgPerfil = this.profileEditDto.photo;
-        console.log(this.imgPerfil);
+       this.IdProfile = this.profileEditDto.idProfile;
+      console.log(this.IdProfile);
+
+        this.imgProfile =  this.profileEditDto.photo;
+        console.log(this.imgProfile);
 
         //Establecer los valores del formulario
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
@@ -122,7 +126,6 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
         this.formulario.controls['jobPosition']
         .setValue(this.profileEditDto.idJobPosition.toString());
-        console.log(this.formulario.value.jobPosition);
       }
     });
   }

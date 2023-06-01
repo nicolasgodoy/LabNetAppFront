@@ -7,11 +7,15 @@
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
 
     <div class="divPadre">
-      <div style="margin-left: 10px;">
+
+      <!-- <div style="margin-left: 10px;">
         <div style="width: 100px; height: 100px;">
-          <!-- Imagen perfil -->
           <iframe [src]="imgPerfil | editProfilePipe"></iframe>
         </div>
+      </div> -->
+
+      <div>
+        <img [src]="imgProfile">
       </div>
 
       <div class="divHijo1">
@@ -168,7 +172,7 @@
       </div>
     </div>
 
-<app-profile-skill [idProfile]= 2></app-profile-skill>
+<app-profile-skill *ngIf="IdProfile" [idProfile]= "IdProfile"></app-profile-skill>
 
     <div class="botones">
       <button type="submit" *ngIf="modify" class="botonGuardar" 
