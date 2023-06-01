@@ -8,14 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
-
-
-
-
+import { EditProfilePipePipe } from './edit-profile-pipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    EditProfilePipePipe,
+    
   ],
   imports: [
     BrowserModule,
