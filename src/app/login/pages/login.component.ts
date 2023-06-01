@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/service/auth.service';
 import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -31,28 +32,30 @@ export class LoginComponent implements OnInit {
   }
 
   logUser() {
-
     if (this.formLogin.valid) {
       const uLogin: Login = {
-        UserName: this.formLogin.value.userName,
-        Password: this.formLogin.value.password
+       UserName: this.formLogin.value.userName,
+       Password: this.formLogin.value.password
       }
 
-      this.auth.login(uLogin).subscribe(resp => {
-
-        if (resp.isSuccess && resp.result.token.length > 2) {
-
-          this.route.navigateByUrl('/user/insert');
-
-        } else {
-          //agregar mensaje 
+      this.auth.login(uLogin).subscribe({
+        next:(resp) =>{
+          if (resp.isSuccess && resp.result.token.length > 2){
+            this.route.navigateByUrl('/user/consult');
+          } else {
+            console.log(resp)
+          }
+        },
+        error:(e) => {
+          console.log(e)
+          Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El usuario no existe!',
+          })
           this.route.navigateByUrl('/login');
-        }
+          }
       })
-
-
     }
-
   }
-
 }
