@@ -9,6 +9,8 @@ import { FormBuilder,FormGroup,FormsModule,Validators } from '@angular/forms';
 import { DialogDeleteComponent } from './pages/profile-skill/dialog-delete/dialog-delete.component';
 import { DialogAddSkillComponent } from './pages/profile-skill/dialog-add-skill/dialog-add-skill.component';
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
+import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
+
 @NgModule({
   declarations: [
     AddProfileComponent,
@@ -16,7 +18,8 @@ import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/f
     ProfileSkillComponent,
     FilterProfileBySkillComponent,
     DialogDeleteComponent,
-    DialogAddSkillComponent
+    DialogAddSkillComponent,
+    EditProfilePipePipe
   ],
   imports: [
     CommonModule,

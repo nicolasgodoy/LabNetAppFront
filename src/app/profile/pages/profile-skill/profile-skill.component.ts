@@ -1,4 +1,4 @@
-import { Component, OnInit,Input} from '@angular/core';
+import { Component, OnChanges, OnInit,Input, SimpleChanges} from '@angular/core';
 import { ProfilesService } from 'src/app/service/profiles.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,8 @@ import { Skill } from 'src/app/models/skill';
 export class ProfileSkillComponent implements OnInit {
 
   @Input()
-  idProfile:number = 3;// obtener de la view - <app-profile-skill [idProfile]= id  [modify]=modify> </app-profile-skill>
+  idProfile?:number; // obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  
   @Input()
   modify:boolean = true;
   public dataSource: any;
@@ -27,8 +28,8 @@ export class ProfileSkillComponent implements OnInit {
     private snack:MatSnackBar,
     ) { }
 
-  ngOnInit(): void {
-    this.GetProfileSkill(this.idProfile);
+    ngOnInit(): void {
+      this.GetProfileSkill(this.idProfile);
   }
 
   DeleteSkillToProfile(idProfile:number,idSkill:number){
