@@ -15,7 +15,7 @@ import { Skill } from 'src/app/models/skill';
 export class ProfileSkillComponent implements OnInit {
 
   @Input()
-  idProfile:number = 3;// obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  idProfile:number = 2;// obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
   public dataSource: any;
   displayedColumns: string[] = ['Skill','Acciones'];
   listProfileSkill: Skill[] = [];

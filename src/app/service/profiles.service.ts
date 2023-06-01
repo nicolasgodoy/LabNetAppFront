@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProfilesDto } from 'src/app/models/ProfileSkill/ProfilesDto';
@@ -9,6 +9,7 @@ import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ProfilesService {
   apiUrl: string = environment.apiLab;
   endPoint: string = 'Profile';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private authService: AuthService) { }
 
   public FilterBySkills(ListId:number[]): Observable<ResponseDto>{
 
@@ -53,6 +55,9 @@ export class ProfilesService {
 
   public GetById(id: number) : Observable<ResponseDto>{
 
+    const userToken = `Bearer ${this.authService.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': userToken });
+        const options = { headers: headers };
     let url = `${this.apiUrl}${this.endPoint}${"/Get/"}${id}`;
     return this.http.get<ResponseDto>(url);
   }

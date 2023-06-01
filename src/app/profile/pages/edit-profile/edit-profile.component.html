@@ -12,7 +12,6 @@
         <div style="width: 100px; height: 100px;">
           <img
             style="margin-top: 10px;"
-            alt=""
             width="100px">
         </div>
       </div>
@@ -48,10 +47,6 @@
             <mat-option value="4">Senior</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <div *ngIf="!modify" class="container">
-          <button mat-raised-button>Descargar CV</button>
-        </div>
 
       </div>
 
@@ -114,7 +109,7 @@
       <h1 class="titulo">Trabajo</h1>
     </div>
     <div class="container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSourceWork" class="mat-elevation-z8">
 
         <ng-container matColumnDef="comapania">
           <th mat-header-cell *matHeaderCellDef>Compania</th>
@@ -130,7 +125,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsWork;"></tr>
       </table>
       <div style="margin-left: 5px;">
-        <button *ngIf="modify" mat-fab color="primary">
+        <button type="button" *ngIf="modify" mat-fab color="primary">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -169,11 +164,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
       </table>
       <div style="margin-left: 5px;">
-        <button *ngIf="modify" mat-fab color="primary">
+        <button type="button" *ngIf="modify" mat-fab color="primary">
           <mat-icon>add</mat-icon>
         </button>
       </div>
     </div>
+
+<app-profile-skill [idProfile]= 2></app-profile-skill>
 
     <div class="botones">
       <button type="submit" *ngIf="modify" class="botonGuardar" 

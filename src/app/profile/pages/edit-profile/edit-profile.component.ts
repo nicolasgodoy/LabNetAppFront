@@ -25,7 +25,7 @@ export class EditProfileComponent implements OnInit {
   displayedColumnsEducation: string[] = ['institutionName', 'degree' , 
   'admissionDate', 'expeditionDate'];
 
-  dataSource = new MatTableDataSource();
+  dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
 
   public titulo : string = "Consultar";
@@ -50,12 +50,10 @@ export class EditProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private servicioProfile: ProfilesService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-
 
     this.listaProfileWork.push(this.profileWork);
 
@@ -63,6 +61,7 @@ export class EditProfileComponent implements OnInit {
 
     this.modify = this.activatedRoute.snapshot.data['modify'];
 
+    //Para cambiar de componente
     if (this.modify) {
 
       this.titulo = "Editar";
@@ -92,28 +91,26 @@ export class EditProfileComponent implements OnInit {
         email: [{ value: "", disabled: true }],
         description: [{ value: "", disabled: true }],
         phone: [{ value: "", disabled: true }],
-        // photoProfile: [{ value: "", disabled: true }],
+        photoProfile: [{ value: "", disabled: true }],
         jobPosition: [{ value: "", disabled: true }],
         cv: [{ value: "", disabled: true }],
         trabajo: [{ value: "", disabled: true }],
       });
     }
 
+    //Cargar el component consultProfile con los datos
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data : ResponseDto) => {
 
-        this.dataSource.data = data.result.workEntities;
+        this.dataSourceWork.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;
 
         this.profileEditDto = data.result;
 
-        this.listaProfileWork = this.profileEditDto.workEntities;
-        console.log(this.profileEditDto.idJobPosition);
-        // this.listaProfileEducation = this.profileEditDto.educationEntities;
-
         this.imgPerfil = this.profileEditDto.photo;
 
+        //Establecer los valores del formulario
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
@@ -127,13 +124,6 @@ export class EditProfileComponent implements OnInit {
         console.log(this.formulario.value.jobPosition);
       }
     });
-  }
-
-  formatoFecha (fechaConvertir: Date): string {
-
-    const fecha = new Date(fechaConvertir);
-    const formatoFinal = fecha.toISOString().split('T')[0];
-    return formatoFinal;
   }
 
   editarPerfil() {
@@ -150,7 +140,10 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
 
       this.profileEditDto.phone = String(this.formulario.value.phone);
+      //Fekapath problema para guardar en back
       this.profileEditDto.photo = this.formulario.value.photoProfile;
+      console.log(this.profileEditDto.photo);
+      //Fekapath problema para guardar en back
       this.profileEditDto.cv = this.formulario.value.cv;
 
       console.log(this.profileEditDto.adressDescription);
@@ -173,15 +166,22 @@ export class EditProfileComponent implements OnInit {
           console.log(error)
         }
 
-      })
+      });
     }   
     else
     {
 
       this.snackBar.open('Formulario no valido , verifique los campos', undefined, {
         duration: 3000
-      })
+      });
     }
+  }
+
+  formatoFecha (fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
   }
 
   //Para los Archivos de IMG
@@ -192,8 +192,7 @@ export class EditProfileComponent implements OnInit {
       .then((img: any) => {
 
         this.previewImg = img.base;
-        console.log(img);
-      })
+      });
     this.files.push(archivoCapturado);
     console.log();
   }
