@@ -109,6 +109,7 @@ export class EditProfileComponent implements OnInit {
         this.profileEditDto = data.result;
 
         this.imgPerfil = this.profileEditDto.photo;
+        console.log(this.imgPerfil);
 
         //Establecer los valores del formulario
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
@@ -142,7 +143,9 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.phone = String(this.formulario.value.phone);
       //Fekapath problema para guardar en back
       this.profileEditDto.photo = this.formulario.value.photoProfile;
+
       console.log(this.profileEditDto.photo);
+
       //Fekapath problema para guardar en back
       this.profileEditDto.cv = this.formulario.value.cv;
 
