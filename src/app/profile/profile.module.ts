@@ -10,6 +10,9 @@ import { DialogDeleteComponent } from './pages/profile-skill/dialog-delete/dialo
 import { DialogAddSkillComponent } from './pages/profile-skill/dialog-add-skill/dialog-add-skill.component';
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
 import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
+import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
+
+
 @NgModule({
   declarations: [
     AddProfileComponent,
@@ -19,6 +22,7 @@ import { UpdatePasswordProfileComponent } from './pages/update-password-profile/
     DialogDeleteComponent,
     DialogAddSkillComponent,
     UpdatePasswordProfileComponent
+    EditProfilePipePipe
   ],
   imports: [
     CommonModule,

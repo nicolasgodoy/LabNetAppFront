@@ -1,16 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 html, body { height: 100%; width: 100%;}
-body { 
-  margin: 0; 
+body {
+  margin: 0;
   font-family: Roboto "Helvetica Neue", sans-serif;
 }
 .mat-elevation-z8 {
   width: 100%;
-    
+
 }
-  
+
 table{
   width: 100%;
 }
@@ -20,7 +19,6 @@ table{
   justify-content: center;
  margin-top: 8%;
 }
-
 
 .example-container {
   width: 100%;
@@ -59,19 +57,22 @@ table{
 .material-symbols-outlined {
   color: white;
   font-size: 2.5rem;
-
-
 }
 
 .tituloC {
   color: rgb(0, 0, 0);
 }
 
-.titulo {
-  color: white;
-}
-
 .tituloP {
   font-size: 1rem;
   color: white;
+}
+
+.dialog{
+  width: 40%;
+}
+@media only screen and (max-width: 768px) {
+  .dialog{
+    width: 80%;
+  }
 }

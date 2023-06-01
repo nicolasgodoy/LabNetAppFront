@@ -74,5 +74,12 @@ export class AuthService {
     const decodedObject =JSON.parse(decodedToken);
     return decodedObject;
   }
+
+  getValueByKey = (obj, key) => {
+    if (obj.hasOwnProperty(key)) {
+      return obj[key];
+    }
+    return null;
+  };
 }
 
