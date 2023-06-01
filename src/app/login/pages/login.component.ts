@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.auth.login(uLogin).subscribe({
         next:(resp) =>{
           if (resp.isSuccess && resp.result.token.length > 2){
-            this.route.navigateByUrl('/user/insert');
+            this.route.navigateByUrl('/user/consult');
           } else {
             console.log(resp)
           }
