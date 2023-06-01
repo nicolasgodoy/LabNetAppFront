@@ -20,9 +20,9 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Close</button>
+    <button [routerLink]="['../consult']" mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Volver</button>
     <button mat-raised-button style="font-size:1.2rem;width:150px;" color="primary" [disabled]="formSkill.invalid"
-        (click)="AddSkills()">{{botonAccion}}
+        (click)="AddSkills()">Guardar
 
     </button>
 </div>
