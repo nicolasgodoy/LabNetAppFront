@@ -25,8 +25,6 @@ export class AddComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<Skill>();
   displayedColumns: string[] = ['description', 'acciones'];
 
-
-  
   constructor(
     private skillService: SkillService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
@@ -42,9 +40,7 @@ export class AddComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-
     this.mostrarSkill();
-
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,9 +48,6 @@ export class AddComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-
-
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -84,13 +77,9 @@ export class AddComponent implements AfterViewInit, OnInit {
 
   }
 
-
   AddSkills() {
-
-    console.log(this.formSkill.value)
     const modelo: AddSkillDto = {
       description: this.formSkill.value.description
-
     }
 
     if (this.dataSkill == null) {
@@ -123,7 +112,6 @@ export class AddComponent implements AfterViewInit, OnInit {
       }
     })
   }
-
 }
 
 

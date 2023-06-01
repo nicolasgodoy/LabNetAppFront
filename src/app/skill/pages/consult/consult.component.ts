@@ -26,8 +26,6 @@ export class ConsultComponent implements OnInit {
   dataSource = new MatTableDataSource<Skill>();
   displayedColumns: string[] = ['description', 'acciones'];
 
-
-
   constructor(
     private spinnerService: NgxSpinnerService,
     private skillService: SkillService,
@@ -41,20 +39,16 @@ export class ConsultComponent implements OnInit {
       description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$')]]
     })
 
-
     this.skillService.getSkill().subscribe({
       next: (data: ResponseDto) => {
         this.listaSkill = data.result;
       }, error: (e) => { }
     })
-
   }
 
 
   ngOnInit(): void {
-
     this.mostrarSkill();
-
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -70,7 +64,6 @@ export class ConsultComponent implements OnInit {
       duration: 3000
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -89,14 +82,10 @@ export class ConsultComponent implements OnInit {
         console.log('ocurrio un error inesperado')
         this.spinnerService.hide();
       }
-
     })
   }
 
-
   AddSkills() {
-
-    console.log(this.formSkill.value)
     const modelo: Skill = {
       id: this.formSkill.value.id,
       description: this.formSkill.value.Description
@@ -124,13 +113,11 @@ export class ConsultComponent implements OnInit {
   }
 
   AddSkill(): void {
-
-    if (this.formSkill.valid) {
+    if(this.formSkill.valid) {
       const modelo: Skill = {
         id: this.formSkill.value.id,
         description: this.formSkill.value.Description
       }
-
       this.skillService.AddSkill(modelo).subscribe(
         (ResponseDto: Skill) => {
           Swal.fire({
@@ -140,7 +127,7 @@ export class ConsultComponent implements OnInit {
           })
         },
         (error: any) => {
-        console.log(error)
+          console.log(error)
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -152,15 +139,11 @@ export class ConsultComponent implements OnInit {
     } else {
 
     }
-
   }
-
-
 
   dialogAddSkill() {
     this.dialog.open(AddComponent, {
       disableClose: true,
-
     }).afterClosed().subscribe(resultado => {
       if (resultado === "creado") {
         this.mostrarSkill();
@@ -168,7 +151,6 @@ export class ConsultComponent implements OnInit {
     })
   }
 
-  
   confirmDelete(dataSkill: Skill) {
     Swal.fire({
       title: 'Esta seguro?',
@@ -182,7 +164,6 @@ export class ConsultComponent implements OnInit {
     }).then((result) => {
 
       if (result.isConfirmed) {
-
         this.skillService.deleteSkill(dataSkill.id).subscribe({
           next: (ResponseDto) => {
             console.log(ResponseDto);
@@ -199,7 +180,6 @@ export class ConsultComponent implements OnInit {
               'Error!',
               'No se pudo Eliminar!',
               'error'
-
             )
           },
         });
