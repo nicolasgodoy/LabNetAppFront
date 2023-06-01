@@ -11,20 +11,24 @@
 
 <mat-drawer-container class="example-container">
     <mat-drawer #drawer class="example-sidenav" mode="side">
+      <img src="../assets/logo_neoris.png" alt="foto-perfil" class="foto-perfil">
         <button routerLink="" mat-raised-button style="margin:5px" color="primary">
-            Home
+          <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
         </button>
-        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
-            Home
+        <button routerLink="consult-profile/{{id}}" mat-raised-button style="margin:5px" color="primary">
+          Mi Perfil
         </button>
-        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
-            Home
+        <button routerLink="skill/consult" mat-raised-button style="margin:5px" color="primary">
+          Skills
         </button>
-        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
-            Home
+        <button routerLink="filter-profile" mat-raised-button style="margin:5px" color="primary">
+          Busqueda de Perfiles
         </button>
-        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
-            Home
+        <button routerLink="add-profile/{{id}}" mat-raised-button style="margin:5px" color="primary">
+            Agregar Perfil
+        </button>
+        <button routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>Log Out
         </button>
     </mat-drawer>
 
@@ -37,4 +41,6 @@
     </div>
 
     <router-outlet></router-outlet>
+
+    <footer>hola soy el footer jaja</footer>
 </mat-drawer-container>

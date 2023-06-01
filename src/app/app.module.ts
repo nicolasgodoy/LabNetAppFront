@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
