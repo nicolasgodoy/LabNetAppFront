@@ -96,13 +96,23 @@ export class ConsultComponent implements OnInit {
     })
   }
 
-  Logout(){
-    this._authService.logout();
-   
-    this._router.navigateByUrl('/login');
-    
-
-
-    
+  logout() {
+    Swal.fire({
+      title: 'Cierre de sesión',
+      text: "Seguro que desea cerrar sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._authService.logout();
+        this._router.navigateByUrl('/login');
+      }
+    })
   }
+  
+    
+  
 }

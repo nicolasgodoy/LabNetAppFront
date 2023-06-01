@@ -11,27 +11,22 @@ mat-card-title{
 .Guardar{
     margin-left: 33%;
     margin-bottom: 10px;
-    background-color: #3F51B5 ;
-
+    background-color: #3F51B5;
 }
 
 .inputs{
     width: 100%;
-
 }
 
 .Guardar:hover{
-  
-    background-color: #0d1c6d ;
-
+    background-color: #0d1c6d;
 }
 
 .link{
     margin-left: 10%;
     text-decoration: none;
-    font-weight: bolder;
-    color: black;
-    
+    font-weight: 550;
+    color: black; 
 }
 
 .link:hover{

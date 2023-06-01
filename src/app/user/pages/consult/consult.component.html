@@ -7,10 +7,11 @@
   </div>
   <div class="insertar">
     <button mat-raised-button color="primary" [routerLink]="['../insert']">Agregar Usuario</button>
-    <button mat-raised-button color="primary" (click)="Logout()">Si o Que</button>
+    <button class="btnLogout" (click)="logout()" color="warn" mat-mini-fab aria-label="logout icon">
+      <mat-icon>logout</mat-icon>
+    </button>
   </div>
 </div>
-
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="Id" >

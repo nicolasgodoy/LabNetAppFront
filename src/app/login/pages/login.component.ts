@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/service/auth.service';
 import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
@@ -18,7 +17,6 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private route: Router,
     private formB: FormBuilder,
-    private _snackBar: MatSnackBar
   ) {
     this.formLogin = this.formB.group({
       userName: ['', Validators.required],
@@ -58,4 +56,5 @@ export class LoginComponent implements OnInit {
       })
     }
   }
+
 }
