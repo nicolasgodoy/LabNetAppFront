@@ -154,7 +154,7 @@ export class ConsultComponent implements OnInit {
   confirmDelete(dataSkill: Skill) {
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar el Usuario : ${dataSkill.description}`,
+      text: `Esta a punto de Eliminar la Skill : ${dataSkill.description}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -169,7 +169,7 @@ export class ConsultComponent implements OnInit {
             console.log(ResponseDto);
             Swal.fire(
               'Eliminado!',
-              'El Usuario ha sido Eliminado',
+              'La Skill ha sido Eliminado',
               'success'
             )
             this.mostrarSkill();
