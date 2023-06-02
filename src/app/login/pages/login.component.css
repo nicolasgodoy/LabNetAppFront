@@ -2,7 +2,6 @@
     width: 15%;
     margin-left: 40%;
     margin-top: 3%;
-    min-height: 100vh;
 }
 
 mat-card-title{
@@ -15,7 +14,7 @@ mat-card-title{
     background-color: #3F51B5;
 }
 .container{
-min-height: 100vh;
+    min-height: 79.8vh;
 
 }
 .inputs{
