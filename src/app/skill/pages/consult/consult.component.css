@@ -12,6 +12,9 @@ body {
 
 }
 
+.container {
+  min-height: 100vh;
+}
 .titulo_skill{
     font-weight: bold;
     text-align: center;
