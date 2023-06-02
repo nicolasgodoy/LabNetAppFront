@@ -43,10 +43,11 @@
         <mat-form-field>
           <mat-label>Puesto</mat-label>
           <mat-select formControlName="jobPosition">
-            <mat-option value="1">Trainee</mat-option>
-            <mat-option value="2">Junior</mat-option>
+            <mat-option *ngFor="let position of jobPositionArr" 
+            [value]="position.idJobPosition">{{position.description}}</mat-option>
+            <!-- <mat-option value="2">Junior</mat-option>
             <mat-option value="3">Semi-Senior</mat-option>
-            <mat-option value="4">Senior</mat-option>
+            <mat-option value="4">Senior</mat-option>  -->
           </mat-select>
         </mat-form-field>
 
