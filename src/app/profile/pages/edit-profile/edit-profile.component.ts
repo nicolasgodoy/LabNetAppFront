@@ -20,6 +20,7 @@ import { AuthService } from 'src/app/service/auth.service';
 
 export class EditProfileComponent implements OnInit {
 
+  
   disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
@@ -54,16 +55,19 @@ export class EditProfileComponent implements OnInit {
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private auth: AuthService,
+    private router: Router
     ) {
   }
 
   ngOnInit(): void {
+
 
     this.listaProfileWork.push(this.profileWork);
 
     this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.modify = this.activatedRoute.snapshot.data['modify'];
+    console.log(this.modify);
 
     //Para cambiar de componente
     if (this.modify) {
@@ -136,6 +140,8 @@ export class EditProfileComponent implements OnInit {
   editarPerfil() {
 
     if (this.formulario.valid) {
+
+    
 
       this.profileEditDto.name = this.formulario.value.name;
       this.profileEditDto.lastName = this.formulario.value.lastName;
@@ -214,6 +220,14 @@ export class EditProfileComponent implements OnInit {
       });
     this.files.push(archivoCapturado);
     console.log();
+  }
+
+  //NAVEGAR
+  navigate(){
+    if (this.modify){
+      this.router.navigateByUrl(`/profile/edit-profile/${this.idUser}`);
+    }
+    else this.router.navigateByUrl(`/profile/consult-profile/${this.idUser}`);
   }
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {

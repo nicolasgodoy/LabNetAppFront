@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
               if (res.result)
                 this.route.navigateByUrl('')
               else
-                this.route.navigateByUrl('/add-profile/' + id)
+                this.route.navigateByUrl('profile/add-profile/' + id)
             })
         }
       },
