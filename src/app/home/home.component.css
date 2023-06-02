@@ -1,0 +1,27 @@
+.contenedor{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    gap:2rem;
+    min-height: 100vh;
+    flex-wrap: wrap;
+
+}
+
+.example-card{
+    max-width: 400px;
+}
+
+.example-header-image{
+    background-image: url(/src/assets/logo_neoris.png);
+    background-size: cover;
+}
+
+.mat-card-content{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    gap:0.80rem;
+}

@@ -11,10 +11,12 @@
 
 <mat-drawer-container class="example-container">
     <mat-drawer #drawer class="example-sidenav" mode="side">
+      
       <img src="../assets/logo_neoris.png" alt="foto-perfil" class="foto-perfil">
-        <button routerLink="" mat-raised-button style="margin:5px" color="primary">
+        <button routerLink="" mat-raised-button style="margin:5px" color="primary" class="home-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
         </button>
+      
         <button routerLink="profile/consult-profile/{{idUser}}" mat-raised-button style="margin:5px" color="primary">
           Mi Perfil
         </button>
@@ -27,10 +29,11 @@
         <button routerLink="profile/add-profile/{{idUser}}" mat-raised-button style="margin:5px" color="primary">
             Agregar Perfil
         </button>
+
         <button routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>Log Out
+          <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
         </button>
-    </mat-drawer>
+      </mat-drawer>
 
     <div class="example-sidenav-content">
         <button type="button" mat-button (click)="drawer.toggle()">
@@ -39,10 +42,25 @@
             </span>
         </button>
     </div>
-    <div class="sidenav-content">
+    <mat-sidenav-container class="sidenav-container" autosize>
       <router-outlet></router-outlet>
-    </div>
+    </mat-sidenav-container>
 
 
-    <footer>hola soy el footer jaja</footer>
+    <footer>
+      <mat-toolbar color="primary" class="footer">
+        <div class="footer-content">
+          <a href="https://www.instagram.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">instagram</mat-icon>
+          </a>
+          <a href="https://www.facebook.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">facebook</mat-icon>
+          </a>
+          <a href="https://www.twitter.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">twitter</mat-icon>
+          </a>
+          <a href="/about-us" class="footer-link">About Us</a>
+        </div>
+      </mat-toolbar>
+    </footer>
 </mat-drawer-container>
