@@ -22,27 +22,38 @@ export class ProfilesService {
     private authService: AuthService) { }
 
   public FilterBySkills(ListId: number[]): Observable<ResponseDto> {
-
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = this.apiUrl + this.endPoint + "/FilterSkills?";
     ListId.forEach(id => url += `skills=${id}&`)
 
-    return this.http.get<ResponseDto>(url);
+    return this.http.get<ResponseDto>(url,options);
   }
 
   public AddSkillToProfile(ProfileSkill: AddProfileSkillDto): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = this.apiUrl + this.endPoint + "/AddSkillToProfile";
-    return this.http.post<ResponseDto>(url, ProfileSkill);
+    return this.http.post<ResponseDto>(url, ProfileSkill,options);
   }
 
 
   public deleteEmploye(idProfile: number, idSkill: number): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = this.apiUrl + this.endPoint + `/DeleteSkillToProfile/${idProfile}/${idSkill}`;
-    return this.http.delete<ResponseDto>(url);
+    return this.http.delete<ResponseDto>(url,options);
   }
 
   public GetProfileSkill(id: number): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = this.apiUrl + this.endPoint + `/GetProfileSkill/${id}`;
-    return this.http.get<ResponseDto>(url);
+    return this.http.get<ResponseDto>(url,options);
   }
 
 

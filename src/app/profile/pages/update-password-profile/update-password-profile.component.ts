@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -20,20 +20,23 @@ export class UpdatePasswordProfileComponent implements OnInit {
       currentPass: ['', Validators.required],
       newPass: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]]
     },{validator: this.checkPassword});
-
   }
 
   ngOnInit(): void {
   }
+
   updatePassword(){
-
-
+    
   }
 
-  checkPassword(group: FormGroup): any{
-    const _newPass = group.value.newPass;
-    const _confirmPass = group.value.confirmPass;
-    return _newPass === _confirmPass ? null : {notSame: true};
+  checkPassword(group: FormGroup) {
+    const _newPass = group.get("newPass").value;
+    const _confirmPass = group.get("confirmPass").value;
+    if(_newPass!==_confirmPass){
+      group.get("confirmPass").setErrors({notSame:true});
+    }else{
+      group.get("confirmPass").setErrors(null)
+    }
   }
 
 }
