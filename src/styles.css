@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 html, body { height: 100%; width: 100%;}
 body {
   margin: 0;
   font-family: Roboto "Helvetica Neue", sans-serif;
 }
+
 .mat-elevation-z8 {
   width: 100%;
 
@@ -43,6 +43,8 @@ table{
   align-items: center;
 }
 
+
+
 .example-sidenav-content {
   display: flex;
   align-items: center;
@@ -59,9 +61,8 @@ table{
 .material-symbols-outlined {
   color: white;
   font-size: 2.5rem;
-
-
 }
+
 
 .tituloC {
   color: rgb(0, 0, 0);
@@ -71,3 +72,13 @@ table{
   font-size: 1rem;
   color: white;
 }
+
+.dialog{
+  width: 40%;
+}
+@media only screen and (max-width: 768px) {
+  .dialog{
+    width: 80%;
+  }
+}
+

@@ -17,9 +17,9 @@
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
-.sidenav-content {
+/* .sidenav-content {
   height: 100%;
-}
+} */
 .filter-sidenav {
    user-select: none;
    flex: 1;

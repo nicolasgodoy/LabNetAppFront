@@ -5,6 +5,7 @@ import { User } from "../models/user";
 import { Token } from "../models/token";
 import { ResponseDto } from "../models/response";
 import { AuthService } from "./auth.service";
+import { UpdatePassword } from "../models/updatePassword";
 
 
 @Injectable({
@@ -23,6 +24,7 @@ export class UserService {
         const headers = new HttpHeaders({ 'Authorization': userToken });
         const options = { headers: headers };
         console.log(userToken);
+
         return this.http.get<ResponseDto>(this.url + '/GetAll', options);
       }
 
@@ -33,16 +35,16 @@ export class UserService {
         return this.http.post<User>(`${this.url}/Insert`, user,{headers:headers});
     }
 
-    updateUserPassword(token: Token, password:string){
+    updateUserPassword(password:UpdatePassword){
         this.userToken =`Bearer ${this._authservice.readToken()}`;  
         const headers = new HttpHeaders({'Authorization': this.userToken});
-        return this.http.delete<User>(this.url + `/${password}`);
-    }
+
+        return this.http.put<UpdatePassword>(this.url + `/UpdatePassword`, password, { headers: headers });    }
 
     deleteUser(id: number){
         this.userToken =`Bearer ${this._authservice.readToken()}`;  
         const headers = new HttpHeaders({'Authorization': this.userToken});
-        return this.http.delete<User>(this.url + `/${id}`);
-    }
 
+        return this.http.delete<User>(this.url +`/Delete/${id}`,{headers:headers});
+    }
 }

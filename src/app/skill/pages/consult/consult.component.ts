@@ -8,8 +8,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddComponent } from '../add/add.component';
-import { DeleteComponent } from '../delete/delete.component';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -26,8 +26,6 @@ export class ConsultComponent implements OnInit {
   dataSource = new MatTableDataSource<Skill>();
   displayedColumns: string[] = ['description', 'acciones'];
 
-
-
   constructor(
     private spinnerService: NgxSpinnerService,
     private skillService: SkillService,
@@ -41,20 +39,16 @@ export class ConsultComponent implements OnInit {
       description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$')]]
     })
 
-
     this.skillService.getSkill().subscribe({
       next: (data: ResponseDto) => {
         this.listaSkill = data.result;
       }, error: (e) => { }
     })
-
   }
 
 
   ngOnInit(): void {
-
     this.mostrarSkill();
-
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -70,7 +64,6 @@ export class ConsultComponent implements OnInit {
       duration: 3000
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -89,14 +82,10 @@ export class ConsultComponent implements OnInit {
         console.log('ocurrio un error inesperado')
         this.spinnerService.hide();
       }
-
     })
   }
 
-
   AddSkills() {
-
-    console.log(this.formSkill.value)
     const modelo: Skill = {
       id: this.formSkill.value.id,
       description: this.formSkill.value.Description
@@ -106,19 +95,55 @@ export class ConsultComponent implements OnInit {
     if (this.dataSkill == null) {
       this.skillService.AddSkill(modelo).subscribe({
         next: (data) => {
-          //this.mensajeAlerta("Customer Creado", "Listo")
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregada',
+            text: 'La skill se agrego con exito!',
+          })
           this.dialogoReferencia.close("creado");
         }, error: (e) => {
-          //this.mensajeAlerta("Ocurrio un error verifique que todos los inputs esten correctos", "error");
+          Swal.fire({
+            icon: 'success',
+            title: 'Error',
+            text: 'La Skill no se pudo agregar correctamente!',
+          })
         }
       })
+    }
+  }
+
+  AddSkill(): void {
+    if(this.formSkill.valid) {
+      const modelo: Skill = {
+        id: this.formSkill.value.id,
+        description: this.formSkill.value.Description
+      }
+      this.skillService.AddSkill(modelo).subscribe(
+        (ResponseDto: Skill) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregado',
+            text: 'El usuario se agrego con exito!',
+          })
+        },
+        (error: any) => {
+          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El usuario no se pudo agregar!',
+          })
+        }
+      );
+
+    } else {
+
     }
   }
 
   dialogAddSkill() {
     this.dialog.open(AddComponent, {
       disableClose: true,
-
     }).afterClosed().subscribe(resultado => {
       if (resultado === "creado") {
         this.mostrarSkill();
@@ -126,22 +151,39 @@ export class ConsultComponent implements OnInit {
     })
   }
 
+  confirmDelete(dataSkill: Skill) {
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: `Esta a punto de Eliminar la Skill : ${dataSkill.description}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Borralo!'
 
-  dialogDeleteSkill(dataSkill: Skill) {
-    this.dialog.open(DeleteComponent, {
-      disableClose: true,
-      data: dataSkill,
-    }).afterClosed().subscribe(resultado => {
-      if (resultado === "eliminar") {
+    }).then((result) => {
+
+      if (result.isConfirmed) {
         this.skillService.deleteSkill(dataSkill.id).subscribe({
-          next: (data) => {
-            this.mensajeAlerta("Customer Eliminado Correctamente!!", "Listo")
+          next: (ResponseDto) => {
+            console.log(ResponseDto);
+            Swal.fire(
+              'Eliminado!',
+              'La Skill ha sido Eliminado',
+              'success'
+            )
             this.mostrarSkill();
           },
-          error: (e) => { this.mensajeAlerta("Ocurrio un error al Eliminar", "cerrar") }
-        })
+          error: (e) => {
+            console.log(e);
+            Swal.fire(
+              'Error!',
+              'No se pudo Eliminar!',
+              'error'
+            )
+          },
+        });
       }
     })
   }
-
 }
