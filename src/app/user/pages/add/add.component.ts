@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
 import { ResponseDto } from 'src/app/models/response';
 import { Role } from 'src/app/models/Role';
 import { User } from 'src/app/models/user'
-import { AuthService } from 'src/app/service/auth.service';
 import { RoleService } from 'src/app/service/role.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -28,8 +26,6 @@ export class AddComponent implements OnInit {
     private formB: FormBuilder,
     private _userService: UserService,
     private _roleService: RoleService,
-    private _auth: AuthService,
-    private route : Router
   ) {
     this.formUser = this.formB.group({
       mail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com)$')]],

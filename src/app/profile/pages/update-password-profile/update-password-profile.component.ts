@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/service/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/service/user.service';
+import { UpdatePassword } from 'src/app/models/updatePassword';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-password-profile',
@@ -12,7 +14,7 @@ export class UpdatePasswordProfileComponent implements OnInit {
   formUpdatePass: FormGroup;
 
   constructor(
-    private auth: AuthService,
+    private uService: UserService,
     private formB: FormBuilder,
   ) {
     this.formUpdatePass = this.formB.group({
@@ -26,7 +28,29 @@ export class UpdatePasswordProfileComponent implements OnInit {
   }
 
   updatePassword(){
-    
+    if (this.formUpdatePass.valid){
+      const updatePass : UpdatePassword = { 
+       password :this.formUpdatePass.value.currentPass,
+        newPassword:this.formUpdatePass.value.newPass
+      }
+      this.uService.updateUserPassword(updatePass).subscribe(
+        (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizada',
+            text: 'La Contraseña se actualizo con exito!',
+          })
+        },
+        (error: any) => {
+          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La Contraseña no se pudo actualizar!',
+          })
+        }
+      );
+    }
   }
 
   checkPassword(group: FormGroup) {
