@@ -226,9 +226,9 @@ export class EditProfileComponent implements OnInit {
   //NAVEGAR
   navigate(){
     if (this.modify){
-      this.router.navigateByUrl(`/profile/edit-profile/${this.idUser}`);
+      this.router.navigateByUrl(`/profile/consult-profile/${this.idUser}`);
     }
-    else this.router.navigateByUrl(`/profile/consult-profile/${this.idUser}`);
+    else this.router.navigateByUrl(`/profile/edit-profile/${this.idUser}`);
   }
 
   //CHECKUSER
