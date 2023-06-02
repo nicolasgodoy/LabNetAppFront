@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
             res => {
               console.log(res);
               if (res.result)
-                this.route.navigateByUrl('')
+                this.route.navigateByUrl('/home')
               else
                 this.route.navigateByUrl('profile/add-profile/' + id)
             })

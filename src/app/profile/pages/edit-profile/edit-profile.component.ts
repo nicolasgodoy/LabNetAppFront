@@ -191,7 +191,7 @@ export class EditProfileComponent implements OnInit {
           });
         },
         error: (error) => {
-  
+          console.log(error);
           this.snackBar.open('ocurrio un error', undefined, {
             duration: 3000
           });

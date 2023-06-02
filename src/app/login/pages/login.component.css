@@ -13,7 +13,10 @@ mat-card-title{
     margin-bottom: 10px;
     background-color: #3F51B5;
 }
+.container{
+min-height: 100vh;
 
+}
 .inputs{
     width: 100%;
 }

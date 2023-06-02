@@ -1,13 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
 export class HomeComponent implements OnInit {
-  id = 1;
-  constructor() { }
+  idUser:number
+  constructor(private auth:AuthService) { 
+  const token = this.auth.readToken();
+
+  
+      
+  const Object = this.auth.DecodeJWT(token);
+    
+    this.idUser= this.auth.getValueByKey(Object,'IdUser');
+    console.log('ID log user:' +this.idUser)
+  }
 
   ngOnInit(): void {
   }

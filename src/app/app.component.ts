@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +14,25 @@ export class AppComponent {
   token: string = '';
   idUser: number;
 
-  constructor(private auth: AuthService){
-    this.token = this.auth.readToken();
-    const Object = this.auth.DecodeJWT(this.token);
-    this.idUser= this.auth.getValueByKey(Object,'IdUser');
-    console.log('ID log user:' +this.idUser)
+  constructor(private _authService: AuthService, private _router: Router){
+ 
+   }
+
+
+   logout() {
+    Swal.fire({
+      title: 'Cierre de sesión',
+      text: "Seguro que desea cerrar sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._authService.logout();
+        this._router.navigateByUrl('/');
+      }
+    })
   }
 }

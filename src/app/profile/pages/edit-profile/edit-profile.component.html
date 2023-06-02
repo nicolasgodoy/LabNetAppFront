@@ -173,7 +173,14 @@
       </div>
     </div>
 
-<app-profile-skill *ngIf="IdProfile" [idProfile]= "IdProfile" [modify]="modify"></app-profile-skill>
+    <app-profile-skill *ngIf="IdProfile" [idProfile]= "IdProfile" [modify]="modify"></app-profile-skill>
+    
+    <div class="container">
+      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']" class="botonGuardar" 
+        mat-raised-button color="primary">
+        Editar Contraseña
+      </button>
+    </div>
 
     <div class="botones">
       <button type="submit" *ngIf="modify" class="botonGuardar" 
