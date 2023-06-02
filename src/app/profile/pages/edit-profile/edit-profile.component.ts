@@ -46,6 +46,7 @@ export class EditProfileComponent implements OnInit {
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
   public imgProfile : string;
+  public thisProfile : boolean = false;
   public IdProfile: number;
 
   constructor(
@@ -229,6 +230,21 @@ export class EditProfileComponent implements OnInit {
     }
     else this.router.navigateByUrl(`/profile/consult-profile/${this.idUser}`);
   }
+
+  //CHECKUSER
+  checkUser() : boolean{
+
+    this.thisProfile = false;
+    const token = this.auth.readToken();
+    const jsonObject = this.auth.DecodeJWT(token);
+
+    const id = this.auth.getValueByKey(jsonObject , 'IdUser');
+
+    if (id == this.idUser)
+      this.thisProfile = true;
+    return this.thisProfile;
+  }
+
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
 

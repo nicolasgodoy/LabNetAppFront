@@ -180,12 +180,12 @@
         Guardar
       </button>
 
-      <button  type="button" *ngIf="modify" [routerLink]="['profile/consult-profile/', idUser]" 
+      <button  type="button" *ngIf="modify" (click)="navigate()" 
         routerLinkActive="router-link-active" 
         mat-raised-button color="warn">Volver
       </button>
 
-      <button *ngIf="!modify" (click)="navigate()"
+      <button *ngIf="!modify && checkUser()" (click)="navigate()" 
         type="button"
         routerLinkActive="router-link-active" 
         style="margin-left: 5px;" 
