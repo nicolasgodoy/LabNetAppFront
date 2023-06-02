@@ -2,7 +2,10 @@
   position:relative
 }
 .log-out-button{
-  top: 45vh;
+  top: 3vh;
+}
+.home-out-button{
+  top: 2vh;
 }
 .foto-perfil {
   width: 10rem;
@@ -11,3 +14,4 @@
 .sidenav-content {
   height: 100%;
 }
+
