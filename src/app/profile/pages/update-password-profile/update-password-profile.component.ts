@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 import { UpdatePassword } from 'src/app/models/updatePassword';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-update-password-profile',
@@ -16,6 +18,7 @@ export class UpdatePasswordProfileComponent implements OnInit {
   constructor(
     private uService: UserService,
     private formB: FormBuilder,
+    private _router: Router
   ) {
     this.formUpdatePass = this.formB.group({
       confirmPass: ['', Validators.required],
@@ -39,7 +42,8 @@ export class UpdatePasswordProfileComponent implements OnInit {
             icon: 'success',
             title: 'Actualizada',
             text: 'La Contraseña se actualizo con exito!',
-          })
+          }),
+          this._router.navigateByUrl('/')
         },
         (error: any) => {
           console.log(error)

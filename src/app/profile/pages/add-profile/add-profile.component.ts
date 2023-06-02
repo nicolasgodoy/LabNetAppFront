@@ -73,7 +73,7 @@ export class AddProfileComponent implements OnInit {
           this.spinnerService.show();
           setTimeout( () => { 
             this.spinnerService.hide();
-            this.router.navigate(['consult-profile/' + this.idUser])},
+            this.router.navigate(['profile/consult-profile/' + this.idUser])},
           2000);
          
         },

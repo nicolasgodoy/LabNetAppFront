@@ -52,18 +52,28 @@ export class LoginComponent implements OnInit {
               if (res.result)
                 this.route.navigateByUrl('')
               else
-                this.route.navigateByUrl('/add-profile/' + id)
+                this.route.navigateByUrl('profile/add-profile/' + id)
             })
         }
       },
-      error: (e) => {
-        console.log(e)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'El usuario no existe!',
-        })
-        this.route.navigateByUrl('/login');
+      error: (e: any) => {
+    
+        if(e.error.message === 'La contraseña es incorrecta'){
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La contraseña es Incorrecta!',
+          })
+        }else{
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El usuario no existe!',
+          })
+          this.route.navigateByUrl('/login');
+
+        }
       }
 
     })

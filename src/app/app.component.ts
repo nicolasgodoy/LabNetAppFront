@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,13 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'LabNetAppFront';
-  id = 1;
+  token: string = '';
+  idUser: number;
 
+  constructor(private auth: AuthService){
+    this.token = this.auth.readToken();
+    const Object = this.auth.DecodeJWT(this.token);
+    this.idUser= this.auth.getValueByKey(Object,'IdUser');
+    console.log('ID log user:' +this.idUser)
+  }
 }

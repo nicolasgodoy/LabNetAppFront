@@ -16,6 +16,20 @@
         <button routerLink="" mat-raised-button style="margin:5px" color="primary" class="home-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
         </button>
+      
+        <button routerLink="profile/consult-profile/{{idUser}}" mat-raised-button style="margin:5px" color="primary">
+          Mi Perfil
+        </button>
+        <button routerLink="skill/consult" mat-raised-button style="margin:5px" color="primary">
+          Skills
+        </button>
+        <button routerLink="profile/filter-profile" mat-raised-button style="margin:5px" color="primary">
+          Busqueda de Perfiles
+        </button>
+        <button routerLink="profile/add-profile/{{idUser}}" mat-raised-button style="margin:5px" color="primary">
+            Agregar Perfil
+        </button>
+
         <button routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
         </button>

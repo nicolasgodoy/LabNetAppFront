@@ -10,6 +10,8 @@ import { WorkDto } from 'src/app/models/Profile/profileWorkDto';
 import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/service/auth.service';
+import { JobPosition } from 'src/app/models/jobPositionDton';
+import { JobPositionService } from 'src/app/service/job-position.service';
 
 
 @Component({
@@ -20,6 +22,7 @@ import { AuthService } from 'src/app/service/auth.service';
 
 export class EditProfileComponent implements OnInit {
 
+  
   disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
@@ -44,7 +47,9 @@ export class EditProfileComponent implements OnInit {
 
   public listaProfileWork: any = [];
   public listaProfileEducation: any = [];
+  public jobPositionArr :  any = [];
   public imgProfile : string;
+  public thisProfile : boolean = false;
   public IdProfile: number;
 
   constructor(
@@ -54,16 +59,28 @@ export class EditProfileComponent implements OnInit {
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private auth: AuthService,
+    private router: Router,
+    private jobPositionService : JobPositionService
     ) {
   }
 
   ngOnInit(): void {
+
+    this.jobPositionService.GetAllPosition().subscribe({
+
+      next: (res) =>{
+
+        this.jobPositionArr = res.result
+        console.log(this.jobPositionArr);
+      }
+    })
 
     this.listaProfileWork.push(this.profileWork);
 
     this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.modify = this.activatedRoute.snapshot.data['modify'];
+    console.log(this.modify);
 
     //Para cambiar de componente
     if (this.modify) {
@@ -128,7 +145,7 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
         this.formulario.controls['jobPosition']
-        .setValue(this.profileEditDto.idJobPosition.toString());
+        .setValue(this.profileEditDto.idJobPosition);
       }
     });
   }
@@ -137,6 +154,8 @@ export class EditProfileComponent implements OnInit {
 
     if (this.formulario.valid) {
 
+    
+
       this.profileEditDto.name = this.formulario.value.name;
       this.profileEditDto.lastName = this.formulario.value.lastName;
       this.profileEditDto.dni = this.formulario.value.dni;
@@ -144,8 +163,16 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
       
-      this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
+      if(this.formulario.value.jobPosition !== ''){
 
+        console.log(this.formulario.value.jobPosition)
+        this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
+        console.log('llegue')
+      }
+    else{
+
+      this.profileEditDto.idJobPosition = 1;
+    }
       this.profileEditDto.phone = String(this.formulario.value.phone);
       //Fekapath problema para guardar en back
       this.profileEditDto.photo = this.formulario.value.photoProfile;
@@ -168,7 +195,7 @@ export class EditProfileComponent implements OnInit {
           this.snackBar.open('ocurrio un error', undefined, {
             duration: 3000
           });
-          console.log(error)
+          console.log(this.formulario.value.jobPosition);
         }
 
       });
@@ -215,6 +242,29 @@ export class EditProfileComponent implements OnInit {
     this.files.push(archivoCapturado);
     console.log();
   }
+
+  //NAVEGAR
+  navigate(){
+    if (this.modify){
+      this.router.navigateByUrl(`/profile/consult-profile/${this.idUser}`);
+    }
+    else this.router.navigateByUrl(`/profile/edit-profile/${this.idUser}`);
+  }
+
+  //CHECKUSER
+  checkUser() : boolean{
+
+    this.thisProfile = false;
+    const token = this.auth.readToken();
+    const jsonObject = this.auth.DecodeJWT(token);
+
+    const id = this.auth.getValueByKey(jsonObject , 'IdUser');
+
+    if (id == this.idUser)
+      this.thisProfile = true;
+    return this.thisProfile;
+  }
+
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
 

@@ -30,8 +30,22 @@
               </mat-error>
             </mat-form-field>
           </div>
-          
-          
+
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Confirmar Password</mat-label>
+              <input matInput formControlName="confirmPassword" type="password">
+              <mat-error *ngIf="formUser.get('confirmPassword')?.hasError('required') && formUser.get('confirmPassword')?.touched">
+                La Confirmacion <strong>es requerida</strong>
+              </mat-error>
+
+              <mat-error *ngIf="formUser.get('confirmPassword')?.hasError('notSame')">
+                Las Contraseñas <strong>no coinciden</strong>
+              </mat-error>
+     
+            </mat-form-field>
+          </div>
+         
           <div class="combo-container">
             <mat-form-field appearance="fill">
               <mat-label>Rol:</mat-label>

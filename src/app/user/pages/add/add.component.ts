@@ -30,8 +30,9 @@ export class AddComponent implements OnInit {
     this.formUser = this.formB.group({
       mail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com)$')]],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]],
+      confirmPassword: ['',[Validators.required ]],
       idRole: ['', Validators.required]
-    });
+    },{validator: this.checkPassword});
   }
 
   addUser(): void {
@@ -61,6 +62,16 @@ export class AddComponent implements OnInit {
         }
       );
     } else {
+    }
+  }
+
+  checkPassword(group: FormGroup) {
+    const _newPass = group.get("password").value;
+    const _confirmPass = group.get("confirmPassword").value;
+    if(_newPass!==_confirmPass){
+      group.get("confirmPassword").setErrors({notSame:true});
+    }else{
+      group.get("confirmPassword").setErrors(null)
     }
   }
 

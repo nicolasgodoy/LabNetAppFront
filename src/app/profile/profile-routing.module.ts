@@ -9,36 +9,41 @@ import { UpdatePasswordProfileComponent } from './pages/update-password-profile/
 const routes: Routes = [
 
   {
-    path: 'profile-skill',
+    path: 'profile',
+    children: [
+      {
+        path: 'profile-skill',
         component: ProfileSkillComponent
-  },
-  {
-    path: 'add-profile/:id',
-            component: AddProfileComponent
-  },
-  {
-    path: 'edit-profile/:id',
-            component: EditProfileComponent,
-            data: {
-              'modify' : true
-            }
-  },
-  {
-    path: 'consult-profile/:id',
-            component: EditProfileComponent,
-            data: {
-              'modify' : false
-            }
-  },
-  {
-    path: 'filter-profile',
-            component: FilterProfileBySkillComponent
-  },
-  {
-    path: 'update-password',
-            component: UpdatePasswordProfileComponent
-  }
+      },
+      {
+        path: 'add-profile/:id',
+        component: AddProfileComponent
+      },
+      {
+        path: 'edit-profile/:id',
+        component: EditProfileComponent,
+        data: {
+          'modify': true
+        }
+      },
+      {
+        path: 'consult-profile/:id',
+        component: EditProfileComponent,
+        data: {
+          'modify': false
+        }
+      },
+      {
+        path: 'filter-profile',
+        component: FilterProfileBySkillComponent
+      },
+      {
+        path: 'update-password',
+        component: UpdatePasswordProfileComponent
+      }
 
+    ]
+  }
 ];
 
 @NgModule({
