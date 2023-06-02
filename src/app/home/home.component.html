@@ -2,61 +2,64 @@
 
 
 <div class="contenedor">
+
+
+        <mat-card class="example-card">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image2"></div>
+                <mat-card-title>Admin</mat-card-title>
+                <mat-card-subtitle>Admin</mat-card-subtitle>
+            </mat-card-header>
+            <img src="assets/logo_neoris.png"
+                alt="imagen">
+            <mat-card-content>
+                <button routerLink="add-profile/{{id}}" mat-raised-button color="primary" mat-dialog-close>Agregar Perfil</button>
+                <button routerLink="user/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Usuario</button>
+                <button routerLink="filter-profile" mat-raised-button color="primary" mat-dialog-close>Filtro de Perfil</button>
+                <button routerLink="skill/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Skill</button>
+            </mat-card-content>
+            
+        </mat-card>
+
         <mat-card class="example-card">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Perfil</mat-card-title>
+                <mat-card-title>Reclutador</mat-card-title>
                 <mat-card-subtitle>Informacion Sobre Perfil</mat-card-subtitle>
             </mat-card-header>
             <img src="assets/logo_neoris.png"
                 alt="imagen">
             <mat-card-content>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-            </mat-card-content>
-            
-        </mat-card>
-  
-
-   
-        <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image2"></div>
-                <mat-card-title>Division de Perfil</mat-card-title>
-                <mat-card-subtitle>Admin | Usuario</mat-card-subtitle>
-            </mat-card-header>
-            <img src="assets/logo_neoris.png"
-                alt="imagen">
-            <mat-card-content>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
+                <button routerLink="filter-profile" mat-raised-button color="primary" mat-dialog-close>Busqueda Perfil</button>
+                <button routerLink="consult-profile/{{id}}" mat-raised-button color="primary" mat-dialog-close>Ver Perfil | Editar Perfil</button>
             </mat-card-content>
             
         </mat-card>
 
-
-<!-- 
         <mat-card class="example-card">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Lorem ipsum</mat-card-title>
-                <mat-card-subtitle>Lorem ipsum</mat-card-subtitle>
+                <mat-card-title>Usuario</mat-card-title>
+                <mat-card-subtitle>Contenido Usuario</mat-card-subtitle>
             </mat-card-header>
             <img src="assets/logo_neoris.png"
                 alt="imagen">
             <mat-card-content>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
-                <button mat-raised-button color="primary" mat-dialog-close>Example</button>
+                <button routerLink="consult-profile/{{id}}" mat-raised-button color="primary" mat-dialog-close>Ver Perfil | Editar Perfil</button>
+                <button routerLink="" mat-raised-button color="primary" mat-dialog-close></button>
             </mat-card-content>
             
         </mat-card>
+
+        
+
+        
+  
+        
  
 
 
-        <mat-card class="example-card">
+       <!--  <mat-card class="example-card">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>Lorem ipsum</mat-card-title>
@@ -70,7 +73,7 @@
                 <button mat-raised-button color="primary" mat-dialog-close>Example</button>
             </mat-card-content>
             
-        </mat-card>  -->
-
+        </mat-card>  
+ -->
 
 </div>
