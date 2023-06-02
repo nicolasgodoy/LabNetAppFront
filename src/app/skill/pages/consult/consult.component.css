@@ -2,21 +2,21 @@
 
 
 html, body { height: 100%; width: 100%;}
-body { 
-  margin: 0; 
+body {
+  margin: 0;
   font-family: Roboto "Helvetica Neue", sans-serif;
 }
 .mat-elevation-z8 {
   width: 75%;
   margin-left:3%;
-  
+
 }
 
 .titulo_skill{
     font-weight: bold;
     text-align: center;
 }
-  
+
 table{
   width: 100%;
 }

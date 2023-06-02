@@ -1,6 +1,14 @@
+.sidenav-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 1px solid rgba(0, 0, 0, 0.5); */
+}
 .expample-container{
   position:relative
 }
+
 .log-out-button{
   top: 45vh;
 }
@@ -10,4 +18,28 @@
 }
 .sidenav-content {
   height: 100%;
+}
+.footer {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.footer-link {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-icon {
+  vertical-align: middle;
+  margin-right: 5px;
 }

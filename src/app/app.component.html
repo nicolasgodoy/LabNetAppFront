@@ -39,10 +39,25 @@
             </span>
         </button>
     </div>
-    <div class="sidenav-content">
+    <mat-sidenav-container class="sidenav-container" autosize>
       <router-outlet></router-outlet>
-    </div>
+    </mat-sidenav-container>
 
 
-    <footer>hola soy el footer jaja</footer>
+    <footer>
+      <mat-toolbar color="primary" class="footer">
+        <div class="footer-content">
+          <a href="https://www.instagram.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">instagram</mat-icon>
+          </a>
+          <a href="https://www.facebook.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">facebook</mat-icon>
+          </a>
+          <a href="https://www.twitter.com" target="_blank" class="footer-link">
+            <mat-icon class="footer-icon">twitter</mat-icon>
+          </a>
+          <a href="/about-us" class="footer-link">About Us</a>
+        </div>
+      </mat-toolbar>
+    </footer>
 </mat-drawer-container>
