@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './service/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +10,30 @@ import Swal from 'sweetalert2';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  @ViewChild('drawer') drawer: MatDrawer;
   title = 'LabNetAppFront';
   token: string = '';
   idUser: number;
+  showNav = false;
 
-  constructor(private _authService: AuthService, private _router: Router){
- 
-   }
+  constructor(private _authService: AuthService, private _router: Router) {
+  }
 
+  ngOnInit(): void {
+    this._router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const currentRoute = event.urlAfterRedirects;
+        if (currentRoute == "/"){
+          this.showNav = false;
+          this.drawer.close();
+        }
+        else this.showNav = true;
+      }
+    });
+  }
 
-   logout() {
+  logout() {
     Swal.fire({
       title: 'Cierre de sesión',
       text: "Seguro que desea cerrar sesión?",
