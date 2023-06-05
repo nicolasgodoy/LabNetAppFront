@@ -156,12 +156,13 @@ export class EditProfileComponent implements OnInit {
       this.profileEditDto.mail = this.formulario.value.email;
       this.profileEditDto.description = this.formulario.value.description;
 
-      if (this.formulario.value.jobPosition !== '') {
 
+      if (this.formulario.value.jobPosition != null) {
         this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
       }
-      else
+      else{
         this.profileEditDto.idJobPosition = 1;
+      }
 
       this.profileEditDto.phone = String(this.formulario.value.phone);
       if (this.profileEditDto.phone === "null")
@@ -173,6 +174,7 @@ export class EditProfileComponent implements OnInit {
       //Fekapath problema para guardar en back
       this.profileEditDto.cv = this.formulario.value.cv;
 
+      console.log(this.profileEditDto);
       this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
 
         next: () => {
