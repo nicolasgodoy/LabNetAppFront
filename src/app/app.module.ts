@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { EditProfilePipePipe } from './edit-profile-pipe.pipe';
 import { ProfileModule } from './profile/profile.module';
 import { HomeComponent } from './home/home.component';
+import { HasProfileGuard } from './guard/hasProfile.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HomeComponent } from './home/home.component';
     SharedModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [HasProfileGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
