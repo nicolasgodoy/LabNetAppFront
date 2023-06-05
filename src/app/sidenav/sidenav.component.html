@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container">
-    <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-drawer  #drawer class="example-sidenav" mode="side">
       
       <img src="../assets/logo_neoris.png" alt="foto-perfil" class="foto-perfil">
         <button routerLink="/home" mat-raised-button style="margin:5px" color="primary">
@@ -14,8 +14,8 @@
         </button>
       </mat-drawer>
 
-    <div class="example-sidenav-content">
-        <button type="button" mat-button (click)="drawer.toggle()">
+    <div *ngIf="showNav" class="example-sidenav-content">
+        <button type="button" mat-button (click)="refreshSide()">
             <span class="material-symbols-outlined">
                 menu
             </span>

@@ -10,12 +10,12 @@
 
 
 
-    <app-sidenav></app-sidenav>
 
-    <router-outlet></router-outlet>
-  
+<app-sidenav [showNav]="showNav"></app-sidenav>
+<router-outlet></router-outlet>
 
-    <footer>
+
+    <footer *ngIf="showNav">
       <mat-toolbar color="primary" class="footer">
         <div class="footer-content">
           <a href="https://www.instagram.com" target="_blank" class="footer-link">

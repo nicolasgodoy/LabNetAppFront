@@ -31,7 +31,10 @@ export class AppComponent implements OnInit {
           this.showNav = false;
           this.drawer.close();
         }
-        else this.showNav = true;
+        else{
+          this.showNav = true;
+     
+        } 
       }
     });
 
