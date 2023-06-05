@@ -13,19 +13,14 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
   title = 'LabNetAppFront';
-  idUser:number;
+  IdUser:number;
   IdRol:number;
   showNav = false;
   colorRol:string = "white";
   
 
   constructor(private _authService: AuthService, private _router: Router) {
-    const token = this._authService.readToken();
-
-    const Object = this._authService.DecodeJWT(token);
-    
-    this.IdRol= this._authService.getValueByKey(Object,'IdRol');
-    console.log('ID log user:' + this.IdRol)
+ 
   }
 
   ngOnInit(): void {

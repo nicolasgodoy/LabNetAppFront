@@ -17,7 +17,7 @@
     <button routerLink="/home" mat-raised-button style="margin:5px" color="primary" class="home-out-button">
       <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
     </button>
-    <button *ngIf="IdRol == 2 || IdRol == 1"  routerLink="/profile/consult-profile/{{idUser}}" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Ver Perfil</button>
+    <button *ngIf="IdRol == 2 || IdRol == 1"  routerLink="/profile/consult-profile/{{IdUser}}" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Ver Perfil</button>
     <button *ngIf="IdRol == 1" routerLink="/user/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Usuario</button>
     <button *ngIf="IdRol == 1" routerLink="/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Filtro de Perfil</button>
     <button *ngIf="IdRol == 1" routerLink="/skill/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Skill</button>
