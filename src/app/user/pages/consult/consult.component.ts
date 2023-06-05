@@ -6,6 +6,7 @@ import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
+import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-consult',
@@ -75,21 +76,14 @@ export class ConsultComponent implements OnInit {
         this._userService.deleteUser(user.id).subscribe({
           next: (ResponseDto) => {
             console.log(ResponseDto);
-            Swal.fire(
-              'Eliminado!',
-              'El Usuario ha sido Eliminado',
-              'success'
-            )
+            Alert.mensajeEliminado('Usuario');
             this.showAllUsers();
           
           },
           error: (e) => {
             console.log(e);
-            Swal.fire(
-              'Error!',
-              'No se pudo Eliminar!',
-              'error'
-            )
+           
+            Alert.mensajeErrorCustom('No se pudo Eliminar ');
           },
         });
       }

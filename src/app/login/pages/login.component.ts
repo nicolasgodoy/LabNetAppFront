@@ -5,6 +5,7 @@ import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ProfilesService } from 'src/app/service/profiles.service';
+import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-login',
@@ -59,18 +60,10 @@ export class LoginComponent implements OnInit {
       error: (e: any) => {
     
         if(e.error.message === 'La contraseña es incorrecta'){
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'La contraseña es Incorrecta!',
-          })
+         Alert.mensajeErrorCustom(e.error.message)
         }else{
 
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El usuario no existe!',
-          })
+         Alert.mensajeErrorCustom('El Usuario no existe!')
           this.route.navigateByUrl('/login');
 
         }

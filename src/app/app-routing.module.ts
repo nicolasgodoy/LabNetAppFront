@@ -10,7 +10,7 @@ const routes: Routes = [
     path:'home',
       component : HomeComponent
   },
-  {
+  { canActivate: [AuthGuard],
     path: 'skill',
     loadChildren: () => import('./skill/skill.module').then(m => m.SkillModule)
   },

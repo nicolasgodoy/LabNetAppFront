@@ -4,6 +4,7 @@ import { UserService } from 'src/app/service/user.service';
 import { UpdatePassword } from 'src/app/models/updatePassword';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Alert } from 'src/app/helpers/alert';
 
 
 @Component({
@@ -38,20 +39,12 @@ export class UpdatePasswordProfileComponent implements OnInit {
       }
       this.uService.updateUserPassword(updatePass).subscribe(
         (response) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Actualizada',
-            text: 'La Contraseña se actualizo con exito!',
-          }),
+          Alert.mensajeExito(),
           this._router.navigateByUrl('/')
         },
         (error: any) => {
           console.log(error)
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'La Contraseña no se pudo actualizar!',
-          })
+          Alert.mensajeSinExito()
         }
       );
     }

@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user'
 import { RoleService } from 'src/app/service/role.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
+import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-add',
@@ -46,19 +47,13 @@ export class AddComponent implements OnInit {
 
       this._userService.addUser(newUser).subscribe(
         (response: User) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agregado',
-            text: 'El usuario se agrego con exito!',
-          })
+         
+          Alert.mensajeAdd('Usuario');
+          
         },
         (error: any) => {
           console.log(error)
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El usuario no se pudo agregar!',
-          })
+          Alert.mensajeErrorCustom('El Usuario ya Existe')
         }
       );
     } else {
