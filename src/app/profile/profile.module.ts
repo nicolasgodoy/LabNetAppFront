@@ -11,6 +11,7 @@ import { DialogAddSkillComponent } from './pages/profile-skill/dialog-add-skill/
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
 import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
 import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
+import { HasProfileGuard } from '../guard/hasProfile.guard';
 
 
 @NgModule({

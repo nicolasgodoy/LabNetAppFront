@@ -5,6 +5,7 @@ import { AddProfileComponent } from './pages/add-profile/add-profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/filter-profile-by-skill.component';
 import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
+import { HasProfileGuard } from '../guard/hasProfile.guard';
 
 const routes: Routes = [
 
@@ -20,6 +21,7 @@ const routes: Routes = [
         component: AddProfileComponent
       },
       {
+        canActivate: [HasProfileGuard],
         path: 'edit-profile/:id',
         component: EditProfileComponent,
         data: {
@@ -27,6 +29,7 @@ const routes: Routes = [
         }
       },
       {
+        canActivate: [HasProfileGuard],
         path: 'consult-profile/:id',
         component: EditProfileComponent,
         data: {

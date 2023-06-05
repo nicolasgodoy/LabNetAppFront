@@ -11,7 +11,7 @@
             <img src="assets/logo_neoris.png"
                 alt="imagen">
             <mat-card-content>
-                <button routerLink="/profile/consult-profile/{{idUser}}" mat-raised-button color="primary" mat-dialog-close>Ver Perfil</button>
+                <button [routerLink]="['/profile/consult-profile', idUser]" mat-raised-button color="primary" mat-dialog-close>Ver Perfil</button>
                 <button routerLink="/user/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Usuario</button>
                 <button routerLink="/filter-profile" mat-raised-button color="primary" mat-dialog-close>Filtro de Perfil</button>
                 <button routerLink="/skill/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Skill</button>
