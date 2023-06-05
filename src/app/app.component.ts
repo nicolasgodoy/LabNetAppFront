@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
   title = 'LabNetAppFront';
   IdUser:number;
-  IdRol:number;
+  
   showNav = false;
   colorRol:string = "white";
   
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.cambiarColorSidebar(this.IdRol);
+   
   }
 
   logout() {
@@ -55,13 +55,5 @@ export class AppComponent implements OnInit {
     })
   }
 
-  cambiarColorSidebar(IdRol: number){
-    if(IdRol == 1){
-      this.colorRol = "#24ABDD";
-    }
-
-    if(IdRol == 2){
-      this.colorRol = "#BF71E1 ";
-    }
-  }
+  
 }

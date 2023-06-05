@@ -1,0 +1,30 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      
+      <img src="../assets/logo_neoris.png" alt="foto-perfil" class="foto-perfil">
+        <button routerLink="/home" mat-raised-button style="margin:5px" color="primary">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        </button>
+        <button *ngIf="IdRol == 2 || IdRol == 1" routerLink="/profile/consult-profile/{{IdUser}}" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Ver Perfil</button>
+        <button *ngIf="IdRol == 1" routerLink="/user/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Usuario</button>
+        <button *ngIf="IdRol == 1" routerLink="/profile/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Filtro de Perfil</button>
+        <button *ngIf="IdRol == 1" routerLink="/skill/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Skill</button>
+        <button (click)="logout()" routerLink="/login" mat-raised-button style="margin:5px" style="margin:5px" color="primary" class="log-out-button">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
+        </button>
+      </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+        </button>
+    </div>
+    <mat-sidenav-container class="sidenav-container" autosize>
+        <router-outlet></router-outlet>
+    </mat-sidenav-container>
+
+
+    
+</mat-drawer-container>

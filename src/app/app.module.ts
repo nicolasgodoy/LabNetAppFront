@@ -12,11 +12,14 @@ import { EditProfilePipePipe } from './edit-profile-pipe.pipe';
 import { ProfileModule } from './profile/profile.module';
 import { HomeComponent } from './home/home.component';
 import { HasProfileGuard } from './guard/hasProfile.guard';
+import { SidenavComponent } from './sidenav/sidenav.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
