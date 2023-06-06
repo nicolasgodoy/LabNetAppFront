@@ -3,6 +3,8 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { AuthService } from '../service/auth.service';
 import { Token } from '@angular/compiler';
 import { ProfilesService } from '../service/profiles.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HasProfileGuard implements CanActivate {
@@ -13,24 +15,20 @@ export class HasProfileGuard implements CanActivate {
     this.Token = this.auth.readToken();
     const jsonObject = this.auth.DecodeJWT(this.Token);
     this.idUser = this.auth.getValueByKey(jsonObject, 'IdUser');
-    this.hasProfile = false;
+    this.hasProfile;
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // Perform your URL check here
-
-    this.profileService.HasProfile(this.idUser).subscribe({
-      next: (resp) => {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.profileService.HasProfile(this.idUser).pipe(
+      map((resp) => {
         this.hasProfile = resp.result;
-      }
-    })
-    
-    console.log(this.hasProfile);
-    if (this.hasProfile) {
-      return true;
-    } else {
-      this.router.navigate(['/profile/add-profile/' + this.idUser]);
-      return false;
-    }
+        if (this.hasProfile) {
+          return true;
+        } else {
+          this.router.navigate(['/profile/add-profile/' + this.idUser]);
+          return false;
+        }
+      })
+    );
   }
 }

@@ -73,12 +73,11 @@ export class AddProfileComponent implements OnInit {
           this.spinnerService.show();
           setTimeout( () => { 
             this.spinnerService.hide();
-            this.router.navigate(['profile/consult-profile/' + this.idUser])},
-          2000);
-         
+            this.router.navigate(['profile/consult-profile/' + this.idUser])
+            },
+          3000);
         },
         error: (error) => {
-          console.log(error);
           this._snackBar.open("No se pudo enviar el formulario, intentelo de nuevo mas tarde.",
             undefined, { duration: 2000 });
           this.spinnerService.hide();
