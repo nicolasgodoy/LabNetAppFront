@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 
+
 export class Alert{
 
     static mensajeAdd(entidad:string){
@@ -44,5 +45,33 @@ export class Alert{
             'success'
           )
     }
+
+    static mensajeExitoToast(){
+        Swal.fire({
+            icon: 'success',
+            title: 'Operacion Exitosa',
+            toast: true,
+            position:"top-end",
+            timer: 3000,
+            timerProgressBar: true,
+            text: 'La Accion se realizo con exito!',
+            showConfirmButton:false
+           
+          })
+    }
+
+    static mensajeSinExitoToast(){
+        Swal.fire({
+            icon: 'error',
+            title: 'Operacion Fallida',
+            text: 'La Accion no se pudo realizar con exito!',
+            toast: true,
+            position:"top-end",
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton:false
+        })
+    }
+    
     
 }

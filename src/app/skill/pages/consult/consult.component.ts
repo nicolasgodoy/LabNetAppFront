@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddComponent } from '../add/add.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Alert } from 'src/app/helpers/alert';
 import Swal from 'sweetalert2';
 
 
@@ -95,18 +96,10 @@ export class ConsultComponent implements OnInit {
     if (this.dataSkill == null) {
       this.skillService.AddSkill(modelo).subscribe({
         next: (data) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agregada',
-            text: 'La skill se agrego con exito!',
-          })
+          Alert.mensajeExitoToast();
           this.dialogoReferencia.close("creado");
         }, error: (e) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Error',
-            text: 'La Skill no se pudo agregar correctamente!',
-          })
+          Alert.mensajeSinExitoToast();
         }
       })
     }
@@ -120,19 +113,11 @@ export class ConsultComponent implements OnInit {
       }
       this.skillService.AddSkill(modelo).subscribe(
         (ResponseDto: Skill) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agregado',
-            text: 'El usuario se agrego con exito!',
-          })
+          Alert.mensajeExitoToast();
         },
         (error: any) => {
           console.log(error)
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El usuario no se pudo agregar!',
-          })
+          Alert.mensajeSinExitoToast();
         }
       );
 
@@ -167,20 +152,12 @@ export class ConsultComponent implements OnInit {
         this.skillService.deleteSkill(dataSkill.id).subscribe({
           next: (ResponseDto) => {
             console.log(ResponseDto);
-            Swal.fire(
-              'Eliminado!',
-              'La Skill ha sido Eliminado',
-              'success'
-            )
+            Alert.mensajeExitoToast();
             this.mostrarSkill();
           },
           error: (e) => {
             console.log(e);
-            Swal.fire(
-              'Error!',
-              'No se pudo Eliminar!',
-              'error'
-            )
+            Alert.mensajeSinExitoToast();
           },
         });
       }

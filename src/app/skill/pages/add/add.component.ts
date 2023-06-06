@@ -8,6 +8,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddSkillDto } from 'src/app/Response/addSkillDto';
+import { Alert } from 'src/app/helpers/alert';
 import Swal from 'sweetalert2';
 
 
@@ -85,18 +86,10 @@ export class AddComponent implements AfterViewInit, OnInit {
     if (this.dataSkill == null) {
       this.skillService.AddSkill(modelo).subscribe({
         next: (data) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agregada',
-            text: 'La skill se agrego con exito!',
-          })
+          Alert.mensajeExitoToast();
           this.dialogoReferencia.close("creado");
         }, error: (e) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Error',
-            text: 'La Skill no se pudo agregar correctamente!',
-          })
+          Alert.mensajeSinExitoToast();
         }
       })
     }
