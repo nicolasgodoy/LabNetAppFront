@@ -4,7 +4,6 @@ import { Skill } from '../../../../app/models/skill';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddComponent } from '../add/add.component';
@@ -32,7 +31,7 @@ export class ConsultComponent implements OnInit {
     private skillService: SkillService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar,
+
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public dataSkill: Skill) {
 
@@ -58,14 +57,7 @@ export class ConsultComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  mensajeAlerta(msg: string, accion: string) {
-    this._snackBar.open(msg, accion, {
-      horizontalPosition: "center",
-      verticalPosition: "bottom",
-      duration: 3000
-    });
-  }
-
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
