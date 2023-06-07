@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { JobPositionService } from 'src/app/service/job-position.service';
 import Swal from 'sweetalert2';
 import { EducationService } from 'src/app/service/education.service';
+import { Alert } from 'src/app/helpers/alert';
 
 
 @Component({
@@ -303,8 +304,11 @@ export class EditProfileComponent implements OnInit {
           await this.educationService.Delete(id).toPromise();
           const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
           this.dataSourceEducation.data = profileResponse.result.educationEntities;
+          Alert.mensajeExitoToast();
         } catch (error) {
           console.error(error);
+          Alert.mensajeSinExitoToast();
+
         }
       }
     });
