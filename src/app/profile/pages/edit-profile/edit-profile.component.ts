@@ -26,7 +26,7 @@ export class EditProfileComponent implements OnInit {
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree',
-    'admissionDate', 'expeditionDate'];
+    'admissionDate', 'expeditionDate','Editar','Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
