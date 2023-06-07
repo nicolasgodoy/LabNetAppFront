@@ -1,11 +1,11 @@
-import { Component, OnChanges, OnInit,Input, SimpleChanges} from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { ProfilesService } from 'src/app/service/profiles.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { DialogAddSkillComponent } from './dialog-add-skill/dialog-add-skill.component';
 import { Skill } from 'src/app/models/skill';
+import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-profile-skill',
@@ -25,7 +25,6 @@ export class ProfileSkillComponent implements OnInit {
 
   constructor(private profileService:ProfilesService,
     public dialog: MatDialog,
-    private snack:MatSnackBar,
     ) { }
 
     ngOnInit(): void {
@@ -36,10 +35,10 @@ export class ProfileSkillComponent implements OnInit {
     this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
       {
         next:(res)=> {
-          this.alert(res.message);
+          Alert.mensajeExitoToast(res.message)
           this.GetProfileSkill(this.idProfile);
         },
-        error:() =>  this.alert('error en eliminar skill')
+        error:() => Alert.mensajeSinExitoToast('error al eliminar')
       }
     )
   }
@@ -52,7 +51,7 @@ export class ProfileSkillComponent implements OnInit {
           this.listProfileSkill = dataResponse.result;
         }
       },
-      error: () => this.alert('error en carga de skills')
+      error: () => Alert.mensajeSinExitoToast('error al cargar skills')
     })
   }
   openDialog(id:number): void {
@@ -71,18 +70,10 @@ export class ProfileSkillComponent implements OnInit {
       });
       dialogoref.afterClosed().subscribe(res=>{
         if(res)
-          this.alert(res);
+          Alert.mensajeExitoToast()
           this.GetProfileSkill(this.idProfile);
       })
     }
-  }
-
-  alert(msj:string){
-    this.snack.open(msj,'',{
-      duration:3000,
-      horizontalPosition:'right',
-      verticalPosition:'top'
-    });
   }
 }
 

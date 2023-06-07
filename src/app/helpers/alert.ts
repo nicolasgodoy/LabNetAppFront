@@ -46,7 +46,7 @@ export class Alert{
           )
     }
 
-    static mensajeExitoToast(){
+    static mensajeExitoToast(entidad?:string){
         Swal.fire({
             icon: 'success',
             title: 'Operacion Exitosa',
@@ -54,24 +54,22 @@ export class Alert{
             position:"top-end",
             timer: 3000,
             timerProgressBar: true,
-            text: 'La Accion se realizo con exito!',
+            text: entidad ? entidad : 'La Accion se realizo con exito!',
             showConfirmButton:false
            
           })
     }
 
-    static mensajeSinExitoToast(){
+    static mensajeSinExitoToast(entidad?:string){
         Swal.fire({
             icon: 'error',
             title: 'Operacion Fallida',
-            text: 'La Accion no se pudo realizar con exito!',
+            text: entidad ? entidad : 'La Accion no se pudo realizar con exito!',
             toast: true,
             position:"top-end",
             timer: 3000,
             timerProgressBar: true,
             showConfirmButton:false
         })
-    }
-    
-    
+    } 
 }
