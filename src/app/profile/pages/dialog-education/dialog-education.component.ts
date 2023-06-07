@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InstitutionType } from 'src/app/models/Education/InstitutionTypeDto';
 import { addEducationDto } from 'src/app/models/Education/addEducationDto';
@@ -31,9 +31,8 @@ export class DialogEducationComponent implements OnInit {
     if(typeof this.data == "number" ){
 
       this.formulario = this.formBuilder.group({
-
-        institutionName: ['',[Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
-        degree: ['',[Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        institutionName: ['',[Validators.required]],
+        degree: ['',[Validators.required]],
         admissionDate: ['',[Validators.required]],
         expeditionDate: ['',[Validators.required]],
         institutionType: ['',[Validators.required]]
@@ -48,17 +47,16 @@ export class DialogEducationComponent implements OnInit {
 
         institutionName: [data.institutionName,[Validators.required]],
         degree: [data.degree,[Validators.required]],
-        admissionDate: [data.admissionDate,[Validators.required]],
-        expeditionDate: [data.expeditionDate,[Validators.required]],
-        institutionType: [data.institutionType,[Validators.required]]
+        admissionDate: [this.formatoFecha(data.admissionDate),[Validators.required]],
+        expeditionDate: [this.formatoFecha(data.expeditionDate),[Validators.required]],
+        institutionType: [data.idInstitutionType
+          ,[Validators.required]]
       }) ;
     }
   }
 
   ngOnInit(): void {
     this.getEducationType();
-    console.log(this.data);
-
   }
 
   update(){
@@ -107,5 +105,14 @@ export class DialogEducationComponent implements OnInit {
       }
     })
   }
+
+  formatoFecha(fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
+  }
+
+
 }
 

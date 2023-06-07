@@ -58,7 +58,6 @@ export class ProfileEducationComponent implements OnInit {
       },
       error: (error) => {Alert.mensajeSinExitoToast('error al cargar educaciones');
       console.log(error);
-      console.log(this.idProfile);
     } 
     })
   }
@@ -103,7 +102,6 @@ export class ProfileEducationComponent implements OnInit {
       update = this.listEducation.find(e => e.id === idEducation);
     }
 
-    console.log(this.listEducation);
     const dialogoref = this.dialog.open( DialogEducationComponent, {
       width: '500px',
       data: idEducation ? update : this.idProfile
