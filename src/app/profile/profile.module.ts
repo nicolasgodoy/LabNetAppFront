@@ -12,6 +12,7 @@ import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/f
 import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
 import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
 import { HasProfileGuard } from '../guard/hasProfile.guard';
+import { DialogEducationComponent } from './pages/dialog-education/dialog-education.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HasProfileGuard } from '../guard/hasProfile.guard';
     DialogDeleteComponent,
     DialogAddSkillComponent,
     UpdatePasswordProfileComponent,
-    EditProfilePipePipe
+    EditProfilePipePipe,
+    DialogEducationComponent
   ],
   imports: [
     CommonModule,

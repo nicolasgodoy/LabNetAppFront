@@ -13,6 +13,9 @@ import { AuthService } from 'src/app/service/auth.service';
 import { JobPositionService } from 'src/app/service/job-position.service';
 import Swal from 'sweetalert2';
 import { EducationService } from 'src/app/service/education.service';
+import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConstantPool } from '@angular/compiler';
 
 
 @Component({
@@ -62,7 +65,8 @@ export class EditProfileComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private jobPositionService: JobPositionService,
-    private educationService: EducationService
+    private educationService: EducationService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -310,4 +314,16 @@ export class EditProfileComponent implements OnInit {
     });
   }
   
+  // CREATE UPDATE EDUCATION
+
+  openDialog(): void {
+    console.log("entro")
+      const dialogoref = this.dialog.open( DialogEducationComponent, {
+        width: '500px'
+      });
+      dialogoref.afterClosed().subscribe(res=>{
+        console.log(res)
+      })
+    
+  }
 }
