@@ -11,6 +11,8 @@ import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/service/auth.service';
 import { JobPositionService } from 'src/app/service/job-position.service';
+import Swal from 'sweetalert2';
+import { EducationService } from 'src/app/service/education.service';
 
 
 @Component({
@@ -26,7 +28,7 @@ export class EditProfileComponent implements OnInit {
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree',
-    'admissionDate', 'expeditionDate'];
+    'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
@@ -59,7 +61,8 @@ export class EditProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private auth: AuthService,
     private router: Router,
-    private jobPositionService: JobPositionService
+    private jobPositionService: JobPositionService,
+    private educationService: EducationService
   ) {
   }
 
@@ -160,7 +163,7 @@ export class EditProfileComponent implements OnInit {
       if (this.formulario.value.jobPosition != null) {
         this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
       }
-      else{
+      else {
         this.profileEditDto.idJobPosition = 1;
       }
 
@@ -282,4 +285,29 @@ export class EditProfileComponent implements OnInit {
       return null;
     }
   })
+
+
+  
+  public deleteEducation(id: number) {
+    Swal.fire({
+      title: 'Seguro que desea eliminar este registro?',
+      text: "No podrás revertirlo más tarde!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminalo!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await this.educationService.Delete(id).toPromise();
+          const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
+          this.dataSourceEducation.data = profileResponse.result.educationEntities;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    });
+  }
+  
 }
