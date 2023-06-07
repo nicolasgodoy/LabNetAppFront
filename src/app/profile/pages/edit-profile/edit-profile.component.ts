@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
 import { DialogWorkComponent } from '../dialog-work/dialog-work.component';
 import { WorkService } from 'src/app/service/work.service';
+import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 
 
 @Component({
@@ -379,6 +380,20 @@ export class EditProfileComponent implements OnInit {
 
     const dialog = this.dialog.open(DialogWorkComponent, {
       width: '500px'
+    },);
+    
+    dialog.afterClosed().subscribe(res => {
+
+     res && this.getById();
+      console.log(res);
+    })
+  }
+
+  openDialogWorkUpdate(modifyWorkDto: ModifyWorkDto): void {
+
+    const dialog = this.dialog.open(DialogWorkComponent ,{
+      width: '500px',
+      data: modifyWorkDto
     });
     
     dialog.afterClosed().subscribe(res => {

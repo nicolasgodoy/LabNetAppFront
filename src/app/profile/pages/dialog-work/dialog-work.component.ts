@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 import { WorkDto } from 'src/app/models/Work/WorkDto';
+import { ProfilesService } from 'src/app/service/profiles.service';
 
 import { WorkService } from 'src/app/service/work.service';
 
@@ -15,10 +17,14 @@ export class DialogWorkComponent implements OnInit {
 
   formGroup: FormGroup;
   work: WorkDto = new WorkDto;
+  workModify: ModifyWorkDto = new ModifyWorkDto;
+  workEntitiesArr: any = [];
+
 
   constructor(private formBuilder: FormBuilder,
     private workService: WorkService,
-    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: ModifyWorkDto,
+    private profileService: ProfilesService,
     private dialogRef: MatDialogRef<DialogWorkComponent>) {
 
     this.formGroup = this.formBuilder.group({
@@ -28,7 +34,15 @@ export class DialogWorkComponent implements OnInit {
       IdProfile: 1
     });
   }
+
   ngOnInit(): void {
+
+
+    this.formGroup.patchValue({
+
+      company: this.data.company,
+      role: this.data.role
+    })
   }
 
   addWork(): void {
@@ -59,17 +73,23 @@ export class DialogWorkComponent implements OnInit {
         console.log(res);
       }
     })
-
   }
 
-  // deleteWork(id : number) : void {
+  updateWork() : void{
 
-  //   this.workService.DeleteWork(id).subscribe({
+    this.workModify = {
 
-  //   next: (resp) => {
+      id: this.data.id,
+      company : this.formGroup.value.company,
+      role: this.formGroup.value.role
+    }
 
+    this.workService.ModifyWork(this.workModify).subscribe({
 
-  //   }      
-  //   })
-  // } 
+      next: (resp) => {
+
+        this.dialogRef.close(resp.message);
+      }
+    })
+  }
 }
