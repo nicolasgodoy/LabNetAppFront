@@ -38,7 +38,6 @@ export class EditProfileComponent implements OnInit {
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
 
-  listEducation: updateEducation[] =[]  ;
   public titulo: string = "Consultar";
   public previewImg: string;
   public previewDoc: string;
@@ -137,7 +136,6 @@ export class EditProfileComponent implements OnInit {
 
         this.dataSourceWork.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;
-        this.listEducation = data.result.educationEntities;
         this.profileEditDto = data.result;
 
         this.IdProfile = this.profileEditDto.idProfile;
@@ -296,49 +294,5 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
-  public deleteEducation(id: number) {
-    Swal.fire({
-      title: 'Seguro que desea eliminar este registro?',
-      text: "No podrás revertirlo más tarde!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminalo!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await this.educationService.Delete(id).toPromise();
-          const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
-          this.dataSourceEducation.data = profileResponse.result.educationEntities;
-          Alert.mensajeExitoToast();
-        } catch (error) {
-          console.error(error);
-          Alert.mensajeSinExitoToast();
-
-        }
-      }
-    });
-  }
-  
-  // CREATE UPDATE EDUCATION
-  openDialog(idEducation?:number): void {
-    let update:updateEducation ;
-    
-    if (idEducation) {
-      update = this.listEducation.find(e => e.id === idEducation);
-    }
-
-    const dialogoref = this.dialog.open( DialogEducationComponent, {
-      width: '500px',
-      data: idEducation ? update : this.IdProfile
-    });
-    dialogoref.afterClosed().subscribe(res=>{
-      if (res) {
-        Alert.mensajeExitoToast(res),
-        this.getById()
-      }
-    })
-    
-  }
+ 
 }

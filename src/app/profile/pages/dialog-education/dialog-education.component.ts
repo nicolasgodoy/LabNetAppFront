@@ -57,6 +57,8 @@ export class DialogEducationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEducationType();
+    console.log(this.data);
+
   }
 
   update(){
