@@ -32,11 +32,11 @@ export class DialogEducationComponent implements OnInit {
 
       this.formulario = this.formBuilder.group({
 
-        institutionName: ['',[Validators.required]],
-        degree: ['',[Validators.required]],
+        institutionName: ['',[Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        degree: ['',[Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
         admissionDate: ['',[Validators.required]],
         expeditionDate: ['',[Validators.required]],
-        institutionType: ['',]
+        institutionType: ['',[Validators.required]]
       }) 
 
 

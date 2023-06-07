@@ -5,12 +5,21 @@
             <mat-form-field appearance="fill">
                 <mat-label> Institution Name</mat-label>
                 <input type="text" matInput formControlName="institutionName">
+                <mat-error *ngIf="formulario.get('institutionName')?.invalid && formulario.get('institutionName')?.touched">
+                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['required']">El Nombre es requerido.</span>
+                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['pattern']">Ingrese solo letras.</span>
+                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['maxlength']">El Nombre no debe superar los 30 caracteres</span>
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-
-            <mat-label> Degree </mat-label>
+                <mat-label> Degree </mat-label>
                 <input type="text" matInput formControlName="degree">
+                <mat-error *ngIf="formulario.get('degree')?.invalid && formulario.get('degree')?.touched">
+                    <span *ngIf="this.formulario.get('degree')?.errors?.['required']">El Nombre es requerido.</span>
+                    <span *ngIf="this.formulario.get('degree')?.errors?.['pattern']">Ingrese solo letras.</span>
+                    <span *ngIf="this.formulario.get('degree')?.errors?.['maxlength']">El Nombre no debe superar los 30 caracteres</span>
+                </mat-error>
             </mat-form-field>
 
 
@@ -35,8 +44,8 @@
             </mat-form-field>
 
             <div>
-                <button *ngIf="!isUpdate" mat-flat-button color="primary"  (click)="create()">Agregar</button>
-                <button *ngIf="isUpdate" mat-flat-button color="primary"  (click)="update()">Update</button>
+                <button *ngIf="!isUpdate" mat-flat-button color="primary"  [disabled]="formulario.invalid" (click)="create()">Agregar</button>
+                <button *ngIf="isUpdate" mat-flat-button color="primary"  [disabled]="formulario.invalid" (click)="update()">Update</button>
             </div>
     </form>
 </div>
