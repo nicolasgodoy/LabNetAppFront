@@ -78,25 +78,7 @@ export class ConsultComponent implements OnInit {
     })
   }
 
-  AddSkills() {
-    const modelo: Skill = {
-      id: this.formSkill.value.id,
-      description: this.formSkill.value.Description
-
-    }
-
-    if (this.dataSkill == null) {
-      this.skillService.AddSkill(modelo).subscribe({
-        next: (data) => {
-          Alert.mensajeExitoToast();
-          this.dialogoReferencia.close("creado");
-        }, error: (e) => {
-          Alert.mensajeSinExitoToast();
-        }
-      })
-    }
-  }
-
+  
   AddSkill(): void {
     if(this.formSkill.valid) {
       const modelo: Skill = {
