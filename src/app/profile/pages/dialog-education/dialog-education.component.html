@@ -2,24 +2,28 @@
 
 <div>
     <form [formGroup]="formulario" >
-        <mat-form-field appearance="fill">
-            <mat-label> Institution Name</mat-label>
-            <input type="text" matInput formControlName="institutionName">
-            </mat-form-field>
-            <br>
             <mat-form-field appearance="fill">
-            <mat-label> Degree </mat-label>
-            <input type="text" matInput formControlName="degree">
+                <mat-label> Institution Name</mat-label>
+                <input type="text" matInput formControlName="institutionName">
             </mat-form-field>
+
+            <mat-form-field appearance="fill">
+
+            <mat-label> Degree </mat-label>
+                <input type="text" matInput formControlName="degree">
+            </mat-form-field>
+
+
             <br>
+
             <mat-form-field appearance="fill">
             <mat-label> Admission Date </mat-label>
-            <input type="date" matInput formControlName="admissionDate">
+                <input type="date" matInput formControlName="admissionDate">
             </mat-form-field>
-            <br>
+            
             <mat-form-field appearance="fill">
             <mat-label>Expedition Date</mat-label>
-            <input type="date" matInput formControlName="expeditionDate">
+                <input type="date" matInput formControlName="expeditionDate">
             </mat-form-field>
             <br>
             <mat-form-field>
@@ -29,5 +33,9 @@
                 [value]="type.id">{{type.description}}</mat-option>
             </mat-select>
             </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" (click)="create()">Agregar</button>
+            </div>
     </form>
 </div>

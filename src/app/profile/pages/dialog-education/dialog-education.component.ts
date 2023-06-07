@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { InstitutionType } from 'src/app/models/Education/InstitutionTypeDto';
+import { addEducationDto } from 'src/app/models/Education/addEducationDto';
+import { ResponseDto } from 'src/app/models/response';
+import { EducationService } from 'src/app/service/education.service';
 
 @Component({
   selector: 'app-dialog-education',
@@ -14,18 +18,43 @@ export class DialogEducationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-  ) { }
-
-  ngOnInit(): void {
+    private educationService: EducationService,
+    private dialogRef: MatDialogRef<DialogEducationComponent>
+  ) { 
 
     this.formulario = this.formBuilder.group({
 
-      institutionName: [{ value: "", disabled: false }],
-      degree: [{ value: "", disabled: false }],
-      admissionDate: [{ value: "", disabled: false }],
-      expeditionDate: [{ value: "", disabled: false }],
-      institutionType: [{ value: "", disabled: false }]
+      institutionName: ['',[Validators.required]],
+      degree: ['',[Validators.required]],
+      admissionDate: ['',[Validators.required]],
+      expeditionDate: ['',[Validators.required]],
+      institutionType: ['',]
     });
   }
 
+  ngOnInit(): void {
+  }
+
+
+  update(){
+  }
+  create(){
+    event?.preventDefault()
+    if (this.formulario.valid) {
+      const data: addEducationDto = {
+        InstitutionName: this.formulario.value.institutionName,
+        Degree: this.formulario.value.degree,
+        AdmissionDate: this.formulario.value.admissionDate,
+        ExpeditionDate: this.formulario.value.expeditionDate,
+        IdInstitutionType:1,
+        IdProfile:1
+      };
+      this.educationService.Insert(data).subscribe({
+          next: (dataResponse: ResponseDto) => {
+            this.dialogRef.close(dataResponse.message);
+          }, error: () => console.error('ocurrio un error inesperado')
+      })
+    }
+  }
 }
+

@@ -291,8 +291,6 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
-
-  
   public deleteEducation(id: number) {
     Swal.fire({
       title: 'Seguro que desea eliminar este registro?',
@@ -319,14 +317,13 @@ export class EditProfileComponent implements OnInit {
   }
   
   // CREATE UPDATE EDUCATION
-
   openDialog(): void {
     console.log("entro")
       const dialogoref = this.dialog.open( DialogEducationComponent, {
         width: '500px'
       });
       dialogoref.afterClosed().subscribe(res=>{
-        console.log(res)
+        Alert.mensajeExitoToast(res);
       })
     
   }
