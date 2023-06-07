@@ -1,0 +1,21 @@
+<h1>Ingresar Trabajo</h1>
+
+<div>
+    <form [formGroup]="formGroup" (ngSubmit)="addWork()">
+        <mat-form-field appearance="fill">
+            <mat-label>Company</mat-label>
+            <input type="text" matInput formControlName="company">
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Role</mat-label>
+            <input type="text" matInput formControlName="role">
+        </mat-form-field>
+        <br>
+
+        <button type="submit" class="botonGuardar" mat-raised-button color="primary">
+            Guardar
+        </button>
+    </form>
+</div>

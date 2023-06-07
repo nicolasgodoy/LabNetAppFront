@@ -17,6 +17,7 @@ import { Alert } from 'src/app/helpers/alert';
 import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
+import { DialogWorkComponent } from '../dialog-work/dialog-work.component';
 
 
 @Component({
@@ -329,5 +330,16 @@ export class EditProfileComponent implements OnInit {
         console.log(res)
       })
     
+  }
+
+  openDialogWork(): void {
+
+    const dialog = this.dialog.open(DialogWorkComponent, {
+      width: '500px'
+    });
+    
+    dialog.afterClosed().subscribe(res => {
+      console.log(res);
+    })
   }
 }
