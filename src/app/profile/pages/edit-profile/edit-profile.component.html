@@ -151,6 +151,11 @@
           <td mat-cell *matCellDef="let element">{{element.degree}}</td>
         </ng-container>
 
+        <ng-container matColumnDef="DescriptionInstitutionType">
+          <th mat-header-cell *matHeaderCellDef>Tipo institucion</th>
+          <td mat-cell *matCellDef="let element">{{element.descriptionInstitutionType}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="admissionDate">
           <th mat-header-cell *matHeaderCellDef>Fecha de ingreso</th>
           <td mat-cell *matCellDef="let element">{{formatoFecha(element.admissionDate)}}</td>
@@ -163,7 +168,9 @@
 
         <ng-container matColumnDef="Editar">
           <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
-            Editar
+            <div *ngIf="modify">
+              Editar
+            </div>
           </th>
 
           <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
@@ -176,9 +183,11 @@
         </ng-container>
 
 
-        <ng-container ng-container matColumnDef="Eliminar">
+        <ng-container  ng-container matColumnDef="Eliminar">
           <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
-            Eliminar
+            <div *ngIf="modify">
+              Eliminar
+            </div>
           </th>
 
           <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">

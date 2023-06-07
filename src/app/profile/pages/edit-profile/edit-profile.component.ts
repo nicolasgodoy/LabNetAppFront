@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { JobPositionService } from 'src/app/service/job-position.service';
 import Swal from 'sweetalert2';
 import { EducationService } from 'src/app/service/education.service';
+import { Alert } from 'src/app/helpers/alert';
 import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
@@ -30,7 +31,7 @@ export class EditProfileComponent implements OnInit {
   disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
-  displayedColumnsEducation: string[] = ['institutionName', 'degree',
+  displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
     'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
@@ -307,8 +308,11 @@ export class EditProfileComponent implements OnInit {
           await this.educationService.Delete(id).toPromise();
           const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
           this.dataSourceEducation.data = profileResponse.result.educationEntities;
+          Alert.mensajeExitoToast();
         } catch (error) {
           console.error(error);
+          Alert.mensajeSinExitoToast();
+
         }
       }
     });

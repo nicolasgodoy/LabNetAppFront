@@ -5,4 +5,5 @@ export class profileEducationDto {
     degree: string;
     expeditionDate: Data;
     admissionDate: Data;
+    descriptionInstitutionType: string;
 }
