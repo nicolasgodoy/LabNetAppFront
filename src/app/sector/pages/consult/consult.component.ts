@@ -37,7 +37,7 @@ export class ConsultComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataSector: Sector) {
 
     this.formSector = this.fb.group({
-      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$')]]
+      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]]
     })
 
     this.sectorService.getAllSector().subscribe({

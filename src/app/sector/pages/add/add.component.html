@@ -13,6 +13,10 @@
                         *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['required'] ">
                         <span class="mensajesValidaciones"><b>Campo Descripcion requerido</b></span>
                     </mat-error>
+                    <mat-error
+                        *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['pattern'] ">
+                        <span class="mensajesValidaciones"><b>No se pueden ingresar números</b></span>
+                    </mat-error>
                 </div>
             </mat-grid-tile>
         </mat-grid-list>
