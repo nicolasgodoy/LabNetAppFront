@@ -28,12 +28,11 @@ export class sectorService {
     }
 
     addSector(sector:Sector): Observable<Sector>{
-        /* this.userToken =`Bearer ${this._authservice.readToken()}`;  
-        const headers = new HttpHeaders({'Authorization': this.userToken}); */
+        this.userToken =`Bearer ${this._authservice.readToken()}`;  
+        const headers = new HttpHeaders({'Authorization': this.userToken});
 
-        return this.http.post<Sector>(`${this.url}/Insert`,sector);/* , sector,{headers:headers} */
+        return this.http.post<Sector>(`${this.url}/Insert`,sector,{headers:headers});
     }
-
    
     deleteSector(id: number){
         const userToken = `Bearer ${this._authservice.readToken()}`;
