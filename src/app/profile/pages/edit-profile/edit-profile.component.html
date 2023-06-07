@@ -167,7 +167,7 @@
           </th>
 
           <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
-            <button *ngIf="modify" mat-mini-fab color="primary" matTooltip="Editar educacion">
+            <button *ngIf="modify" mat-mini-fab color="primary" matTooltip="Editar educacion" >
               <mat-icon>create</mat-icon>
             </button>
           </td>
@@ -182,7 +182,8 @@
           </th>
 
           <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
-            <button *ngIf="modify" mat-mini-fab color="primary" matTooltip="Eliminar educacion">
+            <button type="button" *ngIf="modify" mat-mini-fab color="primary" matTooltip="Eliminar educacion"
+            (click) = "deleteEducation(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
