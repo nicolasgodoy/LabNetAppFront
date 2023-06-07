@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkDto } from 'src/app/models/Work/WorkDto';
 
@@ -18,7 +19,7 @@ export class DialogWorkComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private workService: WorkService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private dialogRef: MatDialogRef<DialogWorkComponent>) {
 
     this.formGroup = this.formBuilder.group({
 
@@ -50,10 +51,8 @@ export class DialogWorkComponent implements OnInit {
       next: (res) => {
 
         console.log(res.result);
-        this.router.navigate(['profile/edit-profile/1']);
+        this.dialogRef.close(res.result);
       },
-
-
 
       error: (res) => {
 
@@ -62,4 +61,15 @@ export class DialogWorkComponent implements OnInit {
     })
 
   }
+
+  // deleteWork(id : number) : void {
+
+  //   this.workService.DeleteWork(id).subscribe({
+
+  //   next: (resp) => {
+
+
+  //   }      
+  //   })
+  // } 
 }

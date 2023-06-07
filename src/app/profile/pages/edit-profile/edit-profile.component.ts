@@ -18,6 +18,7 @@ import { DialogEducationComponent } from '../dialog-education/dialog-education.c
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
 import { DialogWorkComponent } from '../dialog-work/dialog-work.component';
+import { WorkService } from 'src/app/service/work.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class EditProfileComponent implements OnInit {
 
   disableSelect = new FormControl(false);
 
-  displayedColumnsWork: string[] = ['comapania', 'role'];
+  displayedColumnsWork: string[] = ['comapania', 'role', 'editar', 'eliminar'];
   displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
     'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
@@ -68,7 +69,8 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
     private jobPositionService: JobPositionService,
     private educationService: EducationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private workService: WorkService
   ) {
   }
 
@@ -126,32 +128,75 @@ export class EditProfileComponent implements OnInit {
     }
 
     //Cargar el component consultProfile con los datos
+    // this.servicioProfile.GetById(this.idUser).subscribe({
+
+    //   next: (data: ResponseDto) => {
+
+    //     this.dataSourceWork.data = data.result.workEntities;
+    //     this.dataSourceEducation.data = data.result.educationEntities;
+
+    //     this.profileEditDto = data.result;
+
+    //     this.IdProfile = this.profileEditDto.idProfile;
+
+    //     this.imgProfile = this.profileEditDto.photo;
+
+    //     //Establecer los valores del formulario
+    //     this.formulario.controls['name'].setValue(this.profileEditDto.name);
+    //     this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
+    //     this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
+    //     this.formulario.controls['fechaNacimiento']
+    //       .setValue(this.formatoFecha(this.profileEditDto.birthDate));
+    //     this.formulario.controls['description'].setValue(this.profileEditDto.description);
+    //     this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
+    //     this.formulario.controls['email'].setValue(this.profileEditDto.mail);
+    //     this.formulario.controls['jobPosition']
+    //       .setValue(this.profileEditDto.idJobPosition);
+    //   }
+    // });
+
+    this.getById();
+  }
+
+  getById(){
+
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data: ResponseDto) => {
 
         this.dataSourceWork.data = data.result.workEntities;
+
         this.dataSourceEducation.data = data.result.educationEntities;
 
         this.profileEditDto = data.result;
-
         this.IdProfile = this.profileEditDto.idProfile;
-
         this.imgProfile = this.profileEditDto.photo;
-
         //Establecer los valores del formulario
+
         this.formulario.controls['name'].setValue(this.profileEditDto.name);
+
         this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
+
         this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
+
         this.formulario.controls['fechaNacimiento']
+
           .setValue(this.formatoFecha(this.profileEditDto.birthDate));
+
         this.formulario.controls['description'].setValue(this.profileEditDto.description);
+
         this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
+
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
+
         this.formulario.controls['jobPosition']
+
           .setValue(this.profileEditDto.idJobPosition);
+
       }
+
     });
+
   }
 
   editarPerfil() {
@@ -292,8 +337,6 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
-
-  
   public deleteEducation(id: number) {
     Swal.fire({
       title: 'Seguro que desea eliminar este registro?',
@@ -339,7 +382,40 @@ export class EditProfileComponent implements OnInit {
     });
     
     dialog.afterClosed().subscribe(res => {
+
+     res && this.getById();
       console.log(res);
+    })
+  }
+
+  public deleteWork(id: number) {
+
+    Swal.fire({
+
+      title: '¿Seguro que desea eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminalo!'
+    }).then(async (result)=> {
+
+      if(result.isConfirmed){
+
+        try {
+          await this.workService.DeleteWork(id).toPromise();
+
+          const respuesta : ResponseDto = await this.servicioProfile.GetById(this.idUser)
+          .toPromise();
+          this.dataSourceWork.data = respuesta.result.workEntities;
+          Alert.mensajeExitoToast();
+         
+        } catch (error) {
+          
+          console.error(error);
+          Alert.mensajeSinExitoToast();
+        }
+      }
     })
   }
 }

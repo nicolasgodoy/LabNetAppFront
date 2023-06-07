@@ -9,7 +9,6 @@ import { ResponseDto } from '../Response/responseDto';
   providedIn: 'root'
 })
 
-
 export class WorkService {
 
   apiUrl: string = environment.apiLab;
@@ -21,5 +20,11 @@ export class WorkService {
 
     let url = `${this.apiUrl}${this.endPoint}/Insert`;
     return this.http.post<ResponseDto>(url, workDto);
+  }
+
+  public DeleteWork(id: number) : Observable<ResponseDto>{
+
+    let url = `${this.apiUrl}${this.endPoint}/Delete/${id}`;
+    return this.http.delete<ResponseDto>(url);
   }
 }
