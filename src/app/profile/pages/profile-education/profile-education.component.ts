@@ -28,7 +28,7 @@ export class ProfileEducationComponent implements OnInit {
   listEducation: updateEducation[] =[]  ;
 
   displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
-    'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
+    'admissionDate', 'expeditionDate', 'action'];
 
   dataSourceEducation = new MatTableDataSource();
   public listaProfileEducation: any = [];
