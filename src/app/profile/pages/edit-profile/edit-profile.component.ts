@@ -38,6 +38,7 @@ export class EditProfileComponent implements OnInit {
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
 
+  listEducation: updateEducation[] =[]  ;
   public titulo: string = "Consultar";
   public previewImg: string;
   public previewDoc: string;
@@ -136,7 +137,7 @@ export class EditProfileComponent implements OnInit {
 
         this.dataSourceWork.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;
-
+        this.listEducation = data.result.educationEntities;
         this.profileEditDto = data.result;
 
         this.IdProfile = this.profileEditDto.idProfile;
@@ -321,10 +322,16 @@ export class EditProfileComponent implements OnInit {
   }
   
   // CREATE UPDATE EDUCATION
-  openDialog(idEducation:number): void {
+  openDialog(idEducation?:number): void {
+    let update:updateEducation ;
+    
+    if (idEducation) {
+      update = this.listEducation.find(e => e.id === idEducation);
+    }
+
     const dialogoref = this.dialog.open( DialogEducationComponent, {
       width: '500px',
-      data: idEducation ? {} : this.IdProfile
+      data: idEducation ? update : this.IdProfile
     });
     dialogoref.afterClosed().subscribe(res=>{
       if (res) {

@@ -35,7 +35,8 @@
             </mat-form-field>
 
             <div>
-                <button mat-flat-button color="primary" (click)="create()">Agregar</button>
+                <button *ngIf="!isUpdate" mat-flat-button color="primary"  (click)="create()">Agregar</button>
+                <button *ngIf="isUpdate" mat-flat-button color="primary"  (click)="update()">Update</button>
             </div>
     </form>
 </div>

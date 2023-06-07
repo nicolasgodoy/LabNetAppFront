@@ -174,7 +174,7 @@
           </th>
 
           <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
-            <button *ngIf="modify" type="button" mat-mini-fab color="primary" matTooltip="Editar educacion" (click)=" openDialog(1)" >
+            <button *ngIf="modify" type="button" mat-mini-fab color="primary" matTooltip="Editar educacion" (click)=" openDialog(element.id)" >
               <mat-icon>create</mat-icon>
             </button>
           </td>
@@ -202,7 +202,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
       </table>
       <div style="margin-left: 5px;">
-        <button type="button" *ngIf="modify" mat-fab color="primary" (click)="openDialog(0)">
+        <button type="button" *ngIf="modify" mat-fab color="primary" (click)="openDialog()">
           <mat-icon>add</mat-icon>
         </button>
       </div>

@@ -1,5 +1,5 @@
-export class updateEducation{
-    Id: number;
+export interface updateEducation{
+    id: number;
     InstitutionName: string;
     Degree: string;
     AdmissionDate: Date;
