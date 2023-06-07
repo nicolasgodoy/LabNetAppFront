@@ -28,7 +28,7 @@ export class EditProfileComponent implements OnInit {
   disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
-  displayedColumnsEducation: string[] = ['institutionName', 'degree',
+  displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
     'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
