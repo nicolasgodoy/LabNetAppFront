@@ -287,6 +287,7 @@ export class EditProfileComponent implements OnInit {
   })
 
 
+  
   public deleteEducation(id: number) {
     Swal.fire({
       title: 'Seguro que desea eliminar este registro?',
@@ -296,16 +297,17 @@ export class EditProfileComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminalo!'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        this.educationService.Delete(id).subscribe(res => {
-          this.servicioProfile.GetById(this.idUser).subscribe({
-            next: (data: ResponseDto) => {
-              this.dataSourceEducation.data = data.result.educationEntities;
-            }
-          })
-        });
+        try {
+          await this.educationService.Delete(id).toPromise();
+          const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
+          this.dataSourceEducation.data = profileResponse.result.educationEntities;
+        } catch (error) {
+          console.error(error);
+        }
       }
     });
   }
+  
 }
