@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { profileEducationDto } from '../models/Profile/profileEducation';
 import { addEducationDto } from '../models/Education/addEducationDto';
 import { updateEducation } from '../models/Education/updateEducation';
+import { InstitutionType } from '../models/Education/InstitutionTypeDto';
 
 
 @Injectable({
@@ -40,6 +41,13 @@ export class EducationService {
         const headers = new HttpHeaders({ 'Authorization': userToken });
         const options = { headers: headers };
         return this.http.put<ResponseDto>(this.apiUrl + this.endPoint +"/Update", education, options)
+    }
+
+    public GetAllInstitutionType() : Observable<ResponseDto> {
+        const userToken = `Bearer ${this._authservice.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': userToken });
+        const options = { headers: headers };
+        return this.http.get<ResponseDto>(this.apiUrl + 'InstitutionType/GetAll', options)
     }
 
 }
