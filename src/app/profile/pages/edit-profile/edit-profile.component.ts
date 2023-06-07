@@ -17,6 +17,7 @@ import { Alert } from 'src/app/helpers/alert';
 import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
+import { updateEducation } from 'src/app/models/Education/updateEducation';
 
 
 @Component({
@@ -125,6 +126,10 @@ export class EditProfileComponent implements OnInit {
     }
 
     //Cargar el component consultProfile con los datos
+    this.getById();
+  }
+
+  getById(){
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data: ResponseDto) => {
@@ -281,7 +286,6 @@ export class EditProfileComponent implements OnInit {
       };
       reader.onerror = error => {
         resolve({
-
           base: null
         })
       }
@@ -317,14 +321,17 @@ export class EditProfileComponent implements OnInit {
   }
   
   // CREATE UPDATE EDUCATION
-  openDialog(): void {
-    console.log("entro")
-      const dialogoref = this.dialog.open( DialogEducationComponent, {
-        width: '500px'
-      });
-      dialogoref.afterClosed().subscribe(res=>{
-        Alert.mensajeExitoToast(res);
-      })
+  openDialog(idEducation:number): void {
+    const dialogoref = this.dialog.open( DialogEducationComponent, {
+      width: '500px',
+      data: idEducation ? {} : this.IdProfile
+    });
+    dialogoref.afterClosed().subscribe(res=>{
+      if (res) {
+        Alert.mensajeExitoToast(res),
+        this.getById()
+      }
+    })
     
   }
 }

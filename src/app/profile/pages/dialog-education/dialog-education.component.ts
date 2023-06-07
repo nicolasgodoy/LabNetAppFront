@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InstitutionType } from 'src/app/models/Education/InstitutionTypeDto';
 import { addEducationDto } from 'src/app/models/Education/addEducationDto';
 import { ResponseDto } from 'src/app/models/response';
@@ -16,10 +16,12 @@ export class DialogEducationComponent implements OnInit {
   public formulario: FormGroup;
   InstitutionTypeList: InstitutionType[];
 
+
   constructor(
     private formBuilder: FormBuilder,
     private educationService: EducationService,
-    private dialogRef: MatDialogRef<DialogEducationComponent>
+    private dialogRef: MatDialogRef<DialogEducationComponent>,
+    @Inject(MAT_DIALOG_DATA) public idProfile:number,
   ) { 
 
     this.formulario = this.formBuilder.group({
@@ -33,11 +35,13 @@ export class DialogEducationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getEducationType();
+    console.log(this.idProfile)
   }
-
 
   update(){
   }
+
   create(){
     event?.preventDefault()
     if (this.formulario.valid) {
@@ -46,8 +50,8 @@ export class DialogEducationComponent implements OnInit {
         Degree: this.formulario.value.degree,
         AdmissionDate: this.formulario.value.admissionDate,
         ExpeditionDate: this.formulario.value.expeditionDate,
-        IdInstitutionType:1,
-        IdProfile:1
+        IdInstitutionType: this.formulario.value.institutionType,
+        IdProfile:this.idProfile
       };
       this.educationService.Insert(data).subscribe({
           next: (dataResponse: ResponseDto) => {
@@ -55,6 +59,14 @@ export class DialogEducationComponent implements OnInit {
           }, error: () => console.error('ocurrio un error inesperado')
       })
     }
+  }
+
+  getEducationType(){
+    this.educationService.GetAllInstitutionType().subscribe({
+      next:(data: ResponseDto) => {
+        this.InstitutionTypeList = data.result;
+      }
+    })
   }
 }
 
