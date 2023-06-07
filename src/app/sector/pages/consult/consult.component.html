@@ -1,9 +1,9 @@
 <div class="container">
     <div class="contenedor-titulo">
-        <h1 style="display:flex;justify-content:center" class="tituloC">Consultas Skill</h1>
+        <h1 style="display:flex;justify-content:center" class="tituloC">Consultas Sector</h1>
       </div>
     
-      <div class="botonNuevaSkill">
+      <div class="boton">
         <div>
           <button mat-raised-button style="font-size:1.5rem;padding:10px; margin-bottom:5px;" color="primary"
           (click)=dialogAddSector()>Nuevo Sector</button>
@@ -12,8 +12,8 @@
     
       <div style="display:flex;justify-content:center;align-items:center;align-content: center;flex-wrap: wrap;">
         <mat-form-field class="filtro">
-          <mat-label>Consultar Skills</mat-label>
-          <input style="padding:10px;" matInput (keyup)="applyFilter($event)" placeholder="buscar skill" #input>
+          <mat-label>Consultar Sector</mat-label>
+          <input style="padding:10px;" matInput (keyup)="applyFilter($event)" placeholder="buscar sector" #input>
         </mat-form-field>
       </div>
     

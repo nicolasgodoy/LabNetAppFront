@@ -81,12 +81,12 @@ export class AddComponent implements AfterViewInit, OnInit {
   AddSectors(): void {
     if(this.formSector.valid) {
       const modelo: Sector = {
-        id: this.formSector.value.id,
-        description: this.formSector.value.Description
+        description: this.formSector.value.description
       }
       this.sectorService.addSector(modelo).subscribe(
         (ResponseDto: Sector) => {
           Alert.mensajeExitoToast();
+          this.dialogoReferencia.close("creado");
         },
         (error: any) => {
           console.log(error)
