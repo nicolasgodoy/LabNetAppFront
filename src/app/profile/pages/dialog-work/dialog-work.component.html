@@ -38,6 +38,22 @@
             </mat-select>
           </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Ubicacion</mat-label>
+            <mat-select formControlName="ubicacion">
+              <mat-option *ngFor="let ubicacion of ubicacionArr" 
+              [value]="ubicacion.id">{{ubicacion.descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Tipo empleo</mat-label>
+            <mat-select formControlName="tipoEmpleo">
+              <mat-option *ngFor="let tipoEmpleo of tipoEmpleoArr" 
+              [value]="tipoEmpleo.id">{{tipoEmpleo.descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
         <button *ngIf="!data" (click)="addWork()" type="button" class="botonGuardar" mat-raised-button color="primary">
             Guardar
         </button>

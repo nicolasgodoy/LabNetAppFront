@@ -4,9 +4,6 @@ export class WorkAddDto {
     Role: string;
     IdProfile: number;
     IdSector: number;
-    DescriptionSector: string;
     IdUbication: number;
-    UbicationName: string
     IdWorkType: number;
-    WorkTypeName: string;
 }
