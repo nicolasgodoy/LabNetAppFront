@@ -31,8 +31,8 @@ export class DialogEducationComponent implements OnInit {
     if (typeof this.data == "number") {
 
       this.formulario = this.formBuilder.group({
-        institutionName: ['', [Validators.required]],
-        degree: ['', [Validators.required]],
+        institutionName: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        degree: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
         admissionDate: ['', [Validators.required]],
         expeditionDate: ['', [Validators.required]],
         institutionType: ['', [Validators.required]]
@@ -45,8 +45,8 @@ export class DialogEducationComponent implements OnInit {
 
       this.formulario = this.formBuilder.group({
 
-        institutionName: [data.institutionName, [Validators.required]],
-        degree: [data.degree, [Validators.required]],
+        institutionName: [data.institutionName, [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        degree: [data.degree, [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
         admissionDate: [this.formatoFecha(data.admissionDate), [Validators.required]],
         expeditionDate: [this.formatoFecha(data.expeditionDate), [Validators.required]],
         institutionType: [data.idInstitutionType, [Validators.required]]
