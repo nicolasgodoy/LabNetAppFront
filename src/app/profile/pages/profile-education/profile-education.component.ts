@@ -39,6 +39,7 @@ export class ProfileEducationComponent implements OnInit {
     private educationService: EducationService) { }
 
   ngOnInit(): void {
+    console.log(this.idProfile);
     setTimeout(() => {
       this.GetProfileEducation(this.idProfile);
     },500) 
