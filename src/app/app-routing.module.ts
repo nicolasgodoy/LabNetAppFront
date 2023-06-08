@@ -14,7 +14,10 @@ const routes: Routes = [
     path: 'skill',
     loadChildren: () => import('./skill/skill.module').then(m => m.SkillModule)
   },
-
+  { canActivate: [AuthGuard],
+    path: 'sector',
+    loadChildren: () => import('./sector/sector.module').then(m => m.SectorModule)
+  },
   { canActivate: [AuthGuard],
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),

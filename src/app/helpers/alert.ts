@@ -64,11 +64,11 @@ export class Alert{
         Swal.fire({
             icon: 'error',
             title: 'Operacion Fallida',
-            text: entidad ? entidad : 'La Accion no se pudo realizar con exito!',
             toast: true,
             position:"top-end",
             timer: 3000,
             timerProgressBar: true,
+            text: 'La Accion no se pudo realizar con exito!',
             showConfirmButton:false
         })
     } 

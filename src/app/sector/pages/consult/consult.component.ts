@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, AfterViewInit, ViewChild } from '@angular/core';
-import { SkillService } from '../../../../app/service/skill.service';
-import { Skill } from '../../../../app/models/skill';
+import { sectorService } from 'src/app/service/sector.service';
+import { Sector } from 'src/app/models/sector';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -12,6 +12,7 @@ import { Alert } from 'src/app/helpers/alert';
 import Swal from 'sweetalert2';
 
 
+
 @Component({
   selector: 'app-consult',
   templateUrl: './consult.component.html',
@@ -19,36 +20,36 @@ import Swal from 'sweetalert2';
 })
 export class ConsultComponent implements OnInit {
 
-  formSkill: FormGroup;
+  formSector: FormGroup;
   tituloAccionSkill: string = "Nuevo";
   botonAccion: string = "Guardar";
-  listaSkill: Skill[] = [];
-  dataSource = new MatTableDataSource<Skill>();
+  listaSector: Sector[] = [];
+  dataSource = new MatTableDataSource<Sector>();
   displayedColumns: string[] = ['description', 'acciones'];
 
   constructor(
     private spinnerService: NgxSpinnerService,
-    private skillService: SkillService,
+    private sectorService: sectorService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
 
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public dataSkill: Skill) {
+    @Inject(MAT_DIALOG_DATA) public dataSector: Sector) {
 
-    this.formSkill = this.fb.group({
-      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$')]]
+    this.formSector = this.fb.group({
+      description: ["", [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]]
     })
 
-    this.skillService.getSkill().subscribe({
+    this.sectorService.getAllSector().subscribe({
       next: (data: ResponseDto) => {
-        this.listaSkill = data.result;
+        this.listaSector = data.result;
       }, error: (e) => { }
     })
   }
 
 
   ngOnInit(): void {
-    this.mostrarSkill();
+    this.mostrarSector();
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -63,9 +64,9 @@ export class ConsultComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  mostrarSkill() {
+  mostrarSector() {
     this.spinnerService.show();
-    this.skillService.getSkill().subscribe({
+    this.sectorService.getAllSector().subscribe({
       next: (dataResponse: ResponseDto) => {
         this.spinnerService.hide();
         console.log(dataResponse)
@@ -79,14 +80,13 @@ export class ConsultComponent implements OnInit {
   }
 
   
-  AddSkill(): void {
-    if(this.formSkill.valid) {
-      const modelo: Skill = {
-        id: this.formSkill.value.id,
-        description: this.formSkill.value.Description
+  AddSectors(): void {
+    if(this.formSector.valid) {
+      const modelo: Sector = {
+        description: this.formSector.value.description
       }
-      this.skillService.AddSkill(modelo).subscribe(
-        (ResponseDto: Skill) => {
+      this.sectorService.addSector(modelo).subscribe(
+        (ResponseDto: Sector) => {
           Alert.mensajeExitoToast();
         },
         (error: any) => {
@@ -100,20 +100,20 @@ export class ConsultComponent implements OnInit {
     }
   }
 
-  dialogAddSkill() {
+  dialogAddSector() {
     this.dialog.open(AddComponent, {
       disableClose: true,
     }).afterClosed().subscribe(resultado => {
       if (resultado === "creado") {
-        this.mostrarSkill();
+        this.mostrarSector();
       }
     })
   }
 
-  confirmDelete(dataSkill: Skill) {
+  confirmDelete(dataSector: Sector) {
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar la Skill : ${dataSkill.description}`,
+      text: `Esta a punto de Eliminar el Sector : ${dataSector.description}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -123,11 +123,11 @@ export class ConsultComponent implements OnInit {
     }).then((result) => {
 
       if (result.isConfirmed) {
-        this.skillService.deleteSkill(dataSkill.id).subscribe({
+        this.sectorService.deleteSector(dataSector.id).subscribe({
           next: (ResponseDto) => {
             console.log(ResponseDto);
             Alert.mensajeExitoToast();
-            this.mostrarSkill();
+            this.mostrarSector();
           },
           error: (e) => {
             console.log(e);
@@ -138,3 +138,4 @@ export class ConsultComponent implements OnInit {
     })
   }
 }
+
