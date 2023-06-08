@@ -16,11 +16,7 @@ import { EducationService } from 'src/app/service/education.service';
 import { Alert } from 'src/app/helpers/alert';
 import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConstantPool } from '@angular/compiler';
 import { DialogWorkComponent } from '../dialog-work/dialog-work.component';
-import { WorkService } from 'src/app/service/work.service';
-import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
-
 
 @Component({
   selector: 'app-edit-profile',
@@ -33,9 +29,10 @@ export class EditProfileComponent implements OnInit {
 
   disableSelect = new FormControl(false);
 
-  displayedColumnsWork: string[] = ['comapania', 'role', 'editar', 'eliminar'];
-  displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
-    'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
+  // displayedColumnsWork: string[] = ['comapania', 'role', 'editar', 'eliminar'];
+  displayedColumnsEducation: string[] =
+    ['institutionName', 'degree', 'DescriptionInstitutionType',
+      'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
@@ -71,7 +68,6 @@ export class EditProfileComponent implements OnInit {
     private jobPositionService: JobPositionService,
     private educationService: EducationService,
     public dialog: MatDialog,
-    private workService: WorkService
   ) {
   }
 
@@ -128,38 +124,10 @@ export class EditProfileComponent implements OnInit {
       });
     }
 
-    //Cargar el component consultProfile con los datos
-    // this.servicioProfile.GetById(this.idUser).subscribe({
-
-    //   next: (data: ResponseDto) => {
-
-    //     this.dataSourceWork.data = data.result.workEntities;
-    //     this.dataSourceEducation.data = data.result.educationEntities;
-
-    //     this.profileEditDto = data.result;
-
-    //     this.IdProfile = this.profileEditDto.idProfile;
-
-    //     this.imgProfile = this.profileEditDto.photo;
-
-    //     //Establecer los valores del formulario
-    //     this.formulario.controls['name'].setValue(this.profileEditDto.name);
-    //     this.formulario.controls['lastName'].setValue(this.profileEditDto.lastName);
-    //     this.formulario.controls['dni'].setValue(this.profileEditDto.dni);
-    //     this.formulario.controls['fechaNacimiento']
-    //       .setValue(this.formatoFecha(this.profileEditDto.birthDate));
-    //     this.formulario.controls['description'].setValue(this.profileEditDto.description);
-    //     this.formulario.controls['phone'].setValue(this.profileEditDto.phone);
-    //     this.formulario.controls['email'].setValue(this.profileEditDto.mail);
-    //     this.formulario.controls['jobPosition']
-    //       .setValue(this.profileEditDto.idJobPosition);
-    //   }
-    // });
-
     this.getById();
   }
 
-  getById(){
+  getById() {
 
     this.servicioProfile.GetById(this.idUser).subscribe({
 
@@ -362,18 +330,18 @@ export class EditProfileComponent implements OnInit {
       }
     });
   }
-  
+
   // CREATE UPDATE EDUCATION
 
   openDialog(): void {
     console.log("entro")
-      const dialogoref = this.dialog.open( DialogEducationComponent, {
-        width: '500px'
-      });
-      dialogoref.afterClosed().subscribe(res=>{
-        console.log(res)
-      })
-    
+    const dialogoref = this.dialog.open(DialogEducationComponent, {
+      width: '500px'
+    });
+    dialogoref.afterClosed().subscribe(res => {
+      console.log(res)
+    })
+
   }
 
   openDialogWork(): void {
@@ -381,56 +349,56 @@ export class EditProfileComponent implements OnInit {
     const dialog = this.dialog.open(DialogWorkComponent, {
       width: '500px'
     },);
-    
+
     dialog.afterClosed().subscribe(res => {
 
-     res && this.getById();
+      res && this.getById();
       console.log(res);
     })
   }
 
-  openDialogWorkUpdate(modifyWorkDto: ModifyWorkDto): void {
+  // openDialogWorkUpdate(modifyWorkDto: ModifyWorkDto): void {
 
-    const dialog = this.dialog.open(DialogWorkComponent ,{
-      width: '500px',
-      data: modifyWorkDto
-    });
-    
-    dialog.afterClosed().subscribe(res => {
+  //   const dialog = this.dialog.open(DialogWorkComponent, {
+  //     width: '500px',
+  //     data: modifyWorkDto
+  //   });
 
-     res && this.getById();
-      console.log(res);
-    })
-  }
+  //   dialog.afterClosed().subscribe(res => {
 
-  public deleteWork(id: number) {
+  //     res && this.getById();
+  //     console.log(res);
+  //   })
+  // }
 
-    Swal.fire({
+  // public deleteWork(id: number) {
 
-      title: '¿Seguro que desea eliminar este registro?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminalo!'
-    }).then(async (result)=> {
+  //   Swal.fire({
 
-      if(result.isConfirmed){
+  //     title: '¿Seguro que desea eliminar este registro?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Sí, eliminalo!'
+  //   }).then(async (result) => {
 
-        try {
-          await this.workService.DeleteWork(id).toPromise();
+  //     if (result.isConfirmed) {
 
-          const respuesta : ResponseDto = await this.servicioProfile.GetById(this.idUser)
-          .toPromise();
-          this.dataSourceWork.data = respuesta.result.workEntities;
-          Alert.mensajeExitoToast();
-         
-        } catch (error) {
-          
-          console.error(error);
-          Alert.mensajeSinExitoToast();
-        }
-      }
-    })
-  }
+  //       try {
+  //         await this.workService.DeleteWork(id).toPromise();
+
+  //         const respuesta: ResponseDto = await this.servicioProfile.GetById(this.idUser)
+  //           .toPromise();
+  //         this.dataSourceWork.data = respuesta.result.workEntities;
+  //         Alert.mensajeExitoToast();
+
+  //       } catch (error) {
+
+  //         console.error(error);
+  //         Alert.mensajeSinExitoToast();
+  //       }
+  //     }
+  //   })
+  // }
 }

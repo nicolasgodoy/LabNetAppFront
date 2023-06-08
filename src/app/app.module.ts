@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { HasProfileGuard } from './guard/hasProfile.guard';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DialogWorkComponent } from './profile/pages/dialog-work/dialog-work.component';
+import { WorkComponent } from './work/work.component';
 
 
 @NgModule({

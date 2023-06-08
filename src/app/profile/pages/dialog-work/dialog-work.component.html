@@ -1,14 +1,15 @@
-<h1>Ingresar Trabajo</h1>
+<h1>{{titulo}} Trabajo</h1>
 
 <div>
     <form [formGroup]="formGroup">
         <mat-form-field appearance="fill">
             <mat-label>Company</mat-label>
-            <input maxlength="30" type="text" matInput formControlName="company">
+            <input type="text" matInput formControlName="company">
+            
             <mat-error *ngIf="formGroup.get('company').hasError('required')">
                 Este campo es requerido.
             </mat-error>
-            <mat-error *ngIf="formGroup.get('company').hasError('maxLength')">
+            <mat-error *ngIf="formGroup.get('company').hasError('maxlength')">
                 Valor maximo de caracteres 30.
             </mat-error>
             <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
@@ -28,6 +29,16 @@
             </mat-error>
         </mat-form-field>
         <br>
+
+        <mat-form-field>
+            <mat-label>Sector</mat-label>
+            <mat-select formControlName="sector">
+              <mat-option value="1">Prueba</mat-option>
+              <!-- <mat-option value="2">Junior</mat-option>
+              <mat-option value="3">Semi-Senior</mat-option>
+              <mat-option value="4">Senior</mat-option>  -->
+            </mat-select>
+          </mat-form-field>
 
         <button *ngIf="!data" (click)="addWork()" type="button" class="botonGuardar" mat-raised-button color="primary">
             Guardar

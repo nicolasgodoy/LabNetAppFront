@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
-import { WorkDto } from 'src/app/models/Work/WorkDto';
+import { WorkAddDto } from 'src/app/models/Work/WorkAddDto';
 import { ProfilesService } from 'src/app/service/profiles.service';
 
 import { WorkService } from 'src/app/service/work.service';
@@ -16,8 +16,10 @@ import { WorkService } from 'src/app/service/work.service';
 export class DialogWorkComponent implements OnInit {
 
   formGroup: FormGroup;
-  work: WorkDto = new WorkDto;
+  work: WorkAddDto = new WorkAddDto;
   workModify: ModifyWorkDto = new ModifyWorkDto;
+  titulo: string = '';
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,14 +31,14 @@ export class DialogWorkComponent implements OnInit {
 
       company: ['', [Validators.required, Validators.maxLength(30),
       Validators.pattern('^[a-zA-Z]+$')]],
-      role: ['', Validators.required, Validators.pattern('^[a-zA-Z]+$')],
+      role: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       IdProfile: 1
     });
   }
 
   ngOnInit(): void {
 
-
+    this.titulo = this.data ? 'Editar' : 'Insertar'
     this.formGroup.patchValue({
 
       company: this.data.company,
@@ -46,32 +48,35 @@ export class DialogWorkComponent implements OnInit {
 
   addWork(): void {
 
+    console.log(this.formGroup.valid)
     if (this.formGroup.valid) {
 
       this.work = {
 
-        company: this.formGroup.value.company,
-        role: this.formGroup.value.role,
+        Company: this.formGroup.value.company,
+        Role: this.formGroup.value.role,
+        UbicationName: this.formGroup.value.tipoTrabajo,
+        WorkTypeName: this.formGroup.value.ubicacion,
         IdProfile: 1,
         IdSector: 1,
         IdUbication: 1,
         IdWorkType: 1
       }
+
+      this.workService.AddWork(this.work).subscribe({
+
+        next: (res) => {
+  
+          console.log(res.result);
+          this.dialogRef.close(res.result);
+        },
+  
+        error: (res) => {
+  
+          console.log(res);
+        }
+      })
     }
-
-    this.workService.AddWork(this.work).subscribe({
-
-      next: (res) => {
-
-        console.log(res.result);
-        this.dialogRef.close(res.result);
-      },
-
-      error: (res) => {
-
-        console.log(res);
-      }
-    })
   }
 
   updateWork(): void {

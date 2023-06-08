@@ -13,6 +13,7 @@ import { UpdatePasswordProfileComponent } from './pages/update-password-profile/
 import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
 import { HasProfileGuard } from '../guard/hasProfile.guard';
 import { DialogEducationComponent } from './pages/dialog-education/dialog-education.component';
+import { WorkComponent } from '../work/work.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { DialogEducationComponent } from './pages/dialog-education/dialog-educat
     DialogAddSkillComponent,
     UpdatePasswordProfileComponent,
     EditProfilePipePipe,
-    DialogEducationComponent
+    DialogEducationComponent,
+    WorkComponent
   ],
   imports: [
     CommonModule,
