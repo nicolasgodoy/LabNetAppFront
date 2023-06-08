@@ -37,6 +37,7 @@ export class DialogEducationComponent implements OnInit {
         expeditionDate: ['', [Validators.required]],
         institutionType: ['', [Validators.required]]
       })
+      this.formulario.setValidators(this.validatorDate());
 
 
     } else {
@@ -119,7 +120,9 @@ export class DialogEducationComponent implements OnInit {
       const admissionDate = formGroup.get('admissionDate').value;
       const expeditionDate = formGroup.get('expeditionDate').value;
 
-      if (admissionDate <= expeditionDate) return null;
+      if (admissionDate <= expeditionDate){
+        return null;
+      } 
       
       return { dateComparison: true };
 
