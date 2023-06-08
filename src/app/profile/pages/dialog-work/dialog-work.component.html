@@ -4,13 +4,28 @@
     <form [formGroup]="formGroup">
         <mat-form-field appearance="fill">
             <mat-label>Company</mat-label>
-            <input type="text" matInput formControlName="company">
+            <input maxlength="30" type="text" matInput formControlName="company">
+            <mat-error *ngIf="formGroup.get('company').hasError('required')">
+                Este campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('company').hasError('maxLength')">
+                Valor maximo de caracteres 30.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
+                Solo se permiten letras.
+            </mat-error>
         </mat-form-field>
 
         <br>
         <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
-            <input type="text" matInput formControlName="role">
+            <input maxlength="30" type="text" matInput formControlName="role">
+            <mat-error *ngIf="formGroup.get('role').hasError('required')">
+                Este campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
+                Solo se permiten letras.
+            </mat-error>
         </mat-form-field>
         <br>
 

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
@@ -18,19 +18,18 @@ export class DialogWorkComponent implements OnInit {
   formGroup: FormGroup;
   work: WorkDto = new WorkDto;
   workModify: ModifyWorkDto = new ModifyWorkDto;
-  workEntitiesArr: any = [];
 
-
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private workService: WorkService,
     @Inject(MAT_DIALOG_DATA) public data: ModifyWorkDto,
-    private profileService: ProfilesService,
     private dialogRef: MatDialogRef<DialogWorkComponent>) {
 
     this.formGroup = this.formBuilder.group({
 
-      company: [''],
-      role: [''],
+      company: ['', [Validators.required, Validators.maxLength(30),
+      Validators.pattern('^[a-zA-Z]+$')]],
+      role: ['', Validators.required, Validators.pattern('^[a-zA-Z]+$')],
       IdProfile: 1
     });
   }
@@ -75,12 +74,12 @@ export class DialogWorkComponent implements OnInit {
     })
   }
 
-  updateWork() : void{
+  updateWork(): void {
 
     this.workModify = {
 
       id: this.data.id,
-      company : this.formGroup.value.company,
+      company: this.formGroup.value.company,
       role: this.formGroup.value.role
     }
 
