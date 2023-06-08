@@ -31,7 +31,7 @@
       <ng-container matColumnDef="action" class="column">
         <th mat-header-cell *matHeaderCellDef style="text-align: right; " class="column">
           <div *ngIf="modify">
-            <button type="button" *ngIf="modify" mat-fab color="primary" (click)="openDialog(0)">
+            <button class="btn-add" type="button" *ngIf="modify" mat-fab color="primary" (click)="openDialog(0)">
               <mat-icon>add</mat-icon>
             </button>
           </div>
