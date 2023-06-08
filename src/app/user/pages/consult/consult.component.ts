@@ -46,9 +46,7 @@ export class ConsultComponent implements OnInit {
   showAllUsers() {
     this._userService.getAll().subscribe({
       next: (ResponseDto) => {
-        console.log(ResponseDto);
         this.dataSource.data = ResponseDto.result as User[];
-        console.log(ResponseDto.result as User[]);
       },
       error: (e) => {
         console.log(e);

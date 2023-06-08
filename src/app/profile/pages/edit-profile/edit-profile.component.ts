@@ -11,6 +11,13 @@ import { profileEducationDto } from 'src/app/models/Profile/profileEducation';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/service/auth.service';
 import { JobPositionService } from 'src/app/service/job-position.service';
+import Swal from 'sweetalert2';
+import { EducationService } from 'src/app/service/education.service';
+import { Alert } from 'src/app/helpers/alert';
+import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConstantPool } from '@angular/compiler';
+import { updateEducation } from 'src/app/models/Education/updateEducation';
 
 
 @Component({
@@ -25,8 +32,8 @@ export class EditProfileComponent implements OnInit {
   disableSelect = new FormControl(false);
 
   displayedColumnsWork: string[] = ['comapania', 'role'];
-  displayedColumnsEducation: string[] = ['institutionName', 'degree',
-    'admissionDate', 'expeditionDate'];
+  displayedColumnsEducation: string[] = ['institutionName', 'degree', 'DescriptionInstitutionType',
+    'admissionDate', 'expeditionDate', 'Editar', 'Eliminar'];
 
   dataSourceWork = new MatTableDataSource();
   dataSourceEducation = new MatTableDataSource();
@@ -59,7 +66,9 @@ export class EditProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private auth: AuthService,
     private router: Router,
-    private jobPositionService: JobPositionService
+    private jobPositionService: JobPositionService,
+    private educationService: EducationService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -117,13 +126,16 @@ export class EditProfileComponent implements OnInit {
     }
 
     //Cargar el component consultProfile con los datos
+    this.getById();
+  }
+
+  getById(){
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data: ResponseDto) => {
 
         this.dataSourceWork.data = data.result.workEntities;
         this.dataSourceEducation.data = data.result.educationEntities;
-
         this.profileEditDto = data.result;
 
         this.IdProfile = this.profileEditDto.idProfile;
@@ -160,7 +172,7 @@ export class EditProfileComponent implements OnInit {
       if (this.formulario.value.jobPosition != null) {
         this.profileEditDto.idJobPosition = Number(this.formulario.value.jobPosition);
       }
-      else{
+      else {
         this.profileEditDto.idJobPosition = 1;
       }
 
@@ -273,7 +285,6 @@ export class EditProfileComponent implements OnInit {
       };
       reader.onerror = error => {
         resolve({
-
           base: null
         })
       }
@@ -282,4 +293,6 @@ export class EditProfileComponent implements OnInit {
       return null;
     }
   })
+
+ 
 }

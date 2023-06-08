@@ -58,8 +58,7 @@ export class AddComponent implements AfterViewInit, OnInit {
   mostrarSkill() {
 
     this.skillService.getSkill().subscribe({
-      next: (dataResponse: ResponseDto) => {
-        console.log(dataResponse)
+      next: (dataResponse: ResponseDto) => {  
         this.dataSource.data = dataResponse.result;
 
       }, error: (e) => {

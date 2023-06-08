@@ -1,48 +1,48 @@
 .center{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .titles{
-    margin: 1rem;
+  margin: 1rem;
 }
 
 table {
-    width: 40%;
-    margin-bottom: 1rem;
-  }
-  td{
-    width: 25%;
-  }
-  .mat-row:not(.mat-no-data-row){
-    transition: all 0.2s ease;
-  }
-  .mat-row:not(.mat-no-data-row):hover {
-    cursor: pointer;
-    background-color: #D8D8D8;
-  }
+  width: 100%;
+  margin-bottom: 1rem;
+}
+td{
+  width: 25%;
+}
+.mat-row:not(.mat-no-data-row){
+  transition: all 0.2s ease;
+}
+.mat-row:not(.mat-no-data-row):hover {
+  cursor: pointer;
+  background-color: #D8D8D8;
+}
   
-  .center{
-    text-align: center;
-  }
-  .container{
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-  }
-  .btn{
-    margin: 1rem 0;
-    transition: all 0.3s ease;
-  }
-  .btn:hover{
-    transform: scale(1.05);
-  }
-  .title{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 3rem;
-  } 
+.center{
+  text-align: center;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.btn{
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+.btn:hover{
+  transform: scale(1.05);
+}
+.title{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3rem;
+} 
 
 .description{
   font-size: 2vh;
