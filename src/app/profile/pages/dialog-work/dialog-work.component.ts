@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 import { WorkAddDto } from 'src/app/models/Work/WorkAddDto';
 import { Sector } from 'src/app/models/sector';
-import { ProfilesService } from 'src/app/service/profiles.service';
 import { sectorService } from 'src/app/service/sector.service';
 
 import { WorkService } from 'src/app/service/work.service';
@@ -22,7 +20,6 @@ export class DialogWorkComponent implements OnInit {
   workModify: ModifyWorkDto = new ModifyWorkDto;
   titulo: string = '';
   sectorArr: Sector[] = [];
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +38,7 @@ export class DialogWorkComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.GetSector();
     
     this.titulo = this.data ? 'Editar' : 'Insertar';
@@ -55,7 +52,6 @@ export class DialogWorkComponent implements OnInit {
 
   GetSector(): void {
 
-    console.log('aca')
     this.sectorServices.getAllSector().subscribe({
 
       next: (resp) => {
@@ -68,7 +64,6 @@ export class DialogWorkComponent implements OnInit {
 
   addWork(): void {
 
-    console.log(this.formGroup.valid)
     if (this.formGroup.valid) {
 
       this.work = {
@@ -76,6 +71,7 @@ export class DialogWorkComponent implements OnInit {
         Company: this.formGroup.value.company,
         Role: this.formGroup.value.role,
         UbicationName: this.formGroup.value.tipoTrabajo,
+        DescriptionSector: this.formGroup.value.sector,
         WorkTypeName: this.formGroup.value.ubicacion,
         IdProfile: 1,
         IdSector: 1,
@@ -87,7 +83,6 @@ export class DialogWorkComponent implements OnInit {
 
         next: (res) => {
   
-          console.log(res.result);
           this.dialogRef.close(res.result);
         },
   
