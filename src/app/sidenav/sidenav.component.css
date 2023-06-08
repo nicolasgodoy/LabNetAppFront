@@ -1,0 +1,12 @@
+.example-sidenav button {
+    display: flex;
+    align-items: center;
+    padding-left: 95px !important;
+
+  }
+  
+  .example-sidenav button mat-icon {
+    margin-right: 5px;
+  }
+
+

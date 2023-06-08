@@ -69,6 +69,7 @@ export class Alert{
             position:"top-end",
             timer: 3000,
             timerProgressBar: true,
+            text: 'La Accion no se pudo realizar con exito!',
             showConfirmButton:false
         })
     } 

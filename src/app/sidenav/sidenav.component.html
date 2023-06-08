@@ -2,17 +2,31 @@
     <mat-drawer  #drawer class="example-sidenav" mode="side">
       
       <img src="../assets/logo_neoris.png" alt="foto-perfil" class="foto-perfil">
-        <button routerLink="/home" mat-raised-button style="margin:5px" color="primary">
+        <button routerLink="/home" mat-raised-button style="margin:5px" color="primary"class="home-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+          Home
         </button>
-        <button *ngIf="IdRol == 3 || IdRol == 1" routerLink="/profile/consult-profile/{{IdUser}}" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Ver Perfil</button>
-        <button *ngIf="IdRol == 1" routerLink="/user/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Usuario</button>
-        <button *ngIf="IdRol == 1" routerLink="/profile/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Filtro de Perfil</button>
-        <button *ngIf="IdRol == 1" routerLink="/skill/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>Consultar Skill</button>
-        <button (click)="logout()" routerLink="/login" mat-raised-button style="margin:5px" style="margin:5px" color="primary" class="log-out-button">
+        <button *ngIf="IdRol == 3 || IdRol == 1" routerLink="/profile/consult-profile/{{IdUser}}" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">contact_page</mat-icon>
+          Ver Perfil
+        </button>
+        <button *ngIf="IdRol == 1" routerLink="/user/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
+          Consultar Usuario</button>
+        <button *ngIf="IdRol == 1" routerLink="/profile/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">person_search</mat-icon>
+          Filtro de Perfil</button>
+        <button *ngIf="IdRol == 1" routerLink="/skill/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">content_paste_search</mat-icon>
+          Consultar Skill</button>
+        <button *ngIf="IdRol == 1" routerLink="/sector/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">content_paste_search</mat-icon>
+          Consultar Sector</button>
+        <button (click)="logout()" routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
+          Cerrar sesión
         </button>
-      </mat-drawer>
+    </mat-drawer>
 
     <div *ngIf="showNav" class="example-sidenav-content">
         <button type="button" mat-button (click)="refreshSide()">
