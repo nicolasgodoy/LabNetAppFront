@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InstitutionType } from 'src/app/models/Education/InstitutionTypeDto';
 import { addEducationDto } from 'src/app/models/Education/addEducationDto';
@@ -14,44 +14,45 @@ import { EducationService } from 'src/app/service/education.service';
   styleUrls: ['./dialog-education.component.css']
 })
 export class DialogEducationComponent implements OnInit {
-  
+
   public formulario: FormGroup;
   InstitutionTypeList: InstitutionType[];
   updateDto: updateEducation;
-  isUpdate:boolean;
+  isUpdate: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private educationService: EducationService,
     private dialogRef: MatDialogRef<DialogEducationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any,
-  ) { 
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
 
 
-    if(typeof this.data == "number" ){
+    if (typeof this.data == "number") {
 
       this.formulario = this.formBuilder.group({
-        institutionName: ['',[Validators.required]],
-        degree: ['',[Validators.required]],
-        admissionDate: ['',[Validators.required]],
-        expeditionDate: ['',[Validators.required]],
-        institutionType: ['',[Validators.required]]
-      }) 
+        institutionName: ['', [Validators.required]],
+        degree: ['', [Validators.required]],
+        admissionDate: ['', [Validators.required]],
+        expeditionDate: ['', [Validators.required]],
+        institutionType: ['', [Validators.required]]
+      })
 
 
-    }else{
-      this.isUpdate =true;
+    } else {
+      this.isUpdate = true;
       this.updateDto = this.data;
 
       this.formulario = this.formBuilder.group({
 
-        institutionName: [data.institutionName,[Validators.required]],
-        degree: [data.degree,[Validators.required]],
-        admissionDate: [this.formatoFecha(data.admissionDate),[Validators.required]],
-        expeditionDate: [this.formatoFecha(data.expeditionDate),[Validators.required]],
-        institutionType: [data.idInstitutionType
-          ,[Validators.required]]
-      }) ;
+        institutionName: [data.institutionName, [Validators.required]],
+        degree: [data.degree, [Validators.required]],
+        admissionDate: [this.formatoFecha(data.admissionDate), [Validators.required]],
+        expeditionDate: [this.formatoFecha(data.expeditionDate), [Validators.required]],
+        institutionType: [data.idInstitutionType, [Validators.required]]
+      });
+      //poner el validator al fomrulario entero
+      this.formulario.setValidators(this.validatorDate());
     }
   }
 
@@ -59,7 +60,7 @@ export class DialogEducationComponent implements OnInit {
     this.getEducationType();
   }
 
-  update(){
+  update() {
     event?.preventDefault()
     if (this.formulario.valid) {
       const data: updateEducation = {
@@ -71,15 +72,15 @@ export class DialogEducationComponent implements OnInit {
         IdInstitutionType: this.formulario.value.institutionType
       };
       this.educationService.Update(data).subscribe({
-          next: (dataResponse: ResponseDto) => {
-            this.dialogRef.close(dataResponse.message);
-          }, error: () => console.error('ocurrio un error inesperado')
+        next: (dataResponse: ResponseDto) => {
+          this.dialogRef.close(dataResponse.message);
+        }, error: () => console.error('ocurrio un error inesperado')
       })
     }
 
   }
 
-  create(){
+  create() {
     event?.preventDefault()
     if (this.formulario.valid) {
       const data: addEducationDto = {
@@ -88,19 +89,19 @@ export class DialogEducationComponent implements OnInit {
         AdmissionDate: this.formulario.value.admissionDate,
         ExpeditionDate: this.formulario.value.expeditionDate,
         IdInstitutionType: this.formulario.value.institutionType,
-        IdProfile:this.data
+        IdProfile: this.data
       };
       this.educationService.Insert(data).subscribe({
-          next: (dataResponse: ResponseDto) => {
-            this.dialogRef.close(dataResponse.message);
-          }, error: () => console.error('ocurrio un error inesperado')
+        next: (dataResponse: ResponseDto) => {
+          this.dialogRef.close(dataResponse.message);
+        }, error: () => console.error('ocurrio un error inesperado')
       })
     }
   }
 
-  getEducationType(){
+  getEducationType() {
     this.educationService.GetAllInstitutionType().subscribe({
-      next:(data: ResponseDto) => {
+      next: (data: ResponseDto) => {
         this.InstitutionTypeList = data.result;
       }
     })
@@ -113,6 +114,17 @@ export class DialogEducationComponent implements OnInit {
     return formatoFinal;
   }
 
+  validatorDate(): ValidatorFn {
+    return (formGroup: FormGroup) => {
+      const admissionDate = formGroup.get('admissionDate').value;
+      const expeditionDate = formGroup.get('expeditionDate').value;
+
+      if (admissionDate <= expeditionDate) return null;
+      
+      return { dateComparison: true };
+
+    };
+  }
 
 }
 
