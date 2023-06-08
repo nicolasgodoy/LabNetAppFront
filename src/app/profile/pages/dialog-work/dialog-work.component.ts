@@ -4,7 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 import { WorkAddDto } from 'src/app/models/Work/WorkAddDto';
+import { Sector } from 'src/app/models/sector';
 import { ProfilesService } from 'src/app/service/profiles.service';
+import { sectorService } from 'src/app/service/sector.service';
 
 import { WorkService } from 'src/app/service/work.service';
 
@@ -19,13 +21,15 @@ export class DialogWorkComponent implements OnInit {
   work: WorkAddDto = new WorkAddDto;
   workModify: ModifyWorkDto = new ModifyWorkDto;
   titulo: string = '';
+  sectorArr: Sector[] = [];
 
 
   constructor(
     private formBuilder: FormBuilder,
     private workService: WorkService,
     @Inject(MAT_DIALOG_DATA) public data: ModifyWorkDto,
-    private dialogRef: MatDialogRef<DialogWorkComponent>) {
+    private dialogRef: MatDialogRef<DialogWorkComponent>,
+    private sectorServices : sectorService) {
 
     this.formGroup = this.formBuilder.group({
 
@@ -37,12 +41,28 @@ export class DialogWorkComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.GetSector();
+    
+    this.titulo = this.data ? 'Editar' : 'Insertar';
 
-    this.titulo = this.data ? 'Editar' : 'Insertar'
     this.formGroup.patchValue({
 
       company: this.data.company,
       role: this.data.role
+    })
+  }
+
+  GetSector(): void {
+
+    console.log('aca')
+    this.sectorServices.getAllSector().subscribe({
+
+      next: (resp) => {
+
+        this.sectorArr = resp.result
+        console.log(resp.result);
+      }
     })
   }
 

@@ -47,7 +47,6 @@ export class WorkComponent implements OnInit {
 
         if (dataResponse.isSuccess) {
           this.dataSourceWork = dataResponse.result.workEntities;
-          console.log(this.dataSourceWork)
         }
       },
       error: () => Alert.mensajeSinExitoToast('error al cargar skills')
