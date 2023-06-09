@@ -3,3 +3,22 @@ body {
   margin: 0; 
   font-family: Roboto "Helvetica Neue", sans-serif;
 }
+
+
+mat-form-field{
+  width: 310px;
+  font-size: 1rem;
+}
+
+
+.titulo_modal{
+  font-weight: bolder;
+  text-align: center;
+  letter-spacing: 0.15rem;
+}
+
+.mat-dialog-actions{
+  display:flex;
+  justify-content: center;
+}
+

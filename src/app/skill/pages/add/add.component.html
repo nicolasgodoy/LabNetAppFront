@@ -1,12 +1,12 @@
-<h1 class="titulo_skill" mat-dialog-title>Agregar Skill</h1>
-<div mat-dialog-content>
+<h2 class="titulo_modal" mat-dialog-title>Agregar Skill</h2>
+<div mat-dialog-content style="width: 450px;">
      <form [formGroup]="formSkill">
-        <mat-grid-list cols="1" rowHeight="120px">
+        <mat-grid-list cols="1" rowHeight="150px">
             <mat-grid-tile>
                 <div rowHeight="">
                     <mat-form-field appearance="outline">
                         <mat-label>Descripcion</mat-label>
-                        <input formControlName="description" style="font-size:1.5rem;" matInput
+                        <input formControlName="description" matInput
                             placeholder="ingrese la skill" autocomplete="off" minlength="" maxlength="15" required />
                     </mat-form-field>
                     <mat-error
