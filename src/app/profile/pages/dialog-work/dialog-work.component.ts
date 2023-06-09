@@ -10,12 +10,13 @@ import { sectorService } from 'src/app/service/sector.service';
 import { TipoEmpleoService } from 'src/app/service/tipoEmpleo.service';
 import { UbicacionService } from 'src/app/service/ubicacion.service';
 
+
 import { WorkService } from 'src/app/service/work.service';
 
 @Component({
   selector: 'app-dialog-work',
   templateUrl: './dialog-work.component.html',
-  styleUrls: ['./dialog-work.component.css']
+  styleUrls: ['./dialog-work.component.css'],
 })
 export class DialogWorkComponent implements OnInit {
 
@@ -44,7 +45,10 @@ export class DialogWorkComponent implements OnInit {
       IdProfile: 1,
       sector: [''],
       ubicacion: [''],
-      tipoEmpleo: ['']
+      tipoEmpleo: [''],
+      startDate: ['', [Validators.required]],
+      endDate: [''],
+      isCurrent: ['']
     });
   }
 
@@ -115,9 +119,14 @@ export class DialogWorkComponent implements OnInit {
         IdProfile: 1,
         IdSector: this.formGroup.value.sector,
         IdUbication: this.formGroup.value.ubicacion,
-        IdWorkType: this.formGroup.value.tipoEmpleo
+        IdWorkType: this.formGroup.value.tipoEmpleo,
+        startDate: this.formGroup.value.startDate,
+        endDate: this.formGroup.value.endDate,
+        isCurrent: this.formGroup.value.isCurrent
       }
-
+      if(this.work.isCurrent){
+        this.work.endDate = null;
+      }
       console.log(this.work)
 
       this.workService.AddWork(this.work).subscribe({
@@ -145,9 +154,14 @@ export class DialogWorkComponent implements OnInit {
       role: this.formGroup.value.role,
       idSector: this.formGroup.value.sector,
       idUbication: this.formGroup.value.ubicacion,
-      idWorkType: this.formGroup.value.tipoEmpleo
+      idWorkType: this.formGroup.value.tipoEmpleo,
+      startDate: this.formGroup.value.startDate,
+      endDate: this.formGroup.value.endDate,
+      isCurrent: this.formGroup.value.isCurrent
     }
-
+    if(this.work.isCurrent){
+      this.work.endDate = null;
+    }
     console.log(this.workModify);
 
     this.workService.ModifyWork(this.workModify).subscribe({
