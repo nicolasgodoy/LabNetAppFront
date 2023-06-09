@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { ProfilesService } from 'src/app/service/profiles.service';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { DialogAddSkillComponent } from './dialog-add-skill/dialog-add-skill.component';
@@ -15,35 +15,35 @@ import { Alert } from 'src/app/helpers/alert';
 export class ProfileSkillComponent implements OnInit {
 
   @Input()
-  idProfile?: number; // obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
-
+  idProfile?:number; // obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  
   @Input()
-  modify: boolean = true;
+  modify:boolean = true;
   public dataSource: any;
-  displayedColumns: string[] = ['Skill', 'Acciones'];
+  displayedColumns: string[] = ['Skill','Acciones'];
   listProfileSkill: Skill[] = [];
 
-  constructor(private profileService: ProfilesService,
+  constructor(private profileService:ProfilesService,
     public dialog: MatDialog,
-  ) { }
+    ) { }
 
-  ngOnInit(): void {
-    this.GetProfileSkill(this.idProfile);
+    ngOnInit(): void {
+      this.GetProfileSkill(this.idProfile);
   }
 
-  DeleteSkillToProfile(idProfile: number, idSkill: number) {
-    this.profileService.deleteEmploye(idProfile, idSkill).subscribe(
+  DeleteSkillToProfile(idProfile:number,idSkill:number){
+    this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
       {
-        next: (res) => {
+        next:(res)=> {
           Alert.mensajeExitoToast(res.message)
           this.GetProfileSkill(this.idProfile);
         },
-        error: () => Alert.mensajeSinExitoToast('error al eliminar')
+        error:() => Alert.mensajeSinExitoToast('error al eliminar')
       }
     )
   }
 
-  GetProfileSkill(id: number) {
+  GetProfileSkill(id:number){
     this.profileService.GetProfileSkill(id).subscribe({
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
@@ -54,25 +54,24 @@ export class ProfileSkillComponent implements OnInit {
       error: () => Alert.mensajeSinExitoToast('error al cargar skills')
     })
   }
-  
-  openDialog(id: number): void {
+  openDialog(id:number): void {
 
     if (id) {
       const dialogoref = this.dialog.open(DialogDeleteComponent, {
         width: '350px'
       });
-      dialogoref.afterClosed().subscribe(res => {
-        res && this.DeleteSkillToProfile(this.idProfile, id);
+      dialogoref.afterClosed().subscribe(res=>{
+        res && this.DeleteSkillToProfile(this.idProfile,id);
       })
-    } else {
+    }else{
       const dialogoref = this.dialog.open(DialogAddSkillComponent, {
-        data: { id: this.idProfile, list: this.listProfileSkill },
+        data: { id:this.idProfile, list:this.listProfileSkill },
         panelClass: 'dialog'
       });
-      dialogoref.afterClosed().subscribe(res => {
-        if (res)
+      dialogoref.afterClosed().subscribe(res=>{
+        if(res)
           Alert.mensajeExitoToast()
-        this.GetProfileSkill(this.idProfile);
+          this.GetProfileSkill(this.idProfile);
       })
     }
   }
