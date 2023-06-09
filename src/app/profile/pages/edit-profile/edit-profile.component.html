@@ -106,41 +106,85 @@
       </div>
     </div>
 
-    <div class="container">
-      <h1 class="titulo">Trabajo</h1>
-    </div>
-    <div class="container">
-      <table mat-table [dataSource]="dataSourceWork" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="comapania">
-          <th mat-header-cell *matHeaderCellDef>Compania</th>
-          <td mat-cell *matCellDef="let element">{{element.company}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef>Role</th>
-          <td mat-cell *matCellDef="let element">{{element.role}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsWork"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsWork;"></tr>
-      </table>
-      <div style="margin-left: 5px;">
-        <button type="button" *ngIf="modify" mat-fab color="primary">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
-
+    <app-work [modify]="modify" [idProfile]="idUser"></app-work>
     <br>
 
     <div class="container">
       <h1 class="titulo">Educacion</h1>
     </div>
 
-    <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser] = "idUser">
-      
-    </app-profile-education>
+    <div class="container">
+      <table mat-table [dataSource]="dataSourceEducation" class="mat-elevation-z10">
+
+        <ng-container matColumnDef="institutionName">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{element.institutionName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="degree">
+          <th mat-header-cell *matHeaderCellDef>Titulo</th>
+          <td mat-cell *matCellDef="let element">{{element.degree}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="DescriptionInstitutionType">
+          <th mat-header-cell *matHeaderCellDef>Tipo institucion</th>
+          <td mat-cell *matCellDef="let element">{{element.descriptionInstitutionType}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="admissionDate">
+          <th mat-header-cell *matHeaderCellDef>Fecha de ingreso</th>
+          <td mat-cell *matCellDef="let element">{{formatoFecha(element.admissionDate)}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="expeditionDate">
+          <th mat-header-cell *matHeaderCellDef>Fecha de egreso</th>
+          <td mat-cell *matCellDef="let element">{{formatoFecha(element.expeditionDate)}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Editar">
+          <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
+            <div *ngIf="modify">
+              Editar
+            </div>
+          </th>
+
+
+          <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
+            <button *ngIf="modify" type="button" mat-mini-fab color="primary" matTooltip="Editar educacion">
+              <mat-icon>create</mat-icon>
+            </button>
+          </td>
+
+
+        </ng-container>
+
+
+        <ng-container ng-container matColumnDef="Eliminar">
+          <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
+            <div *ngIf="modify">
+              Eliminar
+            </div>
+          </th>
+
+          <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; ">
+            <button type="button" *ngIf="modify" mat-mini-fab color="primary" matTooltip="Eliminar educacion"
+              (click)="deleteEducation(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsEducation"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
+      </table>
+
+      <div style="margin-left: 5px;">
+        <button type="button" *ngIf="modify" mat-fab color="primary" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
     <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
 
     <div class="container">
