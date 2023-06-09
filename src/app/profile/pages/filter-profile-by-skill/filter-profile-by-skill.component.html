@@ -25,14 +25,35 @@
     </div>
     <div *ngIf="listaProfile.length != 0">
       <mat-card class="profile-card card-round" *ngFor="let perfil of listaProfile">
-        <mat-card-title-group>
+
+        <!-- TITULO CAPAS CON FOTO -->
+        <mat-card-content>
+          <img mat-card-md-image src="../assets/profilePicture.png">
           <mat-card-title>{{perfil.profile.name}} {{perfil.profile.lastName}}</mat-card-title>
-          <mat-card-subtitle>INFORMACIÓN PERFIL</mat-card-subtitle>
-          <mat-card-subtitle>Mail: {{perfil.profile.mail}}</mat-card-subtitle>
-          <mat-card-subtitle>Teléfono: {{perfil.profile.phone}}</mat-card-subtitle>
-          <mat-card-subtitle class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></mat-card-subtitle>
-          <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-        </mat-card-title-group>
+        </mat-card-content>
+        <!-- INFORMACION -->
+        <mat-card-content>
+          <h3>Informacion</h3>
+          <mat-card-subtitle class="subtitle">
+            <mat-icon>alternate_email</mat-icon>
+            <a href="mailto:{{perfil.profile.mail}}">{{perfil.profile.mail}}</a>
+          </mat-card-subtitle>
+          <mat-card-subtitle class="subtitle">
+            <mat-icon> call</mat-icon>
+            <p>{{perfil.profile.phone}}</p>
+          </mat-card-subtitle>
+        </mat-card-content>
+        <!-- SKILLS -->
+        <mat-card-content>
+          <h3 class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></h3>
+        </mat-card-content>
+        <!-- TRABAJO -->
+        <mat-card-content>
+          <h3 class="list-skill">Current Work
+            <p>{{perfil.profile.works[perfil.profile.works.length-1].company}}</p>
+            <p>{{perfil.profile.works[perfil.profile.works.length-1].role}}</p>
+          </h3>
+        </mat-card-content>
         <mat-card-content>
           <button mat-raised-button color="primary" [routerLink]="['../consult-profile/', perfil.profile.idUser]" routerLinkActive="router-link-active" >Ver Perfil</button>
         </mat-card-content>

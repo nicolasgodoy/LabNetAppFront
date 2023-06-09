@@ -18,7 +18,6 @@ import { Alert } from 'src/app/helpers/alert';
 export class FilterProfileBySkillComponent implements OnInit {
 
   listaProfile: ProfilesFilterDto[] = [];
-
   skills: Skill[] = [];
 
   isExpanded = true;
