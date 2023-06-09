@@ -5,6 +5,7 @@ import { UpdatePassword } from 'src/app/models/updatePassword';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/helpers/alert';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -15,11 +16,13 @@ import { Alert } from 'src/app/helpers/alert';
 export class UpdatePasswordProfileComponent implements OnInit {
 
   formUpdatePass: FormGroup;
+  IdUser:number;
 
   constructor(
     private uService: UserService,
     private formB: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _authService:AuthService
   ) {
     this.formUpdatePass = this.formB.group({
       confirmPass: ['', Validators.required],
@@ -29,6 +32,16 @@ export class UpdatePasswordProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getIdUser():number{
+    const token = this._authService.readToken();
+
+    const Object = this._authService.DecodeJWT(token);
+    
+    this.IdUser= this._authService.getValueByKey(Object,'IdUser');
+    console.log(this.IdUser)
+    return this.IdUser
   }
 
   updatePassword(){
