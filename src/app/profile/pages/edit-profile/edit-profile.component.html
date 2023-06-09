@@ -1,10 +1,16 @@
-<div>
-  <h1 class="titulo">{{titulo}} Perfil</h1>
-</div>
 
-<div class="container">
+
+<div class="container" style="margin-top: 2rem;">
 
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
+
+    <div class="container">
+      <img src="../assets/profilePicture.png" width="100px">
+    </div>
+
+    <div class="container" style="margin-top: 1rem;">
+     <h1> <strong>{{formulario.value.name}}  {{formulario.value.lastName}}</strong></h1>
+    </div>
 
     <div class="divPadre">
 
@@ -14,21 +20,10 @@
         </div>
       </div> -->
 
-      <div>
-        <img [src]="imgProfile">
-      </div>
 
       <div class="divHijo1">
 
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input type="text" matInput formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Apellido</mat-label>
-          <input type="text" matInput formControlName="lastName">
-        </mat-form-field>
+        
         <br>
         <mat-form-field appearance="fill">
           <mat-label>DNI</mat-label>
