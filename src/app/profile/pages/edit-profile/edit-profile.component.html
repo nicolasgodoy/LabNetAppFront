@@ -109,29 +109,11 @@
     <div class="container">
       <h1 class="titulo">Trabajo</h1>
     </div>
-    <div class="container">
-      <table mat-table [dataSource]="dataSourceWork" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="comapania">
-          <th mat-header-cell *matHeaderCellDef>Compania</th>
-          <td mat-cell *matCellDef="let element">{{element.company}}</td>
-        </ng-container>
 
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef>Role</th>
-          <td mat-cell *matCellDef="let element">{{element.role}}</td>
-        </ng-container>
+    <app-work [modify]="modify" [idProfile]="idUser"></app-work>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsWork"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsWork;"></tr>
-      </table>
-      <div style="margin-left: 5px;">
-        <button type="button" *ngIf="modify" mat-fab color="primary">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
-
+    
     <br>
 
     <div class="container">
