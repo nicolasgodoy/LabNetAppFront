@@ -1,8 +1,8 @@
 /* Eliminar flechas en campo tipo numero */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .titulo {
@@ -49,14 +49,16 @@ input::-webkit-inner-spin-button {
 
 .example-full-width {
     width: 90%;
-  }
+}
 
-#leftButton{
+#leftButton {
     margin-right: 8rem;
 }
 
-.margin-left{
+.margin-left {
     margin-left: 4rem;
 }
 
-.text{font-family: 'Poppins', sans-serif;}
+.text {
+    font-family: 'Poppins', sans-serif;
+}
