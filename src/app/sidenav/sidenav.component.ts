@@ -52,7 +52,6 @@ export class SidenavComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._authService.logout();
-        localStorage.clear();
         this._router.navigateByUrl('/');
         this.drawer.close();
       }
