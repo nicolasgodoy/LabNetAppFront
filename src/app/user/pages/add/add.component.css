@@ -1,17 +1,13 @@
-.combo-container {
-    width: 300px; /* Ajusta el ancho según sea necesario */
-  }
+mat-form-field{
+  width: 200px;
+  padding: 3px;
+}
 
-  .mat-elevation-z8{
-    width: 15%;
-    margin-left: 40%;
-    padding: 1%;
-  }
+.mat-dialog-actions{
+display: flex;
+justify-content: center;
+}
 
-  .tituloAdd{
-    font-size:1.7rem;
-    margin-left: 41%;
-    margin-top:1% ;
-    
-  }
-  
+.tituloAdd{
+  text-align: center;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/models/user';
@@ -7,6 +7,11 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/helpers/alert';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ResponseDto } from 'src/app/models/response';
+import { Sector } from 'src/app/models/sector';
+import { AddComponent } from '../add/add.component';
 
 @Component({
   selector: 'app-consult',
@@ -19,18 +24,29 @@ export class ConsultComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['Id','Email', 'Rol', 'Activo', 'Acciones'];
   showIdColumn:boolean;
-
-
+  formUser: FormGroup;
+  tituloAccionSkill: string = "Nuevo";
+  botonAccion: string = "Guardar";
+  listaUser: User[] = [];
 
   constructor(
     private _userService: UserService,
-    private _authService: AuthService,
-    private _router: Router
-  ) {
-    this.dataSource = new MatTableDataSource();
-    this.showIdColumn= false;
-    
+    private dialogoReferencia: MatDialogRef<AddComponent>,
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public dataUser: User) {
+      this.dataSource = new MatTableDataSource();
+      this.showIdColumn= false;
+      this._userService.getAll().subscribe({
+        next: (data: ResponseDto) => {
+          this.listaUser = data.result;
+        }, error: (e) => { }
+      })
   }
+
+
+
+
 
   ngOnInit(): void {
     this.showAllUsers();
@@ -58,6 +74,40 @@ export class ConsultComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  AddUser(): void {
+    if(this.formUser.valid) {
+      const modelo: User = {
+        email:this.formUser.value.email,
+        password:this.formUser.value.password,
+        idRole:this.formUser.value.idRole,
+        isActive:true
+      }
+      this._userService.addUser(modelo).subscribe(
+        (ResponseDto: User) => {
+          Alert.mensajeExitoToast();
+        },
+        (error: any) => {
+          console.log(error)
+          Alert.mensajeSinExitoToast();
+        }
+      );
+
+    } else {
+
+    }
+  }
+
+  dialogAddUsuario() {
+    this.dialog.open(AddComponent, {
+      disableClose: true,
+    }).afterClosed().subscribe(resultado => {
+      if (resultado === "creado") {
+        this.showAllUsers();
+      }
+    })
+  }
+
 
   confirmDelete(user:User){
     console.log(user,user.id),

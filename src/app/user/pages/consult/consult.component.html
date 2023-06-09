@@ -6,9 +6,9 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
     </div>
-    <div class="insertar">
-      <button mat-raised-button color="primary" [routerLink]="['../insert']">Agregar Usuario</button>
-    
+    <div>
+        <button mat-raised-button style="font-size:1.5rem;padding:10px; margin-bottom:5px;" color="primary"
+        (click)=dialogAddUsuario()>Nuevo Usuario</button>
     </div>
   </div>
   <div class="mat-elevation-z8">

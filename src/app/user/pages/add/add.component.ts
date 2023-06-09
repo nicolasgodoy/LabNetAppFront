@@ -5,8 +5,9 @@ import { Role } from 'src/app/models/Role';
 import { User } from 'src/app/models/user'
 import { RoleService } from 'src/app/service/role.service';
 import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
 import { Alert } from 'src/app/helpers/alert';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+
 
 @Component({
   selector: 'app-add',
@@ -27,6 +28,8 @@ export class AddComponent implements OnInit {
     private formB: FormBuilder,
     private _userService: UserService,
     private _roleService: RoleService,
+    private dialogoReferencia: MatDialogRef<AddComponent>,
+
   ) {
     this.formUser = this.formB.group({
       mail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com)$')]],
@@ -49,6 +52,7 @@ export class AddComponent implements OnInit {
         (response: User) => {
          
           Alert.mensajeAdd('Usuario');
+          this.dialogoReferencia.close("creado");
           
         },
         (error: any) => {
