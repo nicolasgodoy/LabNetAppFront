@@ -1,5 +1,3 @@
-
-
 <div class="container" style="margin-top: 2rem;">
 
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
@@ -9,21 +7,18 @@
     </div>
 
     <div class="container" style="margin-top: 1rem;">
-     <h1> <strong>{{formulario.value.name}}  {{formulario.value.lastName}}</strong></h1>
+      <h1> <strong>{{completeName}} </strong></h1>
     </div>
 
+
+    <div class="container">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Tell us about you" formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
     <div class="divPadre">
-
-      <!-- <div style="margin-left: 10px;">
-        <div style="width: 100px; height: 100px;">
-          <iframe [src]="imgPerfil | editProfilePipe"></iframe>
-        </div>
-      </div> -->
-
-
-      <div class="divHijo1">
-
-        
+      <div class="divHijo1" [ngClass]="{'margin-left': modify}">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>DNI</mat-label>
@@ -35,25 +30,9 @@
           <input type="date" matInput formControlName="fechaNacimiento">
         </mat-form-field>
         <br>
-        <mat-form-field>
-          <mat-label>Puesto</mat-label>
-          <mat-select formControlName="jobPosition">
-            <mat-option *ngFor="let position of jobPositionArr"
-              [value]="position.idJobPosition">{{position.description}}</mat-option>
-            <!-- <mat-option value="2">Junior</mat-option>
-            <mat-option value="3">Semi-Senior</mat-option>
-            <mat-option value="4">Senior</mat-option>  -->
-          </mat-select>
-        </mat-form-field>
-
       </div>
 
       <div class="divHijo2">
-
-        <mat-form-field appearance="fill">
-          <mat-label>Descripción</mat-label>
-          <input type="text" matInput formControlName="description">
-        </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Telefono</mat-label>
@@ -65,26 +44,40 @@
           <input type="email" matInput formControlName="email">
         </mat-form-field>
         <br>
-        <div class="container" *ngIf="modify">
+
+
+
+        <br>
+
+      </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 2rem;" *ngIf="modify">
+      <div id="leftButton">
+        <div *ngIf="modify">
           <div style="text-align: center;">
             <mat-label>Foto de Perfil</mat-label>
             <br>
 
+            
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
               Subir imagen
             </button>
             <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile">
 
+            <div style="margin-left: 10px;" *ngIf="previewImg">
+              <div style="width: 100px; height: 100px; background-color: black;">
+                <img width="100px" [src]="previewImg" alt="">
+              </div>
+            </div>
+
+
           </div>
         </div>
 
-        <div style="margin: 5px 0px 0px 50px;" *ngIf="previewImg">
-          <div style="width: 100px; height: 100px; background-color: black;">
-            <img width="100px" [src]="previewImg" alt="">
-          </div>
-        </div>
+      </div>
 
-        <br>
+      <div>
         <div class="container" *ngIf="modify">
           <div style="text-align: center;">
             <mat-label>CV</mat-label>
@@ -107,8 +100,8 @@
       <h1 class="titulo">Educacion</h1>
     </div>
 
-    <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser] = "idUser">
-      
+    <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser]="idUser">
+
     </app-profile-education>
     <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
 

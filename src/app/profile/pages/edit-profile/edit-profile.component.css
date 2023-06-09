@@ -26,11 +26,14 @@ input::-webkit-inner-spin-button {
 .divHijo1 {
 
     margin: 20px;
+    margin-top: -2rem;
 }
 
 .divHijo2 {
 
     margin: 20px;
+    margin-top: -2rem;
+
 }
 
 .botones {
@@ -44,3 +47,14 @@ input::-webkit-inner-spin-button {
     margin-right: 10px;
 }
 
+.example-full-width {
+    width: 90%;
+  }
+
+#leftButton{
+    margin-right: 8rem;
+}
+
+.margin-left{
+    margin-left: 4rem;
+}
