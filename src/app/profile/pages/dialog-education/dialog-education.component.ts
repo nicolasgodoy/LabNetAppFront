@@ -2,11 +2,13 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { InstitutionType } from 'src/app/models/Education/InstitutionTypeDto';
 import { addEducationDto } from 'src/app/models/Education/addEducationDto';
 import { updateEducation } from 'src/app/models/Education/updateEducation';
 import { ResponseDto } from 'src/app/models/response';
 import { EducationService } from 'src/app/service/education.service';
+import { fileHelper } from 'src/app/shared/fileHelper';
 
 @Component({
   selector: 'app-dialog-education',
@@ -18,12 +20,18 @@ export class DialogEducationComponent implements OnInit {
   public formulario: FormGroup;
   InstitutionTypeList: InstitutionType[];
   updateDto: updateEducation;
+  public previewDoc: string;
+  public previewName: string;
+
+  public files: any = [];
+
   isUpdate: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private educationService: EducationService,
     private dialogRef: MatDialogRef<DialogEducationComponent>,
+    private sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
 
@@ -31,8 +39,8 @@ export class DialogEducationComponent implements OnInit {
     if (typeof this.data == "number") {
 
       this.formulario = this.formBuilder.group({
-        institutionName: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
-        degree: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        institutionName: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z0-9 ]*')]],
+        degree: ['', [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z ]*')]],
         admissionDate: ['', [Validators.required]],
         expeditionDate: ['', [Validators.required]],
         institutionType: ['', [Validators.required]]
@@ -46,8 +54,9 @@ export class DialogEducationComponent implements OnInit {
 
       this.formulario = this.formBuilder.group({
 
-        institutionName: [data.institutionName, [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
-        degree: [data.degree, [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z]*')]],
+        institutionName: [data.institutionName, [Validators.maxLength(30), 
+          Validators.required,Validators.pattern('[a-zA-Z0-9 ]*')]],
+        degree: [data.degree, [Validators.maxLength(30), Validators.required,Validators.pattern('[a-zA-Z ]*')]],
         admissionDate: [this.formatoFecha(data.admissionDate), [Validators.required]],
         expeditionDate: [this.formatoFecha(data.expeditionDate), [Validators.required]],
         institutionType: [data.idInstitutionType, [Validators.required]]
@@ -119,13 +128,30 @@ export class DialogEducationComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const admissionDate = formGroup.get('admissionDate').value;
       const expeditionDate = formGroup.get('expeditionDate').value;
-
       if (admissionDate <= expeditionDate) return null;
-      
       return { dateComparison: true };
 
     };
   }
 
+
+    //CV
+    captureFile(event: any): any {
+
+      const archivoCapturado = event.target.files[0];
+      fileHelper.extraerBase64(archivoCapturado)
+        .then((img: any) => {
+  
+          this.previewDoc = img.base;
+          this.previewName = fileHelper.truncateString(archivoCapturado.name, 10);
+
+        });
+      this.files.push(archivoCapturado);
+      console.log();
+    }
+
+   
+
+    
 }
 

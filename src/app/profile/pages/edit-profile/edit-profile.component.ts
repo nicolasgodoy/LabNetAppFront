@@ -57,6 +57,7 @@ export class EditProfileComponent implements OnInit {
   public imgProfile: string;
   public thisProfile: boolean = false;
   public IdProfile: number;
+  public completeName: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -153,7 +154,11 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['email'].setValue(this.profileEditDto.mail);
         this.formulario.controls['jobPosition']
           .setValue(this.profileEditDto.idJobPosition);
+
+          this.completeName = this.profileEditDto.name + ' ' +this.profileEditDto.lastName;
+
       }
+
     });
   }
 

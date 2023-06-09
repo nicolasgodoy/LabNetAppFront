@@ -1,3 +1,5 @@
+import { WorkAddDto } from "../Work/WorkAddDto";
+import { workDto } from "../Work/WorkDto";
 import { Skill } from "../skill";
 
 export interface ProfileDto{
@@ -8,4 +10,6 @@ export interface ProfileDto{
     mail?:string;
     phone?:string;
     skill: Skill[];
+    works: workDto[];
+
 }

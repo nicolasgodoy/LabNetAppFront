@@ -8,6 +8,11 @@
   display: flex;
   justify-content: left;
 }
+
+.container-card{
+  margin-left: 15rem;
+}
+
 .center{
     align-items: center;
 }
@@ -34,9 +39,14 @@
   top: 2rem;
 }
 .profile-card {
-  max-width: 70%;
+  display: flex;
+  max-width: 100%;
   margin-left: auto;
   margin-right: 3rem;
+  margin-bottom: 2rem;
+}
+mat-card-content{
+  margin: 0 4rem;
 }
 .profile-card img {
   width: 10rem;
@@ -80,8 +90,13 @@
 }
 .list-skill{
   display: flex;
+  flex-direction: column;
 }
 .list-skill p{
   margin: 0 0.5rem;
 }
 
+
+.subtitle{
+  display: flex;
+}

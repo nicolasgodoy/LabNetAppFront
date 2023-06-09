@@ -1,51 +1,60 @@
 <h1>Agregar educacion</h1>
 
 <div>
-    <form [formGroup]="formulario" >
-            <mat-form-field appearance="fill">
-                <mat-label> Institution Name</mat-label>
-                <input type="text" matInput formControlName="institutionName">
-                <mat-error *ngIf="formulario.get('institutionName')?.invalid && formulario.get('institutionName')?.touched">
-                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['required']">El Nombre es requerido.</span>
-                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['pattern']">Ingrese solo letras.</span>
-                    <span *ngIf="this.formulario.get('institutionName')?.errors?.['maxlength']">El Nombre no debe superar los 30 caracteres</span>
-                </mat-error>
-            </mat-form-field>
+    <form [formGroup]="formulario">
+        <mat-form-field appearance="fill">
+            <mat-label> Institution Name</mat-label>
+            <input type="text" matInput formControlName="institutionName">
+            <mat-error *ngIf="formulario.get('institutionName')?.invalid && formulario.get('institutionName')?.touched">
+                <span *ngIf="this.formulario.get('institutionName')?.errors?.['required']">El Nombre es
+                    requerido.</span>
+                <span *ngIf="this.formulario.get('institutionName')?.errors?.['pattern']">Ingrese solo letras.</span>
+                <span *ngIf="this.formulario.get('institutionName')?.errors?.['maxlength']">El Nombre no debe superar
+                    los 30 caracteres</span>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label> Degree </mat-label>
-                <input type="text" matInput formControlName="degree">
-                <mat-error *ngIf="formulario.get('degree')?.invalid && formulario.get('degree')?.touched">
-                    <span *ngIf="this.formulario.get('degree')?.errors?.['required']">El Nombre es requerido.</span>
-                    <span *ngIf="this.formulario.get('degree')?.errors?.['pattern']">Ingrese solo letras.</span>
-                    <span *ngIf="this.formulario.get('degree')?.errors?.['maxlength']">El Nombre no debe superar los 30 caracteres</span>
-                </mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label> Degree </mat-label>
+            <input type="text" matInput formControlName="degree">
+            <mat-error *ngIf="formulario.get('degree')?.invalid && formulario.get('degree')?.touched">
+                <span *ngIf="this.formulario.get('degree')?.errors?.['required']">El Nombre es requerido.</span>
+                <span *ngIf="this.formulario.get('degree')?.errors?.['pattern']">Ingrese solo letras.</span>
+                <span *ngIf="this.formulario.get('degree')?.errors?.['maxlength']">El Nombre no debe superar los 30
+                    caracteres</span>
+            </mat-error>
+        </mat-form-field>
 
 
-            <br>
 
-            <mat-form-field appearance="fill">
+
+        <br>
+
+        <mat-form-field appearance="fill">
             <mat-label> Admission Date </mat-label>
-                <input type="date" matInput formControlName="admissionDate">
-            </mat-form-field>
-            
-            <mat-form-field appearance="fill">
+            <input type="date" matInput formControlName="admissionDate">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
             <mat-label>Expedition Date</mat-label>
-                <input type="date" matInput formControlName="expeditionDate">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
+            <input type="date" matInput formControlName="expeditionDate">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
             <mat-label> IdInstitution Type </mat-label>
             <mat-select formControlName="institutionType">
-                <mat-option *ngFor="let type of InstitutionTypeList"
-                [value]="type.id">{{type.description}}</mat-option>
+                <mat-option *ngFor="let type of InstitutionTypeList" [value]="type.id">{{type.description}}</mat-option>
             </mat-select>
-            </mat-form-field>
+        </mat-form-field>
 
-            <div>
-                <button *ngIf="!isUpdate" mat-flat-button color="primary"  [disabled]="formulario.invalid" (click)="create()">Agregar</button>
-                <button *ngIf="isUpdate" mat-flat-button color="primary"  [disabled]="formulario.invalid" (click)="update()">Update</button>
-            </div>
+        <button class="buttonDiploma" mat-raised-button (click)="fileInput.click()">Subir diploma</button>
+        <label>{{previewName}}</label>        
+        <input  hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
+        <div>
+            <button *ngIf="!isUpdate" mat-flat-button color="primary" [disabled]="formulario.invalid"
+                (click)="create()">Agregar</button>
+            <button *ngIf="isUpdate" mat-flat-button color="primary" [disabled]="formulario.invalid"
+                (click)="update()">Update</button>
+        </div>
     </form>
 </div>
