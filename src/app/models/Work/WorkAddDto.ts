@@ -6,4 +6,7 @@ export class WorkAddDto {
     IdSector: number;
     IdUbication: number;
     IdWorkType: number;
+    startDate: Date;
+    endDate: Date;
+    isCurrent: boolean;
 }

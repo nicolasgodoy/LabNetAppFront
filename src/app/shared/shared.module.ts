@@ -20,6 +20,7 @@ import {NgxSpinnerModule} from'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 const modulosMaterial = [
@@ -44,6 +45,7 @@ const modulosMaterial = [
   MatAutocompleteModule,
   MatTooltipModule,
   MatToolbarModule,
+  MatCheckboxModule
 ]
 
 @NgModule({
@@ -63,6 +65,7 @@ const modulosMaterial = [
     MatSnackBarModule,
     MatSelectModule,
     NgxSpinnerModule,
+    MatCheckboxModule,
   ],
   providers: [
     {

@@ -16,7 +16,6 @@ import { DialogEducationComponent } from './pages/dialog-education/dialog-educat
 import { ProfileEducationComponent } from './pages/profile-education/profile-education.component';
 import { WorkComponent } from '../work/work.component';
 
-
 @NgModule({
   declarations: [
     AddProfileComponent,
