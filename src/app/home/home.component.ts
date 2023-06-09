@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   const Object = this.auth.DecodeJWT(token);
     
     this.idUser= this.auth.getValueByKey(Object,'IdUser');
+    console.log('ID log user:' +this.idUser)
   }
 
   ngOnInit(): void {

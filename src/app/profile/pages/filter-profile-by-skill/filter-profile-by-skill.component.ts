@@ -8,7 +8,6 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { ProfilesFilterDto } from 'src/app/models/ProfileSkill/ProfilesFilterDto';
-import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-filter-profile-by-skill',
@@ -51,10 +50,13 @@ export class FilterProfileBySkillComponent implements OnInit {
     this.profileService.FilterBySkills(idSkills).subscribe({
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
+          console.log(dataResponse.result)
           this.listaProfile = dataResponse.result;
         }else
-          Alert.mensajeSinExitoToast(dataResponse.message);
-      }, error: (e) => Alert.mensajeSinExitoToast('No se pudo cargar los perfiles')
+          console.error(dataResponse.message);
+      }, error: (e) => {
+        console.log('No se pudo cargar los perfiles')
+        }
       }
     )
   }
@@ -66,7 +68,9 @@ export class FilterProfileBySkillComponent implements OnInit {
           this.listSkills = dataResponse.result;
         }else
           console.error(dataResponse.message);
-      }, error: (e) => Alert.mensajeSinExitoToast('Error al cargar skills.')
+      }, error: (e) => {
+        console.log('Error al cargar skills.')
+        }
       }
     )
   }

@@ -16,9 +16,7 @@ import { EducationService } from 'src/app/service/education.service';
 import { Alert } from 'src/app/helpers/alert';
 import { DialogEducationComponent } from '../dialog-education/dialog-education.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConstantPool } from '@angular/compiler';
-import { updateEducation } from 'src/app/models/Education/updateEducation';
-
+import { DialogWorkComponent } from '../dialog-work/dialog-work.component';
 
 @Component({
   selector: 'app-edit-profile',
@@ -138,6 +136,7 @@ export class EditProfileComponent implements OnInit {
         this.dataSourceWork.data = data.result.workEntities;
 
         this.dataSourceEducation.data = data.result.educationEntities;
+
         this.profileEditDto = data.result;
         this.IdProfile = this.profileEditDto.idProfile;
         this.imgProfile = this.profileEditDto.photo;
@@ -297,6 +296,7 @@ export class EditProfileComponent implements OnInit {
       };
       reader.onerror = error => {
         resolve({
+
           base: null
         })
       }
@@ -306,5 +306,99 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
- 
+  public deleteEducation(id: number) {
+    Swal.fire({
+      title: 'Seguro que desea eliminar este registro?',
+      text: "No podrás revertirlo más tarde!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminalo!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await this.educationService.Delete(id).toPromise();
+          const profileResponse: ResponseDto = await this.servicioProfile.GetById(this.idUser).toPromise();
+          this.dataSourceEducation.data = profileResponse.result.educationEntities;
+          Alert.mensajeExitoToast();
+        } catch (error) {
+          console.error(error);
+          Alert.mensajeSinExitoToast();
+
+        }
+      }
+    });
+  }
+
+  // CREATE UPDATE EDUCATION
+
+  openDialog(): void {
+    console.log("entro")
+    const dialogoref = this.dialog.open(DialogEducationComponent, {
+      width: '500px'
+    });
+    dialogoref.afterClosed().subscribe(res => {
+      console.log(res)
+    })
+
+  }
+
+  openDialogWork(): void {
+
+    const dialog = this.dialog.open(DialogWorkComponent, {
+      width: '500px'
+    },);
+
+    dialog.afterClosed().subscribe(res => {
+
+      res && this.getById();
+      console.log(res);
+    })
+  }
+
+  // openDialogWorkUpdate(modifyWorkDto: ModifyWorkDto): void {
+
+  //   const dialog = this.dialog.open(DialogWorkComponent, {
+  //     width: '500px',
+  //     data: modifyWorkDto
+  //   });
+
+  //   dialog.afterClosed().subscribe(res => {
+
+  //     res && this.getById();
+  //     console.log(res);
+  //   })
+  // }
+
+  // public deleteWork(id: number) {
+
+  //   Swal.fire({
+
+  //     title: '¿Seguro que desea eliminar este registro?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Sí, eliminalo!'
+  //   }).then(async (result) => {
+
+  //     if (result.isConfirmed) {
+
+  //       try {
+  //         await this.workService.DeleteWork(id).toPromise();
+
+  //         const respuesta: ResponseDto = await this.servicioProfile.GetById(this.idUser)
+  //           .toPromise();
+  //         this.dataSourceWork.data = respuesta.result.workEntities;
+  //         Alert.mensajeExitoToast();
+
+  //       } catch (error) {
+
+  //         console.error(error);
+  //         Alert.mensajeSinExitoToast();
+  //       }
+  //     }
+  //   })
+  // }
 }

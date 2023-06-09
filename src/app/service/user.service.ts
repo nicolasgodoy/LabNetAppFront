@@ -23,7 +23,7 @@ export class UserService {
         const userToken = `Bearer ${this._authservice.readToken()}`;
         const headers = new HttpHeaders({ 'Authorization': userToken });
         const options = { headers: headers };
-        
+        console.log(userToken);
 
         return this.http.get<ResponseDto>(this.url + '/GetAll', options);
       }

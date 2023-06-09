@@ -75,6 +75,7 @@ export class AddComponent implements OnInit {
       next: (response: ResponseDto) => {
         if (response.isSuccess) {
           this.listaRoles = response.result as Role[];
+          console.log(this.listaRoles);
 
         } else {
 
