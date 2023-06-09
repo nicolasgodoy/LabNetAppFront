@@ -1,16 +1,15 @@
 <div class="container">
-  <div class="topTabla">
+    <div class="boton">
+      <button mat-raised-button style="font-size:1.5rem;padding:10px; margin-top:10px;" color="primary"
+      (click)=dialogAddUsuario()>Nuevo Usuario</button>
+    </div>
     <div class="filtro">
-      <mat-form-field appearance="standard">
-        <mat-label>Filter</mat-label>
+      <mat-form-field class="filtro" appearance="standard">
+        <mat-label>Filtrar Usuario</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
     </div>
-    <div>
-        <button mat-raised-button style="font-size:1.5rem;padding:10px; margin-bottom:5px;" color="primary"
-        (click)=dialogAddUsuario()>Nuevo Usuario</button>
-    </div>
-  </div>
+ 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="Id" >
