@@ -39,3 +39,17 @@
     padding-top: 18px;
  }
 
+ .boton{
+  width: 38%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-right: 0%;
+}
+
+.filtro{
+  width: 88%;
+  margin-left:6.3% !important;
+}
