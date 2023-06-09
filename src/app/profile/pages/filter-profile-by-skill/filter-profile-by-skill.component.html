@@ -18,7 +18,7 @@
     </div>
     <button mat-raised-button color="primary" class="button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
 	</mat-sidenav>
-	<div>
+	<div class="container-card">
     <h1 class="center-horizontally">BUSQUEDA DE PERFILES</h1>
     <div *ngIf="listaProfile.length == 0">
       <h2 class="center-vertically">Selecciones skills para mostrar perfiles.</h2>
@@ -48,7 +48,7 @@
           <h3 class="list-skill">Skills:<p *ngFor="let skill of perfil.profile.skill">{{skill.description}}</p></h3>
         </mat-card-content>
         <!-- TRABAJO -->
-        <mat-card-content>
+        <mat-card-content *ngIf="perfil.profile.works[perfil.profile.works.length-1]">
           <h3 class="list-skill">Current Work
             <p>{{perfil.profile.works[perfil.profile.works.length-1].company}}</p>
             <p>{{perfil.profile.works[perfil.profile.works.length-1].role}}</p>

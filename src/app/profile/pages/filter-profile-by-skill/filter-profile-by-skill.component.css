@@ -8,6 +8,11 @@
   display: flex;
   justify-content: left;
 }
+
+.container-card{
+  margin-left: 15rem;
+}
+
 .center{
     align-items: center;
 }
@@ -35,9 +40,10 @@
 }
 .profile-card {
   display: flex;
-  max-width: 70%;
+  max-width: 100%;
   margin-left: auto;
   margin-right: 3rem;
+  margin-bottom: 2rem;
 }
 mat-card-content{
   margin: 0 4rem;
