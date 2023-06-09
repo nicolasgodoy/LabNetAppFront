@@ -120,9 +120,7 @@ export class DialogEducationComponent implements OnInit {
       const admissionDate = formGroup.get('admissionDate').value;
       const expeditionDate = formGroup.get('expeditionDate').value;
 
-      if (admissionDate <= expeditionDate){
-        return null;
-      } 
+      if (admissionDate <= expeditionDate) return null;
       
       return { dateComparison: true };
 
