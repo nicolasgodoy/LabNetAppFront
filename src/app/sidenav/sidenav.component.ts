@@ -22,28 +22,21 @@ export class SidenavComponent implements OnInit {
 
   }
 
-
-
   ngOnInit(): void {
+      
+  }
+    
+  refreshSide(){
+    
+    this.drawer.toggle();
+    
+    const token = this._authService.readToken();
 
-   
+    const Object = this._authService.DecodeJWT(token);
     
-    
-      console.log('ID log user:' +this.IdRol);
-      
-    }
-    
-    refreshSide(){
-      
-      this.drawer.toggle();
-      
-      const token = this._authService.readToken();
- 
-      const Object = this._authService.DecodeJWT(token);
-      
-      this.IdUser= this._authService.getValueByKey(Object,'IdUser');
-      this.IdRol= this._authService.getValueByKey(Object,'IdRol');
-    }
+    this.IdUser= this._authService.getValueByKey(Object,'IdUser');
+    this.IdRol= this._authService.getValueByKey(Object,'IdRol');
+  }
  
     
  
@@ -63,9 +56,7 @@ export class SidenavComponent implements OnInit {
         this.drawer.close();
       }
     })
-  }
-
-  
+  } 
 }
 
 

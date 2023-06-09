@@ -68,7 +68,6 @@ export class ConsultComponent implements OnInit {
     this.skillService.getSkill().subscribe({
       next: (dataResponse: ResponseDto) => {
         this.spinnerService.hide();
-        console.log(dataResponse)
         this.dataSource.data = dataResponse.result;
 
       }, error: (e) => {
