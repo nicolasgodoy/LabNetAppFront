@@ -67,7 +67,6 @@ export class AddProfileComponent implements OnInit {
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
-          this._snackBar.open("Formulario enviado con exito!", undefined, { duration: 1000 });
 
           //WAIT TO INSERT
           this.spinnerService.show();
