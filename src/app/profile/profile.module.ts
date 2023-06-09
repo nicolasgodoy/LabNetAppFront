@@ -12,7 +12,6 @@ import { FilterProfileBySkillComponent } from './pages/filter-profile-by-skill/f
 import { UpdatePasswordProfileComponent } from './pages/update-password-profile/update-password-profile.component';
 import { EditProfilePipePipe } from '../edit-profile-pipe.pipe';
 import { HasProfileGuard } from '../guard/hasProfile.guard';
-import { DialogEducationComponent } from './pages/dialog-education/dialog-education.component';
 import { WorkComponent } from '../work/work.component';
 
 
@@ -26,7 +25,6 @@ import { WorkComponent } from '../work/work.component';
     DialogAddSkillComponent,
     UpdatePasswordProfileComponent,
     EditProfilePipePipe,
-    DialogEducationComponent,
     WorkComponent
   ],
   imports: [
