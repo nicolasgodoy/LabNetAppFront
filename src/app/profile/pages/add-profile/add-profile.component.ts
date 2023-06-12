@@ -6,7 +6,7 @@ import { profileDto } from 'src/app/models/Profile/profileDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 declare var M: any;
@@ -36,44 +36,55 @@ export class AddProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private spinnerService : NgxSpinnerService
+    private spinnerService: NgxSpinnerService
   ) {
 
     this.formulario = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       lastname: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       document: ['', [Validators.required]],
-      birthdate: ['', [Validators.required, this.maxDateValidator]]
+      birthdate: ['', [Validators.required]]
     }
     )
 
-    
+
   }
 
 
 
   ngOnInit(): void {
+
     this.idUser = Number(this.route.snapshot.paramMap.get('id'));
 
- 
-      document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.datepicker');
-        M.Datepicker.init(elems);
-        
-      })
-   
+    const birthdate = this.formulario.get('birthdate');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.datepicker');
+      M.Datepicker.init(elems, {
+        format: 'dd-mm-yyyy',
+        autoClose: true,
+        onSelect: (date) => birthdate.setValue(date),
+        minDate: new Date(1920, 0, 1), 
+        maxDate: new Date(2023, 5, 12),
+        yearRange: [1920, new Date().getFullYear()], 
+      });
+
+    })
+
+
   }
 
   onSubmit(): void {
 
     
+
     const token = this.auth.readToken();
     const decodedJSON = this.auth.DecodeJWT(token);
 
     const email = this.getValueByKey(decodedJSON, 'Email');
-    
+
     if (this.formulario.valid) {
-            
+
       console.log(this.idUser);
 
       this.profileObject.idUser = this.idUser;
@@ -81,18 +92,18 @@ export class AddProfileComponent implements OnInit {
       this.profileObject.lastName = this.formulario.value.lastname;
       this.profileObject.dni = this.formulario.value.document;
       this.profileObject.birthDate = this.formulario.value.birthdate;
-      this.profileObject.mail = email; 
+      this.profileObject.mail = email;
 
       this.service.InsertProfile(this.profileObject).subscribe({
         next: () => {
 
           //WAIT TO INSERT
           this.spinnerService.show();
-          setTimeout( () => { 
+          setTimeout(() => {
             this.spinnerService.hide();
             this.router.navigate(['profile/consult-profile/' + this.idUser])
-            },
-          3000);
+          },
+            3000);
         },
         error: (error) => {
           this._snackBar.open("No se pudo enviar el formulario, intentelo de nuevo mas tarde.",
@@ -103,11 +114,11 @@ export class AddProfileComponent implements OnInit {
     }
   }
 
-  
+
 
   // Or with jQuery
 
- 
+
 
   // Validator custom para maxima fecha
   maxDateValidator(control: AbstractControl): ValidationErrors | null {
