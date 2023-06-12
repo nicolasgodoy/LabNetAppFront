@@ -1,141 +1,198 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap"
+  rel="stylesheet"
+/>
 
-<div class="container" style="margin-top: 2rem;">
-
+<div class="container" style="margin-top: 2rem">
   <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
-
     <div class="container">
-      <img src="../assets/profilePicture.png" width="100px">
+      <img src="../assets/profilePicture.png" width="100px" />
     </div>
 
-    <div class="container" style="margin-top: 1rem;">
-      <h1 class="text"> <strong>{{completeName}} </strong></h1>
+    <div class="container" style="margin-top: 1rem">
+      <h1 class="text">
+        <strong>{{ completeName }} </strong>
+      </h1>
     </div>
-
 
     <div class="container">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea style="resize: none;"
-         matInput placeholder="Cuentanos sobre ti..." formControlName="description"></textarea>
+        <textarea
+          style="resize: none"
+          matInput
+          placeholder="Cuentanos sobre ti..."
+          formControlName="description"
+        ></textarea>
       </mat-form-field>
     </div>
     <div class="divPadre">
-      <div class="divHijo1" [ngClass]="{'margin-left': modify}">
-        <br>
+      <div class="divHijo1" [ngClass]="{ 'margin-left': modify }">
+        <br />
         <mat-form-field appearance="fill">
           <mat-label>DNI</mat-label>
-          <input type="text" matInput formControlName="dni">
+          <input type="text" matInput formControlName="dni" />
         </mat-form-field>
-        <br>
+        <br />
         <mat-form-field appearance="fill">
           <mat-label>Fecha de Nacimiento</mat-label>
-          <input type="date" matInput formControlName="fechaNacimiento">
+          <input type="date" matInput formControlName="fechaNacimiento" />
         </mat-form-field>
-        <br>
+        <br />
       </div>
 
       <div class="divHijo2">
-        <br>
+        <br />
         <mat-form-field appearance="fill">
           <mat-label>Telefono</mat-label>
-          <input type="number" matInput formControlName="phone">
+          <input type="number" matInput formControlName="phone" />
         </mat-form-field>
-        <br>
+        <br />
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input type="email" matInput formControlName="email">
+          <input type="email" matInput formControlName="email" />
         </mat-form-field>
-        <br>
+        <br />
 
-
-
-        <br>
-
+        <br />
       </div>
     </div>
 
-    <div class="container" style="margin-bottom: 2rem;" *ngIf="modify">
+    <div class="container" style="margin-bottom: 2rem" *ngIf="modify">
       <div id="leftButton">
         <div *ngIf="modify">
-          <div style="text-align: center;">
-            <mat-label >Foto de Perfil</mat-label>
-            <br>
+          <div style="text-align: center">
+            <mat-label>Foto de Perfil</mat-label>
+            <br />
 
-            
-            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
+            <button
+              style="margin-top: 10px"
+              type="button"
+              mat-raised-button
+              (click)="fileInput.click()"
+            >
               Subir imagen
             </button>
-            <button *ngIf="previewImg" mat-button (click)="subirArchivo(true)">Enviar archivo</button>
+            <button *ngIf="previewImg" mat-button (click)="subirArchivo(true)">
+              Enviar archivo
+            </button>
 
-            <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile">
+            <input
+              hidden
+              (change)="captureImg($event)"
+              #fileInput
+              type="file"
+              formControlName="photoProfile"
+            />
 
-            <div style="margin-left: 10px;" *ngIf="previewImg">
-              <div style="width: 100px; height: 100px; background-color: black;">
-                <img width="100px" [src]="previewImg" alt="">
+            <div style="margin-left: 10px" *ngIf="previewImg">
+              <div style="width: 100px; height: 100px; background-color: black">
+                <img width="100px" [src]="previewImg" alt="" />
               </div>
             </div>
-
-
           </div>
         </div>
-
       </div>
 
       <div>
         <div class="container" *ngIf="modify">
-          <div style="text-align: center;">
+          <div style="text-align: center">
             <mat-label>CV</mat-label>
-            <br>
-            <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
-              Subir CV</button>
-            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
-            <button *ngIf="previewDoc" mat-button (click)="subirArchivo(false)">Enviar archivo</button>
-
+            <br />
+            <button
+              style="margin-top: 10px"
+              type="button"
+              mat-raised-button
+              (click)="fileInput.click()"
+            >
+              Subir CV
+            </button>
+            <input
+              hidden
+              (change)="captureFile($event)"
+              #fileInput
+              type="file"
+              formControlName="cv"
+            />
+            <button *ngIf="previewDoc" mat-button (click)="subirArchivo(false)">
+              Enviar archivo
+            </button>
           </div>
-          <div style="margin-top: 35px; margin-left: 5px;" *ngIf="previewDoc">
-            <label>{{previewName}}</label>
+          <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
+            <label>{{ previewName }}</label>
           </div>
         </div>
       </div>
     </div>
-
 
     <div class="container">
       <h1 class="titulo text">Trabajo</h1>
     </div>
 
     <app-work [modify]="modify" [idProfile]="idUser"></app-work>
-    <br>
+    <br />
     <div class="container">
       <h1 class="titulo text">Educacion</h1>
     </div>
 
-    <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser]="idUser">
-
+    <app-profile-education
+      [idProfile]="idUser"
+      [modify]="modify"
+      [idUser]="idUser"
+    >
     </app-profile-education>
-    <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
+    <app-profile-skill
+      *ngIf="IdProfile"
+      [idProfile]="IdProfile"
+      [modify]="modify"
+    ></app-profile-skill>
 
     <div class="container">
-      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']" class="botonGuardar"
-        mat-raised-button color="primary">
+      <button
+        type="button"
+        *ngIf="modify"
+        [routerLink]="['/profile/update-password']"
+        class="botonGuardar"
+        mat-raised-button
+        color="primary"
+      >
         Editar Contraseña
       </button>
     </div>
 
     <div class="botones">
-      <button type="submit" *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">
+      <button
+        type="submit"
+        *ngIf="modify"
+        class="botonGuardar"
+        mat-raised-button
+        color="primary"
+      >
         Guardar
       </button>
 
-      <button type="button" *ngIf="modify" (click)="navigate()" routerLinkActive="router-link-active" mat-raised-button
-        color="warn">Volver
+      <button
+        type="button"
+        *ngIf="modify"
+        (click)="navigate()"
+        routerLinkActive="router-link-active"
+        mat-raised-button
+        color="warn"
+      >
+        Volver
       </button>
 
-      <button *ngIf="!modify && checkUser()" (click)="navigate()" type="button" routerLinkActive="router-link-active"
-        style="margin-left: 5px;" mat-raised-button color="primary">
+      <button
+        *ngIf="!modify && checkUser()"
+        (click)="navigate()"
+        type="button"
+        routerLinkActive="router-link-active"
+        style="margin-left: 5px"
+        mat-raised-button
+        color="primary"
+      >
         Editar Perfil
       </button>
     </div>
