@@ -13,12 +13,9 @@ mat-card-title{
     margin-bottom: 10px;
     background-color: #3F51B5;
 }
-.container{
-    min-height: 79.8vh;
 
-}
-.inputs{
-    width: 100%;
+.input{
+    height: 2rem;
 }
 
 .Guardar:hover{
@@ -26,7 +23,6 @@ mat-card-title{
 }
 
 .link{
-    margin-left: 10%;
     text-decoration: none;
     font-weight: 550;
     color: black;
@@ -34,4 +30,24 @@ mat-card-title{
 
 .link:hover{
     color: #3F51B5;
+}
+
+.error{
+
+    color: red;
+}
+
+.verticalCenter {
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.container {
+
+    margin-top: 6rem;
+    border-radius: 10px;
+    padding-top: 2rem;
+    width: 40%;
 }
