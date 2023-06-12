@@ -23,9 +23,10 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/timer.css",
               "src/custom-theme.scss",
-              "src/styles.css",
-              "node_modules/ngx-spinner/animations/square-jelly-box.css"
+              "src/styles.css"
+
             ],
             "scripts": []
           },

@@ -39,7 +39,7 @@
                 <br>
                 <div class="col s12">
                     <label>Documento</label>
-                    <input class="input validate" type="number" placeholder="ingrese un documento" matInput
+                    <input class="input validate" type="number" placeholder="ingrese un documento" 
                         formControlName="document">
 
                     <span class="helper-text error"
@@ -50,11 +50,8 @@
                 <br>
                 <div class="col s12">
                     <label>Fecha</label>
-                    
-                    <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento"
-                        formControlName="birthdate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker> 
+                        <input type="text" class="datepicker" id="birthdate" formControlName="birthdate"
+                        placeholder="dd-mm-yyyy">
 
                     <span class="helper-text error"
                         *ngIf="formulario.get('birthdate')?.hasError('required') && formulario.get('birthdate')?.touched">

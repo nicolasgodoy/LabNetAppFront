@@ -51,6 +51,7 @@ const modulosMaterial = [
 @NgModule({
   declarations: [],
   imports: [
+    NgxSpinnerModule.forRoot({ type: 'ball-atom' }),
     CommonModule,
     MatButtonModule,
     MatSidenavModule,
