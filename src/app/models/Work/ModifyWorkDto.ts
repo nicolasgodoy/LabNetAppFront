@@ -6,6 +6,7 @@ export class ModifyWorkDto{
     idSector: number;
     idWorkType: number;
     idUbication: number;
+    idJobPosition: number;
     startDate: Date;
     endDate: Date;
     isCurrent: boolean;

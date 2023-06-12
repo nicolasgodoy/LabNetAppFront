@@ -6,6 +6,7 @@ export class WorkAddDto {
     IdSector: number;
     IdUbication: number;
     IdWorkType: number;
+    IdJobPosition:number;
     startDate: Date;
     endDate: Date;
     isCurrent: boolean;

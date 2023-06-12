@@ -1,4 +1,3 @@
-
 <div>
   <form [formGroup]="formGroup">
     <mat-form-field appearance="fill">
@@ -16,7 +15,6 @@
       </mat-error>
     </mat-form-field>
 
-    <br>
     <mat-form-field appearance="fill">
       <mat-label>Role</mat-label>
       <input maxlength="30" type="text" matInput formControlName="role">
@@ -48,6 +46,13 @@
       <mat-select formControlName="tipoEmpleo">
         <mat-option *ngFor="let tipoEmpleo of tipoEmpleoArr"
           [value]="tipoEmpleo.id">{{tipoEmpleo.descripcion}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Posicion</mat-label>
+      <mat-select formControlName="position">
+        <mat-option *ngFor="let position of positionArr"
+          [value]="position.idJobPosition">{{position.description}}</mat-option>
       </mat-select>
     </mat-form-field>
 

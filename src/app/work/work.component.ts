@@ -62,7 +62,6 @@ export class WorkComponent implements OnInit {
     dialog.afterClosed().subscribe(res => {
 
       res && this.GetWork(this.idProfile);
-      console.log(res);
     })
   }
 
@@ -76,7 +75,6 @@ export class WorkComponent implements OnInit {
     dialog.afterClosed().subscribe(res => {
 
       res && this.GetWork(this.idProfile)
-      console.log(res);
     })
   }
 
