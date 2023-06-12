@@ -18,6 +18,7 @@ import { DialogEducationComponent } from '../dialog-education/dialog-education.c
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPool } from '@angular/compiler';
 import { updateEducation } from 'src/app/models/Education/updateEducation';
+import { profileFileDto } from 'src/app/models/Profile/profileFileDto';
 
 
 @Component({
@@ -130,7 +131,7 @@ export class EditProfileComponent implements OnInit {
     this.getById();
   }
 
-  getById(){
+  getById() {
     this.servicioProfile.GetById(this.idUser).subscribe({
 
       next: (data: ResponseDto) => {
@@ -155,7 +156,7 @@ export class EditProfileComponent implements OnInit {
         this.formulario.controls['jobPosition']
           .setValue(this.profileEditDto.idJobPosition);
 
-          this.completeName = this.profileEditDto.name + ' ' +this.profileEditDto.lastName;
+        this.completeName = this.profileEditDto.name + ' ' + this.profileEditDto.lastName;
 
       }
 
@@ -299,5 +300,36 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
- 
+  subirArchivo(isImg:boolean) {
+    try {
+      const FormDatos = new FormData();
+      FormDatos.append('id', this.idUser.toString());
+      FormDatos.append('file', this.files[0]);
+      if (isImg){
+        this.servicioProfile.UploadImage(FormDatos).subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        })
+      }
+      else {
+        this.servicioProfile.UploadResumee(FormDatos).subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        })
+      }
+      
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
 }

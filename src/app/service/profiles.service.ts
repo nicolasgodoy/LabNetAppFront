@@ -10,6 +10,7 @@ import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { AuthService } from './auth.service';
+import { profileFileDto } from '../models/Profile/profileFileDto';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,22 @@ export class ProfilesService {
     const options = { headers: headers };
     let url = this.apiUrl + this.endPoint + "/Update";
     return this.http.put<ResponseDto>(url, Profile, options);
+  }
+
+  public UploadImage(ProfileFile: FormData) : Observable<ResponseDto>{
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = this.apiUrl + this.endPoint + "/UpdateImage";
+    return this.http.put<ResponseDto>(url, ProfileFile, options);
+  }
+
+  public UploadResumee(ProfileFile: FormData) : Observable<ResponseDto>{
+    const userToken = `Bearer ${this.authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = this.apiUrl + this.endPoint + "/UpdateResumee";
+    return this.http.put<ResponseDto>(url, ProfileFile, options);
   }
 
   public HasProfile(id: number): Observable<ResponseDto> {

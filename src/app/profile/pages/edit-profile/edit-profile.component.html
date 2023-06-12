@@ -68,6 +68,8 @@
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
               Subir imagen
             </button>
+            <button *ngIf="previewImg" mat-button (click)="subirArchivo(true)">Enviar archivo</button>
+
             <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile">
 
             <div style="margin-left: 10px;" *ngIf="previewImg">
@@ -90,6 +92,7 @@
             <button style="margin-top: 10px;" type="button" mat-raised-button (click)="fileInput.click()">
               Subir CV</button>
             <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv">
+            <button *ngIf="previewDoc" mat-button (click)="subirArchivo(false)">Enviar archivo</button>
 
           </div>
           <div style="margin-top: 35px; margin-left: 5px;" *ngIf="previewDoc">
