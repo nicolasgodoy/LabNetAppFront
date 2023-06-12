@@ -31,7 +31,11 @@ input::-webkit-inner-spin-button {
   background-color: grey;
 }
 
-.error {
+.card{
+  padding:2rem;
+}
+
+/* .error {
   margin-top: -10px;
   margin-bottom: -10px;
-}
+} */

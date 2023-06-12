@@ -8,11 +8,18 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 
+
+declare var M: any;
+
+
 @Component({
   selector: 'app-add-profile',
   templateUrl: './add-profile.component.html',
   styleUrls: ['./add-profile.component.css']
 })
+
+
+
 export class AddProfileComponent implements OnInit {
 
   formulario: FormGroup;
@@ -39,16 +46,27 @@ export class AddProfileComponent implements OnInit {
       birthdate: ['', [Validators.required, this.maxDateValidator]]
     }
     )
+
+    
   }
 
 
 
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('id'));
+
+ 
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(elems);
+        
+      })
+   
   }
 
   onSubmit(): void {
 
+    
     const token = this.auth.readToken();
     const decodedJSON = this.auth.DecodeJWT(token);
 
@@ -84,6 +102,12 @@ export class AddProfileComponent implements OnInit {
       });
     }
   }
+
+  
+
+  // Or with jQuery
+
+ 
 
   // Validator custom para maxima fecha
   maxDateValidator(control: AbstractControl): ValidationErrors | null {
