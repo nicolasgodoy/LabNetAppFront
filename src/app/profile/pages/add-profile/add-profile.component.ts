@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfilesService } from 'src/app/service/profiles.service';
@@ -47,36 +47,17 @@ export class AddProfileComponent implements OnInit {
     }
     )
 
-
   }
 
 
 
   ngOnInit(): void {
-
+    this.setDate();
     this.idUser = Number(this.route.snapshot.paramMap.get('id'));
-
-    const birthdate = this.formulario.get('birthdate');
-
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.datepicker');
-      M.Datepicker.init(elems, {
-        format: 'dd-mm-yyyy',
-        autoClose: true,
-        onSelect: (date) => birthdate.setValue(date),
-        minDate: new Date(1920, 0, 1), 
-        maxDate: new Date(2023, 5, 12),
-        yearRange: [1920, new Date().getFullYear()], 
-      });
-
-    })
-
-
   }
 
-  onSubmit(): void {
 
-    
+  onSubmit(): void {
 
     const token = this.auth.readToken();
     const decodedJSON = this.auth.DecodeJWT(token);
@@ -115,11 +96,6 @@ export class AddProfileComponent implements OnInit {
   }
 
 
-
-  // Or with jQuery
-
-
-
   // Validator custom para maxima fecha
   maxDateValidator(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
@@ -138,4 +114,19 @@ export class AddProfileComponent implements OnInit {
     }
     return null;
   };
+
+  setDate() {
+    const birthdate = this.formulario.get('birthdate');
+    var elems = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(elems, {
+      
+      format: 'dd-mm-yyyy',
+      autoClose: true,
+      onSelect: (date) => birthdate.setValue(date),
+      minDate: new Date(1920, 0, 1),
+      maxDate: new Date(2023, 5, 12),
+      yearRange: [1920, new Date().getFullYear()],
+    });
+
+  }
 }

@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { HasProfileGuard } from './guard/hasProfile.guard';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DialogWorkComponent } from './profile/pages/dialog-work/dialog-work.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { DialogWorkComponent } from './profile/pages/dialog-work/dialog-work.com
     ProfileModule,
     SharedModule,
     MatIconModule,
+    NgxSpinnerModule
   ],
   providers: [HasProfileGuard],
   bootstrap: [AppComponent]

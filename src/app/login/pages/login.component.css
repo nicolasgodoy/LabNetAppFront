@@ -1,38 +1,38 @@
-.carta{
+.carta {
     width: 15%;
     margin-left: 40%;
     margin-top: 3%;
 }
 
-mat-card-title{
+mat-card-title {
     text-align: center;
 }
 
-.Guardar{
+.Guardar {
     margin-left: 33%;
     margin-bottom: 10px;
     background-color: #3F51B5;
 }
 
-.input{
+.input {
     height: 2rem;
 }
 
-.Guardar:hover{
+.Guardar:hover {
     background-color: #0d1c6d;
 }
 
-.link{
+.link {
     text-decoration: none;
     font-weight: 550;
     color: black;
 }
 
-.link:hover{
+.link:hover {
     color: #3F51B5;
 }
 
-.error{
+.error {
 
     color: red;
 }
@@ -48,6 +48,9 @@ mat-card-title{
 
     margin-top: 6rem;
     border-radius: 10px;
-    padding-top: 2rem;
-    width: 40%;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+
 }
+
