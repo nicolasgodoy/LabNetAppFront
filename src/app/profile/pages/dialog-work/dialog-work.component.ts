@@ -48,7 +48,7 @@ export class DialogWorkComponent implements OnInit {
       tipoEmpleo: [''],
       startDate: ['', [Validators.required]],
       endDate: [''],
-      isCurrent: ['']
+      isCurrent: ['false']
     });
   }
 
@@ -66,10 +66,10 @@ export class DialogWorkComponent implements OnInit {
       role: this.data.role,
       sector: this.data.idSector,
       ubicacion: this.data.idUbication,
-      tipoEmpleo: this.data.idWorkType
+      tipoEmpleo: this.data.idWorkType,
+      startDate: this.formatoFecha(this.data.startDate),
+      endDate: this.formatoFecha(this.data.endDate)
     })
-
-    console.log(this.data.idSector)
   }
 
   GetSector(): void {
@@ -79,7 +79,6 @@ export class DialogWorkComponent implements OnInit {
       next: (resp) => {
 
         this.sectorArr = resp.result
-        console.log(resp.result);
       }
     })
   }
@@ -91,7 +90,6 @@ export class DialogWorkComponent implements OnInit {
       next: (resp) => {
 
         this.ubicacionArr = resp.result
-        console.log(this.ubicacionArr);
       }
     })
   }
@@ -101,14 +99,13 @@ export class DialogWorkComponent implements OnInit {
     this.tipoEmpleoServices.getTipoEmpleo().subscribe({
 
       next: (resp) => {
-
         this.tipoEmpleoArr = resp.result;
-        console.log(this.tipoEmpleoArr);
       }
     })
   }
 
   addWork(): void {
+    
 
     if (this.formGroup.valid) {
 
@@ -128,7 +125,6 @@ export class DialogWorkComponent implements OnInit {
         this.work.endDate = null;
       }
       console.log(this.work)
-
       this.workService.AddWork(this.work).subscribe({
 
         next: (res) => {
@@ -176,5 +172,11 @@ export class DialogWorkComponent implements OnInit {
         console.log(error);
       }
     })
+  }
+  formatoFecha(fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
   }
 }
