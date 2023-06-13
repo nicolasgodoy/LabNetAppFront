@@ -13,6 +13,7 @@ export class RoleService {
     url: string = "https://localhost:7059/api/role";
 
     getRole(){
+        
         return this.http.get<ResponseDto>(this.url + '/GetAll');
     }
 

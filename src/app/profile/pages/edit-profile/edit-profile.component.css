@@ -18,30 +18,8 @@ input::-webkit-inner-spin-button {
 
 }
 
-.divPadre {
 
-    display: flex;
-}
 
-.divHijo1 {
-
-    margin: 20px;
-    margin-top: -2rem;
-}
-
-.divHijo2 {
-
-    margin: 20px;
-    margin-top: -2rem;
-
-}
-
-.botones {
-
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-}
 
 .botonGuardar {
     margin-right: 10px;
@@ -51,9 +29,6 @@ input::-webkit-inner-spin-button {
     width: 90%;
 }
 
-#leftButton {
-    margin-right: 8rem;
-}
 
 .margin-left {
     margin-left: 4rem;

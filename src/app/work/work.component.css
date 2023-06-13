@@ -4,3 +4,14 @@
     justify-content: center;
 
 }
+
+.buttonWork{
+   margin-left: 87%;
+   margin-bottom: 0.50rem;
+}
+
+.mat-table{    
+    border-radius: 1rem;
+    overflow:hidden !important;
+  }
+
