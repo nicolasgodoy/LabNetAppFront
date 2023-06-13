@@ -73,3 +73,8 @@ table{
 .datepicker-date-display{
   background-color: black;
 }
+
+.error {
+
+  color: red;
+}
