@@ -44,8 +44,8 @@ export class DialogWorkComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
 
       company: ['', [Validators.required, Validators.maxLength(30),
-      Validators.pattern('^[a-zA-Z]+$')]],
-      role: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      Validators.pattern('^[a-zA-Z ]*')]],
+      role: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*')]],
       IdProfile: 1,
       sector: [''],
       ubicacion: [''],

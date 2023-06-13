@@ -22,8 +22,7 @@ export class WorkComponent implements OnInit {
   modify: boolean = true;
 
   dataSourceWork = new MatTableDataSource();
-  displayedColumnsWork: string[] = ['compania', 'role', 'ubicacion', 'tipoTrabajo', 'sector', 
-  'editar', 'eliminar'];
+  displayedColumnsWork: string[] = ['compania', 'role', 'ubicacion', 'tipoTrabajo', 'sector', 'add'];
 
 
   constructor(

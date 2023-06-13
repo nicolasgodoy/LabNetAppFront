@@ -1,5 +1,6 @@
 <div>
   <form [formGroup]="formGroup">
+
     <mat-form-field appearance="fill">
       <mat-label>Company</mat-label>
       <input type="text" matInput formControlName="company">
@@ -34,7 +35,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field style="margin-left: 2rem;">
       <mat-label>Ubicacion</mat-label>
       <mat-select formControlName="ubicacion">
         <mat-option *ngFor="let ubicacion of ubicacionArr" [value]="ubicacion.id">{{ubicacion.descripcion}}</mat-option>
@@ -48,7 +49,8 @@
           [value]="tipoEmpleo.id">{{tipoEmpleo.descripcion}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field style="margin-left: 2rem;">
       <mat-label>Posicion</mat-label>
       <mat-select formControlName="position">
         <mat-option *ngFor="let position of positionArr"
@@ -64,8 +66,6 @@
 
     </mat-form-field>
 
-    <mat-checkbox class="example-margin" matInput formControlName="isCurrent">Hasta la actualidad</mat-checkbox>
-
     <mat-form-field appearance="fill">
 
       <mat-label>Fecha de finalizacion</mat-label>
@@ -73,15 +73,10 @@
       <input type="date" matInput formControlName="endDate">
 
     </mat-form-field>
-
-
-
-    <button *ngIf="!data" (click)="addWork()" type="button" class="botonGuardar" mat-raised-button color="primary">
-      Guardar
-    </button>
-    <br>
-    <button *ngIf="data" (click)="updateWork()" type="button" class="botonGuardar" mat-raised-button color="primary">
-      Editar
-    </button>
+    <div class="center-align">
+      <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button color="primary">
+        Guardar
+      </button>
+    </div>
   </form>
 </div>
