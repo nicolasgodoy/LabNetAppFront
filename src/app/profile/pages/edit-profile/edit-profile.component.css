@@ -19,9 +19,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-
-
-.botonGuardar {
+.backButton {
     margin-right: 10px;
 }
 
@@ -36,4 +34,13 @@ input::-webkit-inner-spin-button {
 
 .text {
     font-family: 'Poppins', sans-serif;
+}
+
+
+.mt-1{
+    margin-top: 1rem;
+}
+
+.transparentButton{
+    margin-top: 10px; margin-left: 10px;
 }

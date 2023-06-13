@@ -15,127 +15,146 @@
     </div>
 
     <div class="row">
-      <div class="col m12">
-
-        <div class="col m12">
+      <div class="col m12 s12">
+        <div class="col m12 s12">
           <label>Description</label>
           <input class="materialize-textarea" style="resize: none" placeholder="Cuentanos sobre ti..."
             formControlName="description">
         </div>
 
-
-        <div class="col m12" [ngClass]="{ 'margin-left': modify }">
+        <div class="col m12 s12" [ngClass]="{ 'margin-left': modify }">
           <br />
           <label>Telefono</label>
-          <input class="input validate" type="number" matInput formControlName="phone" />
+          <input class="input validate" type="number"  formControlName="phone" />
           <br />
           <label>Fecha de Nacimiento</label>
           <input class="input validate" type="date" formControlName="fechaNacimiento" />
           <br />
         </div>
 
-        <div class="col m12">
+        <div class="col m12 s12">
           <br />
           <label>DNI</label>
           <input class="input validate" type="text" formControlName="dni" />
           <br />
           <label>Email</label>
-          <input class="input validate" type="email" matInput formControlName="email" />
+          <input class="input validate" type="email" formControlName="email" />
           <br />
         </div>
 
       </div>
-    
+
     </div>
 
+    <div class="col" style="margin-bottom: 2rem" *ngIf="modify">
+      <div class="center-align">
+        <div>
+          <div *ngIf="modify">
 
-    
-      <div class="col" style="margin-bottom: 2rem" *ngIf="modify">
-        <div class="center-align">
-          <div>
-            <div *ngIf="modify">
-                <div class="center-align">
-                  <mat-label>Foto de Perfil</mat-label>
-                  <br />
 
-                  <button style="margin-top: 10px" type="button" mat-raised-button (click)="fileInput.click()">
-                    Subir imagen
-                  </button>
-                  <button *ngIf="previewImg" mat-button (click)="subirArchivo(true)">
-                    Enviar archivo
-                  </button>
+            <div class="center-align col s12">
+              <label class="flow-text text">Foto de Perfil</label>
+              <br />
 
-                  <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile" />
 
-                  <div style="margin-left: 10px" *ngIf="previewImg">
-                      <div style="width: 100px; height: 100px; background-color: black">
-                        <img width="100px" [src]="previewImg" alt="" />
-                      </div>
-                  </div>
+              <button style="margin-top: 10px" type="button" class="btn waves-effect waves-light black"
+                (click)="fileInput.click()">
+                <i class="material-icons right">add_a_photo </i>
+                Subir imagen
+              </button>
 
+              <button *ngIf="previewImg" class="btn waves-effect waves-light transparent black-text
+              transparentButton" (click)="subirArchivo(true)">
+                Enviar archivo
+              </button>
+
+              <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile" />
+
+              <div *ngIf="previewImg" class="container mt-1">
+                <div style="width: 100px; height: 100px; background-color: black">
+                  <img width="100px" [src]="previewImg" alt="" />
                 </div>
+              </div>
+
             </div>
             <div *ngIf="modify">
-              <div class="center-align">
-                <label>CV</label>
+              <div class="center-align col s12 mt-1">
+                <label class="flow-text text">CV</label>
                 <br />
-                <button style="margin-top: 10px" type="button" mat-raised-button (click)="fileInput.click()">
+                <button style="margin-top: 10px" type="button" class="btn waves-effect waves-light black"
+                  (click)="fileInput.click()">
                   Subir CV
+                  <i class="material-icons right">insert_drive_file</i>
                 </button>
                 <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv" />
-                <button *ngIf="previewDoc" mat-button (click)="subirArchivo(false)">
+                <button *ngIf="previewDoc" class="btn waves-effect waves-light transparent black-text
+                transparentButton" (click)="subirArchivo(false)">
                   Enviar archivo
                 </button>
               </div>
+
               <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
                 <label>{{ previewName }}</label>
               </div>
             </div>
           </div>
-          
+
         </div>
-     
-       
-         
-       
+
       </div>
 
-     <div class="col m12 center-align">
-        <h1 class="titulo text">Trabajo</h1>
-        <app-work [modify]="modify" [idProfile]="idUser"></app-work>
-        <br />
-        <h1 class="titulo text">Educacion</h1>
-        <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser]="idUser"></app-profile-education>
-        <h1 class="titulo text">Skill</h1>
-        <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
+
+
+
     </div>
+    <div class="col m12 center-align">
+      <h1 class="titulo text">Trabajo</h1>
+      <app-work [modify]="modify" [idProfile]="idUser"></app-work>
+      <br />
+      <h1 class="titulo text">Educacion</h1>
+      <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser]="idUser"></app-profile-education>
+      <h1 class="titulo text">Skill</h1>
+      <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
+    </div>
+
 
 
 
     <div class="center-align">
-      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']" class="botonGuardar"
-        mat-raised-button color="primary">
-        Editar Contraseña
-      </button>
-
-      <button type="submit" *ngIf="modify" class="botonGuardar" mat-raised-button color="primary">
-          Guardar
-      </button>
 
       <button type="button" *ngIf="modify" (click)="navigate()" routerLinkActive="router-link-active"
-        mat-raised-button color="warn">
+        class="btn waves-effect waves-light backButton">
+        <i class="material-icons left">undo</i>
         Volver
       </button>
 
-      
+
+
+      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']"
+        class="btn waves-effect waves-light black backButton">
+        Editar Contraseña
+        <i class="material-icons right">lock_open </i>
+
+      </button>
+
+      <button type="submit" *ngIf="modify" class="btn waves-effect waves-light black">
+        Guardar
+        <i class="material-icons right">send</i>
+      </button>
+
+
+
     </div>
 
-      <div class="center-align">
-        <button *ngIf="!modify && checkUser()" (click)="navigate()" type="button" routerLinkActive="router-link-active"
-            style="margin-left: 5px" mat-raised-button color="primary">
-            Editar Perfil
-        </button>
-      </div>
+    <div class="center-align">
+
+
+      <button *ngIf="!modify && checkUser()" (click)="navigate()" type="button" routerLinkActive="router-link-active"
+        style="margin-left: 5px" class="btn waves-effect waves-light black">
+        Editar Perfil
+        <i class="material-icons right">create</i>
+      </button>
+    </div>
 
 
   </form>
