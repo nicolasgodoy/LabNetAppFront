@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 import { WorkAddDto } from 'src/app/models/Work/WorkAddDto';
+import { JobPosition } from 'src/app/models/jobPositionDton';
 import { Sector } from 'src/app/models/sector';
 import { TipoEmpleo } from 'src/app/models/tipoEmpleo';
 import { Ubicacion } from 'src/app/models/ubicacion';
+import { JobPositionService } from 'src/app/service/job-position.service';
 import { sectorService } from 'src/app/service/sector.service';
 import { TipoEmpleoService } from 'src/app/service/tipoEmpleo.service';
 import { UbicacionService } from 'src/app/service/ubicacion.service';
@@ -27,6 +29,7 @@ export class DialogWorkComponent implements OnInit {
   sectorArr: Sector[] = [];
   ubicacionArr: Ubicacion[] = [];
   tipoEmpleoArr: TipoEmpleo[] = [];
+  positionArr: JobPosition[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +38,8 @@ export class DialogWorkComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogWorkComponent>,
     private sectorServices: sectorService,
     private ubicacionServices: UbicacionService,
-    private tipoEmpleoServices: TipoEmpleoService) {
+    private tipoEmpleoServices: TipoEmpleoService,
+    private jobPositionServices: JobPositionService) {
 
     this.formGroup = this.formBuilder.group({
 
@@ -46,6 +50,7 @@ export class DialogWorkComponent implements OnInit {
       sector: [''],
       ubicacion: [''],
       tipoEmpleo: [''],
+      position: [''],
       startDate: ['', [Validators.required]],
       endDate: [''],
       isCurrent: ['false']
@@ -57,15 +62,17 @@ export class DialogWorkComponent implements OnInit {
     this.GetSector();
     this.GetUbicacion();
     this.GetTipoEmpleo();
+    this.GetJobPosition();
     
     this.titulo = this.data ? 'Editar' : 'Insertar';
-
+    
     this.formGroup.patchValue({
 
       company: this.data.company,
       role: this.data.role,
       sector: this.data.idSector,
       ubicacion: this.data.idUbication,
+      position: this.data.idJobPosition,
       tipoEmpleo: this.data.idWorkType,
       startDate: this.formatoFecha(this.data.startDate),
       endDate: this.formatoFecha(this.data.endDate)
@@ -104,6 +111,17 @@ export class DialogWorkComponent implements OnInit {
     })
   }
 
+  
+  GetJobPosition(): void {
+
+    this.jobPositionServices.GetAllPosition().subscribe({
+
+      next: (resp) => {
+        this.positionArr = resp.result;
+      }
+    })
+  }
+
   addWork(): void {
     
 
@@ -117,6 +135,7 @@ export class DialogWorkComponent implements OnInit {
         IdSector: this.formGroup.value.sector,
         IdUbication: this.formGroup.value.ubicacion,
         IdWorkType: this.formGroup.value.tipoEmpleo,
+        IdJobPosition: this.formGroup.value.position,
         startDate: this.formGroup.value.startDate,
         endDate: this.formGroup.value.endDate,
         isCurrent: this.formGroup.value.isCurrent
@@ -151,6 +170,7 @@ export class DialogWorkComponent implements OnInit {
       idSector: this.formGroup.value.sector,
       idUbication: this.formGroup.value.ubicacion,
       idWorkType: this.formGroup.value.tipoEmpleo,
+      idJobPosition: this.formGroup.value.position,
       startDate: this.formGroup.value.startDate,
       endDate: this.formGroup.value.endDate,
       isCurrent: this.formGroup.value.isCurrent

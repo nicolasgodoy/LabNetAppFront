@@ -24,16 +24,15 @@ export class JobPositionService {
     const options = { headers: headers };
 
     let url = this.apiUrl + this.endPoint;
-    return this.http.get<ResponseDto>(url + '/GetAllJob');
+    return this.http.get<ResponseDto>(url + '/GetAllJob',options);
   }
 
   public GetByIdPosition(id : number) : Observable<ResponseDto>{
-
     const userToken = `Bearer ${this._authservice.readToken()}`;
     const headers = new HttpHeaders({ 'Authorization': userToken });
     const options = { headers: headers };
     
     let url = `${this.apiUrl}/${this.endPoint}/GetByIdJob/${id}`;
-    return this.http.get<ResponseDto>(url);
+    return this.http.get<ResponseDto>(url,options);
   }
 }
