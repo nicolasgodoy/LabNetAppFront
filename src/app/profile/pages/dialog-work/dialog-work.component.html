@@ -1,82 +1,118 @@
 <div>
+  <h2 style="margin-left: .7rem;">{{titulo}} trabajo</h2>
   <form [formGroup]="formGroup">
+    <mat-grid-list cols="2" rowHeight="80px">
+      <mat-grid-tile [colspan]="2">
+        <mat-form-field appearance="fill">
+          <mat-label>Company</mat-label>
+          <input type="text" matInput formControlName="company">
+    
+          <mat-error *ngIf="formGroup.get('company').hasError('required')">
+            Este campo es requerido.
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('company').hasError('maxlength')">
+            Valor maximo de caracteres 30.
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
+            Solo se permiten letras.
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Company</mat-label>
-      <input type="text" matInput formControlName="company">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <input maxlength="30" type="text" matInput formControlName="role">
+          <mat-error *ngIf="formGroup.get('role').hasError('required')">
+            Este campo es requerido.
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
+            Solo se permiten letras.
+          </mat-error>
+        </mat-form-field>
+    
+      </mat-grid-tile>
 
-      <mat-error *ngIf="formGroup.get('company').hasError('required')">
-        Este campo es requerido.
-      </mat-error>
-      <mat-error *ngIf="formGroup.get('company').hasError('maxlength')">
-        Valor maximo de caracteres 30.
-      </mat-error>
-      <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
-        Solo se permiten letras.
-      </mat-error>
-    </mat-form-field>
+      <mat-grid-tile><mat-form-field>
+        <mat-label>Posicion</mat-label>
+          <mat-select formControlName="position">
+            <mat-option *ngFor="let position of positionArr"
+              [value]="position.idJobPosition">{{position.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Role</mat-label>
-      <input maxlength="30" type="text" matInput formControlName="role">
-      <mat-error *ngIf="formGroup.get('role').hasError('required')">
-        Este campo es requerido.
-      </mat-error>
-      <mat-error *ngIf="formGroup.get('company')?.hasError('pattern')">
-        Solo se permiten letras.
-      </mat-error>
-    </mat-form-field>
-    <br>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Ubicacion</mat-label>
+          <mat-select formControlName="ubicacion">
+            <mat-option *ngFor="let ubicacion of ubicacionArr" [value]="ubicacion.id">{{ubicacion.descripcion}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field>
-      <mat-label>Sector</mat-label>
-      <mat-select formControlName="sector">
-        <mat-option *ngFor="let sector of sectorArr" [value]="sector.id">{{sector.description}}</mat-option>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field style="margin-left: 2rem;">
-      <mat-label>Ubicacion</mat-label>
-      <mat-select formControlName="ubicacion">
-        <mat-option *ngFor="let ubicacion of ubicacionArr" [value]="ubicacion.id">{{ubicacion.descripcion}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Tipo empleo</mat-label>
+          <mat-select formControlName="tipoEmpleo">
+            <mat-option *ngFor="let tipoEmpleo of tipoEmpleoArr"
+              [value]="tipoEmpleo.id">{{tipoEmpleo.descripcion}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </mat-grid-tile>
 
-    <mat-form-field>
-      <mat-label>Tipo empleo</mat-label>
-      <mat-select formControlName="tipoEmpleo">
-        <mat-option *ngFor="let tipoEmpleo of tipoEmpleoArr"
-          [value]="tipoEmpleo.id">{{tipoEmpleo.descripcion}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Sector</mat-label>
+          <mat-select formControlName="sector">
+            <mat-option *ngFor="let sector of sectorArr" [value]="sector.id">{{sector.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </mat-grid-tile>
 
-    <mat-form-field style="margin-left: 2rem;">
-      <mat-label>Posicion</mat-label>
-      <mat-select formControlName="position">
-        <mat-option *ngFor="let position of positionArr"
-          [value]="position.idJobPosition">{{position.description}}</mat-option>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
+      <mat-grid-tile>
+        
+        <mat-form-field appearance="fill">
 
-      <mat-label>Fecha de inicio</mat-label>
+          <mat-label>Fecha de inicio</mat-label>
 
-      <input type="date" matInput formControlName="startDate">
+          <input type="date" matInput formControlName="startDate">
 
-    </mat-form-field>
+        </mat-form-field>
+        
+      </mat-grid-tile>
 
-    <mat-form-field appearance="fill">
+      <mat-grid-tile>
+        
+        <mat-form-field appearance="fill">
 
-      <mat-label>Fecha de finalizacion</mat-label>
+          <mat-label>Fecha de finalizacion</mat-label>
 
-      <input type="date" matInput formControlName="endDate">
+          <input type="date" matInput formControlName="endDate">
 
-    </mat-form-field>
+        </mat-form-field>
+        
+      </mat-grid-tile>
+      
+      <mat-grid-tile>
+         
+        <mat-slide-toggle formControlName="isCurrent" >trabajo actual</mat-slide-toggle>
+       
+      </mat-grid-tile>
+    </mat-grid-list>
+
     <div class="center-align">
       <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button color="primary">
         Guardar
       </button>
+      <button *ngIf="data" (click)="updateWork()" type="button" mat-raised-button color="primary">
+        Editar
+      </button>
     </div>
   </form>
 </div>
+

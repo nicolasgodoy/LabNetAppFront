@@ -21,6 +21,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 const modulosMaterial = [
@@ -45,7 +46,8 @@ const modulosMaterial = [
   MatAutocompleteModule,
   MatTooltipModule,
   MatToolbarModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
@@ -67,6 +69,7 @@ const modulosMaterial = [
     MatSelectModule,
     NgxSpinnerModule,
     MatCheckboxModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

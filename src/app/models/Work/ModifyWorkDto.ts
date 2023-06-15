@@ -9,5 +9,4 @@ export class ModifyWorkDto{
     idJobPosition: number;
     startDate: Date;
     endDate: Date;
-    isCurrent: boolean;
 }

@@ -53,7 +53,7 @@ export class DialogWorkComponent implements OnInit {
       position: [''],
       startDate: ['', [Validators.required]],
       endDate: [''],
-      isCurrent: ['false']
+      isCurrent: ['']
     });
   }
 
@@ -123,7 +123,7 @@ export class DialogWorkComponent implements OnInit {
   }
 
   addWork(): void {
-    
+    console.log(this.formGroup.value.isCurrent)
 
     if (this.formGroup.valid) {
 
@@ -137,13 +137,9 @@ export class DialogWorkComponent implements OnInit {
         IdWorkType: this.formGroup.value.tipoEmpleo,
         IdJobPosition: this.formGroup.value.position,
         startDate: this.formGroup.value.startDate,
-        endDate: this.formGroup.value.endDate,
-        isCurrent: this.formGroup.value.isCurrent
+        endDate: this.formGroup.value.isCurrent ? null : this.formGroup.value.endDate,
       }
-      if(this.work.isCurrent){
-        this.work.endDate = null;
-      }
-      console.log(this.work)
+
       this.workService.AddWork(this.work).subscribe({
 
         next: (res) => {
@@ -172,13 +168,8 @@ export class DialogWorkComponent implements OnInit {
       idWorkType: this.formGroup.value.tipoEmpleo,
       idJobPosition: this.formGroup.value.position,
       startDate: this.formGroup.value.startDate,
-      endDate: this.formGroup.value.endDate,
-      isCurrent: this.formGroup.value.isCurrent
+      endDate: this.formGroup.value.isCurrent? null : this.formGroup.value.endDate,
     }
-    if(this.work.isCurrent){
-      this.work.endDate = null;
-    }
-    console.log(this.workModify);
 
     this.workService.ModifyWork(this.workModify).subscribe({
 
