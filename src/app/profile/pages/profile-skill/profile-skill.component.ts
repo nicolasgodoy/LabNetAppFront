@@ -2,10 +2,10 @@ import { Component, OnInit,Input} from '@angular/core';
 import { ProfilesService } from 'src/app/service/profiles.service';
 import {MatDialog} from '@angular/material/dialog';
 import { ResponseDto } from 'src/app/Response/responseDto';
-import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { DialogAddSkillComponent } from './dialog-add-skill/dialog-add-skill.component';
 import { Skill } from 'src/app/models/skill';
 import { Alert } from 'src/app/helpers/alert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile-skill',
@@ -15,7 +15,7 @@ import { Alert } from 'src/app/helpers/alert';
 export class ProfileSkillComponent implements OnInit {
 
   @Input()
-  idProfile?:number; // obtener de la view - <app-profile-skill [idProfile]= id > </app-profile-skill>
+  idProfile?:number; 
   
   @Input()
   modify:boolean = true;
@@ -54,16 +54,24 @@ export class ProfileSkillComponent implements OnInit {
       error: () => Alert.mensajeSinExitoToast('error al cargar skills')
     })
   }
-  openDialog(id:number): void {
 
-    if (id) {
-      const dialogoref = this.dialog.open(DialogDeleteComponent, {
-        width: '350px'
-      });
-      dialogoref.afterClosed().subscribe(res=>{
-        res && this.DeleteSkillToProfile(this.idProfile,id);
-      })
-    }else{
+  deleteSkill(id:number){
+    Swal.fire({
+      title: 'Seguro que desea eliminar este registro?',
+      text: "No podrás revertirlo más tarde!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminalo!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        this.DeleteSkillToProfile(this.idProfile,id);
+      }
+    });
+  }
+
+  openDialog(): void {
       const dialogoref = this.dialog.open(DialogAddSkillComponent, {
         data: { id:this.idProfile, list:this.listProfileSkill },
         panelClass: 'dialog'
@@ -73,7 +81,6 @@ export class ProfileSkillComponent implements OnInit {
           Alert.mensajeExitoToast()
           this.GetProfileSkill(this.idProfile);
       })
-    }
   }
 }
 

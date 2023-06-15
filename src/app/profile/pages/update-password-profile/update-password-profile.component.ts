@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 import { UpdatePassword } from 'src/app/models/updatePassword';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/helpers/alert';
 import { AuthService } from 'src/app/service/auth.service';

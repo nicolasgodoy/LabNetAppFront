@@ -192,7 +192,6 @@ export class EditProfileComponent implements OnInit {
       //Fekapath problema para guardar en back
       this.profileEditDto.cv = this.formulario.value.cv;
 
-      console.log(this.profileEditDto);
       this.servicioProfile.EditProfile(this.profileEditDto).subscribe({
 
         next: () => {
