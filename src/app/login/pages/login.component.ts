@@ -10,7 +10,7 @@ import { Alert } from 'src/app/helpers/alert';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
@@ -22,54 +22,59 @@ export class LoginComponent implements OnInit {
     private profileService: ProfilesService
   ) {
     this.formLogin = this.formB.group({
-      userName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]]
+      userName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com)$'),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/
+          ),
+        ],
+      ],
     });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   logUser() {
     if (this.formLogin.valid) {
       const uLogin: Login = {
-       UserName: this.formLogin.value.userName,
-       Password: this.formLogin.value.password
-      }
-    
+        UserName: this.formLogin.value.userName,
+        Password: this.formLogin.value.password,
+      };
+
       this.auth.login(uLogin).subscribe({
-      next: (resp) => {
-        if (resp.isSuccess && resp.result.token.length > 2) {
-          const token = this.auth.readToken();
-          const userObject = this.auth.DecodeJWT(token);
-          console.log(userObject);
-          const id = this.auth.getValueByKey(userObject, 'IdUser');
-          console.log(id);
+        next: (resp) => {
+          if (resp.isSuccess && resp.result.token.length > 2) {
+            const token = this.auth.readToken();
+            const userObject = this.auth.DecodeJWT(token);
+            console.log(userObject);
+            const id = this.auth.getValueByKey(userObject, 'IdUser');
+            console.log(id);
 
-          this.profileService.HasProfile(id).subscribe(
-            res => {
+            this.profileService.HasProfile(id).subscribe((res) => {
               console.log(res);
-              if (res.result)
-                this.route.navigateByUrl('/home')
-              else
-                this.route.navigateByUrl('profile/add-profile/' + id)
-            })
-        }
-      },
-      error: (e: any) => {
-    
-        if(e.error.message === 'La contraseña es incorrecta'){
-         Alert.mensajeErrorCustom(e.error.message)
-        }else{
-
-         Alert.mensajeErrorCustom('El Usuario no existe!')
-          this.route.navigateByUrl('/login');
-
-        }
-      }
-
-    })
-  }
+              if (res.result) this.route.navigateByUrl('/home');
+              else this.route.navigateByUrl('profile/add-profile/' + id);
+            });
+          }
+        },
+        error: (e: any) => {
+          if (e.error.message === 'La contraseña es incorrecta') {
+            Alert.mensajeErrorCustom(e.error.message);
+          } else {
+            Alert.mensajeErrorCustom('El Usuario no existe!');
+            this.route.navigateByUrl('/login');
+          }
+        },
+      });
+    }
   }
 }

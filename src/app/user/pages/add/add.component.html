@@ -1,65 +1,157 @@
-<h1 class="tituloAdd" mat-dialog-title>Agregar Usuario</h1>
-<div mat-dialog-content style="width: 250px;">
+<h1 mat-dialog-title>Agregar Usuario</h1>
+<div mat-dialog-content>
   <form [formGroup]="formUser">
-     <mat-grid-list cols="" rowHeight="400px">
-         <mat-grid-tile>
-             <div rowHeight="" style="display: flex; flex-direction: column;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Mail</mat-label>
-                    <input formControlName="mail"  matInput placeholder="ingrese mail" autocomplete="off" minlength="" maxlength="40" required />
-                  <mat-error *ngIf="formUser.get('mail')?.hasError('required') && formUser.get('mail')?.touched">
-                    El Mail <strong>es requerido</strong>
-                  </mat-error>
+    <mat-grid-list cols="2" rowHeight="90px">
+      <mat-grid-tile [colspan]="2">
+        <mat-form-field appearance="outline">
+          <mat-label>Mail</mat-label>
+          <input
+            formControlName="mail"
+            matInput
+            placeholder="ingrese mail"
+            autocomplete="off"
+            minlength=""
+            maxlength="40"
+            required
+          />
+          <mat-error
+            *ngIf="
+              formUser.get('mail')?.hasError('required') &&
+              formUser.get('mail')?.touched
+            "
+          >
+            * El Mail es requerido
+          </mat-error>
 
-                  <mat-error *ngIf="formUser.get('mail')?.hasError('pattern') && formUser.get('mail')?.touched">
-                      El Mail <strong>debe ser valido</strong>
-                  </mat-error>
-                </mat-form-field>
-             
-            
-                <mat-form-field appearance="outline">
-                   <mat-label>Password</mat-label>
-                   <input formControlName="password" type="password" matInput placeholder="password" autocomplete="off" minlength="" maxlength="40" required />
-                    <mat-error *ngIf="formUser.get('password')?.hasError('required') && formUser.get('password')?.touched">
-                        El password <strong>es requerido</strong>
-                    </mat-error>
-    
-                    <mat-error *ngIf="formUser.get('password')?.hasError('pattern') && formUser.get('password')?.touched">
-                        El Password debe tener al menos 8 caracteres una mayuscula, una minuscula y un caracter especial
-                    </mat-error>
-            
-              </mat-form-field>  
-           
-          
-              <mat-form-field appearance="outline">
-                <mat-label>Confirmar Password</mat-label>
-                <input  formControlName="confirmPassword" type="password" matInput>
-                <mat-error *ngIf="formUser.get('confirmPassword')?.hasError('required') && formUser.get('confirmPassword')?.touched">
-                  La Confirmacion <strong>es requerida</strong>
-                </mat-error>
+          <mat-error
+            *ngIf="
+              formUser.get('mail')?.hasError('pattern') &&
+              formUser.get('mail')?.touched
+            "
+          >
+            * El Mail debe ser valido
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-                <mat-error *ngIf="formUser.get('confirmPassword')?.hasError('notSame')">
-                  Las Contraseñas <strong>no coinciden</strong>
-                </mat-error>
-              </mat-form-field>
-         
-           
-              <mat-form-field appearance="outline">
-                <mat-label>Rol:</mat-label>
-                <mat-select formControlName="idRole" required>
-                  <mat-option *ngFor="let role of listaRoles" [value]="role.id">{{ role.descripcion }}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="formUser.get('idRole')?.hasError('required') && formUser.get('idRole')?.touched">
-                  El rol <strong>es requerido</strong>
-                </mat-error>               
-              </mat-form-field>
-            </div>
-         </mat-grid-tile>
-        </mat-grid-list>
-      </form>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="contraseña"
+            autocomplete="off"
+            minlength=""
+            maxlength="40"
+            required
+          />
+          <mat-error
+            *ngIf="
+              formUser.get('password')?.hasError('required') &&
+              formUser.get('password')?.touched
+            "
+          >
+            * La contraseña es requerida.
+          </mat-error>
+
+          <mat-error
+            *ngIf="
+              formUser.get('password')?.hasError('pattern') &&
+              formUser.get('password')?.touched
+            "
+          >
+            * La contraseña debe tener al menos 8 caracteres una mayuscula, una
+            minuscula y un caracter especial.
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input formControlName="confirmPassword" type="password" matInput />
+          <mat-error
+            *ngIf="
+              formUser.get('confirmPassword')?.hasError('required') &&
+              formUser.get('confirmPassword')?.touched
+            "
+          >
+            * La Confirmacion es requerida
+          </mat-error>
+
+          <mat-error
+            *ngIf="formUser.get('confirmPassword')?.hasError('notSame')"
+          >
+            * Las Contraseñas no coinciden.
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2">
+        <mat-form-field appearance="outline">
+          <mat-label>Rol:</mat-label>
+          <mat-select formControlName="idRole" required>
+            <mat-option *ngFor="let role of listaRoles" [value]="role.id">{{
+              role.descripcion
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              formUser.get('idRole')?.hasError('required') &&
+              formUser.get('idRole')?.touched
+            "
+          >
+            El rol <strong>es requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
 </div>
 <div mat-dialog-actions>
-  <button  mat-raised-button  color="primary" [disabled]="formUser.invalid" (click)="addUser()">Guardar</button>
-  <button [routerLink]="['../consult']" mat-raised-button  color="warn" mat-dialog-close>Volver</button>
+  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addUser()"
+    [disabled]="formUser.invalid"
+  >
+    Guardar
+  </button>
 </div>
+<!-- 
+<h1 class="tituloAdd" mat-dialog-title>Agregar Usuario</h1>
+<div mat-dialog-content style="width: 250px">
+  <form [formGroup]="formUser">
+    <mat-grid-list cols="" rowHeight="400px">
+      <mat-grid-tile>
+        <div rowHeight="" style="display: flex; flex-direction: column">
+       
 
+         
+
+         
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="formUser.invalid"
+    (click)="addUser()"
+  >
+    Guardar
+  </button>
+  <button
+    [routerLink]="['../consult']"
+    mat-raised-button
+    color="warn"
+    mat-dialog-close
+  >
+    Volver
+  </button>
+</div> -->

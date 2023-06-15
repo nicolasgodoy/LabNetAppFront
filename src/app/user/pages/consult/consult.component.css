@@ -1,55 +1,16 @@
-.container{
-  min-height: 100vh;
+table {
+  width: 100%;
 }
 
-.mat-column-Id {
-    display: none;
-  }
-
-  .mat-column-Email {
-    width: 25%; 
-  }
-
-  .mat-column-Rol {
-    width: 25%; 
-  }
-  .mat-column-Activo {
-    width: 25%; 
-  }
-  .mat-column-Acciones {
-    width: 10%; 
-  }
-.mat-elevation-z8{
-  
-    padding: 3%;
-    margin-left: 10%;
-    width: 75%;
- }
-
- .filtro{
-    margin-left: 10%;
- }
-
- .topTabla{
-    display: flex;
-    justify-content: space-between;
- }
- .insertar{
-    margin-right:10%;
-    padding-top: 18px;
- }
-
- .boton{
-  width: 38%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  align-content: center;
-  flex-wrap: wrap;
-  margin-right: 0%;
+.mat-form-field {
+  margin: 10px;
+  font-size: 14px;
+  width: 95%;
 }
 
-.filtro{
-  width: 88%;
-  margin-left:6.3% !important;
+.buttonMainAdd {
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  float: right !important;
 }

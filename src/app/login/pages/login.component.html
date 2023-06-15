@@ -1,60 +1,106 @@
-<div class="row">
-
-  <div class="container col m4 col s10 offset-s1 offset-m4  z-depth-3">
-    <form [formGroup]="formLogin" (ngSubmit)="logUser()">
-
-      <div class="row">
-
-        <div class="col s12 center-align">
-          <h1>Ingresar</h1>
-        </div>
-
-        <div class="col s6 offset-s3">
-          <label>Usuario</label>
-
-          <input class="input validate" formControlName="userName">
-          <span class="helper-text error" *ngIf="formLogin.get('userName')?.hasError('required') 
-          && formLogin.get('userName')?.touched">
-            El Usuario <strong>es requerido</strong>
-          </span>
-
-          <span class="helper-text error"
-            *ngIf="formLogin.get('userName')?.hasError('pattern') && formLogin.get('userName')?.touched">
-            El Usuario <strong>debe ser valido</strong>
-          </span>
-        </div>
-
-        <div class="col s6 offset-s3">
-          <label>Password</label>
-
-          <input class="input validate" formControlName="password" type="password">
-          <span class="helper-text error"
-            *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched">
-            El password <strong>es requerido</strong>
-          </span>
-
-          <span class="helper-text error"
-            *ngIf="formLogin.get('password')?.hasError('pattern') && formLogin.get('password')?.touched">
-            El Password debe tener al menos 8 caracteres una mayuscula, una minuscula y un caracter especial
-          </span>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-3 shadow-lg p-3 mb-5 bg-white rounded">
+      <div
+        class="card-header"
+        style="background-color: #3f51b5; text-align: center"
+      >
+        <h2 style="color: white">Iniciar Sesión Lab</h2>
       </div>
+      <div class="card-body">
+        <section>
+          <form [formGroup]="formLogin" (ngSubmit)="logUser()">
+            <div class="row">
+              <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input
+                      class="validate"
+                      matInput
+                      type="text"
+                      placeholder="Usuario"
+                      formControlName="userName"
+                      autocomplete="off"
+                    />
 
-      <div class="row">
-        <div class="col s12 center-align">
-          <button class="waves-effect waves-light btn black" type="submit">Login</button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 center-align">
-          <a href="" class="link">¿Olvidaste tu Contraseña?</a>
-        </div>
-      </div>
+                    <mat-hint
+                      class="helper-text error"
+                      *ngIf="
+                        formLogin.get('userName')?.hasError('pattern') &&
+                        formLogin.get('userName')?.touched
+                      "
+                    >
+                      * El Usuario debe ser un email válido.
+                    </mat-hint>
+                    <mat-hint
+                      class="helper-text error"
+                      *ngIf="
+                        formLogin.get('userName')?.hasError('required') &&
+                        formLogin.get('userName')?.touched
+                      "
+                    >
+                      * El Usuario es requerido
+                    </mat-hint>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                      class="validate"
+                      formControlName="password"
+                      type="password"
+                      matInput
+                      placeholder="contraseña"
+                      autocomplete="off"
+                    />
 
-      <div class="row">
-        <div class="col s6 offset-s3">
-        </div>
+                    <mat-hint
+                      class="helper-text error"
+                      *ngIf="
+                        formLogin.get('password')?.hasError('required') &&
+                        formLogin.get('password')?.touched
+                      "
+                    >
+                      * La contraseña es requerida.
+                    </mat-hint>
+
+                    <mat-hint
+                      class="helper-text error"
+                      *ngIf="
+                        formLogin.get('password')?.hasError('pattern') &&
+                        formLogin.get('password')?.touched
+                      "
+                    >
+                      * La contraseña debe tener al menos 8 caracteres una
+                      mayuscula, una minuscula y un caracter especial.
+                    </mat-hint>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="width: 100%"
+                (click)="logUser()"
+                [disabled]="formLogin.invalid"
+              >
+                Ingresar
+                <mat-icon aria-hidden="false" aria-label="Example home icon"
+                  >login</mat-icon
+                >
+              </button>
+              <a style="margin-top: 10px" href="#" class="link"
+                >¿Olvidaste tu Contraseña?</a
+              >
+            </div>
+          </form>
+        </section>
       </div>
-    </form>
+    </div>
   </div>
 </div>

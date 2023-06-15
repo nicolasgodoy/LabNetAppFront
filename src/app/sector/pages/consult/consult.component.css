@@ -1,4 +1,4 @@
-html, body { height: 100%; width: 100%;}
+/* html, body { height: 100%; width: 100%;}
 body { 
   margin: 0; 
   font-family: Roboto "Helvetica Neue", sans-serif;
@@ -89,4 +89,26 @@ table{
 .tituloP {
   font-size: 1rem;
   color: white;
+} */
+
+.base {
+  width: 70%;
+  margin: 40px auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  margin: 10px;
+  font-size: 14px;
+  width: 95%;
+}
+
+.buttonMainAdd {
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  float: right !important;
 }
