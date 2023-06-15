@@ -2,10 +2,9 @@
   <div class="row">
     <div class="col-md-6 offset-3 shadow-lg p-3 mb-5 bg-white rounded">
       <div
-        class="card-header"
-        style="background-color: #3f51b5; text-align: center"
-      >
-        <h2 style="color: white">Iniciar Sesión Lab</h2>
+        class=""
+        style=" text-align: center">
+        <h2>Ingresar</h2>
       </div>
       <div class="card-body">
         <section>
@@ -13,47 +12,29 @@
             <div class="row">
               <mat-grid-list cols="1" rowHeight="80px">
                 <mat-grid-tile>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="fill">
                     <mat-label>Usuario</mat-label>
-                    <input
-                      class="validate"
-                      matInput
-                      type="text"
-                      placeholder="Usuario"
-                      formControlName="userName"
-                      autocomplete="off"
-                    />
-
-                    <mat-hint
-                      class="helper-text error"
-                      *ngIf="
-                        formLogin.get('userName')?.hasError('pattern') &&
-                        formLogin.get('userName')?.touched
-                      "
-                    >
+                    <input matInput type="text" placeholder="Usuario" formControlName="userName"/>
+                    <mat-hint 
+                      class="helper-text error" 
+                      *ngIf="formLogin.get('userName')?.hasError('pattern') && formLogin.get('userName')?.touched">
                       * El Usuario debe ser un email válido.
                     </mat-hint>
                     <mat-hint
                       class="helper-text error"
-                      *ngIf="
-                        formLogin.get('userName')?.hasError('required') &&
-                        formLogin.get('userName')?.touched
-                      "
-                    >
+                      *ngIf="formLogin.get('userName')?.hasError('required') && formLogin.get('userName')?.touched">
                       * El Usuario es requerido
                     </mat-hint>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="fill">
                     <mat-label>Contraseña</mat-label>
                     <input
-                      class="validate"
                       formControlName="password"
                       type="password"
                       matInput
                       placeholder="contraseña"
-                      autocomplete="off"
                     />
 
                     <mat-hint

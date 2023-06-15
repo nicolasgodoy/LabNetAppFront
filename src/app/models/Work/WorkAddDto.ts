@@ -9,5 +9,4 @@ export class WorkAddDto {
     IdJobPosition:number;
     startDate: Date;
     endDate: Date;
-    isCurrent: boolean;
 }

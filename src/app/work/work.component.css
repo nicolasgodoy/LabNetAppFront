@@ -5,11 +5,6 @@
 
 }
 
-/* .buttonWork{
-   margin-left: 87%;
-   margin-bottom: 0.50rem;
-} */
-
 table {
     border-radius: 1rem;
     overflow: hidden !important;
@@ -17,5 +12,4 @@ table {
 
 .colum {
     flex: 1;
-    padding: 8px;
-  }  
+}  
