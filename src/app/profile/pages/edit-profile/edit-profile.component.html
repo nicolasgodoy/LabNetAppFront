@@ -121,31 +121,32 @@
               type="file"
               formControlName="cv"
             />
-            <button
-              *ngIf="previewDoc"
-              class="btn waves-effect waves-light transparent black-text transparentButton"
-              (click)="subirArchivo(false)"
-            >
-              Enviar archivo
-            </button>
 
             <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
               <label>{{ previewName }}</label>
             </div>
+            <br>  
+            <button
+              *ngIf="previewDoc"
+              class="btn btn-dark form-control"
+              (click)="subirArchivo(false)"
+            >
+              Enviar archivo
+            </button>
           </div>
         </div>
       </div>
     </div>
   </form>
 
-  <button
+  <!-- <button
     mat-raised-button
     color="primary"
     (click)="editarPerfil()"
     [disabled]="formulario.invalid"
   >
     Guardar
-  </button>
+  </button> -->
 </div>
 
 <div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
