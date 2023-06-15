@@ -16,13 +16,19 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { DialogWorkComponent } from './profile/pages/dialog-work/dialog-work.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+// material
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SidenavComponent,
-    DialogWorkComponent
+    DialogWorkComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,10 +38,16 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     ProfileModule,
     SharedModule,
+
+    NgxSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatIconModule,
-    NgxSpinnerModule
+    MatDialogModule,
+    MatGridListModule,
   ],
   providers: [HasProfileGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

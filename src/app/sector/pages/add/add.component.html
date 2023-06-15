@@ -1,32 +1,44 @@
-<h2 class="titulo_modal" mat-dialog-title>Agregar Sector</h2>
-<div mat-dialog-content style="width: 450px;">
-     <form [formGroup]="formSector">
-        <mat-grid-list cols="1" rowHeight="150px">
-            <mat-grid-tile>
-                <div rowHeight="">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Descripcion</mat-label>
-                        <input formControlName="description" matInput
-                            placeholder="ingrese sector" autocomplete="off" minlength="" maxlength="40" required />
-                    </mat-form-field>
-                    <mat-error
-                        *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['required'] ">
-                        <span class="mensajesValidaciones"><b>Campo Descripcion requerido</b></span>
-                    </mat-error>
-                    <mat-error
-                        *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['pattern'] ">
-                        <span class="mensajesValidaciones"><b>No se pueden ingresar números</b></span>
-                    </mat-error>
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </form>
+<h1 mat-dialog-title>Agregar Sector</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formSector">
+    <mat-grid-list cols="1" rowHeight="90px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Sector</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Ingrese el sector"
+            formControlName="description"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['required'] "
+          >
+            <span class="mensajesValidaciones"
+              ><b>Campo Descripcion requerido</b></span
+            >
+          </mat-error>
+          <mat-error
+            *ngIf="formSector.get('description')?.touched && formSector.get('description')?.errors?.['pattern'] "
+          >
+            <span class="mensajesValidaciones"
+              ><b>No se pueden ingresar números</b></span
+            >
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
 </div>
-
 <div mat-dialog-actions>
-    <button [routerLink]="['../consult']" mat-raised-button style="font-size:1.2rem;width:150px;" color="warn" mat-dialog-close>Volver</button>
-    <button mat-raised-button style="font-size:1.2rem;width:150px;" color="primary" [disabled]="formSector.invalid"
-        (click)="AddSectors()">Guardar
-
-    </button>
+  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="AddSectors()"
+    [disabled]="formSector.invalid"
+  >
+    Guardar
+  </button>
 </div>
