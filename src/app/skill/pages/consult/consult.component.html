@@ -3,11 +3,11 @@
     <h1>Lista de Skill</h1>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 boton-nuevaSkill">
       <button
         class="buttonMainAdd"
         mat-raised-button
-        color="primary"
+        
         (click)="dialogAddSkill()"
       >
         Nuevo Skill
@@ -37,7 +37,6 @@
           <button
             mat-raised-button
             style="width: 100px; padding: 5px; margin: 2px"
-            color="warn"
             (click)="confirmDelete(element)"
           >
             Eliminar

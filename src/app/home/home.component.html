@@ -1,4 +1,4 @@
-<h1 style="display:flex;justify-content:center">Informacion sobre la App</h1>
+
 
 
 <div class="contenedor">
@@ -8,10 +8,10 @@
                 <mat-card-title>Admin</mat-card-title>
                 <mat-card-subtitle>Admin</mat-card-subtitle>
             </mat-card-header>
-            <img src="assets/logo_neoris.png"
+            <img class="ImagenCard" src="assets/personPng.png"
                 alt="imagen">
             <mat-card-content>
-                <button [routerLink]="['/profile/consult-profile', idUser]" mat-raised-button color="primary" mat-dialog-close>Ver Perfil</button>
+                <button [routerLink]="['/profile/consult-profile', idUser]" class="mt-2" mat-raised-button color="primary" mat-dialog-close>Ver Perfil</button>
                 <button routerLink="/user/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Usuario</button>
                 <button routerLink="/filter-profile" mat-raised-button color="primary" mat-dialog-close>Filtro de Perfil</button>
                 <button routerLink="/skill/consult" mat-raised-button color="primary" mat-dialog-close>Consultar Skill</button>
@@ -25,10 +25,10 @@
                 <mat-card-title>Reclutador</mat-card-title>
                 <mat-card-subtitle>Informacion Sobre Perfil</mat-card-subtitle>
             </mat-card-header>
-            <img src="assets/logo_neoris.png"
+            <img class="ImagenCard" src="assets/personPng.png"
                 alt="imagen">
             <mat-card-content>
-                <button routerLink="filter-profile" mat-raised-button color="primary" mat-dialog-close>Busqueda Perfil</button>
+                <button routerLink="filter-profile" class="mt-2" mat-raised-button color="primary" mat-dialog-close>Busqueda Perfil</button>
                 <button routerLink="/profile/consult-profile/{{idUser}}" mat-raised-button color="primary" mat-dialog-close>Ver Perfil | Editar Perfil</button>
             </mat-card-content>
 
@@ -40,10 +40,10 @@
                 <mat-card-title>Usuario</mat-card-title>
                 <mat-card-subtitle>Contenido Usuario</mat-card-subtitle>
             </mat-card-header>
-            <img src="assets/logo_neoris.png"
+            <img class="ImagenCard" src="assets/personPng.png"
                 alt="imagen">
             <mat-card-content>
-                <button routerLink="/profile/consult-profile/{{idUser}}" mat-raised-button color="primary" mat-dialog-close>Ver Perfil | Editar Perfil</button>
+                <button routerLink="/profile/consult-profile/{{idUser}}" class="mt-2" mat-raised-button color="primary" mat-dialog-close>Ver Perfil | Editar Perfil</button>
                 <button routerLink="" mat-raised-button color="primary" mat-dialog-close></button>
             </mat-card-content>
 

@@ -126,8 +126,8 @@ export class ConsultComponent implements OnInit {
       text: `Esta a punto de Eliminar el Sector : ${dataSector.description}`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#000',
+      cancelButtonColor: '#198754',
       confirmButtonText: 'Si, Borralo!',
     }).then((result) => {
       if (result.isConfirmed) {

@@ -8,7 +8,14 @@ table {
   width: 95%;
 }
 
+.mat-raised-button{
+  background-color: #000000;
+  color:white;
+}
+
+
 .buttonMainAdd {
+  background-color: #198754;
   padding: 10px;
   margin-bottom: 12px;
   font-size: 15px;

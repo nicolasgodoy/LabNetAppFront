@@ -7,12 +7,27 @@
     gap:2rem;
     min-height: 100vh;
     flex-wrap: wrap;
-
+    
+    
+    
 }
+
+
+
+.mat-raised-button{
+    background-color: #198754;
+    color:white;
+  }
 
 .example-card{
     max-width: 400px;
 }
+
+.ImagenCard{
+    width: 100%;
+    height: auto;
+}
+
 
 .example-header-image{
     background-image: url(/src/assets/logo_neoris.png);

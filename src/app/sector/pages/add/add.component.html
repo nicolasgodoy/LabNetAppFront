@@ -32,12 +32,12 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+  <button class="botonVolver" mat-raised-button mat-dialog-close>Volver</button>
   <button
     mat-raised-button
-    color="primary"
     (click)="AddSectors()"
     [disabled]="formSector.invalid"
+    class="botonGuardar"
   >
     Guardar
   </button>

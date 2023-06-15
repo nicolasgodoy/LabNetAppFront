@@ -5,19 +5,19 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  display: flex;
-  justify-content: left;
 }
 
 .container-card{
-  margin-left: 15rem;
+  display: flex;
+  justify-content: center;
 }
 
 .center{
     align-items: center;
 }
 .center-horizontally {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .center-vertically {
   position: absolute;
@@ -35,15 +35,18 @@
    justify-content: flex-end;
    padding: 10px;
 }
+
+
 .button-buscar {
   top: 2rem;
 }
 .profile-card {
   display: flex;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: 3rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-left: 12rem;
+  
 }
 mat-card-content{
   margin: 0 4rem;
@@ -99,4 +102,13 @@ mat-card-content{
 
 .subtitle{
   display: flex;
+}
+
+.botonFiltro{
+  background-color: #198754;
+  color:white;
+}
+.botonPerfil{
+  background-color: black;
+  color:white;
 }
