@@ -7,6 +7,20 @@
 .link:hover {
   color: #3f51b5;
 }
+.tituloLogin{
+  background-color: rgb(44, 43, 43);
+  color:white; 
+  padding:1rem;
+  border-radius: 10px 10px 0px 0px;
+}
+
+
+
+
+.mat-raised-button{
+  background-color: black;
+  color:white;
+}
 
 .container {
   margin-top: 20px;
@@ -15,6 +29,3 @@
   padding-bottom: 5rem;
 }
 
-input{
-  text-decoration: none;
-}

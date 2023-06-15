@@ -1,11 +1,13 @@
 <div class="container">
-  <img src="../assets/profilePicture.png" width="100px" />
-  <h1 class="center-align">
+  <div class="text-center m-1">
+    <img  src="../assets/profilePicture.png" width="100px" />
+  </div>
+  <h1 class="text-center">
     <strong>{{ completeName }} </strong>
   </h1>
   <form [formGroup]="formulario">
     <mat-grid-list cols="2" rowHeight="90px">
-      <mat-grid-tile [colspan]="2">
+      <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Descripción</mat-label>
           <input
@@ -168,6 +170,7 @@
         [modify]="modify"
         [idUser]="idUser"
       ></app-profile-education>
+      <br>
       <h1 class="titulo text">Skill</h1>
       <app-profile-skill
         *ngIf="IdProfile"
@@ -176,13 +179,13 @@
       ></app-profile-skill>
     </div>
 
-    <div class="center-align">
+    <div class="text-center">
       <button
         type="button"
         *ngIf="modify"
         (click)="navigate()"
         routerLinkActive="router-link-active"
-        class="btn waves-effect waves-light backButton"
+        class="btn btn-success m-1"
       >
         <i class="material-icons left">undo</i>
         Volver
@@ -192,7 +195,7 @@
         type="button"
         *ngIf="modify"
         [routerLink]="['/profile/update-password']"
-        class="btn waves-effect waves-light black backButton"
+        class="btn btn-dark m-1"
       >
         Editar Contraseña
         <i class="material-icons right">lock_open </i>
@@ -201,21 +204,21 @@
       <button
         type="submit"
         *ngIf="modify"
-        class="btn waves-effect waves-light black"
+        class="btn btn-dark m-1"
       >
         Guardar
         <i class="material-icons right">send</i>
       </button>
     </div>
 
-    <div class="center-align">
+    <div class="text-center">
       <button
         *ngIf="!modify && checkUser()"
         (click)="navigate()"
         type="button"
         routerLinkActive="router-link-active"
         style="margin-left: 5px"
-        class="btn waves-effect waves-light black"
+        class="btn btn-dark col-md-4"
       >
         Editar Perfil
         <i class="material-icons right">create</i>

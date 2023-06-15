@@ -1,10 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-3 shadow-lg p-3 mb-5 bg-white rounded">
-      <div
-        class=""
-        style=" text-align: center">
-        <h2>Ingresar</h2>
+      <div class="text-center">
+        <h2 class="tituloLogin">Ingresar</h2>
       </div>
       <div class="card-body">
         <section>
@@ -76,10 +74,10 @@
             <div class="row">
               <button
                 mat-raised-button
-                color="primary"
                 style="width: 100%"
                 (click)="logUser()"
                 [disabled]="formLogin.invalid"
+                class="btn btn-dark"
               >
                 Ingresar
                 <mat-icon aria-hidden="false" aria-label="Example home icon"

@@ -18,6 +18,15 @@
   overflow:hidden !important;
 }
 
+.mat-fab{
+  background-color: #198754;
+}
+
+.mat-mini-fab{
+  background-color: black;
+}
+
+
 .btn-action{
   display: flex;
   justify-content: center;
