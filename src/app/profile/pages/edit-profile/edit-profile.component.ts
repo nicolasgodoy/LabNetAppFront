@@ -304,7 +304,7 @@ export class EditProfileComponent implements OnInit {
     try {
       const FormDatos = new FormData();
       FormDatos.append('id', this.idUser.toString());
-      FormDatos.append('file', this.files[0]);
+      FormDatos.append('file', this.files[this.files.length - 1]);
       if (isImg){
         this.servicioProfile.UploadImage(FormDatos).subscribe({
           next: (res) => {

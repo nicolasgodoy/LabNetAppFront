@@ -14,10 +14,21 @@
                 <mat-grid-tile>
                   <mat-form-field appearance="fill">
                     <mat-label>Usuario</mat-label>
-                    <input matInput type="text" placeholder="Usuario" formControlName="userName"/>
-                    <mat-hint 
-                      class="helper-text error" 
-                      *ngIf="formLogin.get('userName')?.hasError('pattern') && formLogin.get('userName')?.touched">
+                    <input
+                      class="validate"
+                      matInput
+                      type="text"
+                      placeholder="Usuario"
+                      formControlName="userName"
+                    />
+
+                    <mat-hint
+                      class="helper-text error"
+                      *ngIf="
+                        formLogin.get('userName')?.hasError('pattern') &&
+                        formLogin.get('userName')?.touched
+                      "
+                    >
                       * El Usuario debe ser un email válido.
                     </mat-hint>
                     <mat-hint
