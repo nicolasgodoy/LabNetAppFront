@@ -1,161 +1,224 @@
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet" />
+<div class="container">
+  <img src="../assets/profilePicture.png" width="100px" />
+  <h1 class="center-align">
+    <strong>{{ completeName }} </strong>
+  </h1>
+  <form [formGroup]="formulario">
+    <mat-grid-list cols="2" rowHeight="90px">
+      <mat-grid-tile [colspan]="2">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input
+            formControlName="description"
+            matInput
+            placeholder="ingrese mail"
+            autocomplete="off"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
 
-<div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
-  <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
-    <div class="container">
-      <img src="../assets/profilePicture.png" width="100px" />
-    </div>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            type="text"
+            matInput
+            placeholder="Email"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <div class="" style="margin-top: 1rem">
-      <h1 class="center-align">
-        <strong>{{ completeName }} </strong>
-      </h1>
-    </div>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input formControlName="dni" type="text" matInput placeholder="DNI" />
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <div class="row">
-      <div class="col m12 s12">
-        <div class="col m12 s12">
-          <label>Description</label>
-          <input class="materialize-textarea" style="resize: none" placeholder="Cuentanos sobre ti..."
-            formControlName="description">
-        </div>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input
+            formControlName="phone"
+            type="text"
+            matInput
+            placeholder="Teléfono"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
 
-        <div class="col m12 s12" [ngClass]="{ 'margin-left': modify }">
-          <br />
-          <label>Telefono</label>
-          <input class="input validate" type="number"  formControlName="phone" />
-          <br />
-          <label>Fecha de Nacimiento</label>
-          <input class="input validate" type="date" formControlName="fechaNacimiento" />
-          <br />
-        </div>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Nacimiento</mat-label>
+          <input
+            formControlName="fechaNacimiento"
+            type="text"
+            matInput
+            placeholder="Fecha Nacimiento"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-        <div class="col m12 s12">
-          <br />
-          <label>DNI</label>
-          <input class="input validate" type="text" formControlName="dni" />
-          <br />
-          <label>Email</label>
-          <input class="input validate" type="email" formControlName="email" />
-          <br />
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="col" style="margin-bottom: 2rem" *ngIf="modify">
-      <div class="center-align">
-        <div>
-          <div *ngIf="modify">
-
-
-            <div class="center-align col s12">
+    <div *ngIf="modify">
+      <div class="row">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
               <label class="flow-text text">Foto de Perfil</label>
               <br />
 
-
-              <button style="margin-top: 10px" type="button" class="btn waves-effect waves-light black"
-                (click)="fileInput.click()">
+              <button
+                style="margin-top: 10px"
+                type="button"
+                class="btn btn-dark form-control"
+                (click)="fileInput.click()"
+              >
                 <i class="material-icons right">add_a_photo </i>
                 Subir imagen
               </button>
-
-              <button *ngIf="previewImg" class="btn waves-effect waves-light transparent black-text
-              transparentButton" (click)="subirArchivo(true)">
-                Enviar archivo
-              </button>
-
-              <input hidden (change)="captureImg($event)" #fileInput type="file" formControlName="photoProfile" />
-
-              <div *ngIf="previewImg" class="container mt-1">
-                <div style="width: 100px; height: 100px; background-color: black">
-                  <img width="100px" [src]="previewImg" alt="" />
-                </div>
-              </div>
-
             </div>
-            <div *ngIf="modify">
-              <div class="center-align col s12 mt-1">
-                <label class="flow-text text">CV</label>
-                <br />
-                <button style="margin-top: 10px" type="button" class="btn waves-effect waves-light black"
-                  (click)="fileInput.click()">
-                  Subir CV
-                  <i class="material-icons right">insert_drive_file</i>
-                </button>
-                <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv" />
-                <button *ngIf="previewDoc" class="btn waves-effect waves-light transparent black-text
-                transparentButton" (click)="subirArchivo(false)">
-                  Enviar archivo
-                </button>
-              </div>
+            <div class="row">
+              <input
+                hidden
+                (change)="captureImg($event)"
+                #fileInput
+                type="file"
+                formControlName="photoProfile"
+              />
 
-              <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
-                <label>{{ previewName }}</label>
+              <div *ngIf="previewImg" class="row">
+                <div class="row">
+                  <img width="120px" [src]="previewImg" alt="" />
+                </div>
+                <div class="row">
+                  <button class="btn btn-primary" (click)="subirArchivo(true)">
+                    Enviar archivo
+                    <i class="material-icons right">send </i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
+          <div class="col-md-6">
+            <label class="flow-text text">CV</label>
+            <br />
+            <button
+              style="margin-top: 10px"
+              type="button"
+              class="btn btn-dark form-control"
+              (click)="fileInput.click()"
+            >
+              Subir CV
+              <i class="material-icons right">insert_drive_file</i>
+            </button>
+            <input
+              hidden
+              (change)="captureFile($event)"
+              #fileInput
+              type="file"
+              formControlName="cv"
+            />
+            <button
+              *ngIf="previewDoc"
+              class="btn waves-effect waves-light transparent black-text transparentButton"
+              (click)="subirArchivo(false)"
+            >
+              Enviar archivo
+            </button>
+
+            <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
+              <label>{{ previewName }}</label>
+            </div>
+          </div>
         </div>
-
       </div>
+    </div>
+  </form>
 
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="editarPerfil()"
+    [disabled]="formulario.invalid"
+  >
+    Guardar
+  </button>
+</div>
 
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+  <form [formGroup]="formulario" (ngSubmit)="editarPerfil()">
+    <div class="container"></div>
 
-
+    <div class="col" style="margin-bottom: 2rem" *ngIf="modify">
+      <div class="center-align">
+        <div></div>
+      </div>
     </div>
     <div class="col m12 center-align">
       <h1 class="titulo text">Trabajo</h1>
       <app-work [modify]="modify" [idProfile]="idUser"></app-work>
       <br />
       <h1 class="titulo text">Educacion</h1>
-      <app-profile-education [idProfile]="idUser" [modify]="modify" [idUser]="idUser"></app-profile-education>
+      <app-profile-education
+        [idProfile]="idUser"
+        [modify]="modify"
+        [idUser]="idUser"
+      ></app-profile-education>
       <h1 class="titulo text">Skill</h1>
-      <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
+      <app-profile-skill
+        *ngIf="IdProfile"
+        [idProfile]="IdProfile"
+        [modify]="modify"
+      ></app-profile-skill>
     </div>
 
-
-
-
     <div class="center-align">
-
-      <button type="button" *ngIf="modify" (click)="navigate()" routerLinkActive="router-link-active"
-        class="btn waves-effect waves-light backButton">
+      <button
+        type="button"
+        *ngIf="modify"
+        (click)="navigate()"
+        routerLinkActive="router-link-active"
+        class="btn waves-effect waves-light backButton"
+      >
         <i class="material-icons left">undo</i>
         Volver
       </button>
 
-
-
-      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']"
-        class="btn waves-effect waves-light black backButton">
+      <button
+        type="button"
+        *ngIf="modify"
+        [routerLink]="['/profile/update-password']"
+        class="btn waves-effect waves-light black backButton"
+      >
         Editar Contraseña
         <i class="material-icons right">lock_open </i>
-
       </button>
 
-      <button type="submit" *ngIf="modify" class="btn waves-effect waves-light black">
+      <button
+        type="submit"
+        *ngIf="modify"
+        class="btn waves-effect waves-light black"
+      >
         Guardar
         <i class="material-icons right">send</i>
       </button>
-
-
-
     </div>
 
     <div class="center-align">
-
-
-      <button *ngIf="!modify && checkUser()" (click)="navigate()" type="button" routerLinkActive="router-link-active"
-        style="margin-left: 5px" class="btn waves-effect waves-light black">
+      <button
+        *ngIf="!modify && checkUser()"
+        (click)="navigate()"
+        type="button"
+        routerLinkActive="router-link-active"
+        style="margin-left: 5px"
+        class="btn waves-effect waves-light black"
+      >
         Editar Perfil
         <i class="material-icons right">create</i>
       </button>
     </div>
-
-
   </form>
 </div>
