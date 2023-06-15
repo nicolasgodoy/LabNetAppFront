@@ -4,7 +4,7 @@
     <mat-grid-list cols="2" rowHeight="80px">
       <mat-grid-tile [colspan]="2">
         <mat-form-field appearance="fill">
-          <mat-label>Company</mat-label>
+          <mat-label>Compania</mat-label>
           <input type="text" matInput formControlName="company">
     
           <mat-error *ngIf="formGroup.get('company').hasError('required')">
@@ -21,7 +21,7 @@
 
       <mat-grid-tile>
         <mat-form-field appearance="fill">
-          <mat-label>Role</mat-label>
+          <mat-label>Rol</mat-label>
           <input maxlength="30" type="text" matInput formControlName="role">
           <mat-error *ngIf="formGroup.get('role').hasError('required')">
             Este campo es requerido.
@@ -89,10 +89,9 @@
       <mat-grid-tile>
         
         <mat-form-field appearance="fill">
-
           <mat-label>Fecha de finalizacion</mat-label>
-
-          <input type="date" matInput formControlName="endDate">
+ 
+          <input type="date" matInput formControlName="endDate" [disabled]="formGroup.get('endDate').disabled">
 
         </mat-form-field>
         
@@ -100,19 +99,26 @@
       
       <mat-grid-tile>
          
-        <mat-slide-toggle formControlName="isCurrent" >trabajo actual</mat-slide-toggle>
+        <mat-slide-toggle formControlName="isCurrent">trabajo actual</mat-slide-toggle>
        
       </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2">
+       
+        <div class="center-align">
+          <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button class="color">
+            Guardar
+          </button>
+          <button *ngIf="data" (click)="updateWork()" type="button" mat-raised-button class="color">
+            Editar
+          </button>
+        </div>
+
+      </mat-grid-tile>
+
     </mat-grid-list>
 
-    <div class="center-align">
-      <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button color="primary">
-        Guardar
-      </button>
-      <button *ngIf="data" (click)="updateWork()" type="button" mat-raised-button color="primary">
-        Editar
-      </button>
-    </div>
+    
   </form>
 </div>
 

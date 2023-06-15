@@ -22,9 +22,9 @@ export class WorkComponent implements OnInit {
   modify: boolean = true;
 
   dataSourceWork = new MatTableDataSource();
-  displayedColumnsWork: string[] = ['compania', 'role', 'ubicacion', 'tipoTrabajo', 'sector', 'add'];
 
-
+  displayedColumnsWork: string[] = ['compania', 'role','position', 'ubicacion', 'tipoTrabajo', 'sector','admissionDate'  , 'expeditionDate'
+  , 'add'];
   constructor(
     public dialog: MatDialog,
     private workService: WorkService,
@@ -46,6 +46,7 @@ export class WorkComponent implements OnInit {
 
         if (dataResponse.isSuccess) {
           this.dataSourceWork = dataResponse.result.workEntities;
+          console.log(dataResponse.result.workEntities)
         }
       },
       error: () => Alert.mensajeSinExitoToast('error al cargar skills')
@@ -84,8 +85,8 @@ export class WorkComponent implements OnInit {
       title: '¿Seguro que desea eliminar este registro?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#000',
+      cancelButtonColor: '#198754',
       confirmButtonText: 'Sí, eliminalo!'
     }).then(async (result) => {
 
@@ -107,5 +108,12 @@ export class WorkComponent implements OnInit {
         }
       }
     })
+  }
+
+  formatoFecha(fechaConvertir: Date): string {
+
+    const fecha = new Date(fechaConvertir);
+    const formatoFinal = fecha.toISOString().split('T')[0];
+    return formatoFinal;
   }
 }

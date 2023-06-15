@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit,OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
@@ -30,6 +30,7 @@ export class DialogWorkComponent implements OnInit {
   ubicacionArr: Ubicacion[] = [];
   tipoEmpleoArr: TipoEmpleo[] = [];
   positionArr: JobPosition[] = [];
+  current:boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,8 +53,16 @@ export class DialogWorkComponent implements OnInit {
       tipoEmpleo: [''],
       position: [''],
       startDate: ['', [Validators.required]],
-      endDate: [''],
+      endDate: [{disabled:this.current,value:''}],
       isCurrent: ['']
+    });
+
+    this.formGroup.get('isCurrent').valueChanges.subscribe((value) => {
+      if (value) {
+        this.formGroup.get('endDate').disable();
+      } else {
+        this.formGroup.get('endDate').enable();
+      }
     });
   }
 
@@ -139,6 +148,7 @@ export class DialogWorkComponent implements OnInit {
         startDate: this.formGroup.value.startDate,
         endDate: this.formGroup.value.isCurrent ? null : this.formGroup.value.endDate,
       }
+      console.log(this.work);
 
       this.workService.AddWork(this.work).subscribe({
 

@@ -9,6 +9,10 @@
     <th mat-header-cell *matHeaderCellDef>Role</th>
     <td mat-cell *matCellDef="let element">{{element.role}}</td>
   </ng-container>
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef>Posicion</th>
+    <td mat-cell *matCellDef="let element">{{element.descriptionJobPosition}}</td>
+  </ng-container>
   
   <ng-container matColumnDef="ubicacion">
     <th mat-header-cell *matHeaderCellDef>Ubicacion</th>
@@ -25,6 +29,14 @@
     <td mat-cell *matCellDef="let element">{{element.descriptionWorkType}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="admissionDate">
+    <th mat-header-cell *matHeaderCellDef>inicio</th>
+    <td mat-cell *matCellDef="let element">{{formatoFecha(element.startDate)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="expeditionDate">
+    <th mat-header-cell *matHeaderCellDef>fin</th>
+    <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
+  </ng-container>
 
   <ng-container matColumnDef="add" class="colum">
     <th class="colum" style="text-align: right; " mat-header-cell *matHeaderCellDef class="colum">
@@ -33,7 +45,7 @@
       </button>
     </th>
 
-    <td mat-cell *matCellDef="let element" class="colum">
+    <td mat-cell *matCellDef="let element" class="colum" style="text-align: right;">
       <button class="btn"  (click)="openDialogWorkUpdate(element)" *ngIf="modify" type="button" mat-mini-fab color="primary"
         matTooltip="Editar educacion">
         <mat-icon>create</mat-icon>

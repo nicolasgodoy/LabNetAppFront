@@ -76,8 +76,8 @@ export class ProfileEducationComponent implements OnInit {
       text: "No podrás revertirlo más tarde!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#000',
+      cancelButtonColor: '#198754',
       confirmButtonText: 'Sí, eliminalo!'
     }).then(async (result) => {
       if (result.isConfirmed) {
