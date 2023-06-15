@@ -178,11 +178,10 @@
       ></app-profile-skill>
     </div>
 
-    <div class="center-align">
+    <div class="text-center">
       <button
         type="button"
         *ngIf="modify"
-        
         (click)="navigate()"
         routerLinkActive="router-link-active"
         class="btn btn-success m-1"
@@ -211,14 +210,14 @@
       </button>
     </div>
 
-    <div class="center-align">
+    <div class="text-center">
       <button
         *ngIf="!modify && checkUser()"
         (click)="navigate()"
         type="button"
         routerLinkActive="router-link-active"
         style="margin-left: 5px"
-        class="btn waves-effect waves-light black"
+        class="btn btn-dark col-md-4"
       >
         Editar Perfil
         <i class="material-icons right">create</i>

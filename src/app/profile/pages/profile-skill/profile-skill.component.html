@@ -13,7 +13,7 @@
           </button>
           </th>
           <td class="table-btn"  mat-cell *matCellDef="let element"  style="text-align: right; ">
-              <button *ngIf="modify" mat-mini-fab  color="primary" matTooltip="delete skill de perfil" (click)="openDialog(element.id)">
+              <button *ngIf="modify" mat-mini-fab  matTooltip="delete skill de perfil" (click)="openDialog(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
           </td>
