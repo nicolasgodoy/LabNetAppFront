@@ -103,7 +103,7 @@ export class ProfileEducationComponent implements OnInit {
     }
 
     const dialogoref = this.dialog.open( DialogEducationComponent, {
-      width: '500px',
+      width: '40%',
       data: idEducation ? update : this.idProfile
     });
     dialogoref.afterClosed().subscribe(res=>{
