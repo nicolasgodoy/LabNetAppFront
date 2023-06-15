@@ -5,6 +5,7 @@
 
 }
 
+
 table {
     border-radius: 1rem;
     overflow: hidden !important;
@@ -12,4 +13,10 @@ table {
 
 .colum {
     flex: 1;
+    padding: 8px;
 }  
+
+.btn{
+    margin: 0 .5rem;
+}
+  

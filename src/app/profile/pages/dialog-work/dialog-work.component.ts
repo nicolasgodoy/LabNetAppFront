@@ -139,7 +139,7 @@ export class DialogWorkComponent implements OnInit {
         startDate: this.formGroup.value.startDate,
         endDate: this.formGroup.value.isCurrent ? null : this.formGroup.value.endDate,
       }
-      console.log(this.work)
+
       this.workService.AddWork(this.work).subscribe({
 
         next: (res) => {
@@ -170,7 +170,6 @@ export class DialogWorkComponent implements OnInit {
       startDate: this.formGroup.value.startDate,
       endDate: this.formGroup.value.isCurrent? null : this.formGroup.value.endDate,
     }
-    console.log(this.workModify);
 
     this.workService.ModifyWork(this.workModify).subscribe({
 

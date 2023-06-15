@@ -50,27 +50,6 @@
         </td>
       </ng-container>
   
-      <ng-container ng-container matColumnDef="Eliminar">
-        <th mat-header-cell *matHeaderCellDef style="text-align: right; " class="column">
-          <div *ngIf="modify">
-            Eliminar
-          </div>
-        </th>
-  
-        <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; " class="column">
-          <button type="button" *ngIf="modify" mat-mini-fab color="primary" matTooltip="Eliminar educacion"
-            (click)="deleteEducation(element.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-        <td class="table-btn" mat-cell *matCellDef="let element" style="text-align: right; " class="column">
-          <button *ngIf="modify" type="button" mat-mini-fab color="primary" matTooltip="Editar educacion"
-            (click)=" openDialog(element.id)">
-            <mat-icon>create</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
       <tr mat-header-row *matHeaderRowDef="displayedColumnsEducation"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></tr>
 

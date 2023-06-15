@@ -99,17 +99,18 @@
       </mat-grid-tile>
       
       <mat-grid-tile>
-        
-        
-        <mat-slide-toggle formControlName="isCurrent">trabajo actual</mat-slide-toggle>
+         
+        <mat-slide-toggle formControlName="isCurrent" >trabajo actual</mat-slide-toggle>
        
-        
       </mat-grid-tile>
     </mat-grid-list>
 
     <div class="center-align">
       <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button color="primary">
         Guardar
+      </button>
+      <button *ngIf="data" (click)="updateWork()" type="button" mat-raised-button color="primary">
+        Editar
       </button>
     </div>
   </form>
