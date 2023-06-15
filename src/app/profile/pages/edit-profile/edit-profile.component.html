@@ -73,7 +73,7 @@
                 style="margin-top: 10px"
                 type="button"
                 class="btn btn-dark form-control"
-                (click)="fileInput.click()"
+                (click)="ImgInput.click()"
               >
                 <i class="material-icons right">add_a_photo </i>
                 Subir imagen
@@ -83,7 +83,7 @@
               <input
                 hidden
                 (change)="captureImg($event)"
-                #fileInput
+                #ImgInput
                 type="file"
                 formControlName="photoProfile"
               />
