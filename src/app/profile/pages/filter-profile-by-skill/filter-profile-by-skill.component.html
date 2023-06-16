@@ -11,16 +11,21 @@
         </mat-autocomplete>
       </mat-form-field>
     </form>
+
+
     <div class="button-container">
       <button mat-raised-button  class="botonFiltro options-filter" *ngFor="let skill of skills">{{skill.description}}
         <button class="close-button" (click)="removeSkill(skill)">X</button>
       </button>
     </div>
-    <button mat-raised-button  class="botonPerfil button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
+    <div class="text-center">
+      <button mat-raised-button  class="botonPerfil button-buscar" (click)="FilterById(skills)" [disabled]="skills.length == 0">Buscar</button>
+    </div>
 	</mat-sidenav>
-  
-	<div class="container-card">
-   
+</div>
+<div class="container">
+  <div class="container-card">
+ 
     <div *ngIf="listaProfile.length == 0">
       <h2 class="center-vertically">Selecciones skills para mostrar perfiles.</h2>
     </div>
@@ -54,11 +59,12 @@
             <p>{{perfil.profile.works[perfil.profile.works.length-1].company}}</p>
             <p>{{perfil.profile.works[perfil.profile.works.length-1].role}}</p>
           </h3>
-          <button mat-raised-button class="botonFiltro" [routerLink]="['../consult-profile/', perfil.profile.idUser]" routerLinkActive="router-link-active" >Ver Perfil</button>
         </mat-card-content>
+        <button mat-raised-button class="botonFiltro" [routerLink]="['../consult-profile/', perfil.profile.idUser]" routerLinkActive="router-link-active" >Ver Perfil</button>
+
         
       </mat-card>
       
     </div>
-	</div>
+  </div>
 </div>
