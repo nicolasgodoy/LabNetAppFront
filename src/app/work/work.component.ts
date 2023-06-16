@@ -41,7 +41,6 @@ export class WorkComponent implements OnInit {
 
   GetWork(id: number) {
     this.servicioProfile.GetById(id).subscribe({
-
       next: (dataResponse: ResponseDto) => {
 
         if (dataResponse.isSuccess) {
@@ -56,6 +55,7 @@ export class WorkComponent implements OnInit {
   openDialogWork(): void {
 
     const dialog = this.dialog.open(DialogWorkComponent, {
+      data : this.idProfile,
       width: '500px'
     },);
 
