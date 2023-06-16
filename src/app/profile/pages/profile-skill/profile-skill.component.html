@@ -1,27 +1,27 @@
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="Skill">
-          <th mat-header-cell *matHeaderCellDef>SKILL</th>
-          <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="Acciones" >
-          <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
-            <button type="button" *ngIf="modify" class="btn" mat-fab color="primary" matTooltip="add skill to profile" (click)="openDialog()">
-              <mat-icon>add</mat-icon>
-          </button>
-          </th>
-          <td class="table-btn"  mat-cell *matCellDef="let element"  style="text-align: right; ">
-              <button *ngIf="modify" mat-mini-fab  color="primary" matTooltip="delete skill de perfil"  (click)="deleteSkill(element.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-          </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+  <ng-container matColumnDef="Skill">
+    <th mat-header-cell *matHeaderCellDef>SKILL</th>
+    <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Acciones" >
+    <th mat-header-cell *matHeaderCellDef style="text-align: right; ">
+      <button button type="button" *ngIf="modify" class="btn" mat-fab color="primary" matTooltip="add skill to profile" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+    </button>
+    </th>
+    <td class="table-btn"  mat-cell *matCellDef="let element"  style="text-align: right; ">
+        <button button type="button" *ngIf="modify" mat-mini-fab  color="primary" matTooltip="delete skill de perfil"  (click)="deleteSkill(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
     
     
 
