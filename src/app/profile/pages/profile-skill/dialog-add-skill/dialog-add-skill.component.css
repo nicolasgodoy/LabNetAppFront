@@ -19,3 +19,7 @@ input{
 .example-full-width {
   width: 100%;
 }
+.color{
+  background-color: #198754;
+  color: aliceblue;
+}

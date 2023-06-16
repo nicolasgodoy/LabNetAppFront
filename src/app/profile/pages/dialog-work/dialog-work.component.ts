@@ -31,11 +31,12 @@ export class DialogWorkComponent implements OnInit {
   tipoEmpleoArr: TipoEmpleo[] = [];
   positionArr: JobPosition[] = [];
   current:boolean = false;
+  idProfile:number;
 
   constructor(
     private formBuilder: FormBuilder,
     private workService: WorkService,
-    @Inject(MAT_DIALOG_DATA) public data: ModifyWorkDto,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DialogWorkComponent>,
     private sectorServices: sectorService,
     private ubicacionServices: UbicacionService,
@@ -72,8 +73,14 @@ export class DialogWorkComponent implements OnInit {
     this.GetUbicacion();
     this.GetTipoEmpleo();
     this.GetJobPosition();
-    
-    this.titulo = this.data ? 'Editar' : 'Insertar';
+
+    if (typeof this.data == 'number') {
+      this.titulo = 'Insertar';
+      this.idProfile = this.data;
+    }else{
+      this.titulo = 'Editar';
+      this.idProfile = null;
+    }
     
     this.formGroup.patchValue({
 
@@ -132,7 +139,7 @@ export class DialogWorkComponent implements OnInit {
   }
 
   addWork(): void {
-    console.log(this.formGroup.value.isCurrent)
+    console.log(this.data)
 
     if (this.formGroup.valid) {
 
@@ -140,7 +147,7 @@ export class DialogWorkComponent implements OnInit {
 
         Company: this.formGroup.value.company,
         Role: this.formGroup.value.role,
-        IdProfile: 1,
+        IdProfile: this.idProfile,
         IdSector: this.formGroup.value.sector,
         IdUbication: this.formGroup.value.ubicacion,
         IdWorkType: this.formGroup.value.tipoEmpleo,
@@ -148,7 +155,6 @@ export class DialogWorkComponent implements OnInit {
         startDate: this.formGroup.value.startDate,
         endDate: this.formGroup.value.isCurrent ? null : this.formGroup.value.endDate,
       }
-      console.log(this.work);
 
       this.workService.AddWork(this.work).subscribe({
 
@@ -179,6 +185,7 @@ export class DialogWorkComponent implements OnInit {
       idJobPosition: this.formGroup.value.position,
       startDate: this.formGroup.value.startDate,
       endDate: this.formGroup.value.isCurrent? null : this.formGroup.value.endDate,
+      idProfile: this.data.idProfile
     }
 
     this.workService.ModifyWork(this.workModify).subscribe({

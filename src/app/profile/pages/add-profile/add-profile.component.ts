@@ -114,13 +114,5 @@ export class AddProfileComponent implements OnInit {
   setDate() {
     const birthdate = this.formulario.get('birthdate');
     var elems = document.querySelectorAll('.datepicker');
-    // M.Datepicker.init(elems, {
-    //   format: 'dd-mm-yyyy',
-    //   autoClose: true,
-    //   onSelect: (date) => birthdate.setValue(date),
-    //   minDate: new Date(1920, 0, 1),
-    //   maxDate: new Date(2023, 5, 12),
-    //   yearRange: [1920, new Date().getFullYear()],
-    // });
   }
 }

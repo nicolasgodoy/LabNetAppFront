@@ -106,10 +106,10 @@
       <mat-grid-tile [colspan]="2">
        
         <div class="center-align">
-          <button *ngIf="!data" (click)="addWork()" type="button" mat-raised-button class="color">
+          <button *ngIf="idProfile" (click)="addWork()" type="button" mat-raised-button class="color">
             Guardar
           </button>
-          <button *ngIf="data" (click)="updateWork()" type="button" mat-raised-button class="color">
+          <button *ngIf="!idProfile" (click)="updateWork()" type="button" mat-raised-button class="color">
             Editar
           </button>
         </div>

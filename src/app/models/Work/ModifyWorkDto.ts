@@ -9,4 +9,5 @@ export class ModifyWorkDto{
     idJobPosition: number;
     startDate: Date;
     endDate: Date;
+    idProfile:number;
 }
