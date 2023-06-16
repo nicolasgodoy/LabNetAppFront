@@ -7,6 +7,7 @@ import { Skill } from 'src/app/models/skill';
 import { Alert } from 'src/app/helpers/alert';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-profile-skill',
   templateUrl: './profile-skill.component.html',
@@ -32,7 +33,6 @@ export class ProfileSkillComponent implements OnInit {
   }
 
   DeleteSkillToProfile(idProfile:number,idSkill:number){
-    console.log('entra')
     this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
       {
         next:(res)=> {
