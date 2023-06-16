@@ -196,9 +196,7 @@ export class EditProfileComponent implements OnInit {
 
         next: () => {
 
-          this.snackBar.open('Perfil actualizado', undefined, {
-            duration: 3000
-          });
+          Alert.mensajeExitoToast();
         },
         error: (error) => {
           console.log(error);
