@@ -28,7 +28,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppComponent,
     HomeComponent,
     SidenavComponent,
-    DialogWorkComponent,
+    DialogWorkComponent
   ],
   imports: [
     BrowserModule,
