@@ -24,7 +24,12 @@
           Consultar Skill</button>
         <button *ngIf="IdRol == 1" routerLink="/sector/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
           <mat-icon aria-hidden="false" aria-label="Example home icon">content_paste_search</mat-icon>
-          Consultar Sector</button>
+          Consultar Sector
+        </button>
+        <button routerLink="/question/consult" mat-raised-button style="margin:5px">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">psychology_alt</mat-icon>
+          Cargar preguntas
+        </button>
         <button (click)="logout()" routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
           Cerrar sesión

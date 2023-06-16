@@ -30,11 +30,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'question',
+    loadChildren: () => import('./question/question.module').then(m => m.QuestionModule)
   }
-  //{
-  //  path: '**', pathMatch: 'full',
-  // loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  // }
 ];
 
 @NgModule({
