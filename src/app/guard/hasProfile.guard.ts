@@ -12,15 +12,21 @@ export class HasProfileGuard implements CanActivate {
   idUser: number;
   hasProfile: boolean = false;
   constructor(private router: Router, private auth: AuthService, private profileService: ProfilesService) {
-    this.Token = this.auth.readToken();
-    const jsonObject = this.auth.DecodeJWT(this.Token);
-    this.idUser = this.auth.getValueByKey(jsonObject, 'IdUser');
-    this.hasProfile;
+    this.Initialize()
   }
 
+  Initialize() : void{
+  this.Token = this.auth.readToken();
+  const jsonObject = this.auth.DecodeJWT(this.Token);
+  this.idUser = this.auth.getValueByKey(jsonObject, 'IdUser');
+  this.hasProfile;
+}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+
+    this.Initialize();
     const id = route.params['id'];
-    if (id === this.idUser.toString()) {
+    console.log(id +this.idUser)
+    if (id == this.idUser) {
       return this.profileService.HasProfile(this.idUser).pipe(
         map((resp) => {
           this.hasProfile = resp.result;

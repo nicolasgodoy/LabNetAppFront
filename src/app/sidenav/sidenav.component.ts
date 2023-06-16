@@ -23,7 +23,12 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
+    const token = this._authService.readToken();
+
+    const Object = this._authService.DecodeJWT(token);
+    
+    this.IdUser= this._authService.getValueByKey(Object,'IdUser');
+    this.IdRol= this._authService.getValueByKey(Object,'IdRol');
   }
     
   refreshSide(){
@@ -35,6 +40,7 @@ export class SidenavComponent implements OnInit {
     const Object = this._authService.DecodeJWT(token);
     
     this.IdUser= this._authService.getValueByKey(Object,'IdUser');
+    console.log(this.IdUser);
     this.IdRol= this._authService.getValueByKey(Object,'IdRol');
   }
  
@@ -51,6 +57,7 @@ export class SidenavComponent implements OnInit {
       confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
+        
         this._authService.logout();
         this._router.navigateByUrl('/');
         this.drawer.close();
