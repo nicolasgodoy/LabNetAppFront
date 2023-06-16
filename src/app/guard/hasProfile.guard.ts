@@ -4,7 +4,7 @@ import { AuthService } from '../service/auth.service';
 import { Token } from '@angular/compiler';
 import { ProfilesService } from '../service/profiles.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class HasProfileGuard implements CanActivate {
@@ -19,16 +19,21 @@ export class HasProfileGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.profileService.HasProfile(this.idUser).pipe(
-      map((resp) => {
-        this.hasProfile = resp.result;
-        if (this.hasProfile) {
-          return true;
-        } else {
-          this.router.navigate(['/profile/add-profile/' + this.idUser]);
-          return false;
-        }
-      })
-    );
+    const id = route.params['id'];
+    if (id === this.idUser.toString()) {
+      return this.profileService.HasProfile(this.idUser).pipe(
+        map((resp) => {
+          this.hasProfile = resp.result;
+          if (this.hasProfile) {
+            return true;
+          } else {
+            this.router.navigate(['/profile/add-profile/' + this.idUser]);
+            return false;
+          }
+        })
+      );
+    }
+    this.router.navigate(['/home'])
+    return of(false);
   }
 }
