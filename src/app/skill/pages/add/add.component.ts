@@ -40,7 +40,7 @@ export class AddComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.mostrarSkill();
+    
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -54,20 +54,6 @@ export class AddComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-  mostrarSkill() {
-
-    this.skillService.getSkill().subscribe({
-      next: (dataResponse: ResponseDto) => {  
-        this.dataSource.data = dataResponse.result;
-
-      }, error: (e) => {
-        console.log('ocurrio un error inesperado')
-      }
-
-    })
-
-  }
 
   AddSkills() {
     const modelo: AddSkillDto = {
@@ -92,7 +78,7 @@ export class AddComponent implements AfterViewInit, OnInit {
 
     }).afterClosed().subscribe(resultado => {
       if (resultado === "creado") {
-        this.mostrarSkill();
+        
       }
     })
   }

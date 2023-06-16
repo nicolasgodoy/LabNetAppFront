@@ -58,7 +58,7 @@ export class AddComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.mostrarSector();
+    
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -72,21 +72,7 @@ export class AddComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  mostrarSector() {
-    this.spinnerService.show();
-    this.sectorService.getAllSector().subscribe({
-      next: (dataResponse: ResponseDto) => {
-        this.spinnerService.hide();
-        console.log(dataResponse);
-        this.dataSource.data = dataResponse.result;
-      },
-      error: (e) => {
-        console.log('ocurrio un error inesperado');
-        this.spinnerService.hide();
-      },
-    });
-  }
-
+  
   AddSectors(): void {
     if (this.formSector.valid) {
       const modelo: Sector = {
@@ -115,7 +101,7 @@ export class AddComponent implements AfterViewInit, OnInit {
       .afterClosed()
       .subscribe((resultado) => {
         if (resultado === 'creado') {
-          this.mostrarSector();
+          
         }
       });
   }
@@ -135,7 +121,6 @@ export class AddComponent implements AfterViewInit, OnInit {
           next: (ResponseDto) => {
             console.log(ResponseDto);
             Alert.mensajeExitoToast();
-            this.mostrarSector();
           },
           error: (e) => {
             console.log(e);
