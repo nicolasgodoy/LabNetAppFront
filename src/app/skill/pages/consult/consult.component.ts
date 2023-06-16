@@ -136,7 +136,6 @@ export class ConsultComponent implements OnInit {
       if (result.isConfirmed) {
         this.skillService.deleteSkill(dataSkill.id).subscribe({
           next: (ResponseDto) => {
-            console.log(ResponseDto);
             Alert.mensajeExitoToast();
             this.mostrarSkill();
           },

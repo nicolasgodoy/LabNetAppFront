@@ -139,12 +139,10 @@ export class DialogWorkComponent implements OnInit {
   }
 
   addWork(): void {
-    console.log(this.data)
 
     if (this.formGroup.valid) {
 
       this.work = {
-
         Company: this.formGroup.value.company,
         Role: this.formGroup.value.role,
         IdProfile: this.idProfile,

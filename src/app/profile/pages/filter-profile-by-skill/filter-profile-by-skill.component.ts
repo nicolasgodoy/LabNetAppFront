@@ -52,7 +52,6 @@ export class FilterProfileBySkillComponent implements OnInit {
       next: (dataResponse: ResponseDto) => {
         if (dataResponse.isSuccess) {
           this.listaProfile = dataResponse.result;
-          console.log(dataResponse.result)
           localStorage.setItem("filterProfile", JSON.stringify(this.listaProfile));
         }else
           Alert.mensajeSinExitoToast(dataResponse.message);

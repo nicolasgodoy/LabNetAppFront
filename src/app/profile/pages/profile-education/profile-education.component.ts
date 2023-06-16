@@ -40,7 +40,7 @@ export class ProfileEducationComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.GetProfileEducation(this.idProfile);
+      this.GetProfileEducation(this.idUser);
     },500) 
   }
 
@@ -109,7 +109,7 @@ export class ProfileEducationComponent implements OnInit {
     dialogoref.afterClosed().subscribe(res=>{
       if (res) {
         Alert.mensajeExitoToast(res),
-        this.GetProfileEducation(this.idProfile)
+        this.GetProfileEducation(this.idUser)
       }
     })
     

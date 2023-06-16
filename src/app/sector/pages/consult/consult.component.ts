@@ -78,7 +78,6 @@ export class ConsultComponent implements OnInit {
     this.sectorService.getAllSector().subscribe({
       next: (dataResponse: ResponseDto) => {
         this.spinnerService.hide();
-        console.log(dataResponse);
         this.dataSource.data = dataResponse.result;
       },
       error: (e) => {
@@ -133,7 +132,6 @@ export class ConsultComponent implements OnInit {
       if (result.isConfirmed) {
         this.sectorService.deleteSector(dataSector.id).subscribe({
           next: (ResponseDto) => {
-            console.log(ResponseDto);
             Alert.mensajeExitoToast();
             this.mostrarSector();
           },

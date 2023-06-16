@@ -154,11 +154,11 @@
     </div>
     <div class="col m12 center-align">
       <h1 class="titulo text">Trabajo</h1>
-      <app-work [modify]="modify" [idProfile]="idUser"></app-work>
+      <app-work [modify]="modify" [idProfile]="IdProfile" [idUser]="idUser"></app-work>
       <br />
       <h1 class="titulo text">Educacion</h1>
       <app-profile-education
-        [idProfile]="idUser"
+        [idProfile]="IdProfile"
         [modify]="modify"
         [idUser]="idUser"
       ></app-profile-education>

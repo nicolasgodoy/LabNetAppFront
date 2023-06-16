@@ -32,6 +32,7 @@ export class ProfileSkillComponent implements OnInit {
   }
 
   DeleteSkillToProfile(idProfile:number,idSkill:number){
+    console.log('entra')
     this.profileService.deleteEmploye(idProfile,idSkill).subscribe(
       {
         next:(res)=> {
@@ -66,7 +67,7 @@ export class ProfileSkillComponent implements OnInit {
       confirmButtonText: 'Sí, eliminalo!'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        this.DeleteSkillToProfile(this.idProfile,id);
+        this.DeleteSkillToProfile(this.idProfile, id);
       }
     });
   }

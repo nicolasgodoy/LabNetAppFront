@@ -17,6 +17,8 @@ import { Alert } from '../helpers/alert';
 export class WorkComponent implements OnInit {
 
   @Input()
+  idUser: number;
+  @Input()
   idProfile: number;
   @Input()
   modify: boolean = true;
@@ -35,7 +37,7 @@ export class WorkComponent implements OnInit {
 
     setTimeout(() => {
 
-      this.GetWork(this.idProfile);
+      this.GetWork(this.idUser);
     }, 500)
   }
 
@@ -45,7 +47,6 @@ export class WorkComponent implements OnInit {
 
         if (dataResponse.isSuccess) {
           this.dataSourceWork = dataResponse.result.workEntities;
-          console.log(dataResponse.result.workEntities)
         }
       },
       error: () => Alert.mensajeSinExitoToast('error al cargar skills')
@@ -61,7 +62,7 @@ export class WorkComponent implements OnInit {
 
     dialog.afterClosed().subscribe(res => {
 
-      res && this.GetWork(this.idProfile);
+      res && this.GetWork(this.idUser);
     })
   }
 

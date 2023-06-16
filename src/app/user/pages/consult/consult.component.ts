@@ -110,14 +110,13 @@ export class ConsultComponent implements OnInit {
   }
 
   confirmDelete(user: User) {
-    console.log(user, user.id),
       Swal.fire({
         title: 'Esta seguro?',
         text: `Esta a punto de Eliminar el Usuario : ${user.email}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#000',
-      cancelButtonColor: '#198754',
+        cancelButtonColor: '#198754',
         confirmButtonText: 'Si, Borralo!',
       }).then((result) => {
         if (result.isConfirmed) {
