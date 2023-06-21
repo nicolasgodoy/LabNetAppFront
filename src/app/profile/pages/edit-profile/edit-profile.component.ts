@@ -44,7 +44,9 @@ export class EditProfileComponent implements OnInit {
   public previewDoc: string;
   public previewName: string;
   public modify: boolean;
-  public files: any = [];
+  public filesImg: any = [];
+  public filesResumee: any = [];
+
   public formulario: FormGroup;
   public profileEditDto: profileEditDto = new profileEditDto();
   public idUser: number;
@@ -232,7 +234,7 @@ export class EditProfileComponent implements OnInit {
 
         this.previewImg = img.base;
       });
-    this.files.push(archivoCapturado);
+    this.filesImg.push(archivoCapturado);
     console.log();
   }
 
@@ -246,7 +248,7 @@ export class EditProfileComponent implements OnInit {
         this.previewDoc = img.base;
         this.previewName = archivoCapturado.name;
       });
-    this.files.push(archivoCapturado);
+    this.filesResumee.push(archivoCapturado);
     console.log();
   }
 
@@ -301,8 +303,9 @@ export class EditProfileComponent implements OnInit {
     try {
       const FormDatos = new FormData();
       FormDatos.append('id', this.idUser.toString());
-      FormDatos.append('file', this.files[this.files.length - 1]);
       if (isImg) {
+        FormDatos.append('file', this.filesImg[this.filesImg.length - 1]);
+
         this.servicioProfile.UploadImage(FormDatos).subscribe({
           next: (res) => {
             console.log(res);
@@ -313,6 +316,8 @@ export class EditProfileComponent implements OnInit {
         })
       }
       else {
+        FormDatos.append('file', this.filesResumee[this.filesResumee.length - 1]);
+
         this.servicioProfile.UploadResumee(FormDatos).subscribe({
           next: (res) => {
             console.log(res);

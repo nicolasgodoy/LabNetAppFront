@@ -1,6 +1,6 @@
 <div class="container">
   <div class="text-center m-1">
-    <img  src="../assets/profilePicture.png" width="100px" />
+    <img src="../assets/profilePicture.png" width="100px" />
   </div>
   <h1 class="text-center">
     <strong>{{ completeName }} </strong>
@@ -10,24 +10,14 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Descripción</mat-label>
-          <input
-            formControlName="description"
-            matInput
-            placeholder="ingrese mail"
-            autocomplete="off"
-          />
+          <input formControlName="description" matInput placeholder="ingrese mail" autocomplete="off" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input
-            formControlName="email"
-            type="text"
-            matInput
-            placeholder="Email"
-          />
+          <input formControlName="email" type="text" matInput placeholder="Email" />
         </mat-form-field>
       </mat-grid-tile>
 
@@ -41,24 +31,14 @@
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Teléfono</mat-label>
-          <input
-            formControlName="phone"
-            type="text"
-            matInput
-            placeholder="Teléfono"
-          />
+          <input formControlName="phone" type="text" matInput placeholder="Teléfono" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Fecha Nacimiento</mat-label>
-          <input
-            formControlName="fechaNacimiento"
-            type="text"
-            matInput
-            placeholder="Fecha Nacimiento"
-          />
+          <input formControlName="fechaNacimiento" type="text" matInput placeholder="Fecha Nacimiento" />
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
@@ -71,24 +51,14 @@
               <label class="flow-text text">Foto de Perfil</label>
               <br />
 
-              <button
-                style="margin-top: 10px"
-                type="button"
-                class="btn btn-dark form-control"
-                (click)="ImgInput.click()"
-              >
+              <button style="margin-top: 10px" type="button" class="btn btn-dark form-control"
+                (click)="ImgInput.click()">
                 <i class="material-icons right">add_a_photo </i>
                 Subir imagen
               </button>
             </div>
             <div class="row">
-              <input
-                hidden
-                (change)="captureImg($event)"
-                #ImgInput
-                type="file"
-                formControlName="photoProfile"
-              />
+              <input hidden (change)="captureImg($event)" #ImgInput type="file" formControlName="photoProfile" />
 
               <div *ngIf="previewImg" class="row">
                 <div class="row m-3">
@@ -107,32 +77,18 @@
           <div class="col-md-6">
             <label class="flow-text text">CV</label>
             <br />
-            <button
-              style="margin-top: 10px"
-              type="button"
-              class="btn btn-dark form-control"
-              (click)="fileInput.click()"
-            >
+            <button style="margin-top: 10px" type="button" class="btn btn-dark form-control"
+              (click)="fileInput.click()">
               Subir CV
               <i class="material-icons right">insert_drive_file</i>
             </button>
-            <input
-              hidden
-              (change)="captureFile($event)"
-              #fileInput
-              type="file"
-              formControlName="cv"
-            />
+            <input hidden (change)="captureFile($event)" #fileInput type="file" formControlName="cv" />
 
             <div style="margin-top: 35px; margin-left: 5px" *ngIf="previewDoc">
               <label>{{ previewName }}</label>
             </div>
-            <br>  
-            <button
-              *ngIf="previewDoc"
-              class="btn btn-dark form-control"
-              (click)="subirArchivo(false)"
-            >
+            <br>
+            <button *ngIf="previewDoc" class="btn btn-dark form-control" (click)="subirArchivo(false)">
               Enviar archivo
               <i class="material-icons right">send </i>
             </button>
@@ -152,7 +108,7 @@
         <div></div>
       </div>
     </div>
-    
+
     <div class="col m12 center-align">
 
       <h1 class="titulo text">Trabajo</h1>
@@ -160,63 +116,35 @@
 
       <br />
       <h1 class="titulo text">Educacion</h1>
-      <app-profile-education
-        [idProfile]="IdProfile"
-        [modify]="modify"
-        [idUser]="idUser"
-      ></app-profile-education>
+      <app-profile-education [idProfile]="IdProfile" [modify]="modify" [idUser]="idUser"></app-profile-education>
 
       <br>
       <h1 class="titulo text">Skill</h1>
-      <app-profile-skill
-        *ngIf="IdProfile"
-        [idProfile]="IdProfile"
-        [modify]="modify"
-      ></app-profile-skill>
+      <app-profile-skill *ngIf="IdProfile" [idProfile]="IdProfile" [modify]="modify"></app-profile-skill>
 
     </div>
 
     <div class="text-center">
-      <button
-        type="button"
-        *ngIf="modify"
-        (click)="navigate()"
-        routerLinkActive="router-link-active"
-        class="btn btn-success m-1"
-      >
+      <button type="button" *ngIf="modify" (click)="navigate()" routerLinkActive="router-link-active"
+        class="btn btn-success m-1">
         <i class="material-icons left">undo</i>
         Volver
       </button>
 
-      <button
-        type="button"
-        *ngIf="modify"
-        [routerLink]="['/profile/update-password']"
-        class="btn btn-dark m-1"
-      >
+      <button type="button" *ngIf="modify" [routerLink]="['/profile/update-password']" class="btn btn-dark m-1">
         Editar Contraseña
         <i class="material-icons right">lock_open </i>
       </button>
 
-      <button
-        type="submit"
-        *ngIf="modify"
-        class="btn btn-dark m-1"
-      >
+      <button type="submit" *ngIf="modify" class="btn btn-dark m-1">
         Guardar
         <i class="material-icons right">send</i>
       </button>
     </div>
 
     <div class="text-center">
-      <button
-        *ngIf="!modify && checkUser()"
-        (click)="navigate()"
-        type="button"
-        routerLinkActive="router-link-active"
-        style="margin-left: 5px"
-        class="btn btn-dark col-md-4"
-      >
+      <button *ngIf="!modify && checkUser()" (click)="navigate()" type="button" routerLinkActive="router-link-active"
+        style="margin-left: 5px" class="btn btn-dark col-md-4">
         Editar Perfil
         <i class="material-icons right">create</i>
       </button>
