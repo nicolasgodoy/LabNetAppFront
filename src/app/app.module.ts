@@ -22,13 +22,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { DialogAnswerComponent } from './answer/dialog-answer/dialog-answer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SidenavComponent,
-    DialogWorkComponent
+    DialogWorkComponent,
+    DialogAnswerComponent,
   ],
   imports: [
     BrowserModule,

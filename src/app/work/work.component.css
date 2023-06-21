@@ -1,10 +1,7 @@
 .container {
-
     display: flex;
     justify-content: center;
-
 }
-
 
 table {
     border-radius: 1rem;
@@ -14,26 +11,24 @@ table {
 .colum {
     flex: 1;
     padding: 8px;
-}  
+}
 
-.mat-fab{
+.mat-fab {
     background-color: #198754;
-  }
+}
 
-.mat-mini-fab{
+.mat-mini-fab {
     background-color: black;
-  }
-  
+}
 
-
-.btn{
+.btn {
     margin: 0 .5rem;
 }
 
-.btn-add{
+.btn-add {
     transition: all 0.3s ease;
 }
-.btn-add:hover{
-transform: scale(1.05);
+
+.btn-add:hover {
+    transform: scale(1.05);
 }
-  

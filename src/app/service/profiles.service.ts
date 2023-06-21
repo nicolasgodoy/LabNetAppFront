@@ -2,19 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ProfilesDto } from 'src/app/models/ProfileSkill/ProfilesDto';
-import { ProfileDto } from 'src/app/models/ProfileSkill/ProfileDto';
 import { profileDto } from 'src/app/models/Profile/profileDto';
 
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
 import { profileEditDto } from 'src/app/models/Profile/profileEditDto';
 import { AuthService } from './auth.service';
-import { profileFileDto } from '../models/Profile/profileFileDto';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProfilesService {
   apiUrl: string = environment.apiLab;
   endPoint: string = 'Profile';

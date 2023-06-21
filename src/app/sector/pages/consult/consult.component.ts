@@ -26,7 +26,9 @@ import Swal from 'sweetalert2';
   templateUrl: './consult.component.html',
   styleUrls: ['./consult.component.css'],
 })
+
 export class ConsultComponent implements OnInit {
+
   formSector: FormGroup;
   tituloAccionSkill: string = 'Nuevo';
   botonAccion: string = 'Guardar';
@@ -35,11 +37,11 @@ export class ConsultComponent implements OnInit {
   displayedColumns: string[] = ['description', 'acciones'];
 
   constructor(
+
     private spinnerService: NgxSpinnerService,
     private sectorService: sectorService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
-
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public dataSector: Sector
   ) {
@@ -48,13 +50,6 @@ export class ConsultComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')],
       ],
-    });
-
-    this.sectorService.getAllSector().subscribe({
-      next: (data: ResponseDto) => {
-        this.listaSector = data.result;
-      },
-      error: (e) => {},
     });
   }
 

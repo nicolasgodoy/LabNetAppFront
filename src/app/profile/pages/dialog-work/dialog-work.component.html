@@ -33,12 +33,13 @@
     
       </mat-grid-tile>
 
-      <mat-grid-tile><mat-form-field>
-        <mat-label>Posicion</mat-label>
-          <mat-select formControlName="position">
-            <mat-option *ngFor="let position of positionArr"
-              [value]="position.idJobPosition">{{position.description}}</mat-option>
-          </mat-select>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Posicion</mat-label>
+            <mat-select formControlName="position">
+              <mat-option *ngFor="let position of positionArr"
+                [value]="position.idJobPosition">{{position.description}}</mat-option>
+            </mat-select>
         </mat-form-field>
       </mat-grid-tile>
 

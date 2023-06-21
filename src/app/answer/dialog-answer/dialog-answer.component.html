@@ -1,0 +1,101 @@
+<div class="container">
+    <h1 style="text-align: center; font-family: Arial, Helvetica, sans-serif;">
+        Agregar Respuesta
+    </h1>
+</div>
+
+<div>
+    <form [formGroup]="formAnswer">
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                        <input 
+                            type="text" 
+                            matInput
+                            formControlName="description"
+                            placeholder="Descripción"
+                            autocomplete="off">
+                </mat-form-field>
+            </mat-grid-tile>            
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Respuesta</mat-label>
+                    <mat-select formControlName="isCorrect">
+                        <mat-option *ngFor="let valor of valores"
+                                    [value]="valor"> </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre del archivo</mat-label>
+                        <input 
+                            type="text" 
+                            matInput
+                            formControlName="fileName"
+                            placeholder="Nombre del archivo"
+                            autocomplete="off">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="2" rowHeight="90px">
+            <mat-grid-tile>
+                <button
+                    type="button"
+                    class="btn btn-dark form-control"
+                    (click)="ImgInput.click()"
+                    >
+                        Subir Imagen
+                    <i class="material-icons right">
+                        add_a_photo
+                    </i>
+                </button>
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
+                <div class="row">
+                    <input
+                      type="file"
+                      formControlName="photoAnswer"
+                      hidden
+                      #ImgInput
+                      (change)="captureImg($event)"
+                    />
+
+                    <div *ngIf="previewImg" class="row">
+                        <div class="row m-3">
+                          <img width="120px" [src]="previewImg"/>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
+
+<div mat-dialog-actions>
+    <button
+        mat-raised-button
+        class="botonGuardar"
+        (click)="AddAnswer()"
+    >
+        Guardar
+    </button>
+
+    <button
+        class="botonVolver"
+        mat-raised-button
+        mat-dialog-close
+    >
+        Volver
+    </button>
+</div>

@@ -297,12 +297,12 @@ export class EditProfileComponent implements OnInit {
     }
   })
 
-  subirArchivo(isImg:boolean) {
+  subirArchivo(isImg: boolean) {
     try {
       const FormDatos = new FormData();
       FormDatos.append('id', this.idUser.toString());
       FormDatos.append('file', this.files[this.files.length - 1]);
-      if (isImg){
+      if (isImg) {
         this.servicioProfile.UploadImage(FormDatos).subscribe({
           next: (res) => {
             console.log(res);
@@ -322,7 +322,7 @@ export class EditProfileComponent implements OnInit {
           }
         })
       }
-      
+
     }
     catch (error) {
       console.log(error)

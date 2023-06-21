@@ -1,1 +1,126 @@
-<p>add works!</p>
+<h1 mat-dialog-title 
+    style="text-align: center;">
+        Agregar Pregunta
+</h1>
+
+<div mat-dialog-content>
+
+    <form [formGroup]="formQuestion">
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <input 
+                        type="text"
+                        matInput
+                        formControlName="description"
+                        placeholder="Descripción"
+                        autocomplete="off">
+                        <mat-error 
+                            *ngIf="formQuestion.get('description')?.touched &&
+                                   formQuestion.get('description')?.errors?.['required']">
+                                   <span>Descripción es requerida</span>
+                        </mat-error>
+
+                        <mat-error 
+                            *ngIf="formQuestion.get('description')?.touched &&
+                                   formQuestion.get('description')?.hasError?.('maxlength')">
+                                   <span>Valor máximo permitido 120 carácter</span>
+                        </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Puntuación de la pregunta</mat-label>
+                    <input 
+                        type="text"
+                        matInput
+                        formControlName="punctuation"
+                        placeholder="Puntuación de la pregunta"
+                        autocomplete="off">
+                        <mat-error 
+                            *ngIf="formQuestion.get('punctuation')?.touched &&
+                                   formQuestion.get('punctuation')?.errors?.['required']">
+                                   <span>Puntuación es requerida</span>
+                        </mat-error>
+
+                        <mat-error 
+                            *ngIf="formQuestion.get('punctuation')?.touched &&
+                                   formQuestion.get('punctuation')?.errors?.['pattern']">
+                                   <span>Este campo solo permite números</span>
+                        </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre del archivo</mat-label>
+                    <input 
+                        type="text"
+                        matInput
+                        formControlName="fileName"
+                        placeholder="Nombre del archivo"
+                        autocomplete="off">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="2" rowHeight="90px">
+            <mat-grid-tile>
+                <button
+                    type="button"
+                    class="btn btn-dark form-control"
+                    (click)="ImgInputAnswer.click()"
+                    >
+                        Subir Imagen
+                    <i class="material-icons right">
+                        add_a_photo
+                    </i>
+                </button>
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
+                <div class="row">
+                    <input
+                      type="file"
+                      formControlName="photoQuestion"
+                      hidden
+                      #ImgInputAnswer
+                      (change)="captureImg($event)"
+                    />
+
+                    <div *ngIf="previewImg" class="row">
+                        <div class="row m-3">
+                          <img width="120px" [src]="previewImg"/>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
+
+<div mat-dialog-actions>
+    <button
+        mat-raised-button
+        class="botonGuardar"
+        (click)="AddQuestion()"
+        [disabled]="formQuestion.invalid"
+    >
+        Guardar
+    </button>
+
+    <button
+        class="botonVolver"
+        mat-raised-button
+        mat-dialog-close
+    >
+        Volver
+    </button>
+</div>

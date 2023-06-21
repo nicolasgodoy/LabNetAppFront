@@ -25,7 +25,9 @@ import Swal from 'sweetalert2';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
 })
+
 export class AddComponent implements AfterViewInit, OnInit {
+
   formSector: FormGroup;
   tituloAccionSkill: string = 'Nuevo';
   botonAccion: string = 'Guardar';
@@ -34,14 +36,15 @@ export class AddComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['description', 'acciones'];
 
   constructor(
-    private spinnerService: NgxSpinnerService,
     private sectorService: sectorService,
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private fb: FormBuilder,
 
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public dataSector: Sector
+
   ) {
+
     this.formSector = this.fb.group({
       description: [
         '',
@@ -53,12 +56,12 @@ export class AddComponent implements AfterViewInit, OnInit {
       next: (data: ResponseDto) => {
         this.listaSector = data.result;
       },
-      error: (e) => {},
+      error: (e) => { },
     });
   }
 
   ngOnInit(): void {
-    
+
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -72,12 +75,16 @@ export class AddComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  
+
   AddSectors(): void {
+
     if (this.formSector.valid) {
+
       const modelo: Sector = {
+
         description: this.formSector.value.description,
       };
+      
       this.sectorService.addSector(modelo).subscribe(
         (ResponseDto: Sector) => {
           Alert.mensajeExitoToast();
@@ -101,7 +108,7 @@ export class AddComponent implements AfterViewInit, OnInit {
       .afterClosed()
       .subscribe((resultado) => {
         if (resultado === 'creado') {
-          
+
         }
       });
   }

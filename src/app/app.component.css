@@ -5,11 +5,12 @@
   justify-content: center;
   /* border: 1px solid rgba(0, 0, 0, 0.5); */
 }
-.expample-container{
-  position:relative
+
+.expample-container {
+  position: relative
 }
 
-.log-out-button{
+.log-out-button {
   top: 3vh;
 }
 
@@ -17,6 +18,7 @@
   width: 10rem;
   border-radius: 50%;
 }
+
 .sidenav-content {
   height: 100%;
 }

@@ -5,6 +5,7 @@ body {
   height: 100%;
   width: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto "Helvetica Neue", sans-serif;
@@ -76,10 +77,12 @@ table {
 .error {
   color: red;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
