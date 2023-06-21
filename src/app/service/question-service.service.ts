@@ -29,7 +29,7 @@ export class QuestionServiceService {
     return this.http.get<ResponseDto>(url);
   }
 
-  public AddQuestion(addQuestion: QuestionDto): Observable<ResponseDto> {
+  public AddQuestion(addQuestion: FormData): Observable<ResponseDto> {
     // this.userToken = `Bearer ${this.authservice.readToken()}`;
     // const headers = new HttpHeaders({ 'Authorization': this.userToken });
     let url = `${this.urlApi}${this.endpoint}/Insert`;

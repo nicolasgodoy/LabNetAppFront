@@ -15,7 +15,7 @@ export class AddComponent implements OnInit {
   public formQuestion: FormGroup;
   public previewImg: string;
   public files: any = [];
-  
+
   constructor(
 
     private sanitizer: DomSanitizer,
@@ -30,7 +30,7 @@ export class AddComponent implements OnInit {
       fileName: [''],
       photoQuestion: ['']
     });
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -38,31 +38,8 @@ export class AddComponent implements OnInit {
   AddQuestion(): void {
 
     if (this.formQuestion.valid) {
-      
-      const questionInsert: QuestionDto = {
 
-        description: this.formQuestion.value.description,
-        value: this.formQuestion.value.punctuation,
-        idSkill: 1,
-        fileName: this.formQuestion.value.fileName,
-        file: this.formQuestion.value.photoQuestion
-      }
-
-      console.log(questionInsert);
-
-      this.questionService.AddQuestion(questionInsert).subscribe({
-
-        next: (response => {
-
-          console.log(response.result);
-        }),
-
-        error: (error => {
-
-          console.log(error)
-      console.log(questionInsert);
-        })
-      })
+      this.subirFormulario();
     }
   }
 
@@ -101,4 +78,27 @@ export class AddComponent implements OnInit {
       return null;
     }
   })
+
+  subirFormulario() {
+    try {
+      const FormDatos = new FormData();
+      FormDatos.append('file', this.files[0]);
+      FormDatos.append('fileName', this.formQuestion.value.fileName);
+      FormDatos.append('idSkill', '1');
+      FormDatos.append('description', this.formQuestion.value.description);
+      FormDatos.append('value', this.formQuestion.value.punctuation);
+
+      this.questionService.AddQuestion(FormDatos).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 }
