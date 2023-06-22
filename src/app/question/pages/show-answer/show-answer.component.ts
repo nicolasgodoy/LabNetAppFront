@@ -92,12 +92,12 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
       idQuestion: this.dataQuestion.id, idAnswer: this.inputValue?.id,
       isCorrect: this.toggleValue
     }
-    
+    console.log(data.isCorrect);
+
     console.log(this.dataSourceAnswer.data)
     if (this.dataSourceAnswer.data.length < 4) {
       this.answerService.InsertInQuestion(data).subscribe({
         next: (dataResponse: ResponseDto) => {
-          console.log(dataResponse);
           Alert.mensajeExitoToast('Respuesta agregada correctamente');
           this.dataSourceAnswer.data = [];
           this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {

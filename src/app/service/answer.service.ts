@@ -35,13 +35,17 @@ export class AnswerService {
 
   
   public InsertAnswer(addAnswer: FormData): Observable<ResponseDto>{
-
+    const userToken = `Bearer ${this._authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = `${this.apiUrl}${this.endpoint}/Insert`;
-    return this.http.post<ResponseDto>(url, addAnswer);
+    return this.http.post<ResponseDto>(url, addAnswer,options);
   }
   public DeleteAnswer(id: number): Observable<ResponseDto>{
-
+    const userToken = `Bearer ${this._authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = `${this.apiUrl}${this.endpoint}/Delete/${id}`;
-    return this.http.delete<ResponseDto>(url);
+    return this.http.delete<ResponseDto>(url,options);
   }
 }
