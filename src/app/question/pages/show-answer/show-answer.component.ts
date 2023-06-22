@@ -1,6 +1,7 @@
 import { Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map, startWith } from 'rxjs';
 import { Alert } from 'src/app/helpers/alert';
@@ -16,21 +17,23 @@ import { QuestionServiceService } from 'src/app/service/question-service.service
   templateUrl: './show-answer.component.html',
   styleUrls: ['./show-answer.component.css']
 })
-export class ShowAnswerComponent implements OnInit , OnChanges{
+export class ShowAnswerComponent implements OnInit, OnChanges {
 
-  public displayedColumns: string[] = ['description', 'file'];
+  public displayedColumns: string[] = ['description', 'file','correcta'];
   public dataSourceAnswer = new MatTableDataSource();
-  listAnswer:Answer[] = [];
+  listAnswer: Answer[] = [];
   myControl = new FormControl<string | Answer>('');
   filteredOptions?: Observable<Answer[]>;
-  inputValue?:Answer;
-  isValid:boolean = false;
+  inputValue?: Answer;
+  isValid: boolean = false;
+  toggleValue: boolean = false;
+
 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataQuestion: QuestionDto,
     private answerService: AnswerService,
-    private questionService :QuestionServiceService
+    private questionService: QuestionServiceService
   ) {
 
   }
@@ -38,10 +41,11 @@ export class ShowAnswerComponent implements OnInit , OnChanges{
 
   ngOnInit(): void {
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
+    console.log(this.dataSourceAnswer.data);
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
     })
-    
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
@@ -51,7 +55,7 @@ export class ShowAnswerComponent implements OnInit , OnChanges{
     );
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.validBtn();
   }
 
@@ -59,40 +63,52 @@ export class ShowAnswerComponent implements OnInit , OnChanges{
     const filterValue = name.toLowerCase();
 
     return this.listAnswer.filter((answer) =>
-    answer.description.toLowerCase().includes(filterValue)
+      answer.description.toLowerCase().includes(filterValue)
     );
   }
   displayFn(entity: Answer): string {
     return entity && entity.description ? entity.description : '';
   }
 
-  filterRepeated(){
-    let list:Answer[] = this.dataQuestion.answerEntities;
+  filterRepeated() {
+    let list: Answer[] = this.dataQuestion.answerEntities;
     this.listAnswer = this.listAnswer.filter(s => !list.find(p => p.id === s.id));
   }
 
-  validBtn(){
+  validBtn() {
     this.listAnswer.find(s => s.description == this.inputValue?.description) ?
       this.isValid = true : this.isValid = false;
   }
+  onSlideToggleChange(event: MatSlideToggleChange) {
+    this.toggleValue = event.checked;
 
-  addSAnswerToQuestion(){
+  }
+
+  addSAnswerToQuestion() {
+
     event?.preventDefault()
     const data: questionAnswerDto = {
-      idQuestion: this.dataQuestion.id, idAnswer: this.inputValue?.id,
-      isCorrect: false
-    }
-    this.answerService.InsertInQuestion(data).subscribe({
-      next: (dataResponse: ResponseDto) => {
-        Alert.mensajeExitoToast('Respuesta agregada correctamente');
-        //reload tab
-           // Reload the table
-      this.dataSourceAnswer.data = []; 
-      this.questionService.GetQuestionById(this.dataQuestion.id).subscribe( res => {
-        this.dataSourceAnswer.data = res.result.answerEntities;
-      });
 
-      }, error: () => Alert.mensajeSinExitoToast('ocurrio un error inesperado')
-    })
+      idQuestion: this.dataQuestion.id, idAnswer: this.inputValue?.id,
+      isCorrect: this.toggleValue
+    }
+    
+    console.log(this.dataSourceAnswer.data)
+    if (this.dataSourceAnswer.data.length < 4) {
+      this.answerService.InsertInQuestion(data).subscribe({
+        next: (dataResponse: ResponseDto) => {
+          console.log(dataResponse);
+          Alert.mensajeExitoToast('Respuesta agregada correctamente');
+          this.dataSourceAnswer.data = [];
+          this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
+            this.dataSourceAnswer.data = res.result.answerEntities;
+          });
+
+        }, error: () => Alert.mensajeSinExitoToast('ocurrio un error inesperado')
+      })
+    }
+    else Alert.mensajeSinExitoToast("Se ha alcanzado el limite de respuestas por pregunta.");
   }
+
+
 }

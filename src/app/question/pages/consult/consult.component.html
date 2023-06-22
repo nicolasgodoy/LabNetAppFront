@@ -49,6 +49,7 @@
                 <td mat-cell *matCellDef="let element">
                     <button
                         mat-raised-button
+                        class="blackButton"
                         (click)="confirmDelete(element)">
                         Eliminar
                     </button>
@@ -56,9 +57,10 @@
             </ng-container>
     
             <ng-container matColumnDef="consultar">
-                <th mat-header-cell *matHeaderCellDef>Consultar</th>
+                <th mat-header-cell *matHeaderCellDef>Preguntas</th>
                 <td mat-cell *matCellDef="let element">
                     <button
+                        class="blackButton"
                         mat-raised-button
                         (click)="showAnswers(element)">
                         Consultar
