@@ -49,6 +49,7 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
+        console.log(resp.result);
       },
 
       error: (error) => {
@@ -60,11 +61,18 @@ export class ConsultComponent implements OnInit {
 
   dialogAddQuestion(): void {
 
-    const dialogRef = this.dialog.open(AddComponent, {
+    this.dialog.open(AddComponent, {
 
       width: '30%',
-      disableClose: false
-    });
+      disableClose: true
+    }).afterClosed()
+      .subscribe((resp) => {
+
+        if (resp === 'creado') {
+
+          this.showQuestion();
+        }
+      })
   }
 
 

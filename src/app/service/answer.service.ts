@@ -34,4 +34,14 @@ export class AnswerService {
   }
 
   
+  public InsertAnswer(addAnswer: FormData): Observable<ResponseDto>{
+
+    let url = `${this.apiUrl}${this.endpoint}/Insert`;
+    return this.http.post<ResponseDto>(url, addAnswer);
+  }
+  public DeleteAnswer(id: number): Observable<ResponseDto>{
+
+    let url = `${this.apiUrl}${this.endpoint}/Delete/${id}`;
+    return this.http.delete<ResponseDto>(url);
+  }
 }

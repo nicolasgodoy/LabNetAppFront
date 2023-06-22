@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
+import { SkillService } from 'src/app/service/skill.service';
 
 @Component({
   selector: 'app-add',
@@ -15,25 +16,32 @@ export class AddComponent implements OnInit {
   public formQuestion: FormGroup;
   public previewImg: string;
   public files: any = [];
+  public skillArr: any = [];
 
   constructor(
 
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
-    private questionService: QuestionServiceService
+    private questionService: QuestionServiceService,
+    private dialogoReferencia: MatDialogRef<AddComponent>,
+    private skillServices: SkillService
   ) {
 
     this.formQuestion = this.formBuilder.group({
 
       description: ['', [Validators.required, Validators.maxLength(120)]],
-      punctuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      fileName: [''],
+      puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      skill: [''],
+      fileName: ['', [Validators.required]],
       photoQuestion: ['']
     });
   }
 
   ngOnInit(): void {
+
+    this.GetSkill();
   }
+
 
   AddQuestion(): void {
 
@@ -41,6 +49,23 @@ export class AddComponent implements OnInit {
 
       this.subirFormulario();
     }
+  }
+
+  GetSkill(): void {
+
+    this.skillServices.getSkill().subscribe({
+
+      next: (resp => {
+
+        this.skillArr = resp.result;
+        console.log(this.skillArr);
+      }),
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    })
   }
 
   //Para los Archivos de IMG
@@ -80,18 +105,20 @@ export class AddComponent implements OnInit {
   })
 
   subirFormulario() {
-    
+
     try {
       const FormDatos = new FormData();
       FormDatos.append('file', this.files[0]);
       FormDatos.append('fileName', this.formQuestion.value.fileName);
-      FormDatos.append('idSkill', '1');
+      FormDatos.append('idSkill', this.formQuestion.value.skill);
       FormDatos.append('description', this.formQuestion.value.description);
-      FormDatos.append('value', this.formQuestion.value.punctuation);
+      FormDatos.append('value', this.formQuestion.value.puntuation);
+      FormDatos.append('photoQuestion', this.formQuestion.value.photoQuestion)
 
       this.questionService.AddQuestion(FormDatos).subscribe({
         next: (res) => {
           console.log(res);
+          this.dialogoReferencia.close('creado');
         },
         error: (error) => {
           console.log(error);

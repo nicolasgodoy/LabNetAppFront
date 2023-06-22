@@ -39,18 +39,18 @@
                     <input 
                         type="text"
                         matInput
-                        formControlName="punctuation"
+                        formControlName="puntuation"
                         placeholder="Puntuación de la pregunta"
                         autocomplete="off">
                         <mat-error 
-                            *ngIf="formQuestion.get('punctuation')?.touched &&
-                                   formQuestion.get('punctuation')?.errors?.['required']">
+                            *ngIf="formQuestion.get('puntuation')?.touched &&
+                                   formQuestion.get('puntuation')?.errors?.['required']">
                                    <span>Puntuación es requerida</span>
                         </mat-error>
 
                         <mat-error 
-                            *ngIf="formQuestion.get('punctuation')?.touched &&
-                                   formQuestion.get('punctuation')?.errors?.['pattern']">
+                            *ngIf="formQuestion.get('puntuation')?.touched &&
+                                   formQuestion.get('puntuation')?.errors?.['pattern']">
                                    <span>Este campo solo permite números</span>
                         </mat-error>
                 </mat-form-field>
@@ -59,14 +59,12 @@
 
         <mat-grid-list cols="1" rowHeight="90px">
             <mat-grid-tile>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre del archivo</mat-label>
-                    <input 
-                        type="text"
-                        matInput
-                        formControlName="fileName"
-                        placeholder="Nombre del archivo"
-                        autocomplete="off">
+                <mat-form-field>
+                  <mat-label>Skill</mat-label>
+                    <mat-select formControlName="skill">
+                      <mat-option *ngFor="let skill of skillArr"
+                        [value]="skill.id">{{skill.description}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </mat-grid-tile>
         </mat-grid-list>
@@ -101,6 +99,26 @@
                         </div>
                     </div>
                 </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field *ngIf="previewImg" appearance="outline">
+                    <mat-label>Nombre del archivo</mat-label>
+                    <input 
+                        matInput
+                        formControlName="fileName"
+                        placeholder="Nombre del archivo"
+                        autocomplete="off"
+                    >
+
+                    <mat-error 
+                            *ngIf="formQuestion.get('fileName')?.touched &&
+                                   formQuestion.get('fileName')?.errors?.['required']">
+                                   <span>Nombre es requerida</span>
+                        </mat-error>
+                </mat-form-field>
             </mat-grid-tile>
         </mat-grid-list>
     </form>
