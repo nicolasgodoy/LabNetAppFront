@@ -80,6 +80,7 @@ export class AddComponent implements OnInit {
   })
 
   subirFormulario() {
+    
     try {
       const FormDatos = new FormData();
       FormDatos.append('file', this.files[0]);

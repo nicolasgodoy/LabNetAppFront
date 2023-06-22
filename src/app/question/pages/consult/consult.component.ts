@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit , ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddComponent } from '../add/add.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,8 +17,8 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ConsultComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['description', 'value', 
-  'image', 'acciones'];
+  public displayedColumns: string[] = ['description', 'value',
+    'image', 'acciones'];
   public dataSourceQuestion = new MatTableDataSource();
 
   constructor(
@@ -48,7 +48,6 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
-        console.log(resp.result);
       },
 
       error: (error) => {
@@ -89,7 +88,7 @@ export class ConsultComponent implements OnInit {
             this.showQuestion();
           },
           error: (e) => {
-            
+
             Alert.mensajeSinExitoToast();
           },
         });

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogAnswerComponent } from './dialog-answer/dialog-answer.component';
+import { AnswerService } from '../service/answer.service';
+import { Answer } from '../models/Answer/answer';
 
 @Component({
   selector: 'app-answer',
@@ -9,17 +11,22 @@ import { DialogAnswerComponent } from './dialog-answer/dialog-answer.component';
   styleUrls: ['./answer.component.css']
 })
 
-export class AnswerComponent implements OnInit {
+export class AnswerComponent implements OnInit, AfterViewInit {
 
-  public displayedColumnsAnswer: string[] = ['description', 'isCorrect', 'add',
-  ];
+  public displayedColumnsAnswer: string[] = ['description', 'acciones', 'add'];
   public dataSourceAnswer = new MatTableDataSource();
 
   constructor(
-    public dialog: MatDialog
+    private dialog: MatDialog,
+    private answerService: AnswerService
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(){
+
+    this.getAll();
   }
 
   openDialogAnswer(): void {
@@ -28,5 +35,27 @@ export class AnswerComponent implements OnInit {
 
       width: '500px'
     });
+  }
+
+  getAll() {
+
+    this.answerService.GetAllAnswer().subscribe({
+
+      next: (resp) => {
+
+        this.dataSourceAnswer.data = resp.result;
+        console.log(this.dataSourceAnswer.data);
+        console.log(resp.result);
+      },
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    })
+  }
+
+  confirmDelete(answer: Answer) {
+
   }
 }
