@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit,OnChanges } from '@angular/core';
+import { Component, Inject, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
@@ -30,8 +30,8 @@ export class DialogWorkComponent implements OnInit {
   ubicacionArr: Ubicacion[] = [];
   tipoEmpleoArr: TipoEmpleo[] = [];
   positionArr: JobPosition[] = [];
-  current:boolean = false;
-  idProfile:number;
+  current: boolean = false;
+  idProfile: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,7 +54,7 @@ export class DialogWorkComponent implements OnInit {
       tipoEmpleo: [''],
       position: [''],
       startDate: ['', [Validators.required]],
-      endDate: [{disabled:this.current,value:''}],
+      endDate: [{ disabled: this.current, value: '' }],
       isCurrent: ['']
     });
 
@@ -77,11 +77,11 @@ export class DialogWorkComponent implements OnInit {
     if (typeof this.data == 'number') {
       this.titulo = 'Insertar';
       this.idProfile = this.data;
-    }else{
+    } else {
       this.titulo = 'Editar';
       this.idProfile = null;
     }
-    
+
     this.formGroup.patchValue({
 
       company: this.data.company,
@@ -127,7 +127,7 @@ export class DialogWorkComponent implements OnInit {
     })
   }
 
-  
+
   GetJobPosition(): void {
 
     this.jobPositionServices.GetAllPosition().subscribe({
@@ -182,7 +182,7 @@ export class DialogWorkComponent implements OnInit {
       idWorkType: this.formGroup.value.tipoEmpleo,
       idJobPosition: this.formGroup.value.position,
       startDate: this.formGroup.value.startDate,
-      endDate: this.formGroup.value.isCurrent? null : this.formGroup.value.endDate,
+      endDate: this.formGroup.value.isCurrent ? null : this.formGroup.value.endDate,
       idProfile: this.data.idProfile
     }
 

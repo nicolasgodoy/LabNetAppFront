@@ -17,34 +17,20 @@
                             formControlName="description"
                             placeholder="Descripción"
                             autocomplete="off">
+
+                            <mat-error 
+                            *ngIf="formAnswer.get('description')?.touched &&
+                            formAnswer.get('description')?.errors?.['required']">
+                                   <span>Descripción es requerida</span>
+                        </mat-error>
+
+                        <mat-error 
+                            *ngIf="formAnswer.get('description')?.touched &&
+                                   formAnswer.get('description')?.hasError?.('maxlength')">
+                                   <span>Valor máximo permitido 120 carácter</span>
+                        </mat-error>
                 </mat-form-field>
             </mat-grid-tile>            
-        </mat-grid-list>
-
-        <!-- <mat-grid-list cols="1" rowHeight="90px">
-            <mat-grid-tile>
-                <mat-form-field appearance="outline">
-                    <mat-label>Respuesta</mat-label>
-                    <mat-select formControlName="isCorrect">
-                        <mat-option *ngFor="let valor of valores"
-                                    [value]="valor"> </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </mat-grid-tile>
-        </mat-grid-list> -->
-
-        <mat-grid-list cols="1" rowHeight="90px">
-            <mat-grid-tile>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre del archivo</mat-label>
-                        <input 
-                            type="text" 
-                            matInput
-                            formControlName="fileName"
-                            placeholder="Nombre del archivo"
-                            autocomplete="off">
-                </mat-form-field>
-            </mat-grid-tile>
         </mat-grid-list>
 
         <mat-grid-list cols="2" rowHeight="90px">
@@ -77,6 +63,20 @@
                         </div>
                     </div>
                 </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field *ngIf="previewImg" appearance="outline">
+                    <mat-label>Nombre del archivo</mat-label>
+                        <input 
+                            type="text" 
+                            matInput
+                            formControlName="fileName"
+                            placeholder="Nombre del archivo"
+                            autocomplete="off">
+                </mat-form-field>
             </mat-grid-tile>
         </mat-grid-list>
     </form>

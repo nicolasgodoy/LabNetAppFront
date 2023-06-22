@@ -20,4 +20,15 @@ export class AnswerService {
     let url = `${this.apiUrl}${this.endpoint}/Get`;
     return this.http.get<ResponseDto>(url);
   }
+
+  public InsertAnswer(addAnswer: FormData): Observable<ResponseDto>{
+
+    let url = `${this.apiUrl}${this.endpoint}/Insert`;
+    return this.http.post<ResponseDto>(url, addAnswer);
+  }
+  public DeleteAnswer(id: number): Observable<ResponseDto>{
+
+    let url = `${this.apiUrl}${this.endpoint}/Delete/${id}`;
+    return this.http.delete<ResponseDto>(url);
+  }
 }

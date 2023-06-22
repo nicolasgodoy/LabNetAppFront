@@ -18,7 +18,7 @@ export class ConsultComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['description', 'value',
-    'image', 'acciones'];
+    'skill', 'image', 'acciones'];
   public dataSourceQuestion = new MatTableDataSource();
 
   constructor(
@@ -48,6 +48,7 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
+        console.log(resp.result);
       },
 
       error: (error) => {
@@ -59,18 +60,25 @@ export class ConsultComponent implements OnInit {
 
   dialogAddQuestion(): void {
 
-    const dialogRef = this.dialog.open(AddComponent, {
+    this.dialog.open(AddComponent, {
 
       width: '30%',
-      disableClose: false
-    });
+      disableClose: true
+    }).afterClosed()
+      .subscribe((resp) => {
+
+        if (resp === 'creado') {
+
+          this.showQuestion();
+        }
+      })
   }
 
   confirmDelete(dataQuestion: QuestionDto) {
 
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar el Sector : ${dataQuestion.description}`,
+      text: `Esta a punto de Eliminar el Pregunta : ${dataQuestion.description}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
