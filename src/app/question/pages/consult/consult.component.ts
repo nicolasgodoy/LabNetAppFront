@@ -7,7 +7,6 @@ import { QuestionDto } from 'src/app/models/Question/questionDto';
 import Swal from 'sweetalert2';
 import { Alert } from 'src/app/helpers/alert';
 import { MatPaginator } from '@angular/material/paginator';
-import { ShowAnswerComponent } from '../show-answer/show-answer.component';
 
 @Component({
   selector: 'app-consult',
@@ -19,7 +18,7 @@ export class ConsultComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['description', 'value',
-    'image', 'acciones', 'consultar'];
+    'skill', 'image', 'acciones'];
   public dataSourceQuestion = new MatTableDataSource();
 
   constructor(
@@ -75,12 +74,11 @@ export class ConsultComponent implements OnInit {
       })
   }
 
-
   confirmDelete(dataQuestion: QuestionDto) {
 
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar la pregunta : ${dataQuestion.description}`,
+      text: `Esta a punto de Eliminar el Pregunta : ${dataQuestion.description}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
@@ -104,22 +102,5 @@ export class ConsultComponent implements OnInit {
         });
       }
     });
-  }
-
-  //show answers
-  dialogShowAnswer(dataQuestion: QuestionDto) {
-    this.dialog
-      .open(ShowAnswerComponent, {
-        disableClose: false,
-        width: '70%',
-        data: dataQuestion
-      })
-      .afterClosed()
-      .subscribe(() => {
-        this.showQuestion();
-      });
-  }
-  showAnswers(dataQuestion: QuestionDto) {
-    this.dialogShowAnswer(dataQuestion);
   }
 }

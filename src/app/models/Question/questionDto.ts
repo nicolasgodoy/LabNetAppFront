@@ -1,5 +1,3 @@
-import { Answer } from "../Answer/answer";
-
 export interface QuestionDto {
 
     id?: number;
@@ -8,5 +6,4 @@ export interface QuestionDto {
     idSkill: number;
     fileName?: string;
     file?: string;
-    answerEntities : Answer[];
 }
