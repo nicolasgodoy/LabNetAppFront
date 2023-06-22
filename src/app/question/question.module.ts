@@ -5,6 +5,7 @@ import { ConsultComponent } from './pages/consult/consult.component';
 import { SharedModule } from '../shared/shared.module';
 import { QuestionRoutingModule } from './question-routing.module';
 import { AnswerComponent } from '../answer/answer.component';
+import { ShowAnswerComponent } from './pages/show-answer/show-answer.component';
 
 
 
@@ -12,7 +13,8 @@ import { AnswerComponent } from '../answer/answer.component';
   declarations: [
     AddComponent,
     ConsultComponent,
-    AnswerComponent
+    AnswerComponent,
+    ShowAnswerComponent
   ],
   imports: [
     CommonModule,
