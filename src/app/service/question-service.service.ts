@@ -23,23 +23,35 @@ export class QuestionServiceService {
     private authservice: AuthService
   ) { }
 
-  public GetAllQuestion(): Observable<ResponseDto>{
-
+  public GetAllQuestion(): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authservice.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = `${this.urlApi}${this.endpoint}/Get`;
-    return this.http.get<ResponseDto>(url);
+    return this.http.get<ResponseDto>(url,options);
   }
 
   public AddQuestion(addQuestion: FormData): Observable<ResponseDto> {
-    // this.userToken = `Bearer ${this.authservice.readToken()}`;
-    // const headers = new HttpHeaders({ 'Authorization': this.userToken });
+    const userToken = `Bearer ${this.authservice.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = `${this.urlApi}${this.endpoint}/Insert`;
-    console.log(url)
-    return this.http.post<ResponseDto>(url, addQuestion);
+    return this.http.post<ResponseDto>(url, addQuestion, options);
   }
 
-  public DeleteQuestion(id: number): Observable<ResponseDto>{
-
+  public DeleteQuestion(id: number): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authservice.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
     let url = `${this.urlApi}${this.endpoint}/Delete/${id}`;
-    return this.http.delete<ResponseDto>(url);
+    return this.http.delete<ResponseDto>(url,options);
+  }
+
+  public GetQuestionById(id:number): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authservice.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = `${this.urlApi}${this.endpoint}/Get/`+id;
+    return this.http.get<ResponseDto>(url,options);
   }
 }
