@@ -55,12 +55,9 @@ export class LoginComponent implements OnInit {
           if (resp.isSuccess && resp.result.token.length > 2) {
             const token = this.auth.readToken();
             const userObject = this.auth.DecodeJWT(token);
-            console.log(userObject);
             const id = this.auth.getValueByKey(userObject, 'IdUser');
-            console.log(id);
 
             this.profileService.HasProfile(id).subscribe((res) => {
-              console.log(res);
               if (res.result) this.route.navigateByUrl('/home');
               else this.route.navigateByUrl('profile/add-profile/' + id);
             });

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnswerService } from 'src/app/service/answer.service';
@@ -25,9 +25,7 @@ export class DialogAnswerComponent implements OnInit {
   ) {
 
     this.formAnswer = this.fb.group({
-
       description: ['',[Validators.required, Validators.maxLength(120)]],
-      fileName: [''],
       photoAnswer: ['']
     })
    }
@@ -55,7 +53,6 @@ export class DialogAnswerComponent implements OnInit {
 
       this.answerService.InsertAnswer(FormDatos).subscribe({
         next: (res) => {
-          console.log(res);
           this.dialogoReferencia.close('creado');
         },
         error: (error) => {
@@ -73,7 +70,7 @@ export class DialogAnswerComponent implements OnInit {
     const archivoCapturado = event.target.files[0];
     this.extraerBase64(archivoCapturado)
       .then((img: any) => {
-
+        this.formAnswer.addControl('fileName', new FormControl('',[Validators.required]));
         this.previewImg = img.base;
       });
     this.files.push(archivoCapturado);

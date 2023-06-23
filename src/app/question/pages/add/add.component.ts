@@ -33,7 +33,6 @@ export class AddComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       skill: ['',[Validators.required]],
-      //fileName: ['', [Validators.required]],
       photoQuestion: ['']
     });
   }
@@ -59,7 +58,6 @@ export class AddComponent implements OnInit {
       next: (resp => {
 
         this.skillArr = resp.result;
-        console.log(this.skillArr);
       }),
 
       error: (error) => {

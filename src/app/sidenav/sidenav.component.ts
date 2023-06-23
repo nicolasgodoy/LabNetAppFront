@@ -40,7 +40,6 @@ export class SidenavComponent implements OnInit {
     const Object = this._authService.DecodeJWT(token);
     
     this.IdUser= this._authService.getValueByKey(Object,'IdUser');
-    console.log(this.IdUser);
     this.IdRol= this._authService.getValueByKey(Object,'IdRol');
   }
  

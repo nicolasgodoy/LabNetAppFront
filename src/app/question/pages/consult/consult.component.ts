@@ -49,7 +49,6 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
-        console.log(resp.result);
       },
 
       error: (error) => {

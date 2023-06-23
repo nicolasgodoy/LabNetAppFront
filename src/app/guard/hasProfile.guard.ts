@@ -25,7 +25,7 @@ export class HasProfileGuard implements CanActivate {
 
     this.Initialize();
     const id = route.params['id'];
-    console.log(id +this.idUser)
+    
     if (id == this.idUser) {
       return this.profileService.HasProfile(this.idUser).pipe(
         map((resp) => {

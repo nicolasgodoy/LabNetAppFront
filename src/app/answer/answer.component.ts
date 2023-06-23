@@ -63,8 +63,6 @@ export class AnswerComponent implements OnInit, AfterViewInit {
       next: (resp) => {
 
         this.dataSourceAnswer.data = resp.result;
-        console.log(this.dataSourceAnswer.data);
-        console.log(resp.result);
       },
 
       error: (error) => {

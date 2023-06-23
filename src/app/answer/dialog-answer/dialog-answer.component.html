@@ -75,7 +75,15 @@
                             matInput
                             formControlName="fileName"
                             placeholder="Nombre del archivo"
-                            autocomplete="off">
+                            autocomplete="off"
+                        >
+
+                    <mat-error 
+                        *ngIf="formAnswer.get('fileName')?.touched &&
+                                formAnswer.get('fileName')?.errors?.['required']">
+                        <span>Nombre es requerida</span>
+                    </mat-error>
+
                 </mat-form-field>
             </mat-grid-tile>
         </mat-grid-list>
@@ -87,6 +95,7 @@
         mat-raised-button
         class="botonGuardar"
         (click)="AddAnswer()"
+        [disabled]="formAnswer.invalid"
     >
         Guardar
     </button>
