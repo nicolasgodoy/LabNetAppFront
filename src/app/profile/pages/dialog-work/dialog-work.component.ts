@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Alert } from 'src/app/helpers/alert';
 import { ModifyWorkDto } from 'src/app/models/Work/ModifyWorkDto';
 import { WorkAddDto } from 'src/app/models/Work/WorkAddDto';
 import { JobPosition } from 'src/app/models/jobPositionDton';
@@ -159,11 +160,13 @@ export class DialogWorkComponent implements OnInit {
         next: (res) => {
 
           this.dialogRef.close(res.result);
+          Alert.mensajeExitoToast();
         },
 
         error: (res) => {
 
           console.log(res);
+          Alert.mensajeSinExitoToast();
         }
       })
     }

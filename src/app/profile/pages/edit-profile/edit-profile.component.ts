@@ -308,9 +308,11 @@ export class EditProfileComponent implements OnInit {
 
         this.servicioProfile.UploadImage(FormDatos).subscribe({
           next: (res) => {
+            Alert.mensajeExitoToast();
             console.log(res);
           },
           error: (error) => {
+            Alert.mensajeSinExitoToast();
             console.log(error);
           }
         })
@@ -320,9 +322,11 @@ export class EditProfileComponent implements OnInit {
 
         this.servicioProfile.UploadResumee(FormDatos).subscribe({
           next: (res) => {
+            Alert.mensajeExitoToast();
             console.log(res);
           },
           error: (error) => {
+            Alert.mensajeExitoToast();
             console.log(error);
           }
         })
@@ -330,6 +334,7 @@ export class EditProfileComponent implements OnInit {
 
     }
     catch (error) {
+      Alert.mensajeErrorCustom(error.error.message);
       console.log(error)
     }
   }
