@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Alert } from 'src/app/helpers/alert';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 import { SkillService } from 'src/app/service/skill.service';
 
@@ -31,7 +32,7 @@ export class AddComponent implements OnInit {
 
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      skill: [''],
+      skill: ['',[Validators.required]],
       //fileName: ['', [Validators.required]],
       photoQuestion: ['']
     });
@@ -119,6 +120,7 @@ export class AddComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.dialogoReferencia.close('creado');
+          Alert.mensajeExitoToast();
         },
         error: (error) => {
           console.log(error);
