@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
@@ -32,7 +32,7 @@ export class AddComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       skill: [''],
-      fileName: ['', [Validators.required]],
+      //fileName: ['', [Validators.required]],
       photoQuestion: ['']
     });
   }
@@ -74,7 +74,7 @@ export class AddComponent implements OnInit {
     const archivoCapturado = event.target.files[0];
     this.extraerBase64(archivoCapturado)
       .then((img: any) => {
-
+        this.formQuestion.addControl('fileName',new FormControl('',[Validators.required]));
         this.previewImg = img.base;
       });
     this.files.push(archivoCapturado);
