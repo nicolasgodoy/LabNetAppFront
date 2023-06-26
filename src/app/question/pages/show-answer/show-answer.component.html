@@ -42,8 +42,8 @@
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-            <button mat-flat-button class="blackButton" (click)="addSAnswerToQuestion()"
-                [disabled]="!isValid">Agregar</button>
+            <button mat-flat-button class="blackButton"  (click)="addSAnswerToQuestion()" 
+            [disabled]="!myControl.value">Agregar</button>
 
             <mat-slide-toggle class="ms-5" #slideToggleRef (change)="onSlideToggleChange($event)">Respuesta
                 correcta?</mat-slide-toggle>

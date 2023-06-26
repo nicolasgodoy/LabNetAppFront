@@ -1,5 +1,5 @@
 import { Component, Inject, OnChanges, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,29 +19,33 @@ import { QuestionServiceService } from 'src/app/service/question-service.service
 })
 export class ShowAnswerComponent implements OnInit, OnChanges {
 
-  public displayedColumns: string[] = ['description', 'file','correcta'];
+  public displayedColumns: string[] = ['description', 'file', 'correcta'];
   public dataSourceAnswer = new MatTableDataSource();
   listAnswer: Answer[] = [];
   myControl = new FormControl<string | Answer>('');
   filteredOptions?: Observable<Answer[]>;
   inputValue?: Answer;
-  isValid: boolean = false;
+  inList: boolean = false;
   toggleValue: boolean = false;
-
+  showAnswer: FormGroup;
 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataQuestion: QuestionDto,
     private answerService: AnswerService,
-    private questionService: QuestionServiceService
+    private questionService: QuestionServiceService,
+    private fb: FormBuilder,
   ) {
-
+    this.showAnswer = this.fb.group({
+      description: ['', [Validators.required, Validators.maxLength(120)]],
+      photoAnswer: ['']
+    });
   }
 
 
   ngOnInit(): void {
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
-    
+
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
     })
@@ -77,7 +81,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
   validBtn() {
     this.listAnswer.find(s => s.description == this.inputValue?.description) ?
-      this.isValid = true : this.isValid = false;
+      this.inList = true : this.inList = false;
+
   }
   onSlideToggleChange(event: MatSlideToggleChange) {
     this.toggleValue = event.checked;
@@ -85,16 +90,34 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   }
 
   addSAnswerToQuestion() {
+    console.log(this.inList);
+    event?.preventDefault();
 
-    event?.preventDefault()
-    const data: questionAnswerDto = {
 
-      idQuestion: this.dataQuestion.id, idAnswer: this.inputValue?.id,
-      isCorrect: this.toggleValue
+
+    if (!this.inList) {
+      this.subirFormulario().then((res) => {
+        event?.preventDefault();
+        const data: questionAnswerDto = {
+          idQuestion: this.dataQuestion.id,
+          idAnswer: res,
+          isCorrect: this.toggleValue
+        }
+        this.InsertIntoQuestion(data);
+      });
     }
-    console.log(data.isCorrect);
+    else {
+      const data: questionAnswerDto = {
+        idQuestion: this.dataQuestion.id,
+        idAnswer: this.inputValue?.id,
+        isCorrect: this.toggleValue
+      }
+      this.InsertIntoQuestion(data);
+    }
+  }
 
-    console.log(this.dataSourceAnswer.data)
+  InsertIntoQuestion(data : questionAnswerDto) {
+
     if (this.dataSourceAnswer.data.length < 4) {
       this.answerService.InsertInQuestion(data).subscribe({
         next: (dataResponse: ResponseDto) => {
@@ -103,12 +126,38 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
           this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
             this.dataSourceAnswer.data = res.result.answerEntities;
           });
-
-        }, error: () => Alert.mensajeSinExitoToast('ocurrio un error inesperado')
-      })
+        },
+        error: () => Alert.mensajeSinExitoToast('ocurrio un error inesperado')
+      });
+    } else {
+      Alert.mensajeSinExitoToast("Se ha alcanzado el limite de respuestas por pregunta.");
     }
-    else Alert.mensajeSinExitoToast("Se ha alcanzado el limite de respuestas por pregunta.");
+
   }
 
+  subirFormulario() {
+    return new Promise<number>((resolve, reject) => {
+      try {
+        const FormDatos = new FormData();
+        FormDatos.append('file', null);
+        FormDatos.append('fileName', null);
+        FormDatos.append('description', String(this.inputValue));
 
+        this.answerService.InsertAnswer(FormDatos).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.inList = true;
+            resolve(res.result);
+          },
+          error: (error) => {
+            console.log(error);
+            reject(error); 
+          }
+        });
+      } catch (error) {
+        console.log(error);
+        reject(error); 
+      }
+    });
+  }
 }
