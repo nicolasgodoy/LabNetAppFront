@@ -57,7 +57,6 @@
             </mat-grid-tile>
         </mat-grid-list>
 
-
         <app-filter-skill [question]="question" (questionModified)="receiveModifiedQuestion($event)"></app-filter-skill>
         
         <mat-grid-list cols="2" rowHeight="90px">
@@ -120,7 +119,7 @@
         mat-raised-button
         class="botonGuardar"
         (click)="AddQuestion()"
-        [disabled]="formQuestion.invalid"
+        [disabled]="formQuestion.invalid || question.skillList.length < 1" 
     >
         Guardar
     </button>

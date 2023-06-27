@@ -96,6 +96,7 @@ receiveModifiedQuestion(question: QuestionDto) {
   this.question.skillList = question.skillList;
   this.question.skillList.forEach(element => {
     this.question.skills.push(element.id);
+    
   })
   console.log(this.question.skillList);
 }
