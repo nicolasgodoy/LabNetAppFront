@@ -165,7 +165,51 @@
                 </div>
             </mat-grid-tile>
         </mat-grid-list>
-       
+
+
+        <div class="container">
+            <h1>Agregar Repuesta</h1>
+                <div class="row">
+                    <div class="mt-3 col-md-6" 
+                        formArrayName="answers" 
+                        *ngFor="let ans of getAnswers.controls; let pointIndex=index"
+                        [formGroupName]="pointIndex">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ingrese respuesta</mat-label>
+                                    <input 
+                                        class="col-5"
+                                        matInput
+                                        formControlName="answer"
+                                        placeholder="Respuesta"
+                                        autocomplete="off"
+                                    >
+                            </mat-form-field>
+                        <div class="mt-3 col-md-6">
+                            <mat-slide-toggle 
+                                        class="ms-5" 
+                                        #slideToggleRef 
+                                        (change)="onSlideToggleChange($event)"
+                                    >
+                                        Respuesta correcta?
+                            </mat-slide-toggle>
+                        </div> 
+                </div>
+            </div>
+
+            <button
+            [disabled]="maxAnswer"
+            mat-mini-fab
+            class="blackButton"
+            type="button"
+            color="dark"
+            (click)="addInputAnswer()"
+            >
+            <i class="material-icons right">
+                add
+            </i>
+        </button>
+        </div>
+
     </form>
 </div>
 
