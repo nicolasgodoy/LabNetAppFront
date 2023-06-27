@@ -7,3 +7,9 @@
     background-color: black;
     color: white;
 }
+
+.inputAnswer {
+
+    display: flex;
+    flex-direction: column;
+}

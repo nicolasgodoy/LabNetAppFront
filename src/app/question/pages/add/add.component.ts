@@ -1,5 +1,6 @@
+import { group } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
@@ -19,7 +20,7 @@ export class AddComponent implements OnInit {
   public previewImg: string;
   public files: any = [];
   public skillArr: any = [];
-  public question : QuestionDto;
+  public question: QuestionDto;
   public receivedQuestion: QuestionDto;
 
   constructor(
@@ -36,13 +37,18 @@ export class AddComponent implements OnInit {
 
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      photoQuestion: ['']
+      photoQuestion: [''],
+      answers: this.formBuilder.array([this.formBuilder.group({ answer: [''] })])
     });
   }
 
   ngOnInit(): void {
   }
 
+  get getAnswers() {
+
+    return this.formQuestion.get('answers') as FormArray;
+  }
 
   AddQuestion(): void {
 
@@ -53,6 +59,12 @@ export class AddComponent implements OnInit {
   }
 
 
+  addInputAnswer() {
+
+    const controls = <FormArray>this.formQuestion.controls['answers'];
+    controls.push(this.formBuilder.group({ answer: [] }));
+  }
+
 
   //Para los Archivos de IMG
   captureImg(event: any): any {
@@ -60,7 +72,7 @@ export class AddComponent implements OnInit {
     const archivoCapturado = event.target.files[0];
     this.extraerBase64(archivoCapturado)
       .then((img: any) => {
-        this.formQuestion.addControl('fileName',new FormControl('',[Validators.required]));
+        this.formQuestion.addControl('fileName', new FormControl('', [Validators.required]));
         this.previewImg = img.base;
       });
     this.files.push(archivoCapturado);
@@ -92,6 +104,7 @@ export class AddComponent implements OnInit {
     }
   })
 
+<<<<<<< Updated upstream
 receiveModifiedQuestion(question: QuestionDto) {
   this.question.skillList = question.skillList;
   this.question.skillList.forEach(element => {
@@ -100,16 +113,25 @@ receiveModifiedQuestion(question: QuestionDto) {
   })
   console.log(this.question.skillList);
 }
+=======
+  receiveModifiedQuestion(question: QuestionDto) {
+    this.question.skillList = question.skillList;
+    this.question.skillList.forEach(element => {
+      this.question.skills.push(element.id);
+    })
+    console.log(this.question.skillList);
+  }
+>>>>>>> Stashed changes
 
   subirFormulario() {
 
     try {
-        this.question.fileName = this.formQuestion.value.fileName,
-        this.question.description= this.formQuestion.value.description,
+      this.question.fileName = this.formQuestion.value.fileName,
+        this.question.description = this.formQuestion.value.description,
         this.question.value = this.formQuestion.value.puntuation,
         this.question.file = this.files[0] // Placeholder for the image data
-      
-        console.log(this.question);
+
+      console.log(this.question);
 
       this.questionService.AddQuestion(this.question).subscribe({
         next: (res) => {
