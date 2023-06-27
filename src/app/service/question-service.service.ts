@@ -31,7 +31,7 @@ export class QuestionServiceService {
     return this.http.get<ResponseDto>(url,options);
   }
 
-  public AddQuestion(addQuestion: FormData): Observable<ResponseDto> {
+  public AddQuestion(addQuestion: QuestionDto): Observable<ResponseDto> {
     const userToken = `Bearer ${this.authservice.readToken()}`;
     const headers = new HttpHeaders({ 'Authorization': userToken });
     const options = { headers: headers };

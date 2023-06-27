@@ -18,7 +18,7 @@ import { ShowAnswerComponent } from '../show-answer/show-answer.component';
 export class ConsultComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['description', 'value','skill',
+  public displayedColumns: string[] = ['description', 'value',
     'image', 'acciones', 'consultar'];
   public dataSourceQuestion = new MatTableDataSource();
 

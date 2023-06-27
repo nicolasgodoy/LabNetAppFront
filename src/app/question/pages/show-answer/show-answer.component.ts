@@ -132,6 +132,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     }
   }
 
+
   InsertIntoQuestion(data : questionAnswerDto) {
 
     if (this.dataSourceAnswer.data.length < 4) {

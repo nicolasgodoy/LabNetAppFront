@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Agregar skills</h2>
+    <div class="button-container  mt-2 mb-2 ">
+        <button mat-raised-button class="botonFiltro options-filter me-2"
+            *ngFor="let skill of question.skillList">{{skill.description}}
+            <button class="close-button" (click)="removeSkill(skill.id)">X</button>
+        </button>
+    </div>
+    <form class="example-form">
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Skill</mat-label>
+            <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue" (ngModelChange)="validBtn()"
+                [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.description}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <button mat-flat-button class="color" (click)="addSkillToQuestion()" [disabled]="!isValid">Agregar</button>
+    </form>
+
+</div>
