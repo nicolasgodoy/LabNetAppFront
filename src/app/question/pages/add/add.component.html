@@ -92,46 +92,47 @@
             </mat-grid-tile>
         </mat-grid-list>
 
-        <mat-grid-list cols="1" rowHeight="90px">
+        <!-- <mat-grid-list cols="1" rowHeight="90px">
             <mat-grid-tile>
-                <div class="mt-3 row" formArrayName="answers" 
-                    *ngFor="let ans of getAnswers.controls; let pointIndex=index"
-                    [formGroupName]="pointIndex">
-                        <mat-form-field class="col-10" appearance="outline">
-                            <mat-label>Ingrese respuesta</mat-label>
-                                <input 
+            </mat-grid-tile>
+        </mat-grid-list>         -->
+
+        <div class="container">
+            <div class="mt-3 row" 
+                 formArrayName="answers" 
+                 *ngFor="let ans of getAnswers.controls; let pointIndex=index"
+                 [formGroupName]="pointIndex">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ingrese respuesta</mat-label>
+                            <input 
+                                class="col-5"
                                 matInput
                                 formControlName="answer"
                                 placeholder="Respuesta"
                                 autocomplete="off"
-                            >  
-                </mat-form-field>
+                            >
+                    </mat-form-field>
+                        <mat-slide-toggle 
+                                    class="ms-5" 
+                                    #slideToggleRef 
+                                    (change)="onSlideToggleChange($event)"
+                                >
+                                    Respuesta correcta?
+                        </mat-slide-toggle>
                 </div> 
                     <button
+                        [disabled]="maxAnswer"
+                        mat-fab
+                        class="blackButton"
                         type="button"
-                        class="btn btn-dark"  
-                        (click)="addInputAnswer()">add
+                        color="dark"
+                        (click)="addInputAnswer()"
+                    >
+                        <i class="material-icons right">
+                            add
+                        </i>
                     </button>
-            </mat-grid-tile>
-        </mat-grid-list>        
-
-        <!-- <mat-grid-list cols="1" rowHeight="90px">
-            <mat-grid-tile>
-              <div class="mt-3">
-                <div formArrayName="answers">
-                  <div *ngFor="let ans of getAnswers.controls; let pointIndex=index" [formGroupName]="pointIndex">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Ingrese respuesta</mat-label>
-                      <input matInput formControlName="answer" placeholder="Respuesta" autocomplete="off">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div>
-                  <button (click)="addInputAnswer()">add</button>
-                </div>
-              </div>
-            </mat-grid-tile>
-          </mat-grid-list> -->
+        </div>
     </form>
 </div>
 

@@ -2,6 +2,7 @@ import { group } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
@@ -22,7 +23,9 @@ export class AddComponent implements OnInit {
   public skillArr: any = [];
   public question: QuestionDto;
   public receivedQuestion: QuestionDto;
-
+  public maxAnswer: boolean = false;
+  public toggleValue: boolean = false;
+  
   constructor(
 
     private sanitizer: DomSanitizer,
@@ -38,7 +41,8 @@ export class AddComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       photoQuestion: [''],
-      answers: this.formBuilder.array([this.formBuilder.group({ answer: [''] })])
+      answers: this.formBuilder.array([this.formBuilder.group({ answer: [''] },
+        [Validators.maxLength(4)])])
     });
   }
 
@@ -58,11 +62,22 @@ export class AddComponent implements OnInit {
     }
   }
 
+  onSlideToggleChange(event: MatSlideToggleChange) {
+    this.toggleValue = event.checked;
+
+  }
 
   addInputAnswer() {
 
     const controls = <FormArray>this.formQuestion.controls['answers'];
-    controls.push(this.formBuilder.group({ answer: [] }));
+    if (controls.length < 4) {
+
+      controls.push(this.formBuilder.group({ answer: [] }));
+    }
+    else {
+
+      this.maxAnswer = true;
+    }
   }
 
 
@@ -104,16 +119,6 @@ export class AddComponent implements OnInit {
     }
   })
 
-<<<<<<< Updated upstream
-receiveModifiedQuestion(question: QuestionDto) {
-  this.question.skillList = question.skillList;
-  this.question.skillList.forEach(element => {
-    this.question.skills.push(element.id);
-    
-  })
-  console.log(this.question.skillList);
-}
-=======
   receiveModifiedQuestion(question: QuestionDto) {
     this.question.skillList = question.skillList;
     this.question.skillList.forEach(element => {
@@ -121,7 +126,6 @@ receiveModifiedQuestion(question: QuestionDto) {
     })
     console.log(this.question.skillList);
   }
->>>>>>> Stashed changes
 
   subirFormulario() {
 
