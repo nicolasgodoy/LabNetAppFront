@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
+import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 import { SkillService } from 'src/app/service/skill.service';
 
@@ -18,6 +19,8 @@ export class AddComponent implements OnInit {
   public previewImg: string;
   public files: any = [];
   public skillArr: any = [];
+  public question : QuestionDto;
+  public receivedQuestion: QuestionDto;
 
   constructor(
 
@@ -27,19 +30,17 @@ export class AddComponent implements OnInit {
     private dialogoReferencia: MatDialogRef<AddComponent>,
     private skillServices: SkillService
   ) {
+    this.question = new QuestionDto();
 
     this.formQuestion = this.formBuilder.group({
 
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      skill: ['',[Validators.required]],
       photoQuestion: ['']
     });
   }
 
   ngOnInit(): void {
-
-    this.GetSkill();
   }
 
 
@@ -51,21 +52,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-  GetSkill(): void {
 
-    this.skillServices.getSkill().subscribe({
-
-      next: (resp => {
-
-        this.skillArr = resp.result;
-      }),
-
-      error: (error) => {
-
-        console.log(error);
-      }
-    })
-  }
 
   //Para los Archivos de IMG
   captureImg(event: any): any {
@@ -78,6 +65,8 @@ export class AddComponent implements OnInit {
       });
     this.files.push(archivoCapturado);
   }
+
+
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
 
@@ -103,18 +92,25 @@ export class AddComponent implements OnInit {
     }
   })
 
+receiveModifiedQuestion(question: QuestionDto) {
+  this.question.skillList = question.skillList;
+  this.question.skillList.forEach(element => {
+    this.question.skills.push(element.id);
+  })
+  console.log(this.question.skillList);
+}
+
   subirFormulario() {
 
     try {
-      const FormDatos = new FormData();
-      FormDatos.append('file', this.files[0]);
-      FormDatos.append('fileName', this.formQuestion.value.fileName);
-      FormDatos.append('idSkill', this.formQuestion.value.skill);
-      FormDatos.append('description', this.formQuestion.value.description);
-      FormDatos.append('value', this.formQuestion.value.puntuation);
-      FormDatos.append('photoQuestion', this.formQuestion.value.photoQuestion)
+        this.question.fileName = this.formQuestion.value.fileName,
+        this.question.description= this.formQuestion.value.description,
+        this.question.value = this.formQuestion.value.puntuation,
+        this.question.file = this.files[0] // Placeholder for the image data
+      
+        console.log(this.question);
 
-      this.questionService.AddQuestion(FormDatos).subscribe({
+      this.questionService.AddQuestion(this.question).subscribe({
         next: (res) => {
           console.log(res);
           this.dialogoReferencia.close('creado');

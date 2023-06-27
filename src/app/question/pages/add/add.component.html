@@ -57,18 +57,9 @@
             </mat-grid-tile>
         </mat-grid-list>
 
-        <mat-grid-list cols="1" rowHeight="90px">
-            <mat-grid-tile>
-                <mat-form-field>
-                  <mat-label>Skill</mat-label>
-                    <mat-select formControlName="skill">
-                      <mat-option *ngFor="let skill of skillArr"
-                        [value]="skill.id">{{skill.description}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </mat-grid-tile>
-        </mat-grid-list>
 
+        <app-filter-skill [question]="question" (questionModified)="receiveModifiedQuestion($event)"></app-filter-skill>
+        
         <mat-grid-list cols="2" rowHeight="90px">
             <mat-grid-tile>
                 <button
