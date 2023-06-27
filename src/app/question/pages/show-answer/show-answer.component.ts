@@ -19,7 +19,7 @@ import { QuestionServiceService } from 'src/app/service/question-service.service
 })
 export class ShowAnswerComponent implements OnInit, OnChanges {
 
-  public displayedColumns: string[] = ['description', 'file', 'correcta'];
+  public displayedColumns: string[] = ['description', 'file', 'correcta', 'acciones'];
   public dataSourceAnswer = new MatTableDataSource();
   listAnswer: Answer[] = [];
   myControl = new FormControl<string | Answer>('');
@@ -87,6 +87,22 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   onSlideToggleChange(event: MatSlideToggleChange) {
     this.toggleValue = event.checked;
 
+  }
+
+  getAll() {
+
+    this.answerService.GetAllAnswer().subscribe({
+
+      next: (resp) => {
+
+        this.dataSourceAnswer.data = resp.result;
+      },
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    })
   }
 
   addSAnswerToQuestion() {
@@ -160,5 +176,22 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
         reject(error); 
       }
     });
+  }
+
+  DeleteAnswerToQuestion(idAnswer:number){
+    this.answerService.DeleteAnswerToQuestion(idAnswer,this.dataQuestion.id).subscribe(
+      {
+        next:(res)=> {
+          Alert.mensajeExitoToast(res.message)
+          this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
+
+          this.answerService.GetAllAnswer().subscribe(res => {
+            this.listAnswer = res.result;
+          })
+
+        },
+        error:() => Alert.mensajeSinExitoToast('error al eliminar')
+      }
+    )
   }
 }

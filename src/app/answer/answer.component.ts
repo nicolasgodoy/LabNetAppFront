@@ -72,6 +72,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
     })
   }
 
+  
   confirmDelete(answer: Answer) {
     Swal.fire({
       title: 'Esta seguro?',

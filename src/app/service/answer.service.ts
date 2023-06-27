@@ -48,4 +48,14 @@ export class AnswerService {
     let url = `${this.apiUrl}${this.endpoint}/Delete/${id}`;
     return this.http.delete<ResponseDto>(url,options);
   }
+
+  DeleteAnswerToQuestion(idAnswer: number, idQuestion: number): Observable<ResponseDto>{
+    const userToken = `Bearer ${this._authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = `${this.apiUrl}${this.endpoint}/DeleteAnswerToQuestion/${idQuestion}/${idAnswer}`;
+    return this.http.delete<ResponseDto>(url,options);
+  }
+  
+
 }
