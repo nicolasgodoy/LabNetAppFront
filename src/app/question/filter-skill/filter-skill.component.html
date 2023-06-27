@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Agregar skills</h2>
+    <h1>Agregar skills</h1>
     <div class="button-container  mt-2 mb-2 ">
         <button mat-raised-button class="botonFiltro options-filter me-2"
             *ngFor="let skill of question.skillList">{{skill.description}}
@@ -7,18 +7,26 @@
         </button>
     </div>
     <form class="example-form">
-
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Skill</mat-label>
-            <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue" (ngModelChange)="validBtn()"
-                [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option.description}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-        <button mat-flat-button class="color" (click)="addSkillToQuestion()" [disabled]="!isValid">Agregar</button>
+        <mat-grid-list cols="5" rowHeight="90px">
+            <mat-grid-tile [colspan]="4">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Skill</mat-label>
+                    <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue"
+                        (ngModelChange)="validBtn()" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.description}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1">
+                <button mat-flat-button class="BotonAddSkill" color="primary" (click)="addSkillToQuestion()" [disabled]="!isValid">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+        
     </form>
 
 </div>

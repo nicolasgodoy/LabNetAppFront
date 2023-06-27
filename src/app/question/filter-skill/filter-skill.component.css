@@ -14,3 +14,10 @@
     justify-content: center;
     cursor: pointer;
   }
+
+  .BotonAddSkill{
+    padding-left:3rem;
+    padding-right:3rem;
+    margin-bottom: 1rem;
+    
+  }

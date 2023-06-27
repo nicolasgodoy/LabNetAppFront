@@ -13,3 +13,9 @@
     display: flex;
     flex-direction: column;
 }
+
+.BotonAddAnswer{
+    padding-left:3rem;
+    padding-right:3rem;
+    margin-bottom: 1rem;
+}
