@@ -16,7 +16,7 @@
         <button *ngIf="IdRol == 1" routerLink="/user/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
           <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
           Consultar Usuario</button>
-        <button *ngIf="IdRol == 1" routerLink="/profile/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
+        <button *ngIf="IdRol == 1 || IdRol == 2" routerLink="/profile/filter-profile" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
           <mat-icon aria-hidden="false" aria-label="Example home icon">person_search</mat-icon>
           Filtro de Perfil</button>
         <button *ngIf="IdRol == 1" routerLink="/skill/consult" mat-raised-button style="margin:5px" color="primary" mat-dialog-close>
