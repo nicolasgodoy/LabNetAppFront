@@ -135,6 +135,7 @@ export class AddComponent implements OnInit {
       const FormDatos = new FormData();
       FormDatos.append('file', this.files[0]);
       FormDatos.append('description', this.formQuestion.value.description);
+      FormDatos.append('value', this.formQuestion.value.puntuation);
 
 
       //Having answers
@@ -146,7 +147,7 @@ export class AddComponent implements OnInit {
         console.log(this.question.answers[i].file)
 
         if (this.question.answers[i].file != undefined )
-          FormDatos.append(keyPrefix + "File", this.question.answers[i].file.toString());
+          FormDatos.append(keyPrefix + "File", this.question.answers[i].file);
         else FormDatos.append(keyPrefix + "File", null);
       }
 
@@ -156,8 +157,9 @@ export class AddComponent implements OnInit {
         FormDatos.append(keyPrefix + "IdAnswer", '0');
         FormDatos.append(keyPrefix + "Description", this.question.answersInsert[i].description);
         FormDatos.append(keyPrefix + "IsCorrect", this.question.answersInsert[i].isCorrect.toString());
+        console.log(this.question.answersInsert[i].file);
         if (this.question.answersInsert[i].file != undefined )
-          FormDatos.append(keyPrefix + "File", this.question.answersInsert[i].file.toString());
+          FormDatos.append(keyPrefix + "File", this.question.answersInsert[i].file);
         else FormDatos.append(keyPrefix + "File", null);      }
 
       //Skills

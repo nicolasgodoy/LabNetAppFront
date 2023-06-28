@@ -1,0 +1,12 @@
+.texto-activo {
+    color: red;
+}
+
+.texto-correcto{
+
+    color: green;
+}
+
+.texto-inactivo {
+    color: blue;
+}
