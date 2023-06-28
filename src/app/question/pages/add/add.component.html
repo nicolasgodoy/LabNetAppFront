@@ -28,12 +28,13 @@
             <mat-grid-tile [colspan]="4">
                 <mat-form-field appearance="outline">
                     <mat-label>Descripción</mat-label>
-                        <input 
+                        <textarea 
                             type="text"
                             matInput
                             formControlName="description"
                             placeholder="Descripción"
                             autocomplete="off">
+                        </textarea>
                                 <mat-error 
                                     *ngIf="formQuestion.get('description')?.touched &&
                                         formQuestion.get('description')?.errors?.['required']">
