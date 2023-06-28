@@ -76,72 +76,6 @@
             (questionModified)="receiveModifiedQuestion($event)">
         </app-filter-skill>
 
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="text-left">
-                        Agregar Respuesta
-                    </h1>
-                </div>
-
-                <div class="col-md-6 text-center">
-                    <mat-slide-toggle 
-                        class="ms-5" 
-                        #slideToggleRef 
-                        (change)="onSlideToggleChangeAnswer($event)">
-                            <span>
-                                <span [ngClass]="textoClaseAnswer">Texto</span> | 
-                                <span [ngClass]="imagenClaseAnswer">Imagen</span>
-                            </span>
-                    </mat-slide-toggle>
-                </div>
-            </div>
-        </div>
-        
-        <mat-grid-list *ngIf="!toggleValueAnswer" cols="5" rowHeight="90px">
-            <mat-grid-tile [colspan]="2">
-                <mat-slide-toggle 
-                    class="text-center" 
-                    #slideToggleRef 
-                    (change)="onSlideToggleChange($event)"
-                    >
-                    <span>
-                        <span [ngClass]="correcto">Correcto</span> | 
-                        <span [ngClass]="incorrecto">Incorrecto</span>
-                    </span>
-                </mat-slide-toggle>
-            </mat-grid-tile>
-
-            <mat-grid-tile [colspan]="2">   
-                <mat-form-field appearance="outline">
-                    <mat-label>Descripción</mat-label>
-                        <input 
-                            type="text"
-                            matInput
-                            formControlName="description"
-                            placeholder="Descripción"
-                            autocomplete="off">
-                        <mat-error 
-                            *ngIf="formQuestion.get('description')?.touched &&
-                                   formQuestion.get('description')?.errors?.['required']">
-                                   <span>Descripción es requerida</span>
-                        </mat-error>
-
-                        <mat-error 
-                            *ngIf="formQuestion.get('description')?.touched &&
-                                   formQuestion.get('description')?.hasError?.('maxlength')">
-                                   <span>Valor máximo permitido 120 carácter</span>
-                        </mat-error>
-                </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile [colspan]="1">
-                <button mat-raised-button class="BotonAddAnswer" color="primary" (click)="AddQuestion()">Add
-                    
-                </button>
-            </mat-grid-tile>
-        </mat-grid-list>
-         -->
 
         <app-answer-in-question [dataQuestion]="question" (questionModified)="receiveModifiedQuestion($event)" ></app-answer-in-question>
     </form>
@@ -149,11 +83,14 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button class="botonGuardar" (click)="AddQuestion()"
-        [disabled]="formQuestion.invalid || question.skillList.length < 1">
+        [disabled]="formQuestion.invalid || question.skillList.length < 1
+        ||  question.answersInsert.length < 1 && question.answers.length<1">
         Guardar
     </button>
+
 
     <button class="botonVolver" mat-raised-button mat-dialog-close>
         Volver
     </button>
+
 </div>

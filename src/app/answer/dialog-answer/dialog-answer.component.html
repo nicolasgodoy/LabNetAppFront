@@ -11,55 +11,39 @@
             <mat-grid-tile>
                 <mat-form-field appearance="outline">
                     <mat-label>Descripción</mat-label>
-                        <input 
-                            type="text" 
-                            matInput
-                            formControlName="description"
-                            placeholder="Descripción"
-                            autocomplete="off">
+                    <input type="text" matInput formControlName="description" placeholder="Descripción"
+                        autocomplete="off">
 
-                            <mat-error 
-                            *ngIf="formAnswer.get('description')?.touched &&
+                    <mat-error *ngIf="formAnswer.get('description')?.touched &&
                             formAnswer.get('description')?.errors?.['required']">
-                                   <span>Descripción es requerida</span>
-                        </mat-error>
+                        <span>Descripción es requerida</span>
+                    </mat-error>
 
-                        <mat-error 
-                            *ngIf="formAnswer.get('description')?.touched &&
+                    <mat-error *ngIf="formAnswer.get('description')?.touched &&
                                    formAnswer.get('description')?.hasError?.('maxlength')">
-                                   <span>Valor máximo permitido 120 carácter</span>
-                        </mat-error>
+                        <span>Valor máximo permitido 120 carácter</span>
+                    </mat-error>
                 </mat-form-field>
-            </mat-grid-tile>            
+            </mat-grid-tile>
         </mat-grid-list>
 
         <mat-grid-list cols="2" rowHeight="90px">
             <mat-grid-tile>
-                <button
-                    type="button"
-                    class="btn btn-dark form-control"
-                    (click)="ImgInput.click()"
-                    >
-                        Subir Imagen
+                <button type="button" class="btn btn-dark form-control" (click)="ImgInput.click()">
+                    Subir Imagen
                     <i class="material-icons right">
                         add_a_photo
                     </i>
                 </button>
             </mat-grid-tile>
-            
+
             <mat-grid-tile>
                 <div class="row">
-                    <input
-                      type="file"
-                      formControlName="photoAnswer"
-                      hidden
-                      #ImgInput
-                      (change)="captureImg($event)"
-                    />
+                    <input type="file" hidden #ImgInput (change)="captureImg($event)"/>
 
                     <div *ngIf="previewImg" class="row">
                         <div class="row m-3">
-                          <img width="120px" [src]="previewImg"/>
+                            <img width="120px" [src]="previewImg" />
                         </div>
                     </div>
                 </div>
@@ -70,16 +54,10 @@
             <mat-grid-tile>
                 <mat-form-field *ngIf="previewImg" appearance="outline">
                     <mat-label>Nombre del archivo</mat-label>
-                        <input 
-                            type="text" 
-                            matInput
-                            formControlName="fileName"
-                            placeholder="Nombre del archivo"
-                            autocomplete="off"
-                        >
+                    <input type="text" matInput formControlName="fileName" placeholder="Nombre del archivo"
+                        autocomplete="off">
 
-                    <mat-error 
-                        *ngIf="formAnswer.get('fileName')?.touched &&
+                    <mat-error *ngIf="formAnswer.get('fileName')?.touched &&
                                 formAnswer.get('fileName')?.errors?.['required']">
                         <span>Nombre es requerida</span>
                     </mat-error>
@@ -91,20 +69,11 @@
 </div>
 
 <div mat-dialog-actions>
-    <button
-        mat-raised-button
-        class="botonGuardar"
-        (click)="AddAnswer()"
-        [disabled]="formAnswer.invalid"
-    >
+    <button mat-raised-button class="botonGuardar" (click)="AddAnswer()" [disabled]="formAnswer.invalid">
         Guardar
     </button>
 
-    <button
-        class="botonVolver"
-        mat-raised-button
-        mat-dialog-close
-    >
+    <button class="botonVolver" mat-raised-button mat-dialog-close>
         Volver
     </button>
 </div>

@@ -1,7 +1,7 @@
 export interface Answer {
 
     id: number;
-    idFile: number;
+    file: string;
     description: string;
     isCorrect: boolean;
     

@@ -31,6 +31,7 @@ export class AddComponent implements OnInit {
   public imagenClaseQuestion: string;
   public textoClaseAnswer: string;
   public imagenClaseAnswer: string;
+  public notEmpty: boolean;
 
   constructor(
 
@@ -117,10 +118,15 @@ export class AddComponent implements OnInit {
   })
 
   receiveModifiedQuestion(question: QuestionDto) {
+    this.notEmpty = false;
     this.question.skillList = question.skillList;
     this.question.answers = question.answers;
     this.question.answersInsert = question.answersInsert;
     this.question.skills = this.question.skillList.map(element => element.id);
+
+    if (this.question.answers.length>0 || this.question.answersInsert.length>0){
+      this.notEmpty = true;
+    }
   }
 
   subirFormulario() {
@@ -130,15 +136,18 @@ export class AddComponent implements OnInit {
       FormDatos.append('file', this.files[0]);
       FormDatos.append('description', this.formQuestion.value.description);
 
+
       //Having answers
       for (let i = 0; i < this.question.answers.length; i++) {
         const keyPrefix = `answers[${i}].`;
         FormDatos.append(keyPrefix + "IdAnswer", this.question.answers[i].id.toString());
         FormDatos.append(keyPrefix + "Description", this.question.answers[i].description);
         FormDatos.append(keyPrefix + "IsCorrect", this.question.answers[i].isCorrect.toString());
-        if (this.question.answers[i].idFile != null )
-          FormDatos.append(keyPrefix + "IdFile", this.question.answers[i].idFile.toString());
-        else FormDatos.append(keyPrefix + "IdFile", null);
+        console.log(this.question.answers[i].file)
+
+        if (this.question.answers[i].file != undefined )
+          FormDatos.append(keyPrefix + "File", this.question.answers[i].file.toString());
+        else FormDatos.append(keyPrefix + "File", null);
       }
 
       //Inserting Answers
@@ -147,9 +156,9 @@ export class AddComponent implements OnInit {
         FormDatos.append(keyPrefix + "IdAnswer", '0');
         FormDatos.append(keyPrefix + "Description", this.question.answersInsert[i].description);
         FormDatos.append(keyPrefix + "IsCorrect", this.question.answersInsert[i].isCorrect.toString());
-        if (this.question.answers[i].idFile != null )
-          FormDatos.append(keyPrefix + "IdFile", this.question.answersInsert[i].idFile.toString());
-        else FormDatos.append(keyPrefix + "IdFile", null);      }
+        if (this.question.answersInsert[i].file != undefined )
+          FormDatos.append(keyPrefix + "File", this.question.answersInsert[i].file.toString());
+        else FormDatos.append(keyPrefix + "File", null);      }
 
       //Skills
       for (let i = 0; i < this.question.skills.length; i++) {
@@ -173,4 +182,5 @@ export class AddComponent implements OnInit {
       console.log(error)
     }
   }
+
 }

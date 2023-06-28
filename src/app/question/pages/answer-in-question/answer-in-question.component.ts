@@ -34,8 +34,11 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
   inList: boolean = false;
   toggleValue: boolean = false;
   showAnswer: FormGroup;
-
-
+  public textoClaseAnswer: string;
+  public imagenClaseAnswer: string;
+  public toggleValueAnswer: boolean = false;
+  public files: any[] = [];
+  public previewImg: string;
 
   constructor(
     private answerService: AnswerService,
@@ -97,6 +100,49 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
 
   }
 
+  onSlideToggleChangeAnswer(event: MatSlideToggleChange) {
+
+    this.toggleValueAnswer = event.checked;
+    this.textoClaseAnswer = this.toggleValueAnswer ? 'texto-activo' : 'texto-inactivo';
+    this.imagenClaseAnswer = this.toggleValueAnswer ? 'texto-inactivo' : 'texto-activo';
+  }
+
+    //Para los Archivos de IMG
+    captureImg(event: any): any {
+
+      const archivoCapturado = event.target.files[0];
+      this.extraerBase64(archivoCapturado)
+        .then((img: any) => {
+          this.previewImg = img.base;
+        });
+      this.files.push(archivoCapturado);
+    }
+
+    extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+
+      try {
+  
+        const unsafeImg = window.URL.createObjectURL($event);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          resolve({
+            base: reader.result
+          });
+        };
+        reader.onerror = error => {
+          resolve({
+            base: null
+          })
+        }
+      } catch (error) {
+  
+        return null;
+      }
+    })
+  
+
+
   getAll() {
 
     this.answerService.GetAllAnswer().subscribe({
@@ -123,7 +169,6 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
         this.answerService.GetById(this.inputValue.id).subscribe(result => {
           result.result.isCorrect = this.toggleValue;
           this.dataQuestion.answers.push(result.result);
-
           const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
 
           this.dataSourceAnswer.data = newData;
@@ -132,20 +177,23 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
       }
     } else {
 
+      //Subir la imagen al servidor y obtener el id,mapearlo ahi?
       const newAnswer: Answer = {
         description: String(this.myControl.value),
-        idFile: null,
+        file: this.files[0],
         isCorrect: this.toggleValue,
         id: 0
       }
-
-
       this.dataQuestion.answersInsert.push(newAnswer);
 
       const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
       this.dataSourceAnswer.data = newData;
       this.questionModified.emit(this.dataQuestion);
     }
+
+    this.myControl.reset();
+    this.files = [];
+    this.previewImg = null;
   }
 
   DeleteAnswerToQuestion(idAnswer: number) {
