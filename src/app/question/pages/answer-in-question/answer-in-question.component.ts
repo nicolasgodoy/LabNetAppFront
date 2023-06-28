@@ -1,11 +1,11 @@
-import { Component, Inject, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map, startWith } from 'rxjs';
 import { Alert } from 'src/app/helpers/alert';
 import { questionAnswerDto } from 'src/app/models/Answer/QuestionAnswerDto';
+import { addAnswer } from 'src/app/models/Answer/addAnswer';
 import { Answer } from 'src/app/models/Answer/answer';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { ResponseDto } from 'src/app/models/response';
@@ -13,11 +13,17 @@ import { AnswerService } from 'src/app/service/answer.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 
 @Component({
-  selector: 'app-show-answer',
-  templateUrl: './show-answer.component.html',
-  styleUrls: ['./show-answer.component.css']
+  selector: 'app-answer-in-question',
+  templateUrl: './answer-in-question.component.html',
+  styleUrls: ['./answer-in-question.component.css']
 })
-export class ShowAnswerComponent implements OnInit, OnChanges {
+export class AnswerInQuestionComponent implements OnInit, OnChanges {
+
+  @Input()
+  dataQuestion: QuestionDto
+
+  @Output()
+  questionModified: EventEmitter<QuestionDto> = new EventEmitter<QuestionDto>();
 
   public displayedColumns: string[] = ['description', 'file', 'correcta', 'acciones'];
   public dataSourceAnswer = new MatTableDataSource();
@@ -30,8 +36,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   showAnswer: FormGroup;
 
 
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dataQuestion: QuestionDto,
     private answerService: AnswerService,
     private questionService: QuestionServiceService,
     private fb: FormBuilder,
@@ -44,10 +50,10 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
 
   ngOnInit(): void {
-    this.dataSourceAnswer.data = this.dataQuestion.answers;
-
+    this.dataQuestion.answers = [];
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
+      console.log(this.listAnswer);
     })
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -61,7 +67,9 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.validBtn();
+    this.questionModified.emit(this.dataQuestion);
   }
+
 
   private _filter(name: string): Answer[] {
     const filterValue = name.toLowerCase();
@@ -106,82 +114,44 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   }
 
   addSAnswerToQuestion() {
-    console.log(this.inList);
     event?.preventDefault();
 
+    if (this.inList) {
+      event?.preventDefault();
+      const selectedOption = this.myControl.value;
+      if (selectedOption) {
+        this.answerService.GetById(this.inputValue.id).subscribe(result => {
+          result.result.isCorrect = this.toggleValue;
+          this.dataQuestion.answers.push(result.result);
 
+          const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
 
-    if (!this.inList) {
-      this.subirFormulario().then((res) => {
-        event?.preventDefault();
-        const data: questionAnswerDto = {
-          idQuestion: this.dataQuestion.id,
-          idAnswer: res,
-          isCorrect: this.toggleValue
-        }
-        this.InsertIntoQuestion(data);
-      });
-    }
-    else {
-      const data: questionAnswerDto = {
-        idQuestion: this.dataQuestion.id,
-        idAnswer: this.inputValue?.id,
-        isCorrect: this.toggleValue
-      }
-      this.InsertIntoQuestion(data);
-    }
-  }
-
-
-  InsertIntoQuestion(data : questionAnswerDto) {
-
-    if (this.dataSourceAnswer.data.length < 4) {
-      this.answerService.InsertInQuestion(data).subscribe({
-        next: (dataResponse: ResponseDto) => {
-          Alert.mensajeExitoToast('Respuesta agregada correctamente');
-          this.dataSourceAnswer.data = [];
-          this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
-            this.dataSourceAnswer.data = res.result.answerEntities;
-          });
-        },
-        error: () => Alert.mensajeSinExitoToast('ocurrio un error inesperado')
-      });
-    } else {
-      Alert.mensajeSinExitoToast("Se ha alcanzado el limite de respuestas por pregunta.");
-    }
-
-  }
-
-  subirFormulario() {
-    return new Promise<number>((resolve, reject) => {
-      try {
-        const FormDatos = new FormData();
-        FormDatos.append('file', null);
-        FormDatos.append('fileName', null);
-        FormDatos.append('description', String(this.inputValue));
-
-        this.answerService.InsertAnswer(FormDatos).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.inList = true;
-            resolve(res.result);
-          },
-          error: (error) => {
-            console.log(error);
-            reject(error); 
-          }
+          this.dataSourceAnswer.data = newData;
+          this.questionModified.emit(this.dataQuestion);
         });
-      } catch (error) {
-        console.log(error);
-        reject(error); 
       }
-    });
+    } else {
+
+      const newAnswer: Answer = {
+        description: String(this.myControl.value),
+        idFile: null,
+        isCorrect: this.toggleValue,
+        id: 0
+      }
+
+
+      this.dataQuestion.answersInsert.push(newAnswer);
+
+      const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
+      this.dataSourceAnswer.data = newData;
+      this.questionModified.emit(this.dataQuestion);
+    }
   }
 
-  DeleteAnswerToQuestion(idAnswer:number){
-    this.answerService.DeleteAnswerToQuestion(idAnswer,this.dataQuestion.id).subscribe(
+  DeleteAnswerToQuestion(idAnswer: number) {
+    this.answerService.DeleteAnswerToQuestion(idAnswer, this.dataQuestion.id).subscribe(
       {
-        next:(res)=> {
+        next: (res) => {
           Alert.mensajeExitoToast(res.message)
           this.dataSourceAnswer.data = this.dataQuestion.answers;
 
@@ -190,8 +160,9 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
           })
 
         },
-        error:() => Alert.mensajeSinExitoToast('error al eliminar')
+        error: () => Alert.mensajeSinExitoToast('error al eliminar')
       }
     )
   }
 }
+

@@ -118,23 +118,47 @@ export class AddComponent implements OnInit {
 
   receiveModifiedQuestion(question: QuestionDto) {
     this.question.skillList = question.skillList;
-    this.question.skillList.forEach(element => {
-      this.question.skills.push(element.id);
-    })
-    console.log(this.question.skillList);
+    this.question.answers = question.answers;
+    this.question.answersInsert = question.answersInsert;
+    this.question.skills = this.question.skillList.map(element => element.id);
   }
 
   subirFormulario() {
 
     try {
+      const FormDatos = new FormData();
+      FormDatos.append('file', this.files[0]);
+      FormDatos.append('description', this.formQuestion.value.description);
 
-      this.question.description = this.formQuestion.value.description,
-        this.question.value = this.formQuestion.value.puntuation,
-        this.question.file = this.files[0] // Placeholder for the image data
+      //Having answers
+      for (let i = 0; i < this.question.answers.length; i++) {
+        const keyPrefix = `answers[${i}].`;
+        FormDatos.append(keyPrefix + "IdAnswer", this.question.answers[i].id.toString());
+        FormDatos.append(keyPrefix + "Description", this.question.answers[i].description);
+        FormDatos.append(keyPrefix + "IsCorrect", this.question.answers[i].isCorrect.toString());
+        if (this.question.answers[i].idFile != null )
+          FormDatos.append(keyPrefix + "IdFile", this.question.answers[i].idFile.toString());
+        else FormDatos.append(keyPrefix + "IdFile", null);
+      }
 
-      console.log(this.question);
+      //Inserting Answers
+      for (let i = 0; i < this.question.answersInsert.length; i++) {
+        const keyPrefix = `answersInsert[${i}].`;
+        FormDatos.append(keyPrefix + "IdAnswer", '0');
+        FormDatos.append(keyPrefix + "Description", this.question.answersInsert[i].description);
+        FormDatos.append(keyPrefix + "IsCorrect", this.question.answersInsert[i].isCorrect.toString());
+        if (this.question.answers[i].idFile != null )
+          FormDatos.append(keyPrefix + "IdFile", this.question.answersInsert[i].idFile.toString());
+        else FormDatos.append(keyPrefix + "IdFile", null);      }
 
-      this.questionService.AddQuestion(this.question).subscribe({
+      //Skills
+      for (let i = 0; i < this.question.skills.length; i++) {
+        const key = `skills[${i}]`;
+        FormDatos.append(key, this.question.skills[i].toString());
+      }
+
+
+      this.questionService.AddQuestion(FormDatos).subscribe({
         next: (res) => {
           console.log(res);
           this.dialogoReferencia.close('creado');
