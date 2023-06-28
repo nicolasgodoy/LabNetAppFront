@@ -5,13 +5,16 @@
                 Agregar Pregunta
             </h1>
         </div>
+
         <div class="col-md-6 text-center">
             <mat-slide-toggle 
-            class="ms-5" 
-            #slideToggleRef 
-            (change)="onSlideToggleChange($event)"
-            >
-            Texto | Imagen
+                class="ms-5" 
+                #slideToggleRef 
+                (change)="onSlideToggleChangeQuestion($event)">
+                    <span>
+                        <span [ngClass]="textoClaseQuestion">Texto</span> | 
+                        <span [ngClass]="imagenClaseQuestion">Imagen</span>
+                    </span>
             </mat-slide-toggle>
         </div>
     </div>
@@ -25,34 +28,34 @@
             <mat-grid-tile [colspan]="4">
                 <mat-form-field appearance="outline">
                     <mat-label>Descripción</mat-label>
-                    <input 
-                        type="text"
-                        matInput
-                        formControlName="description"
-                        placeholder="Descripción"
-                        autocomplete="off">
-                        <mat-error 
-                            *ngIf="formQuestion.get('description')?.touched &&
-                                   formQuestion.get('description')?.errors?.['required']">
-                                   <span>Descripción es requerida</span>
-                        </mat-error>
+                        <input 
+                            type="text"
+                            matInput
+                            formControlName="description"
+                            placeholder="Descripción"
+                            autocomplete="off">
+                                <mat-error 
+                                    *ngIf="formQuestion.get('description')?.touched &&
+                                        formQuestion.get('description')?.errors?.['required']">
+                                        <span>Descripción es requerida</span>
+                                </mat-error>
 
-                        <mat-error 
-                            *ngIf="formQuestion.get('description')?.touched &&
-                                   formQuestion.get('description')?.hasError?.('maxlength')">
-                                   <span>Valor máximo permitido 120 carácter</span>
-                        </mat-error>
+                                <mat-error 
+                                    *ngIf="formQuestion.get('description')?.touched &&
+                                        formQuestion.get('description')?.hasError?.('maxlength')">
+                                        <span>Valor máximo permitido 120 carácter</span>
+                                </mat-error>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="1">
                 <mat-form-field appearance="outline">
                     <mat-label>Puntuación de la pregunta</mat-label>
-                    <input 
-                        type="text"
-                        matInput
-                        formControlName="puntuation"
-                        placeholder="Puntuación de la pregunta"
-                        autocomplete="off">
+                        <input 
+                            type="text"
+                            matInput
+                            formControlName="puntuation"
+                            placeholder="Puntuación de la pregunta"
+                            autocomplete="off">
                         <mat-error 
                             *ngIf="formQuestion.get('puntuation')?.touched &&
                                    formQuestion.get('puntuation')?.errors?.['required']">
@@ -68,9 +71,10 @@
             </mat-grid-tile>
         </mat-grid-list>
 
-        
-
-        <app-filter-skill [question]="question" (questionModified)="receiveModifiedQuestion($event)"></app-filter-skill>
+        <app-filter-skill 
+            [question]="question" 
+            (questionModified)="receiveModifiedQuestion($event)">
+        </app-filter-skill>
 
         <div class="container">
             <div class="row">
@@ -79,37 +83,44 @@
                         Agregar Respuesta
                     </h1>
                 </div>
+
                 <div class="col-md-6 text-center">
                     <mat-slide-toggle 
-                    class="ms-5" 
-                    #slideToggleRef 
-                    (change)="onSlideToggleChange($event)"
-                    >
-                    Texto | Imagen
+                        class="ms-5" 
+                        #slideToggleRef 
+                        (change)="onSlideToggleChangeAnswer($event)">
+                            <span>
+                                <span [ngClass]="textoClaseAnswer">Texto</span> | 
+                                <span [ngClass]="imagenClaseAnswer">Imagen</span>
+                            </span>
                     </mat-slide-toggle>
                 </div>
             </div>
         </div>
         
-        <mat-grid-list cols="5" rowHeight="90px">
+        <mat-grid-list *ngIf="!toggleValueAnswer" cols="5" rowHeight="90px">
             <mat-grid-tile [colspan]="2">
                 <mat-slide-toggle 
                     class="text-center" 
                     #slideToggleRef 
                     (change)="onSlideToggleChange($event)"
                     >
-                    Correcto | Incorrecto
-                    </mat-slide-toggle>
+                    <span>
+                        <span [ngClass]="correcto">Correcto</span> | 
+                        <span [ngClass]="incorrecto">Incorrecto</span>
+                    </span>
+                </mat-slide-toggle>
             </mat-grid-tile>
+
             <mat-grid-tile [colspan]="2">
                 <mat-form-field appearance="outline">
                     <mat-label>Descripción</mat-label>
-                    <input 
-                        type="text"
-                        matInput
-                        formControlName="description"
-                        placeholder="Descripción"
-                        autocomplete="off">
+                        <input 
+                            type="text"
+                            matInput
+                            formControlName="description"
+                            placeholder="Descripción"
+                            autocomplete="off">
                         <mat-error 
                             *ngIf="formQuestion.get('description')?.touched &&
                                    formQuestion.get('description')?.errors?.['required']">
@@ -123,6 +134,7 @@
                         </mat-error>
                 </mat-form-field>
             </mat-grid-tile>
+
             <mat-grid-tile [colspan]="1">
                 <button mat-raised-button class="BotonAddAnswer" color="primary" (click)="AddQuestion()">Add
                     
@@ -133,7 +145,7 @@
 
         <!-- FALTA OCULTAR LA IMAGEN Y MOSTRARLA SOLO CUANDO EL TOGGLE ESTE ACTIVADO -->
         
-            <mat-grid-list cols="2" rowHeight="90px">
+            <mat-grid-list *ngIf="toggleValueAnswer" cols="2" rowHeight="90px">
             <mat-grid-tile>
                 <button
                     type="button"

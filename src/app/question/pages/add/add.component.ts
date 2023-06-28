@@ -1,13 +1,11 @@
-import { group } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
-import { SkillService } from 'src/app/service/skill.service';
 
 @Component({
   selector: 'app-add',
@@ -25,15 +23,21 @@ export class AddComponent implements OnInit {
   public receivedQuestion: QuestionDto;
   public maxAnswer: boolean = false;
   public toggleValue: boolean = false;
-  
+  public toggleValueQuestion: boolean = false;
+  public toggleValueAnswer: boolean = false;
+  public correcto: string;
+  public incorrecto: string;
+  public textoClaseQuestion: string;
+  public imagenClaseQuestion: string;
+  public textoClaseAnswer: string;
+  public imagenClaseAnswer: string;
+
   constructor(
 
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     private questionService: QuestionServiceService,
-    private dialogoReferencia: MatDialogRef<AddComponent>,
-    private skillServices: SkillService
-  ) {
+    private dialogoReferencia: MatDialogRef<AddComponent>) {
     this.question = new QuestionDto();
 
     this.formQuestion = this.formBuilder.group({
@@ -41,17 +45,10 @@ export class AddComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(120)]],
       puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       photoQuestion: [''],
-      answers: this.formBuilder.array([this.formBuilder.group({ answer: [''] },
-        [Validators.maxLength(4)])])
     });
   }
 
   ngOnInit(): void {
-  }
-
-  get getAnswers() {
-
-    return this.formQuestion.get('answers') as FormArray;
   }
 
   AddQuestion(): void {
@@ -63,23 +60,25 @@ export class AddComponent implements OnInit {
   }
 
   onSlideToggleChange(event: MatSlideToggleChange) {
+
     this.toggleValue = event.checked;
-
+    this.correcto = this.toggleValue ? 'texto-correcto' : 'texto-activo';
+    this.incorrecto = this.toggleValue ? 'texto-activo' : 'texto-correcto';
   }
 
-  addInputAnswer() {
+  onSlideToggleChangeQuestion(event: MatSlideToggleChange) {
 
-    const controls = <FormArray>this.formQuestion.controls['answers'];
-    if (controls.length < 4) {
-
-      controls.push(this.formBuilder.group({ answer: [] }));
-    }
-    else {
-
-      this.maxAnswer = true;
-    }
+    this.toggleValueQuestion = event.checked;
+    this.textoClaseQuestion = this.toggleValueQuestion ? 'texto-activo' : 'texto-inactivo';
+    this.imagenClaseQuestion = this.toggleValueQuestion ? 'texto-inactivo' : 'texto-activo';
   }
 
+  onSlideToggleChangeAnswer(event: MatSlideToggleChange) {
+
+    this.toggleValueAnswer = event.checked;
+    this.textoClaseAnswer = this.toggleValueAnswer ? 'texto-activo' : 'texto-inactivo';
+    this.imagenClaseAnswer = this.toggleValueAnswer ? 'texto-inactivo' : 'texto-activo';
+  }
 
   //Para los Archivos de IMG
   captureImg(event: any): any {
@@ -92,8 +91,6 @@ export class AddComponent implements OnInit {
       });
     this.files.push(archivoCapturado);
   }
-
-
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
 
@@ -130,8 +127,8 @@ export class AddComponent implements OnInit {
   subirFormulario() {
 
     try {
-      this.question.fileName = this.formQuestion.value.fileName,
-        this.question.description = this.formQuestion.value.description,
+
+      this.question.description = this.formQuestion.value.description,
         this.question.value = this.formQuestion.value.puntuation,
         this.question.file = this.files[0] // Placeholder for the image data
 

@@ -14,8 +14,21 @@
     flex-direction: column;
 }
 
-.BotonAddAnswer{
-    padding-left:3rem;
-    padding-right:3rem;
+.BotonAddAnswer {
+    padding-left: 3rem;
+    padding-right: 3rem;
     margin-bottom: 1rem;
+}
+
+.texto-activo {
+    color: red;
+}
+
+.texto-correcto{
+
+    color: green;
+}
+
+.texto-inactivo {
+    color: blue;
 }

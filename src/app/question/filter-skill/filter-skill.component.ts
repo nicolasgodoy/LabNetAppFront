@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
-import { AddProfileSkillDto } from 'src/app/models/ProfileSkill/AddProfileSkillDto';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { ResponseDto } from 'src/app/models/response';
 import { Skill } from 'src/app/models/skill';
-import { ProfilesService } from 'src/app/service/profiles.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 import { SkillService } from 'src/app/service/skill.service';
 
@@ -14,8 +12,7 @@ import { SkillService } from 'src/app/service/skill.service';
   templateUrl: './filter-skill.component.html',
   styleUrls: ['./filter-skill.component.css']
 })
-export class FilterSkillComponent implements OnInit , OnChanges{
-
+export class FilterSkillComponent implements OnInit, OnChanges {
 
   @Input()
   question: QuestionDto;
@@ -25,13 +22,13 @@ export class FilterSkillComponent implements OnInit , OnChanges{
 
   myControl = new FormControl<string | Skill>('');
   filteredOptions?: Observable<Skill[]>;
-  inputValue?:Skill;
-  isValid:boolean = false;
-  listSkill:Skill[] = [];
+  inputValue?: Skill;
+  isValid: boolean = false;
+  listSkill: Skill[] = [];
 
-  constructor(private skillService:SkillService,
-    private questionService:QuestionServiceService,
-    ) { }
+  constructor(private skillService: SkillService,
+    private questionService: QuestionServiceService,
+  ) { }
 
   ngOnInit(): void {
     this.GetSkills();
@@ -43,12 +40,12 @@ export class FilterSkillComponent implements OnInit , OnChanges{
       })
     );
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.validBtn();
     this.questionModified.emit(this.question);
   }
 
-  GetSkills(){
+  GetSkills() {
     this.skillService.getSkill().subscribe({
       next: (dataResponse: ResponseDto) => {
         this.listSkill = dataResponse.result;
@@ -81,13 +78,13 @@ export class FilterSkillComponent implements OnInit , OnChanges{
     this.validBtn();
   }
 
-  addSkillToQuestion(){
+  addSkillToQuestion() {
     event?.preventDefault();
-    const selectedSkill : Skill = {
-      description : this.inputValue.description,
+    const selectedSkill: Skill = {
+      description: this.inputValue.description,
       id: this.inputValue.id
     }
-    
+
     this.question.skillList.push(selectedSkill);
 
     this.listSkill = this.listSkill.filter((skill) => skill.id !== selectedSkill.id);
@@ -98,7 +95,7 @@ export class FilterSkillComponent implements OnInit , OnChanges{
 
   }
 
-  validBtn(){
+  validBtn() {
 
     this.listSkill.find(s => s.description == this.inputValue?.description) ?
       this.isValid = true : this.isValid = false;
@@ -109,4 +106,3 @@ export class FilterSkillComponent implements OnInit , OnChanges{
     this.listSkill = this.listSkill.filter(s => !list.find(p => p.description.toString() === s.description.toString()));
   }
 }
-
