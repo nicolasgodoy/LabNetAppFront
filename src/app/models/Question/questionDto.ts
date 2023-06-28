@@ -10,5 +10,6 @@ export class QuestionDto {
     skills: number[] = [];
     fileName?: string;
     file?: string;
-    answerEntities : Answer[] = [];
+    answers : Answer[] = [];
+    answersInsert : Answer[] = [];
 }

@@ -7,6 +7,7 @@ import { QuestionRoutingModule } from './question-routing.module';
 import { AnswerComponent } from '../answer/answer.component';
 import { ShowAnswerComponent } from './pages/show-answer/show-answer.component';
 import { FilterSkillComponent } from './filter-skill/filter-skill.component';
+import { AnswerInQuestionComponent } from './pages/answer-in-question/answer-in-question.component';
 
 
 
@@ -16,7 +17,8 @@ import { FilterSkillComponent } from './filter-skill/filter-skill.component';
     ConsultComponent,
     AnswerComponent,
     ShowAnswerComponent,
-    FilterSkillComponent
+    FilterSkillComponent,
+    AnswerInQuestionComponent
   ],
   imports: [
     CommonModule,

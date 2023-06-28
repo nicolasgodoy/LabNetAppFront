@@ -49,6 +49,14 @@ export class AnswerService {
     return this.http.delete<ResponseDto>(url,options);
   }
 
+  public GetById(id: number): Observable<ResponseDto>{
+    const userToken = `Bearer ${this._authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = `${this.apiUrl}${this.endpoint}/Get/${id}`;
+    return this.http.get<ResponseDto>(url,options);
+  }
+
   DeleteAnswerToQuestion(idAnswer: number, idQuestion: number): Observable<ResponseDto>{
     const userToken = `Bearer ${this._authService.readToken()}`;
     const headers = new HttpHeaders({ 'Authorization': userToken });
