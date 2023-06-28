@@ -33,14 +33,16 @@
                 </mat-autocomplete>
             </mat-form-field>
 
-            <button type="button" [disabled]="!toggleValueAnswer" mat-flat-button class="blackButton me-4"
-                (click)="ImgInput.click()">
-                Subir Imagen
-                <i class="material-icons right">
-                    add_a_photo
-                </i>
-
-            </button>
+            
+                <button type="button" [disabled]="!toggleValueAnswer" mat-flat-button class="blackButton me-4"
+                    (click)="ImgInput.click()">
+                    Subir Imagen
+                    <i class="material-icons right">
+                        add_a_photo
+                    </i>
+                </button>
+            
+            
             <input type="file" hidden #ImgInput (change)="captureImg($event)" />
 
 
