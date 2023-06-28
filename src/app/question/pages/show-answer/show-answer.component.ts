@@ -7,7 +7,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { Alert } from 'src/app/helpers/alert';
 import { questionAnswerDto } from 'src/app/models/Answer/QuestionAnswerDto';
 import { Answer } from 'src/app/models/Answer/answer';
-import { QuestionDto } from 'src/app/models/Question/questionDto';
+import { questionConsult } from 'src/app/models/Question/questionConsult';
 import { ResponseDto } from 'src/app/models/response';
 import { AnswerService } from 'src/app/service/answer.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
@@ -31,7 +31,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dataQuestion: QuestionDto,
+    @Inject(MAT_DIALOG_DATA) public dataQuestion: questionConsult,
     private answerService: AnswerService,
     private questionService: QuestionServiceService,
     private fb: FormBuilder,
@@ -44,7 +44,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
 
   ngOnInit(): void {
-    this.dataSourceAnswer.data = this.dataQuestion.answers;
+    this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
 
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
@@ -75,7 +75,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   }
 
   filterRepeated() {
-    let list: Answer[] = this.dataQuestion.answers;
+    let list: Answer[] = this.dataQuestion.answerEntities;
     this.listAnswer = this.listAnswer.filter(s => !list.find(p => p.id === s.id));
   }
 
@@ -108,8 +108,6 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   addSAnswerToQuestion() {
     console.log(this.inList);
     event?.preventDefault();
-
-
 
     if (!this.inList) {
       this.subirFormulario().then((res) => {
@@ -183,8 +181,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
       {
         next:(res)=> {
           Alert.mensajeExitoToast(res.message)
-          this.dataSourceAnswer.data = this.dataQuestion.answers;
-
+          this.dataSourceAnswer.data = [];
           this.answerService.GetAllAnswer().subscribe(res => {
             this.listAnswer = res.result;
           })
