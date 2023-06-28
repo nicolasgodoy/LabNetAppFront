@@ -1,14 +1,14 @@
 import { Answer } from "../Answer/answer";
 import { Skill } from "../skill";
 
-export class QuestionDto {
+export class questionConsult {
 
     id?: number;
+    isVisible: boolean;
     description: string;
     value: number;
-    skillList: Skill[] = [];
-    skills: number[] = [];
+    skillEntities: Skill[] = [];
+    answerEntities : Answer[] = [];
     file?: string;
-    answers : Answer[] = [];
-    answersInsert : Answer[] = [];
+    idFile?: number;
 }

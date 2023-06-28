@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Alert } from 'src/app/helpers/alert';
 import { MatPaginator } from '@angular/material/paginator';
 import { ShowAnswerComponent } from '../show-answer/show-answer.component';
+import { questionConsult } from 'src/app/models/Question/questionConsult';
 
 @Component({
   selector: 'app-consult',
@@ -49,6 +50,7 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
+        console.log(resp.result);
       },
 
       error: (error) => {
@@ -106,7 +108,8 @@ export class ConsultComponent implements OnInit {
   }
 
   //show answers
-  dialogShowAnswer(dataQuestion: QuestionDto) {
+  dialogShowAnswer(dataQuestion: questionConsult) {
+
     this.dialog
       .open(ShowAnswerComponent, {
         disableClose: false,
@@ -118,7 +121,7 @@ export class ConsultComponent implements OnInit {
         this.showQuestion();
       });
   }
-  showAnswers(dataQuestion: QuestionDto) {
+  showAnswers(dataQuestion: questionConsult) {
     this.dialogShowAnswer(dataQuestion);
   }
 }
