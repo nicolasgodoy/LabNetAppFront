@@ -107,40 +107,40 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
     this.imagenClaseAnswer = this.toggleValueAnswer ? 'texto-inactivo' : 'texto-activo';
   }
 
-    //Para los Archivos de IMG
-    captureImg(event: any): any {
+  //Para los Archivos de IMG
+  captureImg(event: any): any {
 
-      const archivoCapturado = event.target.files[0];
-      this.extraerBase64(archivoCapturado)
-        .then((img: any) => {
-          this.previewImg = img.base;
+    const archivoCapturado = event.target.files[0];
+    this.extraerBase64(archivoCapturado)
+      .then((img: any) => {
+        this.previewImg = img.base;
+      });
+    this.files.push(archivoCapturado);
+  }
+
+  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+
+    try {
+
+      const unsafeImg = window.URL.createObjectURL($event);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
         });
-      this.files.push(archivoCapturado);
-    }
-
-    extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
-
-      try {
-  
-        const unsafeImg = window.URL.createObjectURL($event);
-        const reader = new FileReader();
-        reader.readAsDataURL($event);
-        reader.onload = () => {
-          resolve({
-            base: reader.result
-          });
-        };
-        reader.onerror = error => {
-          resolve({
-            base: null
-          })
-        }
-      } catch (error) {
-  
-        return null;
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        })
       }
-    })
-  
+    } catch (error) {
+
+      return null;
+    }
+  })
+
 
 
   getAll() {
@@ -197,20 +197,21 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
   }
 
   DeleteAnswerToQuestion(idAnswer: number) {
-    this.answerService.DeleteAnswerToQuestion(idAnswer, this.dataQuestion.id).subscribe(
-      {
-        next: (res) => {
-          Alert.mensajeExitoToast(res.message)
-          this.dataSourceAnswer.data = this.dataQuestion.answers;
+    const index = this.dataQuestion.answers.findIndex(answer => answer.id === idAnswer);
+    const indexInsert = this.dataQuestion.answersInsert.findIndex(answer => answer.id === idAnswer);
+    if (index !== -1) {
+      this.dataQuestion.answers.splice(index, 1);
+    }
+    if (indexInsert !== -1) {
+      this.dataQuestion.answersInsert.splice(indexInsert, 1);
+    }
+    const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
 
-          this.answerService.GetAllAnswer().subscribe(res => {
-            this.listAnswer = res.result;
-          })
+    this.dataSourceAnswer.data = newData;
+    this.questionModified.emit(this.dataQuestion);
 
-        },
-        error: () => Alert.mensajeSinExitoToast('error al eliminar')
-      }
-    )
   }
-}
 
+  
+
+}
