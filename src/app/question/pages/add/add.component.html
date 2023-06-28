@@ -69,6 +69,28 @@
                     </mat-error>
                 </mat-form-field>
             </mat-grid-tile>
+
+            <mat-grid-tile>
+
+                <button type="button" [disabled]="!toggleValueQuestion" mat-flat-button class="blackButton me-4"
+                        (click)="ImgInput.click()">
+                            Subir Imagen
+                        <i class="material-icons right">
+                        add_a_photo
+                        </i>
+                </button>
+
+                <input type="file" hidden #ImgInput (change)="captureImg($event)" />
+
+                
+                <div *ngIf="previewImg && toggleValueQuestion" class="row" >
+                    <div class="row m-3">
+                        <img width="60px" [src]="previewImg" />
+                    </div>
+                </div>
+
+            </mat-grid-tile>
+
         </mat-grid-list>
 
         <app-filter-skill 

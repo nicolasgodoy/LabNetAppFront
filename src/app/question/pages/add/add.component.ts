@@ -87,7 +87,6 @@ export class AddComponent implements OnInit {
     const archivoCapturado = event.target.files[0];
     this.extraerBase64(archivoCapturado)
       .then((img: any) => {
-        this.formQuestion.addControl('fileName', new FormControl('', [Validators.required]));
         this.previewImg = img.base;
       });
     this.files.push(archivoCapturado);
