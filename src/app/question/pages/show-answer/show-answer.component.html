@@ -38,40 +38,49 @@
     </form>
 </div>
 
+
+
+
+
 <div mat-dialog-content>
     <div class="container text-center mt-1 mb-5">
 
-    <table mat-table [dataSource]="dataSourceAnswer" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceAnswer" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Respuesta</th>
-            <td mat-cell *matCellDef="let element">{{element.description}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="file">
-            <th mat-header-cell *matHeaderCellDef>Imagen</th>
-            <td mat-cell *matCellDef="let element">{{element.idFile}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="correcta">
-            <th mat-header-cell *matHeaderCellDef>Correcta</th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon class="ms-2">{{ element.isCorrect ? 'check' : 'close' }}</mat-icon>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>acciones</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-flat-button class="blackButton"
-                    (click)="DeleteAnswerToQuestion(element.id)">Eliminar</button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Respuesta</th>
+                <td mat-cell *matCellDef="let element">{{element.description}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="file">
+                <th mat-header-cell *matHeaderCellDef>Imagen</th>
+                <td mat-cell *matCellDef="let element">
+                     <!-- [src]="element.urlFile"  -->
+                   <img 
+                   width="40px" 
+                   src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="correcta">
+                <th mat-header-cell *matHeaderCellDef>Correcta</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon class="ms-2">{{ element.isCorrect ? 'check' : 'close' }}</mat-icon>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-flat-button class="blackButton"  (click)="DeleteAnswerToQuestion(element.id)" 
+                >Eliminar</button>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        </table>
 
 
     <div class="container text-center mt-5">
@@ -96,40 +105,5 @@
         </form>
     </div>
 
-    <table mat-table [dataSource]="dataSourceAnswer" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Respuesta</th>
-            <td mat-cell *matCellDef="let element">{{element.description}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="file">
-            <th mat-header-cell *matHeaderCellDef>Imagen</th>
-            <td mat-cell *matCellDef="let element">
-                 <!-- [src]="element.urlFile"  -->
-               <img 
-               width="40px" 
-               src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="correcta">
-            <th mat-header-cell *matHeaderCellDef>Correcta</th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon class="ms-2">{{ element.isCorrect ? 'check' : 'close' }}</mat-icon>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>acciones</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-flat-button class="blackButton"  (click)="DeleteAnswerToQuestion(element.id)" 
-            >Eliminar</button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
+    
 </div>
