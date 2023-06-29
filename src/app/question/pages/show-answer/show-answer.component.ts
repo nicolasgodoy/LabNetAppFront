@@ -1,4 +1,4 @@
-import { Component, Inject, OnChanges, OnInit} from '@angular/core';
+import { Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -45,7 +45,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     });
     this.formQuestion = this.fb.group({
       description: ['', [Validators.required, Validators.maxLength(120)]],
-      value: ['',Validators.required]})
+      value: ['', Validators.required]
+    })
   }
 
 
@@ -54,13 +55,15 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     this.questionDto = new QuestionDto();
     this.questionDto.answers = this.dataQuestion.answerEntities;
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
+    this.questionDto.skillList = this.dataQuestion.skillEntities
+
     console.log(this.dataQuestion)
 
     this.formQuestion.patchValue({
       description: this.dataQuestion.description,
       value: this.dataQuestion.value,
     });
-  
+
 
     console.log(this.formQuestion.value.value);
 
@@ -168,27 +171,41 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
   }
 
+  receiveModifiedQuestion(question: QuestionDto) {
+    this.questionDto.skills = question.skillList.map(element => element.id);
+  }
 
-  updateQuestion(){
+  updateQuestion() {
 
     this.dataQuestion.value = this.formQuestion.value.value
     this.dataQuestion.description = this.formQuestion.value.description
 
     const FormQuestionData = new FormData();
-    FormQuestionData.append('id',String(this.dataQuestion.id));
-    FormQuestionData.append('value',String(this.dataQuestion.value));
-    FormQuestionData.append('description',String(this.dataQuestion.description));
+    FormQuestionData.append('id', String(this.dataQuestion.id));
+    FormQuestionData.append('value', String(this.dataQuestion.value));
+    FormQuestionData.append('description', String(this.dataQuestion.description));
 
-    this.questionService.UpdateQuestion(FormQuestionData).subscribe( {
-        next: () => {
-          Alert.mensajeExitoToast("Se ha guardado correctamente!");          
-        },
-        error: (err) => {
-          Alert.mensajeSinExitoToast("No se pudo guardar!");          
+    //Skills
+    for (let i = 0; i < this.questionDto.skills.length; i++) {
+      const key = `skills[${i}]`;
+      FormQuestionData.append(key, this.questionDto.skills[i].toString());
+    }
 
-        }
+    console.log(this.questionDto.skills);
+
+    this.questionService.UpdateQuestion(FormQuestionData).subscribe({
+      next: () => {
+      
+        Alert.mensajeExitoToast("Se ha guardado correctamente!");
+      },
+      error: (err) => {
+        console.log(err);
+
+        Alert.mensajeSinExitoToast("No se pudo guardar!");
+
+      }
     })
-
+  
   }
 
   subirFormulario() {

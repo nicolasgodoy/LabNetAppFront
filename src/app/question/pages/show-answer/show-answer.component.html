@@ -33,8 +33,7 @@
             </div>
           </div>
           
-          <button [disabled]="formQuestion.invalid"
-          mat-flat-button class="blackButton mb-4" (click)="updateQuestion()">Guardar</button>
+          
     </form>
 </div>
 
@@ -43,7 +42,33 @@
 
 
 <div mat-dialog-content>
-    <div class="container  mt-1 mb-5">
+    <app-filter-skill [question]="questionDto" (questionModified)="receiveModifiedQuestion($event)"></app-filter-skill>
+
+    
+    <div class="container text-center">
+        <h2>Agregar Respuesta</h2>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Respuesta</mat-label>
+                <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue"
+                    (ngModelChange)="validBtn()" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.description}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button mat-flat-button class="blackButton" (click)="addSAnswerToQuestion()"
+                [disabled]="!myControl.value">Agregar</button>
+
+            <mat-slide-toggle class="ms-5" #slideToggleRef (change)="onSlideToggleChange($event)">Respuesta
+                correcta?</mat-slide-toggle>
+
+        </form>
+    </div>
+
+
+    <div class="container mt-5">
 
         <table mat-table [dataSource]="dataSourceAnswer" class="mat-elevation-z8">
 
@@ -82,28 +107,10 @@
     
         </table>
 
+        <div class="container text-center mt-4">
+            <button [disabled]="formQuestion.invalid || questionDto.skills.length==0"
+            mat-flat-button class="blackButton mb-4 px-4" (click)="updateQuestion()">Guardar</button>
+        </div>
 
-    <div class="container text-center mt-5">
-        <h2>Agregar Respuesta</h2>
-        <form class="example-form">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Respuesta</mat-label>
-                <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue"
-                    (ngModelChange)="validBtn()" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option.description}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-            <button mat-flat-button class="blackButton" (click)="addSAnswerToQuestion()"
-                [disabled]="!myControl.value">Agregar</button>
 
-            <mat-slide-toggle class="ms-5" #slideToggleRef (change)="onSlideToggleChange($event)">Respuesta
-                correcta?</mat-slide-toggle>
-
-        </form>
-    </div>
-
-    
-</div>
+</div>      

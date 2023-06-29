@@ -17,6 +17,9 @@ export class FilterSkillComponent implements OnInit, OnChanges {
   @Input()
   question: QuestionDto;
 
+  @Input()
+  modify: boolean;
+
   @Output()
   questionModified: EventEmitter<QuestionDto> = new EventEmitter<QuestionDto>();
 
