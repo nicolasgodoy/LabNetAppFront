@@ -48,7 +48,6 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     this.questionDto = new QuestionDto();
-    this.questionDto.skillList = this.dataQuestion.skillList;
     this.questionDto.answers = this.dataQuestion.answerEntities;
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
     console.log(this.dataQuestion)
