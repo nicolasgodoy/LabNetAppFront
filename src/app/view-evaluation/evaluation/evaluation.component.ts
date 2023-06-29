@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Answer } from 'src/app/models/Answer/answer';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 
 @Component({
@@ -45,4 +46,22 @@ export class EvaluationComponent implements OnInit {
       }
     })
   }
+
+
+  validate( data : Answer[]):boolean{
+
+    let countCorrect = 0;
+
+    for (const answer of data) {
+      if (answer.isCorrect) {
+        countCorrect++;
+      }
+      if (countCorrect === 2) {
+        return false;
+      }
+    }
+    console.log(data);
+    return true;
+  }
+
 }

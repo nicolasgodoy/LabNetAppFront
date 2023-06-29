@@ -64,7 +64,7 @@ export class ConsultComponent implements OnInit {
     this.dialog.open(AddComponent, {
 
       width: '60%',
-      disableClose: false
+      disableClose: true
     }).afterClosed()
       .subscribe((resp) => {
 
