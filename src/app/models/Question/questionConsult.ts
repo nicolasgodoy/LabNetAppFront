@@ -9,6 +9,6 @@ export class questionConsult {
     value: number;
     skillEntities: Skill[] = [];
     answerEntities : Answer[] = [];
-    file?: string;
+    urlFile?: string;
     idFile?: number;
 }
