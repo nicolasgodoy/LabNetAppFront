@@ -54,4 +54,12 @@ export class QuestionServiceService {
     let url = `${this.urlApi}${this.endpoint}/Get/`+id;
     return this.http.get<ResponseDto>(url,options);
   }
+  
+  public UpdateQuestion(QuestionDto: FormData): Observable<ResponseDto> {
+    const userToken = `Bearer ${this.authservice.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = `${this.urlApi}${this.endpoint}/Update/`;
+    return this.http.put<ResponseDto>(url,QuestionDto,options);
+  }
 }
