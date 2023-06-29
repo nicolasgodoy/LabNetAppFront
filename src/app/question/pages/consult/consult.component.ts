@@ -121,6 +121,7 @@ export class ConsultComponent implements OnInit {
         this.showQuestion();
       });
   }
+  
   showAnswers(dataQuestion: questionConsult) {
     this.dialogShowAnswer(dataQuestion);
   }

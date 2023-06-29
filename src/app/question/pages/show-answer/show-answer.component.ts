@@ -1,4 +1,4 @@
-import { Component, Inject, OnChanges, OnInit } from '@angular/core';
+import { Component, Inject, OnChanges, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -8,6 +8,7 @@ import { Alert } from 'src/app/helpers/alert';
 import { questionAnswerDto } from 'src/app/models/Answer/QuestionAnswerDto';
 import { Answer } from 'src/app/models/Answer/answer';
 import { questionConsult } from 'src/app/models/Question/questionConsult';
+import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { ResponseDto } from 'src/app/models/response';
 import { AnswerService } from 'src/app/service/answer.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
@@ -28,7 +29,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   inList: boolean = false;
   toggleValue: boolean = false;
   showAnswer: FormGroup;
-
+  public notEmpty: boolean;
+  public questionDto: QuestionDto;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataQuestion: questionConsult,
@@ -44,6 +46,10 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
 
   ngOnInit(): void {
+
+    this.questionDto = new QuestionDto();
+    this.questionDto.skillList = this.dataQuestion.skillList;
+    this.questionDto.answers = this.dataQuestion.answerEntities;
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
 
     this.answerService.GetAllAnswer().subscribe(res => {
@@ -131,7 +137,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   }
 
 
-  InsertIntoQuestion(data : questionAnswerDto) {
+  InsertIntoQuestion(data: questionAnswerDto) {
 
     if (this.dataSourceAnswer.data.length < 4) {
       this.answerService.InsertInQuestion(data).subscribe({
@@ -166,20 +172,20 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
           },
           error: (error) => {
             console.log(error);
-            reject(error); 
+            reject(error);
           }
         });
       } catch (error) {
         console.log(error);
-        reject(error); 
+        reject(error);
       }
     });
   }
 
-  DeleteAnswerToQuestion(idAnswer:number){
-    this.answerService.DeleteAnswerToQuestion(idAnswer,this.dataQuestion.id).subscribe(
+  DeleteAnswerToQuestion(idAnswer: number) {
+    this.answerService.DeleteAnswerToQuestion(idAnswer, this.dataQuestion.id).subscribe(
       {
-        next:(res)=> {
+        next: (res) => {
           Alert.mensajeExitoToast(res.message)
           this.dataSourceAnswer.data = [];
           this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
@@ -191,7 +197,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
           })
 
         },
-        error:() => Alert.mensajeSinExitoToast('error al eliminar')
+        error: () => Alert.mensajeSinExitoToast('error al eliminar')
       }
     )
   }
