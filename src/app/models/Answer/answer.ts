@@ -4,5 +4,4 @@ export interface Answer {
     file: string;
     description: string;
     isCorrect: boolean;
-    
 }

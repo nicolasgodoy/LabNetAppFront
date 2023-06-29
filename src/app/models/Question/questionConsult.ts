@@ -7,9 +7,8 @@ export class questionConsult {
     isVisible: boolean;
     description: string;
     value: number;
-    skillList: Skill[] = [];
-    skills?: number[] = [];
-    answerEntities: Answer[] = [];
-    file?: string;
+    skillEntities: Skill[] = [];
+    answerEntities : Answer[] = [];
+    urlFile?: string;
     idFile?: number;
 }

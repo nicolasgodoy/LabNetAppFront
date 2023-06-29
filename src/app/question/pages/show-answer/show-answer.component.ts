@@ -51,6 +51,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     this.questionDto.skillList = this.dataQuestion.skillList;
     this.questionDto.answers = this.dataQuestion.answerEntities;
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
+    console.log(this.dataQuestion)
 
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
