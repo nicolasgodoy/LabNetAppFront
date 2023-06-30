@@ -11,7 +11,7 @@
                 class="buttonMainAdd"
                 mat-raised-button
                 color="primary"
-                >
+                (click)="dialogAddResquest()">
     
                 Nueva Assessment-Request
             </button>
@@ -34,15 +34,15 @@
                 <td mat-cell *matCellDef="let element">{{element.titleRequest}}</td>
             </ng-container>
     
-            <ng-container matColumnDef="tiempoEvaluacion">
+            <ng-container matColumnDef="timeInMinutes">
                 <th mat-header-cell *matHeaderCellDef>tiempo evaluacion</th>
-                <td mat-cell *matCellDef="let element">{{element.tiempoEvaluacion}}</td>
+                <td mat-cell *matCellDef="let element">{{element.timeInMinutes}}</td>
             </ng-container>
     
                 
-            <ng-container matColumnDef="porcentajeMinimo">
+            <ng-container matColumnDef="percentageMinimoRequired">
                 <th mat-header-cell *matHeaderCellDef>porcentaje minimo</th>
-                <td mat-cell *matCellDef="let element">{{element.porcentajeMinimo}}</td>
+                <td mat-cell *matCellDef="let element">{{element.percentageMinimoRequired}}</td>
             </ng-container>
     
             <ng-container matColumnDef="acciones">

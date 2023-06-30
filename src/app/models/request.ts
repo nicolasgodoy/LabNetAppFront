@@ -1,5 +1,5 @@
 export interface Request{
-    id: number;
+    idRequest: number;
     timeInMinutes: number;
     titleRequest: string;
     porcentajeMinimo: number;

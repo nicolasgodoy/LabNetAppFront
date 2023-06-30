@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { requestService } from 'src/app/service/request.service';
+import { Request } from 'src/app/models/request';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
 import Swal from 'sweetalert2';
 import { Alert } from 'src/app/helpers/alert';
@@ -17,8 +18,8 @@ import { AddComponent } from '../add/add.component';
 export class AssessmentRequestComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['titleRequest','tiempoEvaluacion',
-    'porcentajeMinimo', 'acciones'];
+  public displayedColumns: string[] = ['titleRequest','timeInMinutes',
+    'percentageMinimoRequired', 'acciones'];
   public dataSourceAssesmentRequest = new MatTableDataSource();
 
   constructor(
@@ -58,7 +59,7 @@ export class AssessmentRequestComponent implements OnInit {
     });
   }
 
-  dialogAddQuestion(): void {
+  dialogAddResquest(): void {
 
     this.dialog.open(AddComponent, {
 
@@ -75,11 +76,11 @@ export class AssessmentRequestComponent implements OnInit {
   }
 
 
-  confirmDelete(dataQuestion: QuestionDto) {
+  confirmDelete(dataSourceAssesmentRequest: Request) {
 
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar la pregunta : ${dataQuestion.description}`,
+      text: `Esta a punto de Eliminar la Request : ${dataSourceAssesmentRequest.titleRequest}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
@@ -89,7 +90,7 @@ export class AssessmentRequestComponent implements OnInit {
 
       if (result.isConfirmed) {
 
-        this.requestService.deleteRequest(dataQuestion.id).subscribe({
+        this.requestService.deleteRequest(dataSourceAssesmentRequest.idRequest).subscribe({
 
           next: () => {
 
@@ -105,22 +106,5 @@ export class AssessmentRequestComponent implements OnInit {
     });
   }
 
-  //show answers
-  /* dialogShowAnswer(dataQuestion: questionConsult) {
-
-    this.dialog
-      .open(ShowAnswerComponent, {
-        disableClose: false,
-        width: '70%',
-        data: dataQuestion
-      })
-      .afterClosed()
-      .subscribe(() => {
-        this.showQuestion();
-      });
-  }
   
-  showAnswers(dataQuestion: questionConsult) {
-    this.dialogShowAnswer(dataQuestion);
-  } */
 }
