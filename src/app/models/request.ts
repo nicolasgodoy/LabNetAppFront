@@ -1,7 +1,7 @@
 export interface Request{
     id: number;
     timeInMinutes: number;
-    title: string;
+    titleRequest: string;
     porcentajeMinimo: number;
     //lista de detailRequerimientos
     //lista de AssesmentUserEntities

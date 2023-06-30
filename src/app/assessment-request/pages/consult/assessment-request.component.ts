@@ -17,9 +17,9 @@ import { AddComponent } from '../add/add.component';
 export class AssessmentRequestComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['titulo','tiempoEvaluacion',
+  public displayedColumns: string[] = ['titleRequest','tiempoEvaluacion',
     'porcentajeMinimo', 'acciones'];
-  public dataSourceQuestion = new MatTableDataSource();
+  public dataSourceAssesmentRequest = new MatTableDataSource();
 
   constructor(
     private dialog: MatDialog,
@@ -32,13 +32,13 @@ export class AssessmentRequestComponent implements OnInit {
 
   ngAfterViewInit() {
 
-    this.dataSourceQuestion.paginator = this.paginator;
+    this.dataSourceAssesmentRequest.paginator = this.paginator;
   }
 
   searchQuestion(event: Event) {
 
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceQuestion.filter = filterValue.trim().toLocaleLowerCase();
+    this.dataSourceAssesmentRequest.filter = filterValue.trim().toLocaleLowerCase();
   }
 
   showRequest() {
@@ -47,7 +47,8 @@ export class AssessmentRequestComponent implements OnInit {
 
       next: (resp) => {
 
-        this.dataSourceQuestion.data = resp.result;
+        this.dataSourceAssesmentRequest.data = resp.result;
+        console.log(resp.result);
       },
 
       error: (error) => {

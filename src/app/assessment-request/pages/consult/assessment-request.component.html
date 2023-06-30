@@ -27,11 +27,11 @@
                 #input>
         </mat-form-field>
     
-        <table mat-table [dataSource]="dataSourceQuestion" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceAssesmentRequest" class="mat-elevation-z8">
     
-            <ng-container matColumnDef="titulo">
-                <th mat-header-cell *matHeaderCellDef>titulo</th>
-                <td mat-cell *matCellDef="let element">{{element.titulo}}</td>
+            <ng-container matColumnDef="titleRequest">
+                <th mat-header-cell *matHeaderCellDef>titleRequest</th>
+                <td mat-cell *matCellDef="let element">{{element.titleRequest}}</td>
             </ng-container>
     
             <ng-container matColumnDef="tiempoEvaluacion">
