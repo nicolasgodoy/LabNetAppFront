@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs";
-import { Difficulty } from "../models/difficulty";
 import { ResponseDto } from "../models/response";
 import { AuthService } from "./auth.service";
+import { environment } from "src/environments/environment";
 
 
 @Injectable({
@@ -11,19 +10,16 @@ import { AuthService } from "./auth.service";
 })
 export class DifficultyService {
 
-    userToken: string = '';
-    url: string = "https://localhost:7059/api/difficulty";
+    apiUrl: string = environment.apiLab;
+    endPoint: string = 'Difficulty';
 
-    constructor(private http: HttpClient,
-        private _authservice: AuthService) { }
+    constructor(private http: HttpClient, private _authservice: AuthService) { }
 
     getAllDifficulty() {
         const userToken = `Bearer ${this._authservice.readToken()}`;
         const headers = new HttpHeaders({ 'Authorization': userToken });
+        let url = `${this.apiUrl}${this.endPoint}/GetAll`;
         const options = { headers: headers };
-
-        return this.http.get<ResponseDto>(this.url + '/GetAll', options);
+        return this.http.get<ResponseDto>(url, options);
     }
-
-   
 }

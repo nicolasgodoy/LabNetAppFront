@@ -8,8 +8,6 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-
-// https://localhost:7059/api/Ubication/GetAll
 export class UbicacionService {
   apiUrl: string = environment.apiLab;
   endPoint: string = 'Ubication';

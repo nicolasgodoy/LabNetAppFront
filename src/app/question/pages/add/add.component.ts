@@ -5,6 +5,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
+import { Difficulty } from 'src/app/models/difficulty';
+import { DifficultyService } from 'src/app/service/difficulty.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class AddComponent implements OnInit {
 
   public formQuestion: FormGroup;
   public previewImg: string;
+  public difficultyList: Difficulty[];
   public files: any = [];
   public skillArr: any = [];
   public question: QuestionDto;
@@ -38,18 +41,20 @@ export class AddComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     private questionService: QuestionServiceService,
+    private difficultyService: DifficultyService,
     private dialogoReferencia: MatDialogRef<AddComponent>) {
     this.question = new QuestionDto();
 
     this.formQuestion = this.formBuilder.group({
 
       description: ['', [Validators.required, Validators.maxLength(120)]],
-      puntuation: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      difficulty: ['', [Validators.required]],
       photoQuestion: [''],
     });
   }
 
   ngOnInit(): void {
+    this.getDifficulty();
   }
 
   AddQuestion(): void {
@@ -134,7 +139,8 @@ export class AddComponent implements OnInit {
       const FormDatos = new FormData();
       FormDatos.append('file', this.files[0]);
       FormDatos.append('description', this.formQuestion.value.description);
-      FormDatos.append('value', this.formQuestion.value.puntuation);
+      FormDatos.append('idDifficulty', this.formQuestion.value.difficulty);
+      console.log(this.formQuestion.value.difficulty);
 
 
       //Having answers
@@ -156,7 +162,7 @@ export class AddComponent implements OnInit {
         FormDatos.append(keyPrefix + "IdAnswer", '0');
         FormDatos.append(keyPrefix + "Description", this.question.answersInsert[i].description);
         FormDatos.append(keyPrefix + "IsCorrect", this.question.answersInsert[i].isCorrect.toString());
-        console.log(this.question.answersInsert[i].file);
+
         if (this.question.answersInsert[i].file != undefined )
           FormDatos.append(keyPrefix + "File", this.question.answersInsert[i].file);
         else FormDatos.append(keyPrefix + "File", null);      }
@@ -167,7 +173,7 @@ export class AddComponent implements OnInit {
         FormDatos.append(key, this.question.skills[i].toString());
       }
 
-
+      console.log(FormDatos)
       this.questionService.AddQuestion(FormDatos).subscribe({
         next: (res) => {
           console.log(res);
@@ -184,4 +190,15 @@ export class AddComponent implements OnInit {
     }
   }
 
+
+  getDifficulty():void{
+
+    this.difficultyService.getAllDifficulty().subscribe({
+
+      next:(response)=>{
+        this.difficultyList = response.result;
+      }
+
+    })
+  }
 }

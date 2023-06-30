@@ -56,7 +56,6 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
     this.dataQuestion.answers = [];
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
-      console.log(this.listAnswer);
     })
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
