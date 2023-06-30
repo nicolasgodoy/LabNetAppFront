@@ -11,7 +11,7 @@ import { AuthService } from "./auth.service";
 export class requestService {
 
     userToken: string = '';
-    url: string = "https://localhost:7059/api/difficulty";
+    url: string = "https://localhost:7059/api/request";
 
     constructor(private http: HttpClient,
         private _authservice: AuthService) { }
