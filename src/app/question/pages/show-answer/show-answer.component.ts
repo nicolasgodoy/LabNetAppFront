@@ -9,8 +9,10 @@ import { questionAnswerDto } from 'src/app/models/Answer/QuestionAnswerDto';
 import { Answer } from 'src/app/models/Answer/answer';
 import { questionConsult } from 'src/app/models/Question/questionConsult';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
+import { Difficulty } from 'src/app/models/difficulty';
 import { ResponseDto } from 'src/app/models/response';
 import { AnswerService } from 'src/app/service/answer.service';
+import { DifficultyService } from 'src/app/service/difficulty.service';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 
 @Component({
@@ -25,6 +27,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   listAnswer: Answer[] = [];
   myControl = new FormControl<string | Answer>('');
   filteredOptions?: Observable<Answer[]>;
+  difficultyList : Difficulty[];
   inputValue?: Answer;
   inList: boolean = false;
   toggleValue: boolean = false;
@@ -37,6 +40,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     @Inject(MAT_DIALOG_DATA) public dataQuestion: questionConsult,
     private answerService: AnswerService,
     private questionService: QuestionServiceService,
+    private difficultyService: DifficultyService,
     private fb: FormBuilder,
   ) {
     this.showAnswer = this.fb.group({
@@ -45,27 +49,26 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     });
     this.formQuestion = this.fb.group({
       description: ['', [Validators.required, Validators.maxLength(120)]],
-      value: ['', Validators.required]
+      difficulty: ['', Validators.required]
     })
   }
 
 
   ngOnInit(): void {
 
+    this.getDifficulty();
+
     this.questionDto = new QuestionDto();
     this.questionDto.answers = this.dataQuestion.answerEntities;
     this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
     this.questionDto.skillList = this.dataQuestion.skillEntities
 
-    console.log(this.dataQuestion)
+    console.log(this.dataQuestion.difficulty.id)
 
     this.formQuestion.patchValue({
       description: this.dataQuestion.description,
-      value: this.dataQuestion.value,
+      difficulty: this.dataQuestion.difficulty.id,
     });
-
-
-    console.log(this.formQuestion.value.value);
 
     this.answerService.GetAllAnswer().subscribe(res => {
       this.listAnswer = res.result;
@@ -177,12 +180,12 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
   updateQuestion() {
 
-    this.dataQuestion.value = this.formQuestion.value.value
+    this.dataQuestion.difficulty = this.formQuestion.value.difficulty
     this.dataQuestion.description = this.formQuestion.value.description
 
     const FormQuestionData = new FormData();
     FormQuestionData.append('id', String(this.dataQuestion.id));
-    FormQuestionData.append('value', String(this.dataQuestion.value));
+    FormQuestionData.append('idDifficulty', String(this.dataQuestion.difficulty));
     FormQuestionData.append('description', String(this.dataQuestion.description));
 
     //Skills
@@ -190,8 +193,6 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
       const key = `skills[${i}]`;
       FormQuestionData.append(key, this.questionDto.skills[i].toString());
     }
-
-    console.log(this.questionDto.skills);
 
     this.questionService.UpdateQuestion(FormQuestionData).subscribe({
       next: () => {
@@ -252,5 +253,16 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
         error: () => Alert.mensajeSinExitoToast('error al eliminar')
       }
     )
+  }
+
+  getDifficulty():void{
+
+    this.difficultyService.getAllDifficulty().subscribe({
+
+      next:(response)=>{
+        this.difficultyList = response.result;
+      }
+
+    })
   }
 }

@@ -20,16 +20,15 @@
             </div>
           
             <div class="col-md-2">
-              <mat-form-field appearance="outline">
-                <mat-label>Puntuación de la pregunta</mat-label>
-                <input type="text" matInput formControlName="value" placeholder="Puntuación de la pregunta" autocomplete="off">
-                <mat-error *ngIf="formQuestion.get('value')?.touched && formQuestion.get('value')?.errors?.['required']">
-                  <span>Puntuación es requerida</span>
-                </mat-error>
-                <mat-error *ngIf="formQuestion.get('value')?.touched && formQuestion.get('value')?.errors?.['pattern']">
-                  <span>Este campo solo permite números</span>
-                </mat-error>
-              </mat-form-field>
+                <mat-form-field appearance="outline">
+
+                    <mat-label>Dificultad</mat-label>
+                    <mat-select formControlName="difficulty">
+                      <mat-option *ngFor="let difficulty of difficultyList"
+                        [value]="difficulty.id">{{difficulty.description}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
             </div>
           </div>
           

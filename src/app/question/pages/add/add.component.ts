@@ -140,9 +140,7 @@ export class AddComponent implements OnInit {
       FormDatos.append('file', this.files[0]);
       FormDatos.append('description', this.formQuestion.value.description);
       FormDatos.append('idDifficulty', this.formQuestion.value.difficulty);
-      console.log(this.formQuestion.value.difficulty);
-
-
+  
       //Having answers
       for (let i = 0; i < this.question.answers.length; i++) {
         const keyPrefix = `answers[${i}].`;

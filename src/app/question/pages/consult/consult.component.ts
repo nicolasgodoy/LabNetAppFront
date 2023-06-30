@@ -19,7 +19,7 @@ import { questionConsult } from 'src/app/models/Question/questionConsult';
 export class ConsultComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['description', 'value',
+  public displayedColumns: string[] = ['description','difficulty', 'value',
     'image', 'acciones', 'consultar'];
   public dataSourceQuestion = new MatTableDataSource();
 
@@ -50,6 +50,7 @@ export class ConsultComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
+        console.log(resp.result)
       },
 
       error: (error) => {
