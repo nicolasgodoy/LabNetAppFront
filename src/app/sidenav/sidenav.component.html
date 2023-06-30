@@ -26,6 +26,10 @@
           <mat-icon aria-hidden="false" aria-label="Example home icon">content_paste_search</mat-icon>
           Consultar Sector
         </button>
+        <button routerLink="/assessment-request/consult" mat-raised-button style="margin:5px">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">task</mat-icon>
+          Consult Assessment-Request
+        </button>
         <button routerLink="/question/consult" mat-raised-button style="margin:5px">
           <mat-icon aria-hidden="false" aria-label="Example home icon">psychology_alt</mat-icon>
           Cargar preguntas
@@ -34,6 +38,7 @@
           <mat-icon aria-hidden="false" aria-label="Example home icon">task</mat-icon>
           Evaluacion
         </button>
+        
         <button (click)="logout()" routerLink="/login" mat-raised-button style="margin:5px" color="primary" class="log-out-button">
           <mat-icon aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
           Cerrar sesión

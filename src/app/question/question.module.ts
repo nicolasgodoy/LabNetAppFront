@@ -8,6 +8,7 @@ import { AnswerComponent } from '../answer/answer.component';
 import { ShowAnswerComponent } from './pages/show-answer/show-answer.component';
 import { FilterSkillComponent } from './filter-skill/filter-skill.component';
 import { AnswerInQuestionComponent } from './pages/answer-in-question/answer-in-question.component';
+import { DifficultyComponent } from './filter-difficulty/difficulty/difficulty.component';
 
 
 
@@ -18,7 +19,8 @@ import { AnswerInQuestionComponent } from './pages/answer-in-question/answer-in-
     AnswerComponent,
     ShowAnswerComponent,
     FilterSkillComponent,
-    AnswerInQuestionComponent
+    AnswerInQuestionComponent,
+    DifficultyComponent
   ],
   imports: [
     CommonModule,
