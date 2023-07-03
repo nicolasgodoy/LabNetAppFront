@@ -1,3 +1,135 @@
-<p>add works!</p>
+<div mat-dialog-content>
+   <h1>Agregar Requerimientos</h1>
+    <mat-grid-list cols="6" rowHeight="90px">
+       
+        <mat-grid-tile [colspan]="6">
+            
+            
+            <mat-form-field appearance="outline">
+                
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput formControlName="titulo" placeholder="Titulo"
+                autocomplete="off">
+                <mat-error *ngIf="formAssessmentRequest.get('titulo')?.touched &&
+                                  formAssessmentRequest.get('titulo')?.errors?.['required']">
+                        <span>Titulo es requerida</span>
+                    </mat-error>
 
-<button class="botonVolver blackButton"  mat-raised-button mat-dialog-close>Volver</button>
+                    <mat-error *ngIf="formAssessmentRequest.get('titulo')?.touched &&
+                                      formAssessmentRequest.get('titulo')?.hasError?.('maxlength')">
+                        <span>Valor máximo permitido 120 carácter</span>
+                </mat-error>
+
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+  
+    <mat-grid-list cols="6" rowHeight="90px">
+
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field appearance="outline">
+                <mat-label>Tiempo evaluacion</mat-label>
+                <input type="text" matInput formControlName="tiempoEvaluacion" placeholder="Tiempo evaluacion"
+                autocomplete="off">
+              
+
+            </mat-form-field>
+        </mat-grid-tile>
+     
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field appearance="outline">
+                <mat-label>Porcentaje Minimo Requerido</mat-label>
+                <input type="text" matInput formControlName="porcentajeMinimoRequerido" placeholder="Porcentaje"
+                autocomplete="off">
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="3" rowHeight="90px">
+
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="skill">
+                   
+                  </mat-select>
+              
+
+            </mat-form-field>
+        </mat-grid-tile>
+     
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="difficulty">
+                    
+                  </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-label>Cantidad Preguntas</mat-label>
+                <input type="text" matInput formControlName="cantidadPreguntas" placeholder="Cantidad Preguntas"
+                autocomplete="off">
+            </mat-form-field>
+            
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3">
+            <button class="botonVolver blackButton" mat-raised-button mat-dialog-close>Agregar</button>
+        </mat-grid-tile>
+
+        
+
+    </mat-grid-list>
+</div>
+<button class="botonVolver blackButton" mat-raised-button mat-dialog-close>Volver</button>
+
+<!-- <div class="mat-elevation-z8">
+    <mat-form-field>
+        <mat-label>Buscar pregunta</mat-label>
+        <input 
+            matInput
+            (keyup)="searchQuestion($event)"
+            #input>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSourceAssessmentRequest" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="skill">
+            <th mat-header-cell *matHeaderCellDef>skill</th>
+            <td mat-cell *matCellDef="let element">{{element.skill}}</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="difficulty">
+            <th mat-header-cell *matHeaderCellDef>Dificultad</th>
+            <td mat-cell *matCellDef="let element">{{element.difficulty.description}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidadPreguntas">
+            <th mat-header-cell *matHeaderCellDef>Cantidad Preguntas</th>
+            <td mat-cell *matCellDef="let element">{{element.difficulty.value}}</td>
+        </ng-container>
+
+            
+       <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                <button
+                    mat-raised-button
+                    class="blackButton"
+                    (click)="confirmDelete(element)">
+                    Eliminar
+                </button>
+            </td>
+        </ng-container>
+
+        
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div> -->
