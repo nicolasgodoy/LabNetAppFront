@@ -20,13 +20,13 @@
         </div>
 
 
-
         <form class="example-form">
 
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Respuesta</mat-label>
-                <input type="text" matInput [formControl]="myControl" [(ngModel)]="inputValue"
-                    (ngModelChange)="validBtn()" [matAutocomplete]="auto">
+                <input type="text" matInput [formControl]="myControl" 
+                       [(ngModel)]="inputValue"
+                       (ngModelChange)="validBtn()" [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option.description}}
@@ -47,8 +47,13 @@
             <input type="file" hidden #ImgInput (change)="captureImg($event)" />
 
 
-            <button mat-flat-button class="blackButton" (click)="addSAnswerToQuestion()"
-                [disabled]="!myControl.value">Agregar</button>
+            <button 
+                    mat-flat-button 
+                    class="blackButton" 
+                    (click)="addSAnswerToQuestion()"
+                    [disabled]="!myControl.value">
+                    Agregar
+            </button>
 
             <mat-slide-toggle class="ms-5" #slideToggleRef (change)="onSlideToggleChange($event)">Respuesta
                 correcta?</mat-slide-toggle>

@@ -42,8 +42,7 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
 
   constructor(
     private answerService: AnswerService,
-    private questionService: QuestionServiceService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.showAnswer = this.fb.group({
       description: ['', [Validators.required, Validators.maxLength(120)]],
@@ -159,13 +158,15 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
   }
 
   addSAnswerToQuestion() {
-    
+
     event?.preventDefault();
 
     if (this.inList) {
       event?.preventDefault();
+
       const selectedOption = this.myControl.value;
       if (selectedOption) {
+
         this.answerService.GetById(this.inputValue.id).subscribe(result => {
           result.result.isCorrect = this.toggleValue;
           this.dataQuestion.answers.push(result.result);
@@ -177,13 +178,13 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
       }
     } else {
 
-      //Subir la imagen al servidor y obtener el id,mapearlo ahi?
       const newAnswer: Answer = {
         description: String(this.myControl.value),
         file: this.files[0],
         isCorrect: this.toggleValue,
         id: 0
       }
+
       this.dataQuestion.answersInsert.push(newAnswer);
 
       const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
@@ -212,6 +213,6 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
 
   }
 
-  
+
 
 }

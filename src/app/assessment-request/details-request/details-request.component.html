@@ -1,78 +1,93 @@
-<mat-grid-list cols="3" rowHeight="90px">
+<form [formGroup]="formDetailRequest">
 
-    <mat-grid-tile [colspan]="1">
-        <mat-form-field appearance="outline">
-            <mat-label>Skill</mat-label>
-                <mat-select formControlName="skill">
-                
-                </mat-select>
-        </mat-form-field>
-    </mat-grid-tile>
- 
-    <mat-grid-tile [colspan]="1">
-        <mat-form-field appearance="outline">
-            <mat-label>Dificultad</mat-label>
-                <mat-select formControlName="difficulty">
-                    
-                </mat-select>
-        </mat-form-field>
-    </mat-grid-tile>
+    <mat-grid-list cols="3" rowHeight="90px">
 
-    <mat-grid-tile [colspan]="1">
-        <mat-form-field appearance="outline">
-            <mat-label>Cantidad Preguntas</mat-label>
-            <input type="text" matInput formControlName="cantidadPreguntas" placeholder="Cantidad Preguntas"
-            autocomplete="off">
-        </mat-form-field>
-        
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3">
-        <button class="botonVolver blackButton" mat-raised-button mat-dialog-close>Agregar</button>
-    </mat-grid-tile>
-</mat-grid-list>
 
-<mat-grid-list cols="6">
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-label>Skill</mat-label>
+                    <mat-select formControlName="skills">
+                        <mat-option *ngFor="let skill of skillList"
+                                    [value]="skill">{{skill.description}}</mat-option>
+                    </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+     
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-label>Dificultad</mat-label>
+                    <mat-select formControlName="difficultys">
+                        <mat-option *ngFor="let difficulty of difficultyList"
+                                    [value]="difficulty">{{difficulty.description}}</mat-option>
+                    </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
     
-    <div class="container">
-        <div class="mat-elevation-z8">
+        <mat-grid-tile [colspan]="1">
+            <mat-form-field appearance="outline">
+                <mat-label>Cantidad Preguntas</mat-label>
+                <input type="number" matInput 
+                       formControlName="cantidadPreguntas" 
+                       placeholder="Cantidad Preguntas"
+                       autocomplete="off">
+            </mat-form-field>
+            
+        </mat-grid-tile>
+    
+        <mat-grid-tile [colspan]="3">
+            <button 
+                    (click)="addDetails()"
+                    class="botonVolver blackButton" 
+                    mat-raised-button>
+                    Agregar
+                </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    
+    <mat-grid-list cols="6">
         
-            <table mat-table [dataSource]="dataSourceAssessmentRequest" class="mat-elevation-z8">
-        
-                <ng-container matColumnDef="skill">
-                    <th mat-header-cell *matHeaderCellDef>Skill</th>
-                    <td mat-cell *matCellDef="let element">{{element.skill}}</td>
-                </ng-container>
-                
-                <ng-container matColumnDef="dificultad">
-                    <th mat-header-cell *matHeaderCellDef>Dificultad</th>
-                    <td mat-cell *matCellDef="let element">{{element.difficulty.description}}</td>
-                </ng-container>
-        
-                <ng-container matColumnDef="cantidadPreguntas">
-                    <th mat-header-cell *matHeaderCellDef>Cantidad Preguntas</th>
-                    <td mat-cell *matCellDef="let element">{{element.difficulty.value}}</td>
-                </ng-container>
-        
+        <div class="container">
+            <div class="mat-elevation-z8">
+            
+                <table mat-table [dataSource]="dataSourceAssessmentRequest" 
+                       class="mat-elevation-z8">
+            
+                    <ng-container matColumnDef="skill">
+                        <th mat-header-cell *matHeaderCellDef>Skill</th>
+                        <td mat-cell *matCellDef="let element">{{element.skillDescription}}</td>
+                    </ng-container>
                     
-               <ng-container matColumnDef="acciones">
-                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                        <td mat-cell *matCellDef="let element">
-                            <button
-                                mat-raised-button
-                                class="blackButton"
-                                (click)="confirmDelete(element)">
-                                Eliminar
-                            </button>
-                        </td>
-                </ng-container>
-        
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons
-                           aria-label="Select page of periodic elements">
-          </mat-paginator>
+                    <ng-container matColumnDef="dificultad">
+                        <th mat-header-cell *matHeaderCellDef>Dificultad</th>
+                        <td mat-cell *matCellDef="let element">{{element.difficultyDescription}}</td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="cantidadPreguntas">
+                        <th mat-header-cell *matHeaderCellDef>Cantidad Preguntas</th>
+                        <td mat-cell *matCellDef="let element">{{element.quantityQuestion}}</td>
+                    </ng-container>
+            
+                        
+                   <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button
+                                    mat-raised-button
+                                    class="blackButton"
+                                    (click)="confirmDelete(element)">
+                                    Eliminar
+                                </button>
+                            </td>
+                    </ng-container>
+            
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="Select page of periodic elements">
+              </mat-paginator>
+            </div>
         </div>
-    </div>
-</mat-grid-list>
+    </mat-grid-list>
+</form>
