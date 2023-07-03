@@ -47,7 +47,10 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <app-details-request></app-details-request>
+    <app-details-request
+    (detailsRequestEmit)="receiveModifiedRequest($event)"
+    >
+    </app-details-request>
     <app-question-required></app-question-required>
 
    </form>

@@ -28,9 +28,9 @@ export class DetailsRequestComponent implements OnInit {
 
   public skillList: Skill[] = [];
   public difficultyList: Difficulty[] = [];
+
   public detailsRequestList: DetailsRequestDto[] = [];
-  public skills = new FormControl<string | Skill>('');
-  public difficultys = new FormControl<string | Difficulty>('');
+
   public formDetailRequest: FormGroup;
 
   public dataSourceAssessmentRequest = new MatTableDataSource();
@@ -110,7 +110,8 @@ export class DetailsRequestComponent implements OnInit {
     this.dataSourceAssessmentRequest.data = this.detailsRequestList;
 
     this.detailsRequestEmit.emit(this.detailsRequestList);
-    console.log(this.detailsRequestList);
+
+    this.formDetailRequest.reset();
   }
 
   confirmDelete(data: Request) {
@@ -141,5 +142,20 @@ export class DetailsRequestComponent implements OnInit {
         });
       }
     });
+  }
+
+  DeleteDetailRequired(detailRequest:DetailsRequest ) {
+
+    const index = this.detailsRequestList.findIndex(d => d.idSkill === detailRequest.idSkill && 
+                                                    d.idDifficulty === detailRequest.idDifficulty && 
+                                                    d.quantityQuestion === detailRequest.quantityQuestion);
+
+
+    if (index !== -1) {
+      this.detailsRequestList.splice(index, 1);
+    }
+    this.dataSourceAssessmentRequest.data = this.detailsRequestList;
+    this.detailsRequestEmit.emit(this.detailsRequestList);
+
   }
 }

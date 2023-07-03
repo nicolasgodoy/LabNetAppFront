@@ -213,6 +213,4 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
 
   }
 
-
-
 }

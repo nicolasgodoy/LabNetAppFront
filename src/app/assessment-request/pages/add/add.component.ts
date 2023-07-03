@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { QuestionServiceService } from 'src/app/service/question-service.service';
+import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
+
 
 @Component({
   selector: 'app-add',
@@ -17,6 +18,8 @@ export class AddComponent implements OnInit {
 
   public dataSourceAssessmentRequest = new MatTableDataSource();
   public dataSourceQuestion = new MatTableDataSource();
+  public detailsRequestList: DetailsRequestDto[] = [];
+  public notEmpty: boolean;
 
   constructor(
     private formBuilder: FormBuilder
@@ -45,6 +48,16 @@ export class AddComponent implements OnInit {
 
   insertAssessment() {
 
-    
   } 
+
+  receiveModifiedRequest(detailsRequestEmit: DetailsRequestDto[]) {
+    this.notEmpty = false;
+    this.detailsRequestList = detailsRequestEmit;
+
+    console.log(this.detailsRequestList)
+ 
+    if (this.detailsRequestList.length > 0){
+      this.notEmpty = true;
+    }
+  }
 }

@@ -60,7 +60,6 @@ export class EvaluationComponent implements OnInit {
         return false;
       }
     }
-    console.log(data);
     return true;
   }
 
