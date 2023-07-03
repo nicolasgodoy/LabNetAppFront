@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit,Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
@@ -12,15 +13,39 @@ import Swal from 'sweetalert2';
 })
 export class QuestionRequiredComponent implements OnInit {
 
-  public dataSourceQuestion = new MatTableDataSource();
+  @Output()
+  questionRequiredEmit: EventEmitter<number[]> = new EventEmitter<number[]>();
 
-  public displayedColumnsQuestion: string[] = ['question'];
+  public questionRequiredList: QuestionDto[] = [];
+  public questionList: number[] = [];
+  public questionDtoList: QuestionDto[] = []; 
+  public dataSourceQuestion = new MatTableDataSource();
+  public formQuestionRequired: FormGroup;
+
+  public displayedColumnsQuestion: string[] = ['question', 'acciones'];
 
   constructor(
-    private questionService: QuestionServiceService
-  ) { }
+    private questionService: QuestionServiceService,
+    private fb: FormBuilder
+  ) {
+
+    this.formQuestionRequired = this.fb.group({
+      preguntasPrimordiales: [''],
+    });
+   }
 
   ngOnInit(): void {
+    this.getQuestionRequired();
+  }
+
+  getQuestionRequired(){
+    this.questionService.GetAllQuestion().subscribe({
+
+      next: (resp) => {
+        this.questionRequiredList = resp.result;
+        console.log(resp.result)
+      }
+    });
   }
 
   getQuestion() {
@@ -30,6 +55,7 @@ export class QuestionRequiredComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
+        console.log(resp.result)
       },
 
       error: () => {
@@ -39,33 +65,29 @@ export class QuestionRequiredComponent implements OnInit {
     });
   }
 
-  confirmDeleteQuestion(data: QuestionDto) {
+  addDetails() {
 
-    Swal.fire({
-      title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar la pregunta : ${data.description}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#000',
-      cancelButtonColor: '#198754',
-      confirmButtonText: 'Si, Borralo!',
-    }).then((result) => {
+    event?.preventDefault();
+    
+    this.questionList.push(this.formQuestionRequired.value.preguntasPrimordiales.id);
+    this.questionDtoList.push(this.formQuestionRequired.value.preguntasPrimordiales);
 
-      if (result.isConfirmed) {
+    this.questionRequiredEmit.emit(this.questionList);
+    this.dataSourceQuestion.data = this.questionDtoList;
 
-        this.questionService.DeleteQuestion(data.id).subscribe({
 
-          next: () => {
+    this.formQuestionRequired.reset();
+  }
 
-            Alert.mensajeExitoToast();
-            this.getQuestion();
-          },
-          error: (e) => {
+  DeleteQuestionRequired(id: number ) {
 
-            Alert.mensajeSinExitoToast();
-          },
-        });
-      }
-    });
+    const index = this.questionDtoList.findIndex(d => d.id === id );
+
+    if (index !== -1) {
+      this.questionDtoList.splice(index, 1);
+    }
+    this.dataSourceQuestion.data = this.questionDtoList;
+    this.questionRequiredEmit.emit(this.questionList);
+
   }
 }

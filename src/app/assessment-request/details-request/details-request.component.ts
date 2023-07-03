@@ -114,36 +114,7 @@ export class DetailsRequestComponent implements OnInit {
     this.formDetailRequest.reset();
   }
 
-  confirmDelete(data: Request) {
-
-    Swal.fire({
-      title: 'Esta seguro?',
-      text: `Esta a punto de Eliminar la pregunta : ${data.titleRequest}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#000',
-      cancelButtonColor: '#198754',
-      confirmButtonText: 'Si, Borralo!',
-    }).then((result) => {
-
-      if (result.isConfirmed) {
-
-        this.requestService.deleteRequest(data.idRequest).subscribe({
-
-          next: () => {
-
-            Alert.mensajeExitoToast();
-            this.getRequest();
-          },
-          error: (e) => {
-
-            Alert.mensajeSinExitoToast();
-          },
-        });
-      }
-    });
-  }
-
+  
   DeleteDetailRequired(detailRequest:DetailsRequest ) {
 
     const index = this.detailsRequestList.findIndex(d => d.idSkill === detailRequest.idSkill && 
