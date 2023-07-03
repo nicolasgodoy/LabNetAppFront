@@ -159,6 +159,7 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
   }
 
   addSAnswerToQuestion() {
+    
     event?.preventDefault();
 
     if (this.inList) {

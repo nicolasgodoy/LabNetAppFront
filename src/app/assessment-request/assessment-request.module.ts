@@ -4,12 +4,16 @@ import { AssessmentRequestComponent } from './pages/consult/assessment-request.c
 import { AssessmentRequestRoutingModule } from './assessment-request-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AddComponent } from './pages/add/add.component';
+import { DetailsRequestComponent } from './details-request/details-request.component';
+import { QuestionRequiredComponent } from './question-required/question-required.component';
 
 
 @NgModule({
   declarations: [
     AssessmentRequestComponent,
-    AddComponent
+    AddComponent,
+    DetailsRequestComponent,
+    QuestionRequiredComponent
   ],
   imports: [
     CommonModule,
