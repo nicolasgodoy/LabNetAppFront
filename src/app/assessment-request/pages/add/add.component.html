@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-   <form [formGroup]="formAssessmentRequest" (ngSubmit)="insertAssessment()">
+   <form [formGroup]="formAssessmentRequest">
 
     <h1>Agregar Requerimientos</h1>
         <mat-grid-list cols="6" rowHeight="90px">
@@ -48,10 +48,10 @@
     </mat-grid-list>
 
     <app-details-request
-    (detailsRequestEmit)="receiveModifiedRequest($event)"
+    (detailsRequestEmit)="receiveDetail($event)"
     >
     </app-details-request>
-    <app-question-required></app-question-required>
+    <app-question-required (questionRequiredEmit)="receiveQuestion($event)"></app-question-required>
 
    </form>
 </div>
@@ -61,7 +61,9 @@
 <div class="container">
     <button type="submit"
             class="botonVolver blackButton" 
-            mat-raised-button mat-dialog-close
+            (click)="addRequest()"
+            mat-raised-button
+            [disabled]="!notEmpty"
             >Guardar
     </button>
     <button class="botonVolver blackButton" mat-raised-button mat-dialog-close>Volver</button>

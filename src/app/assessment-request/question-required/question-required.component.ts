@@ -43,7 +43,6 @@ export class QuestionRequiredComponent implements OnInit {
 
       next: (resp) => {
         this.questionRequiredList = resp.result;
-        console.log(resp.result)
       }
     });
   }
@@ -55,7 +54,6 @@ export class QuestionRequiredComponent implements OnInit {
       next: (resp) => {
 
         this.dataSourceQuestion.data = resp.result;
-        console.log(resp.result)
       },
 
       error: () => {
@@ -88,6 +86,5 @@ export class QuestionRequiredComponent implements OnInit {
     }
     this.dataSourceQuestion.data = this.questionDtoList;
     this.questionRequiredEmit.emit(this.questionList);
-
   }
 }

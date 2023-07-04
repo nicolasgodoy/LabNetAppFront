@@ -47,9 +47,7 @@ export class AssessmentRequestComponent implements OnInit {
     this.requestService.getAllRequest().subscribe({
 
       next: (resp) => {
-
         this.dataSourceAssesmentRequest.data = resp.result;
-        console.log(resp.result);
       },
 
       error: (error) => {
@@ -65,14 +63,10 @@ export class AssessmentRequestComponent implements OnInit {
 
       width: '60%',
       disableClose: true
-    }).afterClosed()
-      .subscribe((resp) => {
+    }).afterClosed().subscribe((resp) => {
 
-        if (resp === 'creado') {
-
-          this.showRequest();
-        }
-      })
+      resp && this.showRequest();
+    })
   }
 
 
@@ -105,6 +99,4 @@ export class AssessmentRequestComponent implements OnInit {
       }
     });
   }
-
-  
 }

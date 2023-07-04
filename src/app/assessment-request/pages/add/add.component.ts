@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Alert } from 'src/app/helpers/alert';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
+import { Request } from 'src/app/models/request';
+import { requestService } from 'src/app/service/request.service';
 
 
 @Component({
@@ -19,21 +23,20 @@ export class AddComponent implements OnInit {
   public dataSourceAssessmentRequest = new MatTableDataSource();
   public dataSourceQuestion = new MatTableDataSource();
   public detailsRequestList: DetailsRequestDto[] = [];
+  public questionList: number[] = [];
   public notEmpty: boolean;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private requestService: requestService,
+    private dialogRef: MatDialogRef<AddComponent>
   ) {
 
     this.formAssessmentRequest = this.formBuilder.group({
 
       titulo: ['', [Validators.required, Validators.maxLength(120)]],
       tiempoEvaluacion: ['', [Validators.required]],
-      porcentajeMinimoRequerido: [''],
-      cantidadPreguntas: [''],
-      skill: [''],
-      difficulty: [''],
-      preguntasPrimordiales: [''],
+      porcentajeMinimoRequerido: ['',[Validators.required]],
     });
   }
 
@@ -46,18 +49,45 @@ export class AddComponent implements OnInit {
     this.dataSourceAssessmentRequest.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  insertAssessment() {
-
-  } 
-
-  receiveModifiedRequest(detailsRequestEmit: DetailsRequestDto[]) {
+  receiveDetail(detailsRequestEmit: DetailsRequestDto[]) {
     this.notEmpty = false;
     this.detailsRequestList = detailsRequestEmit;
 
-    console.log(this.detailsRequestList)
- 
     if (this.detailsRequestList.length > 0){
       this.notEmpty = true;
     }
   }
+
+  receiveQuestion(questions: number[]) {
+    this.questionList = questions;
+  }
+
+  addRequest(){
+
+    if (this.formAssessmentRequest.valid) {
+
+      const resquest : Request = {
+        idRequest: 0,
+        timeInMinutes: this.formAssessmentRequest.value.tiempoEvaluacion,
+        titleRequest: this.formAssessmentRequest.value.titulo,
+        percentageMinimoRequired: this.formAssessmentRequest.value.porcentajeMinimoRequerido,
+        detailRequirements: this.detailsRequestList,
+        questionsRequired: this.questionList
+      }
+
+      this.requestService.addRequest(resquest).subscribe({
+
+        next:(resp)=>{
+          Alert.mensajeExitoToast(resp.message);
+          this.dialogRef.close(resp.isSuccess);
+        },
+        error:(error)=>{
+          Alert.mensajeSinExitoToast();
+          console.log(error);
+        }
+      })
+    }
+  }
+
+
 }

@@ -171,7 +171,6 @@ export class AddComponent implements OnInit {
         FormDatos.append(key, this.question.skills[i].toString());
       }
 
-      console.log(FormDatos)
       this.questionService.AddQuestion(FormDatos).subscribe({
         next: (res) => {
           console.log(res);

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { ResponseDto } from "../models/response";
 import { AuthService } from "./auth.service";
+import { Request } from "../models/request";
 
 
 @Injectable({
@@ -24,11 +25,11 @@ export class requestService {
         return this.http.get<ResponseDto>(this.url + '/GetAll', options);
     }
 
-    addRequest(request: Request): Observable<Request> {
+    addRequest(request: Request): Observable<ResponseDto> {
         this.userToken = `Bearer ${this._authservice.readToken()}`;
         const headers = new HttpHeaders({ 'Authorization': this.userToken });
 
-        return this.http.post<Request>(`${this.url}/Insert`, request, { headers: headers });
+        return this.http.post<ResponseDto>(`${this.url}/Insert`, request, { headers: headers });
     }
 
     deleteRequest(id: number) {
