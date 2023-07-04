@@ -1,0 +1,56 @@
+<div mat-dialog-content>
+    <form [formGroup]="formShowRequest">
+ 
+     <h1>Actualizar Requerimientos</h1>
+         <mat-grid-list cols="6" rowHeight="90px">
+         
+             <mat-grid-tile [colspan]="6">
+                           
+                 <mat-form-field appearance="outline">
+                     
+                     <mat-label>Titulo</mat-label>
+                     <input type="text" matInput formControlName="titulo" placeholder="Titulo"
+                            autocomplete="off">
+                     <mat-error *ngIf="formShowRequest.get('titulo')?.touched &&
+                                 formShowRequest.get('titulo')?.errors?.['required']">
+                             <span>Titulo es requerida</span>
+                         </mat-error>
+ 
+                         <mat-error *ngIf="formShowRequest.get('titulo')?.touched &&
+                                     formShowRequest.get('titulo')?.hasError?.('maxlength')">
+                             <span>Valor máximo permitido 120 carácter</span>
+                     </mat-error>
+                 </mat-form-field>
+             </mat-grid-tile>
+         </mat-grid-list>
+ 
+   
+     <mat-grid-list cols="6" rowHeight="90px">
+ 
+         <mat-grid-tile [colspan]="3">
+             <mat-form-field appearance="outline">
+                 <mat-label>Tiempo evaluacion</mat-label>
+                 <input type="text" matInput formControlName="tiempoEvaluacion" placeholder="Tiempo evaluacion"
+                 autocomplete="off">
+               
+ 
+             </mat-form-field>
+         </mat-grid-tile>
+      
+         <mat-grid-tile [colspan]="3">
+             <mat-form-field appearance="outline">
+                 <mat-label>Porcentaje Minimo Requerido</mat-label>
+                 <input type="text" matInput formControlName="porcentajeMinimoRequerido" placeholder="Porcentaje"
+                 autocomplete="off">
+             </mat-form-field>
+         </mat-grid-tile>
+     </mat-grid-list>
+ 
+     <app-details-request
+     (detailsRequestEmit)="receiveDetail($event)">
+     </app-details-request>
+
+     <app-question-required (questionRequiredEmit)="receiveQuestion($event)">
+     </app-question-required>
+    </form>
+ </div>

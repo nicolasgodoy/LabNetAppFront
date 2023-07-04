@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { Alert } from 'src/app/helpers/alert';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddComponent } from '../add/add.component';
+import { questionConsult } from 'src/app/models/Question/questionConsult';
+import { ShowRequestComponent } from '../../show-request/show-request.component';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { AddComponent } from '../add/add.component';
 export class AssessmentRequestComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['titleRequest','timeInMinutes',
+  public displayedColumns: string[] = ['titleRequest', 'timeInMinutes',
     'percentageMinimoRequired', 'acciones', 'consultar'];
   public dataSourceAssesmentRequest = new MatTableDataSource();
 
@@ -28,7 +30,7 @@ export class AssessmentRequestComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.showRequest();
+    this.getRequest();
   }
 
   ngAfterViewInit() {
@@ -42,7 +44,7 @@ export class AssessmentRequestComponent implements OnInit {
     this.dataSourceAssesmentRequest.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  showRequest() {
+  getRequest() {
 
     this.requestService.getAllRequest().subscribe({
 
@@ -65,7 +67,7 @@ export class AssessmentRequestComponent implements OnInit {
       disableClose: true
     }).afterClosed().subscribe((resp) => {
 
-      resp && this.showRequest();
+      resp && this.getRequest();
     })
   }
 
@@ -89,7 +91,7 @@ export class AssessmentRequestComponent implements OnInit {
           next: () => {
 
             Alert.mensajeExitoToast();
-            this.showRequest();
+            this.getRequest();
           },
           error: (e) => {
 
@@ -98,5 +100,19 @@ export class AssessmentRequestComponent implements OnInit {
         });
       }
     });
+  }
+
+  dialogShowRequest(dataRequest: questionConsult) {
+
+    this.dialog.open(ShowRequestComponent, {
+      disableClose: false,
+      data: dataRequest,
+      width: '70%'
+    })
+  }
+
+  showRequest(data: questionConsult) {
+
+    this.dialogShowRequest(data);
   }
 }

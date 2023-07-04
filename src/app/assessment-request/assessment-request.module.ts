@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddComponent } from './pages/add/add.component';
 import { DetailsRequestComponent } from './details-request/details-request.component';
 import { QuestionRequiredComponent } from './question-required/question-required.component';
+import { ShowRequestComponent } from './show-request/show-request.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { QuestionRequiredComponent } from './question-required/question-required
     AssessmentRequestComponent,
     AddComponent,
     DetailsRequestComponent,
-    QuestionRequiredComponent
+    QuestionRequiredComponent,
+    ShowRequestComponent
   ],
   imports: [
     CommonModule,
