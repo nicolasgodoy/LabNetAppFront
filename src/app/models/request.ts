@@ -1,6 +1,7 @@
 
 import { DetailsRequestDto } from "./detailsRequestDto";
 
+
 export interface Request {
 
     idRequest: number;
@@ -8,5 +9,5 @@ export interface Request {
     titleRequest: string;
     percentageMinimoRequired: number;
     detailRequirements: DetailsRequestDto[];
-    questionsRequired: number[];
+    requiredQuestions: number[];
 }

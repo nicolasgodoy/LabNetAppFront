@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 export class DetailsRequestComponent implements OnInit {
 
   @Input()
-  dataReques: Request;
+  dataRequest: Request;
 
   @Output()
   detailsRequestEmit: EventEmitter<DetailsRequestDto[]> = new EventEmitter<DetailsRequestDto[]>();
@@ -58,8 +58,8 @@ export class DetailsRequestComponent implements OnInit {
 
     this.getSkillList();
     this.getDifficultyList();
-    console.log(this.dataReques);
-    this.dataSourceAssessmentRequest.data = this.dataReques.detailRequirements
+    console.log(this.dataRequest);
+    this.dataSourceAssessmentRequest.data = this.dataRequest.detailRequirements
   }
 
   getSkillList() {

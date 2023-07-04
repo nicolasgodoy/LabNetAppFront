@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
 import { Request } from 'src/app/models/request';
+import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
 import { requestService } from 'src/app/service/request.service';
 
 
@@ -72,7 +73,7 @@ export class AddComponent implements OnInit {
         titleRequest: this.formAssessmentRequest.value.titulo,
         percentageMinimoRequired: this.formAssessmentRequest.value.porcentajeMinimoRequerido,
         detailRequirements: this.detailsRequestList,
-        questionsRequired: this.questionList
+        requiredQuestions: this.questionList
       }
 
       this.requestService.addRequest(resquest).subscribe({
