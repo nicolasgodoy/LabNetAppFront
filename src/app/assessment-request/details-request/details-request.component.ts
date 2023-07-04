@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
+import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { DetailsRequest } from 'src/app/models/detailsRequest';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
 import { Difficulty } from 'src/app/models/difficulty';
@@ -19,6 +20,9 @@ import Swal from 'sweetalert2';
 })
 
 export class DetailsRequestComponent implements OnInit {
+
+  @Input()
+  dataReques: Request;
 
   @Output()
   detailsRequestEmit: EventEmitter<DetailsRequestDto[]> = new EventEmitter<DetailsRequestDto[]>();
@@ -54,6 +58,8 @@ export class DetailsRequestComponent implements OnInit {
 
     this.getSkillList();
     this.getDifficultyList();
+    console.log(this.dataReques);
+    this.dataSourceAssessmentRequest.data = this.dataReques.detailRequirements
   }
 
   getSkillList() {

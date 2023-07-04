@@ -47,10 +47,11 @@
      </mat-grid-list>
  
      <app-details-request
-     (detailsRequestEmit)="receiveDetail($event)">
+     (detailsRequestEmit)="receiveDetail($event)" [dataReques]="dataRequest">
      </app-details-request>
 
-     <app-question-required (questionRequiredEmit)="receiveQuestion($event)">
+     <app-question-required (questionRequiredEmit)="receiveQuestion($event)" 
+                            [dataQuestionPrimordail]="dataQuestionP">
      </app-question-required>
     </form>
  </div>

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit,Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
+import { Request } from 'src/app/models/request';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-question-required',
@@ -13,12 +13,16 @@ import Swal from 'sweetalert2';
 })
 export class QuestionRequiredComponent implements OnInit {
 
+
+  @Input()
+  dataQuestionPrimordail: Request;
+
   @Output()
   questionRequiredEmit: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   public questionRequiredList: QuestionDto[] = [];
   public questionList: number[] = [];
-  public questionDtoList: QuestionDto[] = []; 
+  public questionDtoList: QuestionDto[] = [];
   public dataSourceQuestion = new MatTableDataSource();
   public formQuestionRequired: FormGroup;
 
@@ -32,13 +36,15 @@ export class QuestionRequiredComponent implements OnInit {
     this.formQuestionRequired = this.fb.group({
       preguntasPrimordiales: [''],
     });
-   }
+  }
 
   ngOnInit(): void {
     this.getQuestionRequired();
+    this.dataSourceQuestion.data = this.dataQuestionPrimordail.questionsRequired;
+    console.log(this.dataQuestionPrimordail);
   }
 
-  getQuestionRequired(){
+  getQuestionRequired() {
     this.questionService.GetAllQuestion().subscribe({
 
       next: (resp) => {
@@ -66,7 +72,7 @@ export class QuestionRequiredComponent implements OnInit {
   addDetails() {
 
     event?.preventDefault();
-    
+
     this.questionList.push(this.formQuestionRequired.value.preguntasPrimordiales.id);
     this.questionDtoList.push(this.formQuestionRequired.value.preguntasPrimordiales);
 
@@ -77,9 +83,9 @@ export class QuestionRequiredComponent implements OnInit {
     this.formQuestionRequired.reset();
   }
 
-  DeleteQuestionRequired(id: number ) {
+  DeleteQuestionRequired(id: number) {
 
-    const index = this.questionDtoList.findIndex(d => d.id === id );
+    const index = this.questionDtoList.findIndex(d => d.id === id);
 
     if (index !== -1) {
       this.questionDtoList.splice(index, 1);

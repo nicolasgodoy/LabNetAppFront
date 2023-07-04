@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
+import { Request } from 'src/app/models/request';
 
 @Component({
   selector: 'app-show-request',
@@ -15,7 +17,10 @@ export class ShowRequestComponent implements OnInit {
   public detailsRequestList: DetailsRequestDto[] = [];
   public questionList: number[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public dataQuestionP: Request,
+    @Inject(MAT_DIALOG_DATA) public dataRequest: Request,
+    private fb: FormBuilder) {
 
     this.formShowRequest = this.fb.group({
 
@@ -26,6 +31,13 @@ export class ShowRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.formShowRequest.patchValue({
+
+      titulo: this.dataRequest.titleRequest,
+      tiempoEvaluacion: this.dataRequest.timeInMinutes,
+      porcentajeMinimoRequerido: this.dataRequest.percentageMinimoRequired,
+    });
   }
 
 
