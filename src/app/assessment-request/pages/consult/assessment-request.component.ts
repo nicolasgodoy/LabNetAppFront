@@ -19,7 +19,7 @@ export class AssessmentRequestComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['titleRequest','timeInMinutes',
-    'percentageMinimoRequired', 'acciones'];
+    'percentageMinimoRequired', 'acciones', 'consultar'];
   public dataSourceAssesmentRequest = new MatTableDataSource();
 
   constructor(
