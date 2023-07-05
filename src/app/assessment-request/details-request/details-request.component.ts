@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
@@ -50,7 +50,7 @@ export class DetailsRequestComponent implements OnInit {
 
       skills: [''],
       difficultys: [''],
-      cantidadPreguntas: ['']
+      cantidadPreguntas: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]]
     });
   }
 
@@ -58,7 +58,7 @@ export class DetailsRequestComponent implements OnInit {
 
     this.getSkillList();
     this.getDifficultyList();
-    
+
     console.log(this.dataRequest);
 
     this.dataSourceAssessmentRequest.data = this.dataRequest.detailRequirements
@@ -110,8 +110,8 @@ export class DetailsRequestComponent implements OnInit {
       idSkill: this.formDetailRequest.value.skills.id,
       skillDescription: this.formDetailRequest.value.skills.description,
       idDifficulty: this.formDetailRequest.value.difficultys.id,
-      difficultyDescription: this.formDetailRequest.value.difficultys.description,
-      quantityQuestion: this.formDetailRequest.value.cantidadPreguntas
+      difficultDescription: this.formDetailRequest.value.difficultys.description,
+      quantityQuestions: this.formDetailRequest.value.cantidadPreguntas
     }
 
     this.detailsRequestList.push(detailsRequest);
@@ -127,7 +127,7 @@ export class DetailsRequestComponent implements OnInit {
 
     const index = this.detailsRequestList.findIndex(d => d.idSkill === detailRequest.idSkill && 
                                                     d.idDifficulty === detailRequest.idDifficulty && 
-                                                    d.quantityQuestion === detailRequest.quantityQuestion);
+                                                    d.quantityQuestions === detailRequest.quantityQuestions);
 
 
     if (index !== -1) {
