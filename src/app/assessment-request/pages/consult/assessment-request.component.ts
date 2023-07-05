@@ -86,7 +86,7 @@ export class AssessmentRequestComponent implements OnInit {
 
       if (result.isConfirmed) {
 
-        this.requestService.deleteRequest(dataSourceAssesmentRequest.idRequest).subscribe({
+        this.requestService.deleteRequest(dataSourceAssesmentRequest.id).subscribe({
 
           next: () => {
 
@@ -108,6 +108,10 @@ export class AssessmentRequestComponent implements OnInit {
       disableClose: false,
       data: dataRequest,
       width: '70%'
+    }).afterClosed().subscribe((resp)=>{
+
+      resp && this.getRequest();
+
     })
   }
 

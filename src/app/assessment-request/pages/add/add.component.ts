@@ -68,12 +68,12 @@ export class AddComponent implements OnInit {
     if (this.formAssessmentRequest.valid) {
 
       const resquest : Request = {
-        idRequest: 0,
+        id: 0,
         timeInMinutes: this.formAssessmentRequest.value.tiempoEvaluacion,
         titleRequest: this.formAssessmentRequest.value.titulo,
         percentageMinimoRequired: this.formAssessmentRequest.value.porcentajeMinimoRequerido,
         detailRequirements: this.detailsRequestList,
-        requiredQuestions: this.questionList
+        questionsRequired: this.questionList
       }
 
       this.requestService.addRequest(resquest).subscribe({

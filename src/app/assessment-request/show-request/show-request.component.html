@@ -54,4 +54,17 @@
      (questionRequiredEmit)="receiveQuestion($event)" [dataQuestion]="dataQuestion">
      </app-question-required>
     </form>
+
+
+    <div class="container">
+        <button type="submit"
+                class="botonVolver blackButton" 
+                (click)="updateRequest()"
+                mat-raised-button
+                [disabled]="!formShowRequest.valid"
+                >Guardar
+        </button>
+        <button class="botonVolver blackButton" mat-raised-button mat-dialog-close>Volver</button>
+    </div>
+
  </div>

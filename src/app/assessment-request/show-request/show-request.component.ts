@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Alert } from 'src/app/helpers/alert';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
 import { Request } from 'src/app/models/request';
 import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
+import { requestService } from 'src/app/service/request.service';
 
 @Component({
   selector: 'app-show-request',
@@ -14,14 +16,15 @@ import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
 export class ShowRequestComponent implements OnInit {
 
   public formShowRequest: FormGroup;
-  public notEmpty: boolean;
   public detailsRequestList: DetailsRequestDto[] = [];
   public questionList: number[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataQuestion: Request,
     @Inject(MAT_DIALOG_DATA) public dataRequest: Request,
-    private fb: FormBuilder) {
+    public dialogRef: MatDialogRef<ShowRequestComponent>,
+    private fb: FormBuilder,
+    private requestService:requestService) {
 
     this.formShowRequest = this.fb.group({
 
@@ -32,7 +35,6 @@ export class ShowRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.formShowRequest.patchValue({
 
       titulo: this.dataRequest.titleRequest,
@@ -43,17 +45,39 @@ export class ShowRequestComponent implements OnInit {
 
 
   receiveDetail(detailsRequestEmit: DetailsRequestDto[]) {
-
-    this.notEmpty = false;
     this.detailsRequestList = detailsRequestEmit;
-
-    if (this.detailsRequestList.length > 0) {
-      this.notEmpty = true;
-    }
   }
 
   receiveQuestion(questions: number[]) {
-
     this.questionList = questions;
+  }
+
+
+  updateRequest(){
+
+
+    if (this.formShowRequest.valid) {
+
+      const resquest : Request = {
+        id: this.dataRequest.id,
+        timeInMinutes: this.formShowRequest.value.tiempoEvaluacion,
+        titleRequest: this.formShowRequest.value.titulo,
+        percentageMinimoRequired: this.formShowRequest.value.porcentajeMinimoRequerido,
+        detailRequirements: this.detailsRequestList,
+        questionsRequired: this.questionList
+      }
+
+      this.requestService.UpdateRequest(resquest).subscribe({
+
+        next:(resp)=>{
+          Alert.mensajeExitoToast(resp.message);
+          this.dialogRef.close(resp.isSuccess);
+        },
+        error:(error)=>{
+          Alert.mensajeSinExitoToast();
+          console.log(error);
+        }
+      })
+    }
   }
 }

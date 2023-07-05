@@ -31,6 +31,13 @@ export class requestService {
 
         return this.http.post<ResponseDto>(`${this.url}/Insert`, request, { headers: headers });
     }
+    
+    UpdateRequest(request: Request): Observable<ResponseDto> {
+        this.userToken = `Bearer ${this._authservice.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': this.userToken });
+
+        return this.http.put<ResponseDto>(`${this.url}/Update`, request, { headers: headers });
+    }
 
     deleteRequest(id: number) {
         const userToken = `Bearer ${this._authservice.readToken()}`;

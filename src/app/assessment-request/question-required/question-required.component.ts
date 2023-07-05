@@ -40,9 +40,9 @@ export class QuestionRequiredComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.dataQuestion)
     this.getQuestionRequired();
-    this.dataSourceQuestion.data = this.dataQuestion.requiredQuestions;
-    console.log(this.dataSourceQuestion);
+    this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
   }
 
   getQuestionRequired() {

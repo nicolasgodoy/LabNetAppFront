@@ -58,7 +58,9 @@ export class DetailsRequestComponent implements OnInit {
 
     this.getSkillList();
     this.getDifficultyList();
+    
     console.log(this.dataRequest);
+
     this.dataSourceAssessmentRequest.data = this.dataRequest.detailRequirements
   }
 
