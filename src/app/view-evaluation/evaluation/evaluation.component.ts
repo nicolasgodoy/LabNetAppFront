@@ -44,6 +44,7 @@ export class EvaluationComponent implements OnInit {
 
         this.descriptionQuestion = resp.result;
         this.descriptionAnswer = resp.result;
+        console.log(resp.result);
       },
 
       error: (error) => {
