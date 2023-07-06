@@ -7,6 +7,7 @@ import { AddComponent } from './pages/add/add.component';
 import { DetailsRequestComponent } from './details-request/details-request.component';
 import { QuestionRequiredComponent } from './question-required/question-required.component';
 import { ShowRequestComponent } from './show-request/show-request.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -20,8 +21,9 @@ import { ShowRequestComponent } from './show-request/show-request.component';
   imports: [
     CommonModule,
     AssessmentRequestRoutingModule,
-    SharedModule
-
+    SharedModule,
+    RouterModule
   ]
 })
+
 export class AssessmentRequestModule { }

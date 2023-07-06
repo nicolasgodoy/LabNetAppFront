@@ -21,7 +21,7 @@ export class AssessmentRequestComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['titleRequest', 'timeInMinutes',
-    'percentageMinimoRequired', 'acciones', 'consultar'];
+    'percentageMinimoRequired', 'acciones', 'consultar', 'evaluacion'];
   public dataSourceAssesmentRequest = new MatTableDataSource();
 
   constructor(
@@ -29,6 +29,7 @@ export class AssessmentRequestComponent implements OnInit {
     private requestService: requestService) { }
 
   ngOnInit(): void {
+
 
     this.getRequest();
   }
@@ -108,7 +109,7 @@ export class AssessmentRequestComponent implements OnInit {
       disableClose: false,
       data: dataRequest,
       width: '70%'
-    }).afterClosed().subscribe((resp)=>{
+    }).afterClosed().subscribe((resp) => {
 
       resp && this.getRequest();
 

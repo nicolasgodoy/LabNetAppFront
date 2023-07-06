@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Answer } from 'src/app/models/Answer/answer';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
+import { requestService } from 'src/app/service/request.service';
 
 @Component({
   selector: 'app-evaluation',
@@ -9,15 +11,22 @@ import { QuestionServiceService } from 'src/app/service/question-service.service
 })
 export class EvaluationComponent implements OnInit {
 
+  public id: number;
   public descriptionQuestion: any[] = [];
   public descriptionAnswer: any[] = [];
   public numeroMaximoQuestion: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  constructor(private questionService: QuestionServiceService) { }
+  constructor(
+    private questionService: QuestionServiceService,
+    private activatedRoute: ActivatedRoute,
+    private requestService: requestService) {
+
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+  }
 
   ngOnInit(): void {
 
-    this.getQuestionAll();
+    this.id ? this.getQuestionById() : this.getQuestionAll();
   }
 
   questionValueMax() {
@@ -25,6 +34,23 @@ export class EvaluationComponent implements OnInit {
     for (let index = 1; index < this.numeroMaximoQuestion.length; index++) {
       const element = this.numeroMaximoQuestion[index];
     }
+  }
+
+  getQuestionById() {
+
+    this.requestService.getAllQuestion(this.id).subscribe({
+
+      next: (resp) => {
+
+        this.descriptionQuestion = resp.result;
+        this.descriptionAnswer = resp.result;
+      },
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    });
   }
 
   getQuestionAll() {
@@ -48,7 +74,7 @@ export class EvaluationComponent implements OnInit {
   }
 
 
-  validate( data : Answer[]):boolean{
+  validate(data: Answer[]): boolean {
 
     let countCorrect = 0;
 

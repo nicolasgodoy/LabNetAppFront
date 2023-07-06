@@ -9,6 +9,8 @@ import { Request } from "../models/request";
 @Injectable({
     providedIn: 'root'
 })
+
+//https://localhost:7059/api/Request/GetAllQuestion?id=42
 export class requestService {
 
     userToken: string = '';
@@ -23,6 +25,14 @@ export class requestService {
         const options = { headers: headers };
 
         return this.http.get<ResponseDto>(this.url + '/GetAll', options);
+    }
+
+    getAllQuestion(id: number) {
+        const userToken = `Bearer ${this._authservice.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': userToken });
+        const options = { headers: headers };
+
+        return this.http.get<ResponseDto>(this.url + `/GetAllQuestion/${id}`, options);
     }
 
     addRequest(request: Request): Observable<ResponseDto> {

@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'consult', component: EvaluationComponent},
+      {path: 'consult/:id', component: EvaluationComponent},
     ]
   }
 ]
