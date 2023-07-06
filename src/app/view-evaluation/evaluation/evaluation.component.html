@@ -2,17 +2,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 offset-2">
             <img height="200px" src="assets/neoris.jpg" class="card-img-top" alt="...">
-    <div><br></div>
-</div>
+            <br>
+        </div>
 
-        <div class="col-md-12" *ngFor="let dq of descriptionQuestion; let i = index">
+        <div class="col-md-8 offset-2" *ngFor="let dq of descriptionQuestion; let i = index">
             <div class="card mb-3">
 
                 <div class="card-header">
                     <p>Pregunta {{i + 1}}</p>
-                    <p><strong>Puntaje {{dq.value}}</strong></p>
+                    <p><strong>Puntaje {{dq.difficulty.value}}</strong></p>
                 </div>
 
                 <div class="card-body">
@@ -74,3 +74,11 @@
                 </div>
             </div>
         </div>
+        
+        <div class="botonEnviar">
+            <button type="submit" class="btn btn-dark botonEnviar col-md-4">Enviar Evaluacion
+                <i class="m-2 material-icons">send</i>
+            </button>
+        </div>
+       
+</div>
