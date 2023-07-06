@@ -9,7 +9,7 @@ export class questionConsult {
     description: string;
     difficulty: Difficulty;
     skillEntities: Skill[] = [];
-    answerEntities : Answer[] = [];
+    answers : Answer[] = [];
     urlFile?: string;
     idFile?: number;
 }

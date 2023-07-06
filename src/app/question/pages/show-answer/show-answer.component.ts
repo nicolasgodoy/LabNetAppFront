@@ -59,8 +59,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     this.getDifficulty();
 
     this.questionDto = new QuestionDto();
-    this.questionDto.answers = this.dataQuestion.answerEntities;
-    this.dataSourceAnswer.data = this.dataQuestion.answerEntities;
+    this.questionDto.answers = this.dataQuestion.answers;
+    this.dataSourceAnswer.data = this.dataQuestion.answers;
     this.questionDto.skillList = this.dataQuestion.skillEntities
 
     console.log(this.dataQuestion.difficulty.id)
@@ -99,7 +99,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
   }
 
   filterRepeated() {
-    let list: Answer[] = this.dataQuestion.answerEntities;
+    let list: Answer[] = this.dataQuestion.answers;
     this.listAnswer = this.listAnswer.filter(s => !list.find(p => p.id === s.id));
   }
 
