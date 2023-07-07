@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Answer } from 'src/app/models/Answer/answer';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
@@ -14,12 +15,23 @@ export class EvaluationComponent implements OnInit {
   public id: number;
   public descriptionQuestion: any[] = [];
   public descriptionAnswer: any[] = [];
-  public numeroMaximoQuestion: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  public formEvaluation: FormGroup; 
 
   constructor(
     private questionService: QuestionServiceService,
     private activatedRoute: ActivatedRoute,
-    private requestService: requestService) {
+    private requestService: requestService,
+    private fb: FormBuilder) {
+
+      this.formEvaluation = this.fb.group({
+        descriptionAnswer: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$'),
+          ],
+        ],
+      });
 
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
@@ -29,13 +41,7 @@ export class EvaluationComponent implements OnInit {
     this.id ? this.getQuestionById() : this.getQuestionAll();
   }
 
-  questionValueMax() {
-
-    for (let index = 1; index < this.numeroMaximoQuestion.length; index++) {
-      const element = this.numeroMaximoQuestion[index];
-    }
-  }
-
+  
   getQuestionById() {
 
     this.requestService.getAllQuestion(this.id).subscribe({

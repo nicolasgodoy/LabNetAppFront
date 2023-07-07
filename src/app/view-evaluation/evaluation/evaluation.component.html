@@ -8,77 +8,73 @@
         </div>
 
         <div class="col-md-8 offset-2" *ngFor="let dq of descriptionQuestion; let i = index">
-            <div class="card mb-3">
+            <form [formGroup]="formEvaluation">
 
-                <div class="card-header">
-                    <p>Pregunta {{i + 1}}</p>
-                    <p><strong>Puntaje {{dq.difficulty.value}}</strong></p>
-                </div>
+                <div class="card mb-3">
 
-                <div class="card-body">
-
-                    <h4 *ngIf="!dq.urlImg" class="card-title">
-                        <strong>
-                            {{dq.description}}
-                        </strong>
-                    </h4>
-
-                    <div *ngIf="dq.urlImg">
-                        <img 
-                        width="40px" 
-                        src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
+                    <div class="card-header">
+                        <p>Pregunta {{i + 1}}</p>
+                        <p><strong>Puntaje {{dq.difficulty.value}}</strong></p>
                     </div>
 
+                    <div class="card-body">
 
-                    <div class="form-check m-2 p-2" *ngFor="let a of dq.answers">
+                        <h4 *ngIf="!dq.urlImg" class="card-title">
+                            <strong>
+                                {{dq.description}}
+                            </strong>
+                        </h4>
 
-                        <div *ngIf="validate(dq.answers)">
-                            <input class="form-check-input" 
-                                   type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label *ngIf="!a.urlFile"
-                                   class="form-check-label" 
-                                   for="flexRadioDefault1" 
-                                   [for]="a.id">
-                                        {{a.description}}
-                            </label>
-
-                            <div *ngIf="a.urlFile">
-                                <img 
-                                width="40px"
+                        <div *ngIf="dq.urlImg">
+                            <img width="40px"
                                 src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
-                            </div>
                         </div>
 
 
-                        <div *ngIf="!validate(dq.answers)">
+                        <div class="form-check m-2 p-2" *ngFor="let a of dq.answers">
 
-                            <input class="form-check-input" 
-                               type="checkbox" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label
-                               *ngIf="!a.urlFile" 
-                               class="form-check-label" 
-                               for="flexRadioDefault1" 
-                               [for]="a.id">
+                            <div *ngIf="validate(dq.answers)">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1">
+                                <label *ngIf="!a.urlFile" class="form-check-label" for="flexRadioDefault1" [for]="a.id">
                                     {{a.description}}
-                            </label>
+                                </label>
 
-                            <div *ngIf="a.urlFile">
-                                <img 
-                                width="40px" 
-                                src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
+                                <div *ngIf="a.urlFile">
+                                    <img width="40px"
+                                        src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
+                                </div>
+                                
                             </div>
-                        </div>
 
-                    </div>                    
+
+                            <div *ngIf="!validate(dq.answers)">
+
+                                <input class="form-check-input" type="checkbox" name="flexRadioDefault"
+                                    id="flexRadioDefault1">
+                                <label *ngIf="!a.urlFile" class="form-check-label" for="flexRadioDefault1" [for]="a.id">
+                                    {{a.description}}
+                                </label>
+
+                                <div *ngIf="a.urlFile">
+                                    <img width="40px"
+                                        src="https://yt3.googleusercontent.com/ytc/AGIKgqN31XbIxoZhZMLfUK4e1u2FJiqLjcT-m-NtAT2sWQ=s900-c-k-c0x00ffffff-no-rj">
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </form>
+
         </div>
-        
-        <div class="botonEnviar">
-            <button type="submit" class="btn btn-dark botonEnviar col-md-4">Enviar Evaluacion
-                <i class="m-2 material-icons">send</i>
-            </button>
-        </div>
-       
+    </div>
+    <div class="botonEnviar">
+        <button type="submit" class="btn btn-dark botonEnviar col-md-4">Enviar Evaluacion
+            <i class="m-2 material-icons">send</i>
+        </button>
+    </div>
+
+
 </div>
