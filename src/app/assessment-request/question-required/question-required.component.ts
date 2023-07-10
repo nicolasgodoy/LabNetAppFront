@@ -111,12 +111,15 @@ export class QuestionRequiredComponent implements OnInit {
     }
 
     this.dataSourceQuestion.data = this.questionDtoList;
-    
+    console.log(this.questionDtoList)
+    console.log(this.dataQuestion.questionsRequired)
   }
 
 
   DeleteQuestionRequired(idQuestion: number) {
-
+    console.log(this.dataQuestion.questionsRequired.find(x => x.id === idQuestion))
+    console.log(this.dataQuestion.questionsRequired)
+    console.log(idQuestion)
     if (this.dataQuestion.questionsRequired.find(x => x.id === idQuestion)) {
       this.requestService.deleteToQuestionRequired(this.idRequest, idQuestion).subscribe({
 
@@ -143,8 +146,9 @@ export class QuestionRequiredComponent implements OnInit {
 
       if (index2 !== -1) {
         this.questionList.splice(index2, 1);
+        
       }
-
+      
       this.questionRequiredEmit.emit(this.questionList);
       this.dataSourceQuestion.data = this.questionDtoList;
     }
