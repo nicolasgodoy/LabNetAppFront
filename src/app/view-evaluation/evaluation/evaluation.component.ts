@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Answer } from 'src/app/models/Answer/answer';
-import { AssessmentQuestion } from 'src/app/models/Question/assessmentQuestion';
+
+import {
+  Answer,
+  AssessmentQuestion,
+} from 'src/app/models/Question/assessmentQuestion';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 import { requestService } from 'src/app/service/request.service';
+import { AssessmentUserDto } from '../../models/Evaluation/assessmentUserDto';
+import { AssessmentQuestionDto } from 'src/app/models/Evaluation/assessmentQuestionDto';
+import { AssessmentQuestionAnswerDto } from 'src/app/models/Evaluation/assessmentQuestionAnswerDto';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { Alert } from 'src/app/helpers/alert';
 
 @Component({
   selector: 'app-evaluation',
@@ -13,45 +21,26 @@ import { requestService } from 'src/app/service/request.service';
 })
 export class EvaluationComponent implements OnInit {
   public id: number;
-  public descriptionQuestion: any[] = [];
-  public descriptionAnswer: any[] = [];
-  public formEvaluation: FormGroup;
   public assessment: AssessmentQuestion[] = [];
+  public assessmentQuestion: AssessmentQuestionDto[] = [];
 
   constructor(
     private questionService: QuestionServiceService,
     private activatedRoute: ActivatedRoute,
-    private requestService: requestService,
-    private fb: FormBuilder
+    private requestService: requestService
   ) {
-    this.formEvaluation = this.fb.group({
-      descriptionAnswer: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9\\s!@#$%^&*(),.?":{}|<>]+$'),
-        ],
-      ],
-    });
-
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
-    // this.id ? this.getQuestionById() : this.getQuestionAll();
-
     this.getQuestionById();
   }
 
   getQuestionById() {
     this.requestService.getAllQuestion(this.id).subscribe({
       next: (resp) => {
-        this.descriptionQuestion = resp.result;
-        this.descriptionAnswer = resp.result;
-
         this.assessment = resp.result as AssessmentQuestion[];
         console.log(this.assessment);
-        //console.log(resp.result);
       },
 
       error: (error) => {
@@ -60,36 +49,116 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  // getQuestionAll() {
+  selectQuestion(idQuestion: number, idAnswer: number) {
+    let questionExist = this.assessmentQuestion.find(
+      (x) => x.idQuestion == idQuestion
+    );
 
-  //   this.questionService.GetAllQuestion().subscribe({
+    if (questionExist != null) {
+      let multiple: Boolean = this.multipleAnswer(
+        this.assessment.find((x) => x.id == idQuestion).answers
+      );
 
-  //     next: (respo) => {
+      if (multiple) {
+        let listAnswer = questionExist.assessmentQuestionAnswer;
 
-  //       this.descriptionQuestion = respo.result;
-  //       this.descriptionAnswer = respo.result;
+        if (listAnswer.find((x) => x.idAnswer == idAnswer)) {
+          listAnswer = listAnswer.filter((x) => x.idAnswer != idAnswer);
+        } else {
+          let answer: AssessmentQuestionAnswerDto = {
+            idAnswer: idAnswer,
+            isCorrect: true,
+          };
+          listAnswer.push(answer);
+        }
 
-  //       console.log(this.descriptionQuestion);
-  //     },
+        questionExist.assessmentQuestionAnswer = listAnswer;
+        this.assessmentQuestion = this.assessmentQuestion.filter(
+          (x) => x.idQuestion != idQuestion
+        );
+        this.assessmentQuestion.push(questionExist);
 
-  //     error: (error) => {
-
-  //       console.log(error);
-  //     }
-  //   })
-  // }
-
-  validate(data: Answer[]): boolean {
-    let countCorrect = 0;
-
-    for (const answer of data) {
-      if (answer.isCorrect) {
-        countCorrect++;
+        console.log(listAnswer);
+      } else {
+        let question = this.getQuestionAnswer(idQuestion, idAnswer);
+        this.assessmentQuestion = this.assessmentQuestion.filter(
+          (x) => x.idQuestion != idQuestion
+        );
+        this.assessmentQuestion.push(question);
       }
-      if (countCorrect === 2) {
-        return false;
-      }
+    } else {
+      let question = this.getQuestionAnswer(idQuestion, idAnswer);
+      this.assessmentQuestion.push(question);
     }
+
+    // let post: AssessmentUserDto = {
+    //   idRequest: this.id,
+    //   assessmentQuestion: this.assessmentQuestion,
+    // };
+
+    //console.log(this.assessmentQuestion);
+    //console.log(this.assessment.find((x) => x.id == idQuestion));
+  }
+
+  getQuestionAnswer(idQuestion: number, idAnswer: number) {
+    let answer: AssessmentQuestionAnswerDto = {
+      idAnswer: idAnswer,
+      isCorrect: true,
+    };
+    let question: AssessmentQuestionDto = {
+      idQuestion: idQuestion,
+      assessmentQuestionAnswer: [answer],
+    };
+
+    return question;
+  }
+
+  validateCheckboxAndRadio(data: Answer[]): boolean {
+    if (this.multipleAnswer(data)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  multipleAnswer(data: Answer[]) {
+    let result = data.filter((x) => x.isCorrect);
+    return result.length > 1;
+  }
+
+  //enviar
+  sendQuestion() {
+    if (this.validatePendingQuestion()) {
+      console.log('Enviar al metodo post');
+    }
+  }
+
+  validatePendingQuestion() {
+    if (this.assessment.length > this.assessmentQuestion.length) {
+      for (let index = 0; index < this.assessment.length; index++) {
+        let assesment = this.assessmentQuestion.find(
+          (x) => x.idQuestion == this.assessment[index].id
+        );
+
+        console.log(assesment);
+        if (assesment == undefined || assesment == null) {
+          let count = (index = index + 1);
+          Alert.meessageWarningToast(
+            'Falta la pregunta: ' + count,
+            'Hay preguntas pendientes por responder'
+          );
+
+          return false;
+        }
+      }
+
+      Alert.meessageWarningToast(
+        'Revisa todas las preguntas.',
+        'Hay preguntas pendientes por responder'
+      );
+      return false;
+    }
+
     return true;
   }
 }

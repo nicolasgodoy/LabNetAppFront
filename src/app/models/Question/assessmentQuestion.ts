@@ -4,7 +4,6 @@ export interface AssessmentQuestion {
   urlImg: null | string;
   difficulty: Difficulty;
   answers: Answer[];
-  skillEntities: null;
   description: string;
   idFile: null;
 }

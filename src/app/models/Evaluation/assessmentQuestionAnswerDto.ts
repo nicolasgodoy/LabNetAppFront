@@ -1,6 +1,4 @@
-export interface assessmentQuestionAnswerDto {
-
-    idAnswer: number;
-    isCorrect: boolean;
-    
+export interface AssessmentQuestionAnswerDto {
+  idAnswer: number;
+  isCorrect: boolean;
 }

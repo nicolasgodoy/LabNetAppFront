@@ -1,11 +1,19 @@
-.card-header{
-    display: flex;
-    justify-content: space-between;
+.card-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-.botonEnviar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
+.botonEnviar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.questionNumber {
+  display: inline;
+}
+.questionRequerid {
+  color: red;
+  display: contents;
 }

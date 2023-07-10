@@ -1,8 +1,6 @@
-import { assessmentQuestionDto } from "./assessmentQuestionDto";
+import { AssessmentQuestionDto } from './assessmentQuestionDto';
 
-
-export interface assessmentUserDto {
-
-    idRequest: number;
-    assessmentQuestion: assessmentQuestionDto[];
+export interface AssessmentUserDto {
+  idRequest: number;
+  assessmentQuestion: AssessmentQuestionDto[];
 }

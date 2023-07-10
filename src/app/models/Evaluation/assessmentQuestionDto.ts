@@ -1,7 +1,6 @@
-import { assessmentQuestionAnswerDto } from "./assessmentQuestionAnswerDto";
+import { AssessmentQuestionAnswerDto } from './assessmentQuestionAnswerDto';
 
-export interface assessmentQuestionDto {
-
-    idQuestion: number;
-    assessmentQuestionAnswer: assessmentQuestionAnswerDto[];
+export interface AssessmentQuestionDto {
+  idQuestion: number;
+  assessmentQuestionAnswer: AssessmentQuestionAnswerDto[];
 }

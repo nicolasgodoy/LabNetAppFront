@@ -1,75 +1,78 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
+export class Alert {
+  static mensajeAdd(entidad: string) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Agregado',
+      text: `El ${entidad} se agrego correctamente`,
+    });
+  }
 
-export class Alert{
+  static mensajeErrorCustom(cadena: string) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `${cadena}`,
+    });
+  }
 
-    static mensajeAdd(entidad:string){
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'Agregado',
-            text: `El ${entidad} se agrego correctamente`,
-          })
-    }
+  static mensajeExito() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Operacion Exitosa',
+      text: 'La Accion se realizo con exito!',
+    });
+  }
 
-    static mensajeErrorCustom(cadena:string){
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `${cadena}`,
-          })
+  static mensajeSinExito() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Operacion Fallida',
+      text: 'La Accion no se pudo realizar con exito!',
+    });
+  }
 
-    } 
+  static mensajeEliminado(entidad: string) {
+    Swal.fire('Eliminado!', `El ${entidad} ha sido Eliminado`, 'success');
+  }
 
-   static mensajeExito(){
-        Swal.fire({
-            icon: 'success',
-            title: 'Operacion Exitosa',
-            text: 'La Accion se realizo con exito!',
-          })
-    }
+  static mensajeExitoToast(entidad?: string) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Operacion Exitosa',
+      toast: true,
+      position: 'top-end',
+      timer: 3000,
+      timerProgressBar: true,
+      text: entidad ? entidad : 'La Accion se realizo con exito!',
+      showConfirmButton: false,
+    });
+  }
 
-    static mensajeSinExito(){
-        Swal.fire({
-            icon: 'error',
-            title: 'Operacion Fallida',
-            text: 'La Accion no se pudo realizar con exito!',
-          })
-    }
+  static mensajeSinExitoToast(entidad?: string) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Operacion Fallida',
+      text: entidad ? entidad : 'La Accion no se pudo realizar con exito!',
+      toast: true,
+      position: 'top-end',
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  }
 
-
-    static mensajeEliminado(entidad:string){
-        Swal.fire(
-            'Eliminado!',
-            `El ${entidad} ha sido Eliminado`,
-            'success'
-          )
-    }
-
-    static mensajeExitoToast(entidad?:string){
-        Swal.fire({
-            icon: 'success',
-            title: 'Operacion Exitosa',
-            toast: true,
-            position:"top-end",
-            timer: 3000,
-            timerProgressBar: true,
-            text: entidad ? entidad : 'La Accion se realizo con exito!',
-            showConfirmButton:false
-           
-          })
-    }
-
-    static mensajeSinExitoToast(entidad?:string){
-        Swal.fire({
-            icon: 'error',
-            title: 'Operacion Fallida',
-            text: entidad ? entidad : 'La Accion no se pudo realizar con exito!',
-            toast: true,
-            position:"top-end",
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton:false
-        })
-    } 
+  static meessageWarningToast(message: string, title?: string) {
+    Swal.fire({
+      icon: 'warning',
+      title: title ? title : 'Alerta!',
+      text: message,
+      toast: true,
+      position: 'top-end',
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  }
 }
