@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import {
   Answer,
   AssessmentQuestion,
 } from 'src/app/models/Question/assessmentQuestion';
-import { QuestionServiceService } from 'src/app/service/question-service.service';
+
 import { requestService } from 'src/app/service/request.service';
 import { AssessmentUserDto } from '../../models/Evaluation/assessmentUserDto';
 import { AssessmentQuestionDto } from 'src/app/models/Evaluation/assessmentQuestionDto';
 import { AssessmentQuestionAnswerDto } from 'src/app/models/Evaluation/assessmentQuestionAnswerDto';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { Alert } from 'src/app/helpers/alert';
+import { AssessmentService } from 'src/app/service/evaluation.service';
 
 @Component({
   selector: 'app-evaluation',
@@ -25,7 +24,8 @@ export class EvaluationComponent implements OnInit {
   public assessmentQuestion: AssessmentQuestionDto[] = [];
 
   constructor(
-    private questionService: QuestionServiceService,
+
+    private evaluationService: AssessmentService,
     private activatedRoute: ActivatedRoute,
     private requestService: requestService
   ) {
@@ -46,6 +46,30 @@ export class EvaluationComponent implements OnInit {
       error: (error) => {
         console.log(error);
       },
+    });
+  }
+
+  insertEvaluation () {
+
+    const evaluation: AssessmentUserDto = {
+
+    idRequest: this.id,
+    assessmentQuestion: this.assessmentQuestion
+    }
+
+    this.evaluationService.InsertAssessment(evaluation).subscribe({
+
+      next: (resp) => {
+
+        Alert.mensajeExitoToast();
+        console.log(resp.result);
+      },
+
+      error: (error) => {
+
+        Alert.mensajeSinExitoToast();
+        console.log(error);
+      }
     });
   }
 
@@ -129,7 +153,8 @@ export class EvaluationComponent implements OnInit {
   //enviar
   sendQuestion() {
     if (this.validatePendingQuestion()) {
-      console.log('Enviar al metodo post');
+
+      this.insertEvaluation();
     }
   }
 

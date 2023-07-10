@@ -41,8 +41,15 @@ export class QuestionRequiredComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.dataQuestion)
-    this.getQuestionRequired();
+
     this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
+
+    this.questionService.GetAllQuestion().subscribe({
+
+      next: (resp) => {
+        this.questionRequiredList = resp.result;
+      }
+    });
   }
 
   getQuestionRequired() {
@@ -84,6 +91,23 @@ export class QuestionRequiredComponent implements OnInit {
     this.formQuestionRequired.reset();
   }
 
+  // DeleteAnswerToQuestion(idAnswer: number) {
+    
+  //   const index = this.dataQuestion.answers.findIndex(answer => answer.id === idAnswer);
+  //   const indexInsert = this.dataQuestion.answersInsert.findIndex(answer => answer.id === idAnswer);
+  //   if (index !== -1) {
+  //     this.dataQuestion.answers.splice(index, 1);
+  //   }
+  //   if (indexInsert !== -1) {
+  //     this.dataQuestion.answersInsert.splice(indexInsert, 1);
+  //   }
+  //   const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
+
+  //   this.dataSourceAnswer.data = newData;
+  //   this.questionModified.emit(this.dataQuestion);
+
+  // }
+
   DeleteQuestionRequired(id: number) {
 
     this.questionService.DeleteQuestion(id).subscribe({
@@ -91,7 +115,8 @@ export class QuestionRequiredComponent implements OnInit {
       next: (resp) => {
 
         Alert.mensajeExitoToast(resp.message)
-        this.dataSourceQuestion.data = resp.result;
+        // this.dataSourceQuestion.data = [];
+        this.getQuestion();
       },
 
       error: () => {
@@ -99,14 +124,5 @@ export class QuestionRequiredComponent implements OnInit {
         Alert.mensajeSinExitoToast('Error al eliminar');
       }
     });
-
-    // const index = this.questionDtoList.findIndex(d => d.id === id);
-
-    // if (index !== -1) {
-    //   this.questionDtoList.splice(index, 1);
-    // }
-
-    // this.dataSourceQuestion.data = this.questionDtoList;
-    // this.questionRequiredEmit.emit(this.questionList);
   }
 }

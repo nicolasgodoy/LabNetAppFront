@@ -243,7 +243,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
       {
         next: (res) => {
           Alert.mensajeExitoToast(res.message)
-          this.dataSourceAnswer.data = res.result;
+          this.dataSourceAnswer.data = [];
           this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
             this.dataSourceAnswer.data = res.result.answerEntities;
           });

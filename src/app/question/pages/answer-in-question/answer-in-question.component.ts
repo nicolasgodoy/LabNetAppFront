@@ -198,6 +198,7 @@ export class AnswerInQuestionComponent implements OnInit, OnChanges {
   }
 
   DeleteAnswerToQuestion(idAnswer: number) {
+    
     const index = this.dataQuestion.answers.findIndex(answer => answer.id === idAnswer);
     const indexInsert = this.dataQuestion.answersInsert.findIndex(answer => answer.id === idAnswer);
     if (index !== -1) {
