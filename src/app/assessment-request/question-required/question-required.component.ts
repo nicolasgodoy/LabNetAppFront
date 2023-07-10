@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alert } from 'src/app/helpers/alert';
 import { QuestionDto } from 'src/app/models/Question/questionDto';
-import { Request } from 'src/app/models/request';
+import { Request, RequestDto } from 'src/app/models/request';
 import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
 import { requestService } from 'src/app/service/request.service';
@@ -17,7 +17,7 @@ export class QuestionRequiredComponent implements OnInit {
 
 
   @Input()
-  dataQuestion: Request;
+  dataQuestion: RequestDto;
 
   @Output()
   questionRequiredEmit: EventEmitter<number[]> = new EventEmitter<number[]>();
@@ -43,8 +43,8 @@ export class QuestionRequiredComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dataQuestion)
 
+    this.questionDtoList = this.dataQuestion.questionsRequired;
     this.idRequest = this.dataQuestion.id;
     this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
 
@@ -103,8 +103,9 @@ export class QuestionRequiredComponent implements OnInit {
       next: (resp) => {
 
         Alert.mensajeExitoToast(resp.message)
+        console.log(resp.message);
         // this.dataSourceQuestion.data = [];
-        this.getQuestion();
+        this.getQuestionRequired();
       },
 
       error: () => {

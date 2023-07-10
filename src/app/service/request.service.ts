@@ -11,7 +11,6 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 
-//https://localhost:7059/api/Request/GetAllQuestion?id=42
 export class requestService {
 
     public url: string = environment.apiLab + "Request";
@@ -60,14 +59,12 @@ export class requestService {
         return this.http.delete<Request>(this.url + `/Delete/${id}`, { headers: headers });
     }
 
+    //https://localhost:7059/api/Request/DeleteToQuestionRequired/40/19
+
     deleteToQuestionRequired(idRequest: number, idQuestion: number): Observable<ResponseDto> {
         const userToken = `Bearer ${this._authservice.readToken()}`;
         const headers = new HttpHeaders({ 'Authorization': userToken });
         const options = { headers: headers };
-        return this.http.delete<ResponseDto>(`${this.url}/DeleteToQuestionRequired/${idRequest}/${idQuestion}`, options);
-        
+        return this.http.delete<ResponseDto>(`${this.url}/DeleteToQuestionRequired/${idRequest}/${idQuestion}`, options);   
     }
-
-
-   
 }

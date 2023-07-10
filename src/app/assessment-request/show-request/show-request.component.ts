@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Alert } from 'src/app/helpers/alert';
 import { DetailsRequestDto } from 'src/app/models/detailsRequestDto';
-import { Request } from 'src/app/models/request';
+import { Request, RequestDto } from 'src/app/models/request';
 import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
 import { requestService } from 'src/app/service/request.service';
 
@@ -20,7 +20,7 @@ export class ShowRequestComponent implements OnInit {
   public questionList: number[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dataQuestion: Request,
+    @Inject(MAT_DIALOG_DATA) public dataQuestion: RequestDto,
     @Inject(MAT_DIALOG_DATA) public dataRequest: Request,
     public dialogRef: MatDialogRef<ShowRequestComponent>,
     private fb: FormBuilder,
