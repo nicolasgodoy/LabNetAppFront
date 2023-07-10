@@ -86,12 +86,27 @@ export class QuestionRequiredComponent implements OnInit {
 
   DeleteQuestionRequired(id: number) {
 
-    const index = this.questionDtoList.findIndex(d => d.id === id);
+    this.questionService.DeleteQuestion(id).subscribe({
 
-    if (index !== -1) {
-      this.questionDtoList.splice(index, 1);
-    }
-    this.dataSourceQuestion.data = this.questionDtoList;
-    this.questionRequiredEmit.emit(this.questionList);
+      next: (resp) => {
+
+        Alert.mensajeExitoToast(resp.message)
+        this.dataSourceQuestion.data = resp.result;
+      },
+
+      error: () => {
+
+        Alert.mensajeSinExitoToast('Error al eliminar');
+      }
+    });
+
+    // const index = this.questionDtoList.findIndex(d => d.id === id);
+
+    // if (index !== -1) {
+    //   this.questionDtoList.splice(index, 1);
+    // }
+
+    // this.dataSourceQuestion.data = this.questionDtoList;
+    // this.questionRequiredEmit.emit(this.questionList);
   }
 }

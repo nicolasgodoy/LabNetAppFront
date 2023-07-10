@@ -1,6 +1,6 @@
 import { Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map, startWith } from 'rxjs';
@@ -38,6 +38,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataQuestion: questionConsult,
+    private dialogRef: MatDialogRef<ShowAnswerComponent>,
     private answerService: AnswerService,
     private questionService: QuestionServiceService,
     private difficultyService: DifficultyService,
@@ -197,6 +198,8 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
     this.questionService.UpdateQuestion(FormQuestionData).subscribe({
       next: () => {
       
+
+        this.dialogRef.close();
         Alert.mensajeExitoToast("Se ha guardado correctamente!");
       },
       error: (err) => {
@@ -240,7 +243,7 @@ export class ShowAnswerComponent implements OnInit, OnChanges {
       {
         next: (res) => {
           Alert.mensajeExitoToast(res.message)
-          this.dataSourceAnswer.data = [];
+          this.dataSourceAnswer.data = res.result;
           this.questionService.GetQuestionById(this.dataQuestion.id).subscribe(res => {
             this.dataSourceAnswer.data = res.result.answerEntities;
           });
