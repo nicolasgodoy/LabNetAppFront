@@ -6,6 +6,7 @@ import { QuestionDto } from 'src/app/models/Question/questionDto';
 import { Request } from 'src/app/models/request';
 import { requiredQuestionDto } from 'src/app/models/requiredQuestionDto';
 import { QuestionServiceService } from 'src/app/service/question-service.service';
+import { requestService } from 'src/app/service/request.service';
 
 @Component({
   selector: 'app-question-required',
@@ -26,11 +27,13 @@ export class QuestionRequiredComponent implements OnInit {
   public questionDtoList: QuestionDto[] = [];
   public dataSourceQuestion = new MatTableDataSource();
   public formQuestionRequired: FormGroup;
+  public idRequest: number;
 
   public displayedColumnsQuestion: string[] = ['question', 'acciones'];
 
   constructor(
     private questionService: QuestionServiceService,
+    private requestService: requestService,
     private fb: FormBuilder
   ) {
 
@@ -42,6 +45,7 @@ export class QuestionRequiredComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataQuestion)
 
+    this.idRequest = this.dataQuestion.id;
     this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
 
     this.questionService.GetAllQuestion().subscribe({
@@ -91,26 +95,10 @@ export class QuestionRequiredComponent implements OnInit {
     this.formQuestionRequired.reset();
   }
 
-  // DeleteAnswerToQuestion(idAnswer: number) {
-    
-  //   const index = this.dataQuestion.answers.findIndex(answer => answer.id === idAnswer);
-  //   const indexInsert = this.dataQuestion.answersInsert.findIndex(answer => answer.id === idAnswer);
-  //   if (index !== -1) {
-  //     this.dataQuestion.answers.splice(index, 1);
-  //   }
-  //   if (indexInsert !== -1) {
-  //     this.dataQuestion.answersInsert.splice(indexInsert, 1);
-  //   }
-  //   const newData: Answer[] = [...this.dataQuestion.answers.values(), ...this.dataQuestion.answersInsert.values()];
+  
+  DeleteQuestionRequired(idQuestion: number) {
 
-  //   this.dataSourceAnswer.data = newData;
-  //   this.questionModified.emit(this.dataQuestion);
-
-  // }
-
-  DeleteQuestionRequired(id: number) {
-
-    this.questionService.DeleteQuestion(id).subscribe({
+    this.requestService.deleteToQuestionRequired(this.idRequest, idQuestion).subscribe({
 
       next: (resp) => {
 

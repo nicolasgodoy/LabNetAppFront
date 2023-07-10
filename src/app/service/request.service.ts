@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ResponseDto } from "../models/response";
 import { AuthService } from "./auth.service";
 import { Request } from "../models/request";
+import { environment } from "src/environments/environment";
 
 
 @Injectable({
@@ -13,8 +14,11 @@ import { Request } from "../models/request";
 //https://localhost:7059/api/Request/GetAllQuestion?id=42
 export class requestService {
 
+    public url: string = environment.apiLab + "Request";
+    
+
     userToken: string = '';
-    url: string = "https://localhost:7059/api/Request";
+    
 
     constructor(private http: HttpClient,
         private _authservice: AuthService) { }
@@ -55,6 +59,15 @@ export class requestService {
         const options = { headers: headers };
         return this.http.delete<Request>(this.url + `/Delete/${id}`, { headers: headers });
     }
+
+    deleteToQuestionRequired(idRequest: number, idQuestion: number): Observable<ResponseDto> {
+        const userToken = `Bearer ${this._authservice.readToken()}`;
+        const headers = new HttpHeaders({ 'Authorization': userToken });
+        const options = { headers: headers };
+        return this.http.delete<ResponseDto>(`${this.url}/DeleteToQuestionRequired/${idRequest}/${idQuestion}`, options);
+        
+    }
+
 
    
 }
