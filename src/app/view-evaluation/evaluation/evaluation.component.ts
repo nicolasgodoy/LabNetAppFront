@@ -12,6 +12,7 @@ import { AssessmentQuestionDto } from 'src/app/models/Evaluation/assessmentQuest
 import { AssessmentQuestionAnswerDto } from 'src/app/models/Evaluation/assessmentQuestionAnswerDto';
 import { Alert } from 'src/app/helpers/alert';
 import { AssessmentService } from 'src/app/service/evaluation.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-evaluation',
@@ -24,7 +25,7 @@ export class EvaluationComponent implements OnInit {
   public assessmentQuestion: AssessmentQuestionDto[] = [];
 
   constructor(
-
+    private spinnerService: NgxSpinnerService,
     private evaluationService: AssessmentService,
     private activatedRoute: ActivatedRoute,
     private requestService: requestService
@@ -33,17 +34,21 @@ export class EvaluationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.getQuestionById();
   }
 
   getQuestionById() {
+    this.spinnerService.show();
     this.requestService.getAllQuestion(this.id).subscribe({
       next: (resp) => {
+        this.spinnerService.hide();
         this.assessment = resp.result as AssessmentQuestion[];
         console.log(this.assessment);
       },
 
       error: (error) => {
+        this.spinnerService.hide();
         console.log(error);
       },
     });

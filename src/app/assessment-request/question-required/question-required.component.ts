@@ -48,6 +48,7 @@ export class QuestionRequiredComponent implements OnInit {
     this.idRequest = this.dataQuestion.id;
     this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
 
+
     this.questionService.GetAllQuestion().subscribe({
 
       next: (resp) => {
@@ -65,7 +66,7 @@ export class QuestionRequiredComponent implements OnInit {
     });
   }
 
-  getQuestion() {
+  /* getQuestion() {
 
     this.questionService.GetAllQuestion().subscribe({
 
@@ -80,38 +81,74 @@ export class QuestionRequiredComponent implements OnInit {
       }
     });
   }
-
+ */
   addDetails() {
 
     event?.preventDefault();
+    let id = this.formQuestionRequired.value.preguntasPrimordiales.id;
 
-    this.questionList.push(this.formQuestionRequired.value.preguntasPrimordiales.id);
-    this.questionDtoList.push(this.formQuestionRequired.value.preguntasPrimordiales);
+    if (!this.questionDtoList.find(x => x.id === id)) {
 
-    this.questionRequiredEmit.emit(this.questionList);
-    this.dataSourceQuestion.data = this.questionDtoList;
+      this.questionList.push(this.formQuestionRequired.value.preguntasPrimordiales.id);
+      this.questionDtoList.push(this.formQuestionRequired.value.preguntasPrimordiales);
 
-
-    this.formQuestionRequired.reset();
+      this.questionRequiredEmit.emit(this.questionList);
+      this.dataSourceQuestion.data = this.questionDtoList;
+      this.formQuestionRequired.reset();
+    }
   }
 
-  
+  DeleteInTable(idQuestion: number) {
+    const index = this.questionDtoList.findIndex(q => q.id === idQuestion);
+    const index2 = this.dataQuestion.questionsRequired.findIndex(q => q.id === idQuestion);
+    
+    if (index !== -1) {
+      this.questionDtoList.splice(index, 1);
+    }
+
+    if (index2 !== -1) {
+      this.dataQuestion.questionsRequired.splice(index2, 1);
+    }
+
+    this.dataSourceQuestion.data = this.questionDtoList;
+    
+  }
+
+
   DeleteQuestionRequired(idQuestion: number) {
 
-    this.requestService.deleteToQuestionRequired(this.idRequest, idQuestion).subscribe({
+    if (this.dataQuestion.questionsRequired.find(x => x.id === idQuestion)) {
+      this.requestService.deleteToQuestionRequired(this.idRequest, idQuestion).subscribe({
 
-      next: (resp) => {
+        next: (resp) => {
 
-        Alert.mensajeExitoToast(resp.message)
-        console.log(resp.message);
-        // this.dataSourceQuestion.data = [];
-        this.getQuestionRequired();
-      },
+          Alert.mensajeExitoToast(resp.message)
+          console.log(resp.message);
+          // this.dataSourceQuestion.data = [];
+          this.DeleteInTable(idQuestion);
+        },
 
-      error: () => {
+        error: () => {
 
-        Alert.mensajeSinExitoToast('Error al eliminar');
+          Alert.mensajeSinExitoToast('Error al eliminar');
+        }
+      });
+    } else {
+      const index = this.questionDtoList.findIndex(q => q.id === idQuestion);
+      const index2 = this.questionList.findIndex(q => q === idQuestion);
+
+      if (index !== -1) {
+        this.questionDtoList.splice(index, 1);
       }
-    });
+
+      if (index2 !== -1) {
+        this.questionList.splice(index2, 1);
+      }
+
+      this.questionRequiredEmit.emit(this.questionList);
+      this.dataSourceQuestion.data = this.questionDtoList;
+    }
   }
+
 }
+

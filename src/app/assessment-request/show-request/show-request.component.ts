@@ -46,16 +46,18 @@ export class ShowRequestComponent implements OnInit {
 
   receiveDetail(detailsRequestEmit: DetailsRequestDto[]) {
     this.detailsRequestList = detailsRequestEmit;
+    
   }
 
   receiveQuestion(questions: number[]) {
     this.questionList = questions;
+    console.log(this.questionList);
   }
 
 
   updateRequest(){
 
-
+    
     if (this.formShowRequest.valid) {
 
       const resquest : Request = {
@@ -66,6 +68,7 @@ export class ShowRequestComponent implements OnInit {
         detailRequirements: this.detailsRequestList,
         questionsRequired: this.questionList
       }
+      
 
       this.requestService.UpdateRequest(resquest).subscribe({
 
