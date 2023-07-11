@@ -44,7 +44,7 @@ export class QuestionRequiredComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.questionDtoList = this.dataQuestion.questionsRequired;
+    this.questionDtoList = this.dataQuestion.questionsRequired.map(x => x);
     this.idRequest = this.dataQuestion.id;
     this.dataSourceQuestion.data = this.dataQuestion.questionsRequired;
 
