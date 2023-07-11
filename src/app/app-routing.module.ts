@@ -45,7 +45,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     path: 'assessment-request',
     loadChildren: () => import('./assessment-request/assessment-request.module').then(m => m.AssessmentRequestModule)
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'result-assessment',
+    loadChildren: () => import('./result-evaluation/result-assessment.module').then(m => m.ResultAssessmentModule)
   }
+
 ];
 
 @NgModule({

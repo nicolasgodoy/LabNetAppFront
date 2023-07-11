@@ -18,6 +18,13 @@ export class AssessmentService {
 
   constructor(private http: HttpClient, private _authService : AuthService) { }
 
+  public GetAllAssessment(): Observable<ResponseDto> {
+    const userToken = `Bearer ${this._authService.readToken()}`;
+    const headers = new HttpHeaders({ 'Authorization': userToken });
+    const options = { headers: headers };
+    let url = `${this.apiUrl}${this.endpoint}/GetAll`;
+    return this.http.get<ResponseDto>(url,options);
+  }
                            
   public InsertAssessment(data: AssessmentUserDto) : Observable<ResponseDto> {
     const userToken = `Bearer ${this._authService.readToken()}`;
