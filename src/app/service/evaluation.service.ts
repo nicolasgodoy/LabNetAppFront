@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ResponseDto } from '../Response/responseDto';
 import { AuthService } from './auth.service';
 import { AssessmentUserDto } from '../models/Evaluation/assessmentUserDto';
+import { ConsultAssessmentDto } from '../models/Evaluation/consultAssessmentQuestionDto';
 
 
 @Injectable({
@@ -18,11 +19,11 @@ export class AssessmentService {
 
   constructor(private http: HttpClient, private _authService : AuthService) { }
 
-  public GetAllAssessment(): Observable<ResponseDto> {
+  public GetAllAssessment():Observable<ResponseDto> {
     const userToken = `Bearer ${this._authService.readToken()}`;
     const headers = new HttpHeaders({ 'Authorization': userToken });
     const options = { headers: headers };
-    let url = `${this.apiUrl}${this.endpoint}/GetAll`;
+    let url = `${this.apiUrl}${this.endpoint}/GetAssessment`;
     return this.http.get<ResponseDto>(url,options);
   }
                            

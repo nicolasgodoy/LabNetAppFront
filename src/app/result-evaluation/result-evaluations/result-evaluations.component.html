@@ -1,1 +1,67 @@
-<p>result-evaluations works!</p>
+<div class="container">
+    <div class="titleForm">
+      <h1>Lista de Evaluaciones</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12 boton-nuevaSkill">
+       <!--  <button
+          class="buttonMainAdd"
+          mat-raised-button
+          
+          (click)="dialogAddSkill()"
+        >
+          Nuevo Skill
+        </button> -->
+      </div>
+    </div>
+  
+    <div class="mat-elevation-z8">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ej: Skill"
+          #input
+        />
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSourceAssessment">
+        <ng-container matColumnDef="idQuestion">
+          <th mat-header-cell *matHeaderCellDef>idQuestion</th>
+          <td mat-cell *matCellDef="let element">{{ element.idQuestion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="questionDescription">
+          <th mat-header-cell *matHeaderCellDef>questionDescription</th>
+          <td mat-cell *matCellDef="let element">{{ element.questionDescription }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element" style="width: 200px">
+            <!-- <button
+              mat-raised-button
+              style="width: 100px; padding: 5px; margin: 2px"
+              (click)="confirmDelete(element)"
+            >
+              Eliminar
+            </button> -->
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr>
+      </table>
+  
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page of skill"
+      ></mat-paginator>
+    </div>
+  </div>
+  
