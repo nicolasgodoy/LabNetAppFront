@@ -26,26 +26,36 @@
         />
       </mat-form-field>
       <table mat-table [dataSource]="dataSourceAssessment">
-        <ng-container matColumnDef="idQuestion">
-          <th mat-header-cell *matHeaderCellDef>idQuestion</th>
-          <td mat-cell *matCellDef="let element">{{ element.idQuestion }}</td>
+        <ng-container matColumnDef="Dni">
+          <th mat-header-cell *matHeaderCellDef>Dni</th>
+          <td mat-cell *matCellDef="let element">{{ element.dniUsuario }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="questionDescription">
-          <th mat-header-cell *matHeaderCellDef>questionDescription</th>
-          <td mat-cell *matCellDef="let element">{{ element.questionDescription }}</td>
+        <ng-container matColumnDef="Titulo">
+          <th mat-header-cell *matHeaderCellDef>Titulo</th>
+          <td mat-cell *matCellDef="let element">{{ element.requestTitle }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="PuntosObtenidos">
+          <th mat-header-cell *matHeaderCellDef>PuntosObtenidos</th>
+          <td mat-cell *matCellDef="let element">{{ element.pointsObtained }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="FechaEvaluacion">
+          <th mat-header-cell *matHeaderCellDef>FechaEvaluacion</th>
+          <td mat-cell *matCellDef="let element">{{ element.dateAssessment }}</td>
         </ng-container>
   
-        <ng-container matColumnDef="acciones">
+        <ng-container matColumnDef="Acciones">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let element" style="width: 200px">
-            <!-- <button
+            <!--  <button
               mat-raised-button
-              style="width: 100px; padding: 5px; margin: 2px"
-              (click)="confirmDelete(element)"
+              class="blackButton"
+             
             >
               Eliminar
-            </button> -->
+            </button>  -->
           </td>
         </ng-container>
   

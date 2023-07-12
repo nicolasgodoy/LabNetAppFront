@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResponseDto } from 'src/app/Response/responseDto';
 import { ConsultAssessmentDto } from 'src/app/models/Evaluation/consultAssessmentQuestionDto';
+import { AssessmentQuestion } from 'src/app/models/Question/assessmentQuestion';
 import { AuthService } from 'src/app/service/auth.service';
 import { AssessmentService } from 'src/app/service/evaluation.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-result-evaluations',
@@ -12,11 +15,11 @@ import { AssessmentService } from 'src/app/service/evaluation.service';
 })
 export class ResultEvaluationsComponent implements OnInit {
   dataSourceAssessment = new MatTableDataSource();
-  displayedColumns: string[] = ['idQuestion','questionDescription', 'acciones'];
+  displayedColumns: string[] = ['Dni','Titulo','PuntosObtenidos','FechaEvaluacion', 'Acciones'];
   listConsultAssessment: ConsultAssessmentDto[] = [];
   IdUser:number
   IdRol:number
-
+  
   constructor(private evaluationService: AssessmentService,
               private _authService: AuthService) { }
 
@@ -41,13 +44,13 @@ export class ResultEvaluationsComponent implements OnInit {
         this.dataSourceAssessment.data = dataResponse.result.IdRol
         this.dataSourceAssessment.data = dataResponse.result.IdUser
         this.dataSourceAssessment.data = dataResponse.result as ConsultAssessmentDto[];
-        this.listConsultAssessment = dataResponse.result.consultAssessmentQuestion;
+        this.listConsultAssessment = dataResponse.result;
 
         console.log(this.IdRol)
         console.log(this.IdUser)
 
         
-        console.log(dataResponse.result.consultAssessmentQuestion)
+        console.log(dataResponse.result)
       },
       error: (e) => {
         console.log('ocurrio un error inesperado');
@@ -60,5 +63,9 @@ export class ResultEvaluationsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceAssessment.filter = filterValue.trim().toLowerCase();
   }
+
+  
+
+  
 
 }

@@ -6,6 +6,7 @@ export interface ConsultAssessmentUserDto {
     requestTitle: string;
     dateTime: Date;
     pointsObtained: number;
+    dniUsuario: number;
     consultAssessmentQuestion: AssessmentQuestionDto[];
 }
 
