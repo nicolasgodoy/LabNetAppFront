@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class ResultEvaluationsComponent implements OnInit {
   dataSourceAssessment = new MatTableDataSource();
-  displayedColumns: string[] = ['Dni','Titulo','PuntosObtenidos','FechaEvaluacion', 'Acciones'];
+  displayedColumns: string[] = ['nombreUser','Dni','Titulo','PuntosObtenidos','FechaEvaluacion'];
   listConsultAssessment: ConsultAssessmentDto[] = [];
   IdUser:number
   IdRol:number
