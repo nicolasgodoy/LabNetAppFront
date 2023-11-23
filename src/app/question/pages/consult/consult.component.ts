@@ -13,71 +13,65 @@ import { questionConsult } from 'src/app/models/Question/questionConsult';
 @Component({
   selector: 'app-consult',
   templateUrl: './consult.component.html',
-  styleUrls: ['./consult.component.css']
+  styleUrls: ['./consult.component.css'],
 })
-
 export class ConsultComponent implements OnInit {
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = ['description','difficulty', 'value',
-    'image', 'acciones', 'consultar'];
+  public displayedColumns: string[] = [
+    'description',
+    'difficulty',
+    'value',
+    'image',
+    'acciones',
+    'consultar',
+  ];
   public dataSourceQuestion = new MatTableDataSource();
 
   constructor(
     private dialog: MatDialog,
-    private questionService: QuestionServiceService) { }
+    private questionService: QuestionServiceService
+  ) {}
 
   ngOnInit(): void {
-
     this.showQuestion();
   }
 
   ngAfterViewInit() {
-
     this.dataSourceQuestion.paginator = this.paginator;
   }
 
   searchQuestion(event: Event) {
-
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceQuestion.filter = filterValue.trim().toLocaleLowerCase();
   }
 
   showQuestion() {
-
     this.questionService.GetAllQuestion().subscribe({
-
       next: (resp) => {
-
         this.dataSourceQuestion.data = resp.result;
       },
 
       error: (error) => {
-
         console.log(error);
-      }
+      },
     });
   }
 
   dialogAddQuestion(): void {
-
-    this.dialog.open(AddComponent, {
-
-      width: '60%',
-      disableClose: true
-    }).afterClosed()
+    this.dialog
+      .open(AddComponent, {
+        width: '60%',
+        disableClose: true,
+      })
+      .afterClosed()
       .subscribe((resp) => {
-
         if (resp === 'creado') {
-
           this.showQuestion();
         }
-      })
+      });
   }
 
-
   confirmDelete(dataQuestion: QuestionDto) {
-
     Swal.fire({
       title: 'Esta seguro?',
       text: `Esta a punto de Eliminar la pregunta : ${dataQuestion.description}`,
@@ -87,18 +81,13 @@ export class ConsultComponent implements OnInit {
       cancelButtonColor: '#198754',
       confirmButtonText: 'Si, Borralo!',
     }).then((result) => {
-
       if (result.isConfirmed) {
-
         this.questionService.DeleteQuestion(dataQuestion.id).subscribe({
-
           next: () => {
-
             Alert.mensajeExitoToast();
             this.showQuestion();
           },
           error: (e) => {
-
             Alert.mensajeSinExitoToast();
           },
         });
@@ -108,19 +97,18 @@ export class ConsultComponent implements OnInit {
 
   //show answers
   dialogShowAnswer(dataQuestion: questionConsult) {
-
     this.dialog
       .open(ShowAnswerComponent, {
         disableClose: false,
         width: '70%',
-        data: dataQuestion
+        data: dataQuestion,
       })
       .afterClosed()
       .subscribe(() => {
         this.showQuestion();
       });
   }
-  
+
   showAnswers(dataQuestion: questionConsult) {
     this.dialogShowAnswer(dataQuestion);
   }
